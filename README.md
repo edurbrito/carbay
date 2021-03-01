@@ -1,4 +1,4 @@
-# Online Auctions
+# CarBay
 
 ## Team
 
@@ -15,4 +15,4 @@
     * [up201809694@fe.up.pt](mailto:up201809694@fe.up.pt)
     * [up201809694@g.uporto.pt](mailto:up201809694@g.uporto.pt)
 
-GROUP 2155, 09/02/2021
+GROUP 2155, 01/03/2021
