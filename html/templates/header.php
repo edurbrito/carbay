@@ -30,8 +30,16 @@
                     <li class="nav-item mr-0 mr-lg-4 navbar-brand ">
                         <a href="/search.php" class="text-decoration-none text-reset"><i class="fas fa-search"></i><span class="d-lg-none .d-xl-block"> Search</span></a>
                     </li>
-                    <li class="nav-item navbar-brand mr-0 mr-lg-4">Log In</li>
-                    <li class="nav-item navbar-brand mr-0 mr-lg-4">Sign Up</li>
+                    <li class="nav-item navbar-brand mr-0 mr-lg-4">
+                        <a class="text-light" href="login.php">
+                            Log In
+                        </a>
+                    </li>
+                    <li class="nav-item navbar-brand mr-0 mr-lg-4">
+                        <a class="text-light" href="signup.php">
+                            Sign Up
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
