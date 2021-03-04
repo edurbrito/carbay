@@ -39,15 +39,12 @@ breadcrum();
                         <input type="text" name="" class="form-control input_user" value="" placeholder="Repeat Password">
                     </div>
                     <div class="d-flex justify-content-center mt-3 login_container">
-                        <button class="btn btn-dark text-light text-center" type="button" name="button" class="btn login_btn">Sign In</button>
+                        <button class="btn btn-dark text-light text-center" type="button" name="button" class="btn login_btn">Sign Up</button>
                     </div>
                     <div class="mt-2">
-                        <div class="d-flex justify-content-center links">
-                            Or Sign In with 
+                        <div class="d-flex justify-content-center mt-3 login_container">
+                            <button class="btn btn-dark text-light text-center" type="button" name="button" class="btn login_btn">Sign Up with Google</button>
                         </div>
-                    </div>
-                    <div class="d-flex justify-content-center mt-3 login_container">
-                        <button class="btn btn-dark text-light text-center" type="button" name="button" class="btn login_btn">Google</button>
                     </div>
                 </form>
             </div>

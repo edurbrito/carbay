@@ -14,7 +14,7 @@ breadcrum();
                         </div>
                         <input type="text" name="" class="form-control input_user" value="" placeholder="example@email.com">
                     </div>
-                    <div class="input-group mb-2">
+                    <div class="input-group mb-3">
                         <div class="input-group-append">
                             <span class="input-group-text"><i class="fas fa-key"></i></span>
                         </div>
@@ -24,12 +24,9 @@ breadcrum();
                         <button class="btn btn-dark text-light text-center" type="button" name="button" class="btn login_btn">Login</button>
                     </div>
                     <div class="mt-2">
-                        <div class="d-flex justify-content-center links">
-                            Or Log In with 
+                        <div class="d-flex justify-content-center mt-3 login_container">
+                            <button class="btn btn-dark text-light text-center" type="button" name="button" class="btn login_btn">Log In with Google</button>
                         </div>
-                    </div>
-                    <div class="d-flex justify-content-center mt-3 login_container">
-                        <button class="btn btn-dark text-light text-center" type="button" name="button" class="btn login_btn">Google</button>
                     </div>
                 </form>
             </div>
