@@ -1,5 +1,6 @@
 <?php
   include_once(__DIR__ .  "/templates/header.php");
+  breadcrum();
 ?>
 
 <!-- INSERT HTML HEREEEEEEEE -->
