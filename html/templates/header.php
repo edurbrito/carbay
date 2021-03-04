@@ -16,7 +16,7 @@
 <body class="bg-primary">
     <nav class="navbar fixed-top navbar-expand-lg navbar-primary bg-primary text-light border-bottom border-danger" style="background-color:rgba(0, 0, 0, 0.8) !important;">
         <div class="container-fluid">
-            <a class="navbar-brand text-light" href="#">
+            <a class="navbar-brand text-light" href="/">
                 <i class="fas fa-car"></i>
                 CarBay
             </a>
@@ -28,13 +28,53 @@
             <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
                 <ul class="navbar-nav d-flex justify-content-end align-items-center w-100">
                     <li class="nav-item mr-0 mr-lg-4 navbar-brand ">
-                        <i class="fas fa-search"></i><span class="d-lg-none .d-xl-block"> Search</span>
+                        <a href="/search.php" class="text-decoration-none text-reset"><i class="fas fa-search"></i><span class="d-lg-none .d-xl-block"> Search</span></a>
                     </li>
-                    <li class="nav-item navbar-brand mr-0 mr-lg-4">Log In</li>
-                    <li class="nav-item navbar-brand mr-0 mr-lg-4">Sign Up</li>
+                    <li class="nav-item navbar-brand mr-0 mr-lg-4">
+                        <a class="text-light" href="login.php">
+                            Log In
+                        </a>
+                    </li>
+                    <li class="nav-item navbar-brand mr-0 mr-lg-4">
+                        <a class="text-light" href="signup.php">
+                            Sign Up
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-<div class="container-lg text-light overflow-auto my-5" style="margin-top: 8rem !important;">
+    <div class="container-lg text-light overflow-auto my-5" style="margin-top: 8rem !important;">
+
+        <?php
+
+        function breadcrum()
+        {
+            $uri = $_SERVER['REQUEST_URI'];
+
+            if (strcmp($uri, "/") > 0) {
+
+                $uri = str_replace(".php", "", $uri);
+
+                $uri = explode("/", $uri);
+
+        ?>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb text-uppercase p-0">
+                        <li class="breadcrumb-item"><a href="/" class="text-light">Home</a></li>
+                        <?php
+                        for ($i = 1; $i < sizeof($uri) - 1; $i++) {
+                            $u = $uri[$i];
+                            echo "<li class=\"breadcrumb-item\"><a href=\"/" . $u . "\" class=\"text-light\">" . $u . "</a></li>";
+                        }
+                        ?>
+                        <li class="breadcrumb-item active" aria-current="page"><?= $uri[sizeof($uri) - 1] ?></li>
+                        <?php ?>
+                    </ol>
+                </nav>
+        <?php
+            }
+        }
+
+        ?>
