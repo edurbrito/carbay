@@ -1,7 +1,7 @@
 </div>
 <nav class="navbar navbar-primary bg-primary border-top border-danger">
     <div class="container-fluid d-flex justify-content-center">
-        <a class="navbar-brand text-light" href="#">About Us</a>
+        <a class="navbar-brand text-light" href="/about.php">About Us</a>
         <a class="navbar-brand text-light" href="#">FAQs</a>
     </div>
 </nav>
