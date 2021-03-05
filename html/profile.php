@@ -3,8 +3,6 @@
   breadcrum();
 ?>
 
-<h1 class="w-100 text-light p-md-4 text-center">Your Profile</h1>
-
 <!-- Section: Nav tabs -->
 <section>
   <div class="d-flex align-items-start">
@@ -16,7 +14,7 @@
       <button class="nav-link text-light" id="v-pills-favourite-sellers-tab" data-bs-toggle="pill" data-bs-target="#v-pills-favourite-sellers" type="button" role="tab" aria-controls="v-pills-favourite-sellers" aria-selected="false">Favourite Sellers</button>
       <button class="nav-link text-light" id="v-pills-users-ratings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-users-ratings" type="button" role="tab" aria-controls="v-pills-users-ratings" aria-selected="false">Users Ratings</button>
     </div>
-    <div class="tab-content" id="v-pills-tabContent">
+    <div class="tab-content container-fluid" id="v-pills-tabContent">
       <div class="tab-pane fade show active" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
         <?php include_once(__DIR__ . "/profile/profile.php"); ?>
       </div>
