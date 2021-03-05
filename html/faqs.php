@@ -6,10 +6,10 @@ breadcrum();
 <h1 class="text-light text-center">FAQs</h1>
 
 <div class="row-sm-12 col-md-12 mt-2  text-right mt-5">
-        <div class="btn-group" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="collapse" href="#Question1,#Question2,#Question3,#Question4">Expand All</button>
-            <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="collapse" href="#Question1,#Question2,#Question3,#Question4">Collapse All</button>
-        </div>
+    <div class="btn-group" role="group" aria-label="Basic example">
+        <button type="button" style="background-color:#FFF" onMouseOut="this.style.background='#FFF'" onMouseOver="this.style.background='#d9544f'" class="btn btn-outline-danger btn-sm" data-bs-toggle="collapse" href="#Question1,#Question2,#Question3,#Question4">Expand All</button>
+        <button type="button" style="background-color:#FFF" onMouseOut="this.style.background='#FFF'" onMouseOver="this.style.background='#d9544f'" class="btn btn-outline-danger btn-sm" data-bs-toggle="collapse" href="#Question1,#Question2,#Question3,#Question4">Collapse All</button>
+    </div>
 </div>
 
 <div class="row-sm-12 col-md-12 mt-3">
@@ -32,7 +32,7 @@ breadcrum();
     </p>
     <div class="collapse" id="Question2">
         <div class="card card-body text-dark font-weight-bold">
-        To register in the website simply click the top right button saying "SIGN UP". From there fill in the fields with your information or click the bottom option if you want to sign up with google services.
+            To register in the website simply click the top right button saying "SIGN UP". From there fill in the fields with your information or click the bottom option if you want to sign up with google services.
         </div>
     </div>
 </div>

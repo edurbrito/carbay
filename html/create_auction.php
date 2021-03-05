@@ -95,8 +95,9 @@ breadcrum();
                 <div class="input-group input-group-sm mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-sm">Duration</span>
+                        <span class="input-group-text" id="inputGroup-sizing-sm">Days</span>
                     </div>
-                    <input type="number" min="10" max="100" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                    <input type="number" min="1" max="15" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
                 </div>
             </div>
         </div>
