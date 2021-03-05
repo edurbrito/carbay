@@ -6,7 +6,6 @@ include_once(__DIR__ . "/templates/header.php");
   <div class="row">
     <div class="col-sm-12 col-md-12">
       <div id="carouselExampleCaptions" class="carousel slide carousel-fade" data-bs-ride="carousel">
-
         <div class="carousel-inner">
           <div class="carousel-item active">
             <img src="https://mrcollection.com/wp-content/uploads/2020/08/bugatti-chiron-pur-sport_01.jpg" class="img-fluid" alt="...">
