@@ -32,7 +32,9 @@
                     </li>
                     <li class="nav-item navbar-brand mr-0 mr-lg-4"><i class="fas fa-plus"></i><span class="d-lg-none .d-xl-block"> Create Auction</span></li>
                     <li class="nav-item navbar-brand mr-0 mr-lg-4"><i class="fas fa-bell"></i><span class="d-lg-none .d-xl-block"> Notifications</span></li>
-                    <li class="nav-item navbar-brand mr-0 mr-lg-4"><i class="fas fa-user-circle"></i> John Doe</li>
+                    <li class="nav-item navbar-brand mr-0 mr-lg-4">
+                        <a href="/profile.php" class="text-decoration-none text-reset"><i class="fas fa-user-circle"></i> John Doe</a>
+                    </li>
                     <li class="nav-item navbar-brand mr-0 mr-lg-4"><i class="fas fa-sign-out-alt"></i><span class="d-lg-none .d-xl-block"> Log Out</span></li>
                 </ul>
             </div>

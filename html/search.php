@@ -1,5 +1,5 @@
 <?php
-  include_once(__DIR__ .  "/templates/header.php");
+  include_once(__DIR__ . "/templates/header-logged-in.php");
   breadcrum();
 ?>
 
