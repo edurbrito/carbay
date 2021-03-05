@@ -2,8 +2,6 @@
 include_once(__DIR__ . "/templates/header.php");
 ?>
 
-
-
 <div class="container">
   <div class="row">
     <div class="col-sm-12 col-md-12">
@@ -15,7 +13,7 @@ include_once(__DIR__ . "/templates/header.php");
             <div class="carousel-caption d-none d-md-block">
               <div class="float-xl-left">
                 <p class="fs-4" style="text-shadow: 2px 2px 0px #ff0000;">
-                  <i class="far fa-clock" ></i>
+                  <i class="far fa-clock"></i>
                   2d 7h 59m 22s
                 </p>
                 <p class="fs-4" style="text-shadow: 2px 2px 0px #ff0000;">
@@ -45,7 +43,7 @@ include_once(__DIR__ . "/templates/header.php");
             <div class="carousel-caption d-none d-md-block">
               <div class="float-xl-left">
                 <p class="fs-4" style="text-shadow: 2px 2px 0px #ff0000;">
-                  <i class="far fa-clock" ></i>
+                  <i class="far fa-clock"></i>
                   2d 7h 59m 22s
                 </p>
                 <p class="fs-4" style="text-shadow: 2px 2px 0px #ff0000;">
@@ -56,7 +54,6 @@ include_once(__DIR__ . "/templates/header.php");
             </div>
           </div>
         </div>
-
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Previous</span>
