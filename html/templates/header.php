@@ -1,7 +1,7 @@
 <?php include_once(__DIR__ . "/head.php"); ?>
 
 <body class="bg-primary">
-    <nav class="navbar fixed-top navbar-expand-lg navbar-primary bg-primary text-light border-bottom border-danger" style="background-color:rgba(0, 0, 0, 0.8) !important;">
+    <nav class="navbar fixed-top navbar-expand-lg navbar-primary bg-primary text-light border-bottom border-dark" style="background-color:rgba(0, 0, 0, 0.8) !important;">
         <div class="container-fluid">
             <a class="navbar-brand text-light" href="/">
                 <i class="fas fa-car"></i>
@@ -32,6 +32,6 @@
         </div>
     </nav>
 
-    <div class="container-lg text-light overflow-auto my-5" style="margin-top: 8rem !important;">
+    <div class="container-lg text-light overflow-auto my-5 fixed-footer" style="margin-top: 8rem !important;">
 
         <?php include_once(__DIR__ . "/breadcrumb.php"); ?>

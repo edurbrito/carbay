@@ -26,6 +26,6 @@
         </div>
     </nav>
 
-    <div class="container-lg text-light overflow-auto my-5" style="margin-top: 8rem !important;">
-
+    <div class="container-lg text-light overflow-auto my-5 fixed-footer" style="margin-top: 8rem !important;">
+        
     <?php  include_once(__DIR__ . "/breadcrumb.php"); ?>

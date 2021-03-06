@@ -9,10 +9,11 @@
         <a type="button" class="border rounded-circle p-2 position-absolute" href="../edit-profile.php"><i class="fas fa-pencil-alt fa-3x text-light"></i></a>
       </div>
       <h3 class="font-weight-bold dark-grey-text my-4 text-light">John Doe</h3>
-      <h5 class="text-uppercase grey-text mb-3 text-muted"><strong>johndoe@fe.up.pt</strong></h5>
+      <h5 class="text-lowercase grey-text mb-3 text-muted"><strong>johndoe@fe.up.pt</strong></h5>
       <div class="dark-grey-text my-4 text-light">
         <h5 class="font-weight-bold dark-grey-text my-4 text-light">Rating: <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i> (10 votes)</h5>
       </div>
+      <button class="btn btn-secondary">Edit Profile</button>
     </div>
   </section>
 

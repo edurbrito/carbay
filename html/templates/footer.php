@@ -6,7 +6,7 @@
         }
     }
 </style>
-<nav class="navbar navbar-primary bg-primary border-top border-danger fixed-bottom">
+<nav class="navbar navbar-primary bg-primary border-top border-dark fixed-bottom">
     <div class="container-fluid d-flex justify-content-center">
         <a class="navbar-brand text-light" href="/about.php">About Us</a>
         <a class="navbar-brand text-light" href="/faqs.php">FAQs</a>

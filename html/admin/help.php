@@ -15,8 +15,8 @@
 
             <div class="col-auto d-flex flex-column mt-2">
                 <a type="button" class="btn btn-secondary mt-3 mb-0 float-right" href="/help.php">Full History</a>
-                <button type="button" class="btn btn-dark mt-3 mb-0 float-right">Mark as Read</button>
-                <button type="button" class="btn btn-primary mt-3 float-right">Send</button>
+                <button type="button" class="btn btn-primary mt-3 mb-0 float-right">Mark as Read</button>
+                <button type="button" class="btn btn-success mt-3 float-right">Send</button>
             </div>
         </div>
     </li>
@@ -37,8 +37,8 @@
 
             <div class="col-auto d-flex flex-column mt-2">
                 <a type="button" class="btn btn-secondary mt-3 mb-0 float-right" href="/help.php">Full History</a>
-                <button type="button" class="btn btn-dark mt-3 mb-0 float-right">Mark as Read</button>
-                <button type="button" class="btn btn-primary mt-3 float-right">Send</button>
+                <button type="button" class="btn btn-primary mt-3 mb-0 float-right">Mark as Read</button>
+                <button type="button" class="btn btn-success mt-3 float-right">Send</button>
             </div>
         </div>
     </li>
@@ -58,8 +58,8 @@
 
             <div class="col-auto d-flex flex-column mt-2">
                 <a type="button" class="btn btn-secondary mt-3 mb-0 float-right" href="/help.php">Full History</a>
-                <button type="button" class="btn btn-dark mt-3 mb-0 float-right">Mark as Read</button>
-                <button type="button" class="btn btn-primary mt-3 float-right">Send</button>
+                <button type="button" class="btn btn-primary mt-3 mb-0 float-right">Mark as Read</button>
+                <button type="button" class="btn btn-success mt-3 float-right">Send</button>
             </div>
         </div>
     </li>

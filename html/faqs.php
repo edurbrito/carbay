@@ -7,15 +7,15 @@ breadcrum();
 
 <div class="row-sm-12 col-md-12 mt-2  text-right mt-5">
     <div class="btn-group" role="group" aria-label="Basic example">
-        <button type="button" style="background-color:#FFF" onMouseOut="this.style.background='#FFF'" onMouseOver="this.style.background='#d9544f'" class="btn btn-outline-danger btn-sm" data-bs-toggle="collapse" href="#Question1,#Question2,#Question3,#Question4">Expand All</button>
-        <button type="button" style="background-color:#FFF" onMouseOut="this.style.background='#FFF'" onMouseOver="this.style.background='#d9544f'" class="btn btn-outline-danger btn-sm" data-bs-toggle="collapse" href="#Question1,#Question2,#Question3,#Question4">Collapse All</button>
+        <button type="button" class="btn btn-secondary btn-sm mr-2" data-bs-toggle="collapse" href="#Question1,#Question2,#Question3,#Question4">Expand All</button>
+        <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="collapse" href="#Question1,#Question2,#Question3,#Question4">Collapse All</button>
     </div>
 </div>
 
 <div class="row-sm-12 col-md-12 mt-3">
     <p>
-        <a class="btn btn-secondary font-weight-bold col-md-12 text-left" data-bs-toggle="collapse" href="#Question1" role="button" aria-expanded="false" aria-controls="Question1">
-            What is the FAQ page?
+        <a class="btn btn-dark font-weight-bold col-md-12 text-left" data-bs-toggle="collapse" href="#Question1" role="button" aria-expanded="false" aria-controls="Question1">
+            1. What is the FAQ page?
         </a>
     </p>
     <div class="collapse" id="Question1">
@@ -26,8 +26,8 @@ breadcrum();
 </div>
 <div class="row-sm-12 col-md-12 mt-2">
     <p>
-        <a class="btn btn-secondary font-weight-bold col-md-12 text-left" data-bs-toggle="collapse" href="#Question2" role="button" aria-expanded="false" aria-controls="Question2">
-            How do I register in the website?
+        <a class="btn btn-dark font-weight-bold col-md-12 text-left" data-bs-toggle="collapse" href="#Question2" role="button" aria-expanded="false" aria-controls="Question2">
+            2. How do I register in the website?
         </a>
     </p>
     <div class="collapse" id="Question2">
@@ -38,8 +38,8 @@ breadcrum();
 </div>
 <div class="row-sm-12 col-md-12 mt-2">
     <p>
-        <a class="btn btn-secondary font-weight-bold col-md-12 text-left" data-bs-toggle="collapse" href="#Question3" role="button" aria-expanded="false" aria-controls="Question3">
-            Do I need to pay to create an account?
+        <a class="btn btn-dark font-weight-bold col-md-12 text-left" data-bs-toggle="collapse" href="#Question3" role="button" aria-expanded="false" aria-controls="Question3">
+            3. Do I need to pay to create an account?
         </a>
     </p>
     <div class="collapse" id="Question3">
@@ -50,8 +50,8 @@ breadcrum();
 </div>
 <div class="row-sm-12 col-md-12 mt-2">
     <p>
-        <a class="btn btn-secondary font-weight-bold col-md-12 text-left" data-bs-toggle="collapse" href="#Question4" role="button" aria-expanded="false" aria-controls="Question4">
-            Why can't I make a bid?
+        <a class="btn btn-dark font-weight-bold col-md-12 text-left" data-bs-toggle="collapse" href="#Question4" role="button" aria-expanded="false" aria-controls="Question4">
+            4. Why can't I make a bid?
         </a>
     </p>
     <div class="collapse" id="Question4">

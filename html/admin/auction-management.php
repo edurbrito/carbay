@@ -9,8 +9,8 @@
                 <span class="text-primary ml-3">Ferrari Demon</span>
             </a>
             <div class="btn-group ml-sm-auto" role="group" aria-label="User Management Buttons">
-                <button type="button" class="btn btn-primary mr-1">Suspend</button>
-                <button type="button" class="btn btn-secondary">Reschedule</button>
+                <button type="button" class="btn btn-danger mr-1">Suspend</button>
+                <button type="button" class="btn btn-primary">Reschedule</button>
             </div>
         </li>
 
@@ -20,8 +20,8 @@
                 <span class="text-primary ml-3">Lambo Spyder</span>
             </a>
             <div class="btn-group ml-sm-auto" role="group" aria-label="User Management Buttons">
-                <button type="button" class="btn btn-primary mr-1">Suspend</button>
-                <button type="button" class="btn btn-secondary">Reschedule</button>
+                <button type="button" class="btn btn-danger mr-1">Suspend</button>
+                <button type="button" class="btn btn-primary">Reschedule</button>
             </div>
         </li>
 
@@ -31,8 +31,8 @@
                 <span class="text-primary ml-3">Mazerati MC12</span>
             </a>
             <div class="btn-group ml-sm-auto" role="group" aria-label="User Management Buttons">
-                <button type="button" class="btn btn-primary mr-1">Suspend</button>
-                <button type="button" class="btn btn-secondary">Reschedule</button>
+                <button type="button" class="btn btn-danger mr-1">Suspend</button>
+                <button type="button" class="btn btn-primary">Reschedule</button>
             </div>
         </li>
         <li class="list-group-item d-flex align-items-center justify-content-start rounded-0 flex-vertical">
@@ -41,8 +41,8 @@
                 <span class="text-primary ml-3">Ferrari Demon</span>
             </a>
             <div class="btn-group ml-sm-auto" role="group" aria-label="User Management Buttons">
-                <button type="button" class="btn btn-primary mr-1">Suspend</button>
-                <button type="button" class="btn btn-secondary">Reschedule</button>
+                <button type="button" class="btn btn-danger mr-1">Suspend</button>
+                <button type="button" class="btn btn-primary">Reschedule</button>
             </div>
         </li>
 
@@ -52,8 +52,8 @@
                 <span class="text-primary ml-3">Lambo Spyder</span>
             </a>
             <div class="btn-group ml-sm-auto" role="group" aria-label="User Management Buttons">
-                <button type="button" class="btn btn-primary mr-1">Suspend</button>
-                <button type="button" class="btn btn-secondary">Reschedule</button>
+                <button type="button" class="btn btn-danger mr-1">Suspend</button>
+                <button type="button" class="btn btn-primary">Reschedule</button>
             </div>
         </li>
 
@@ -63,8 +63,8 @@
                 <span class="text-primary ml-3">Mazerati MC12</span>
             </a>
             <div class="btn-group ml-sm-auto" role="group" aria-label="User Management Buttons">
-                <button type="button" class="btn btn-primary mr-1">Suspend</button>
-                <button type="button" class="btn btn-secondary">Reschedule</button>
+                <button type="button" class="btn btn-danger mr-1">Suspend</button>
+                <button type="button" class="btn btn-primary">Reschedule</button>
             </div>
         </li>
 
@@ -74,8 +74,8 @@
                 <span class="text-primary ml-3">Ferrari Demon</span>
             </a>
             <div class="btn-group ml-sm-auto" role="group" aria-label="User Management Buttons">
-                <button type="button" class="btn btn-primary mr-1">Suspend</button>
-                <button type="button" class="btn btn-secondary">Reschedule</button>
+                <button type="button" class="btn btn-danger mr-1">Suspend</button>
+                <button type="button" class="btn btn-primary">Reschedule</button>
             </div>
         </li>
 
@@ -85,8 +85,8 @@
                 <span class="text-primary ml-3">Lambo Spyder</span>
             </a>
             <div class="btn-group ml-sm-auto" role="group" aria-label="User Management Buttons">
-                <button type="button" class="btn btn-primary mr-1">Suspend</button>
-                <button type="button" class="btn btn-secondary">Reschedule</button>
+                <button type="button" class="btn btn-danger mr-1">Suspend</button>
+                <button type="button" class="btn btn-primary">Reschedule</button>
             </div>
         </li>
 
@@ -96,8 +96,8 @@
                 <span class="text-primary ml-3">Mazerati MC12</span>
             </a>
             <div class="btn-group ml-sm-auto" role="group" aria-label="User Management Buttons">
-                <button type="button" class="btn btn-primary mr-1">Suspend</button>
-                <button type="button" class="btn btn-secondary">Reschedule</button>
+                <button type="button" class="btn btn-danger mr-1">Suspend</button>
+                <button type="button" class="btn btn-primary">Reschedule</button>
             </div>
         </li>
     </ol>

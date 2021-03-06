@@ -9,8 +9,8 @@
                 <span class="text-primary ml-3">John Doe</span>
             </a>
             <div class="btn-group ml-sm-auto" role="group" aria-label="User Management Buttons">
-                <button type="button" class="btn btn-primary mr-1">Ban</button>
-                <button type="button" class="btn btn-secondary">Make Admin</button>
+                <button type="button" class="btn btn-danger mr-1">Ban</button>
+                <button type="button" class="btn btn-primary">Make Admin</button>
             </div>
         </li>
 
@@ -20,8 +20,8 @@
                 <span class="text-primary ml-3">Mary Rose</span>
             </a>
             <div class="btn-group ml-sm-auto" role="group" aria-label="User Management Buttons">
-                <button type="button" class="btn btn-primary mr-1">Ban</button>
-                <button type="button" class="btn btn-secondary">Make Admin</button>
+                <button type="button" class="btn btn-danger mr-1">Ban</button>
+                <button type="button" class="btn btn-primary">Make Admin</button>
             </div>
         </li>
 
@@ -31,8 +31,8 @@
                 <span class="text-primary ml-3">Anthony Taylor</span>
             </a>
             <div class="btn-group ml-sm-auto" role="group" aria-label="User Management Buttons">
-                <button type="button" class="btn btn-primary mr-1">Ban</button>
-                <button type="button" class="btn btn-secondary">Make Admin</button>
+                <button type="button" class="btn btn-danger mr-1">Ban</button>
+                <button type="button" class="btn btn-primary">Make Admin</button>
             </div>
         </li>
         <li class="list-group-item d-flex align-items-center justify-content-start rounded-0 flex-vertical">
@@ -41,8 +41,8 @@
                 <span class="text-primary ml-3">John Doe</span>
             </a>
             <div class="btn-group ml-sm-auto" role="group" aria-label="User Management Buttons">
-                <button type="button" class="btn btn-primary mr-1">Ban</button>
-                <button type="button" class="btn btn-secondary">Make Admin</button>
+                <button type="button" class="btn btn-danger mr-1">Ban</button>
+                <button type="button" class="btn btn-primary">Make Admin</button>
             </div>
         </li>
 
@@ -52,8 +52,8 @@
                 <span class="text-primary ml-3">Mary Rose</span>
             </a>
             <div class="btn-group ml-sm-auto" role="group" aria-label="User Management Buttons">
-                <button type="button" class="btn btn-primary mr-1">Ban</button>
-                <button type="button" class="btn btn-secondary">Make Admin</button>
+                <button type="button" class="btn btn-danger mr-1">Ban</button>
+                <button type="button" class="btn btn-primary">Make Admin</button>
             </div>
         </li>
 
@@ -63,8 +63,8 @@
                 <span class="text-primary ml-3">Anthony Taylor</span>
             </a>
             <div class="btn-group ml-sm-auto" role="group" aria-label="User Management Buttons">
-                <button type="button" class="btn btn-primary mr-1">Ban</button>
-                <button type="button" class="btn btn-secondary">Make Admin</button>
+                <button type="button" class="btn btn-danger mr-1">Ban</button>
+                <button type="button" class="btn btn-primary">Make Admin</button>
             </div>
         </li>
         <li class="list-group-item d-flex align-items-center justify-content-start rounded-0 flex-vertical">
@@ -73,8 +73,8 @@
                 <span class="text-primary ml-3">John Doe</span>
             </a>
             <div class="btn-group ml-sm-auto" role="group" aria-label="User Management Buttons">
-                <button type="button" class="btn btn-primary mr-1">Ban</button>
-                <button type="button" class="btn btn-secondary">Make Admin</button>
+                <button type="button" class="btn btn-danger mr-1">Ban</button>
+                <button type="button" class="btn btn-primary">Make Admin</button>
             </div>
         </li>
 
@@ -84,8 +84,8 @@
                 <span class="text-primary ml-3">Mary Rose</span>
             </a>
             <div class="btn-group ml-sm-auto" role="group" aria-label="User Management Buttons">
-                <button type="button" class="btn btn-primary mr-1">Ban</button>
-                <button type="button" class="btn btn-secondary">Make Admin</button>
+                <button type="button" class="btn btn-danger mr-1">Ban</button>
+                <button type="button" class="btn btn-primary">Make Admin</button>
             </div>
         </li>
 
@@ -95,8 +95,8 @@
                 <span class="text-primary ml-3">Anthony Taylor</span>
             </a>
             <div class="btn-group ml-sm-auto" role="group" aria-label="User Management Buttons">
-                <button type="button" class="btn btn-primary mr-1">Ban</button>
-                <button type="button" class="btn btn-secondary">Make Admin</button>
+                <button type="button" class="btn btn-danger mr-1">Ban</button>
+                <button type="button" class="btn btn-primary">Make Admin</button>
             </div>
         </li>
     </ol>

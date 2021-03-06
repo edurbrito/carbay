@@ -1,10 +1,10 @@
 <?php
-  include_once(__DIR__ . "/templates/header-logged-in.php");
-  breadcrum();
+include_once(__DIR__ . "/templates/header-logged-in.php");
+breadcrum();
 ?>
 
 <div class="container-fluid mx-auto mb-5">
-    <h1 class="w-100 text-light p-md-4 text-center">Edit Profile</h1>
+  <h1 class="w-100 text-light p-md-4 text-center">Edit Profile</h1>
 </div>
 
 <!-- Grid row -->
@@ -32,37 +32,37 @@
             <form>
               <div class="input-group mb-3">
                 <div class="input-group-append">
-                  <span class="input-group-text"><i class="fas fa-id-card"></i></span>
+                  <span class="input-group-text rounded-0"><i class="fas fa-id-card"></i></span>
                 </div>
                 <input type="text" name="" class="form-control input_user" value="" placeholder="Name">
               </div>
               <div class="input-group mb-3">
                 <div class="input-group-append">
-                  <span class="input-group-text"><i class="fas fa-at"></i></span>
+                  <span class="input-group-text rounded-0"><i class="fas fa-at"></i></span>
                 </div>
                 <input type="text" name="" class="form-control input_user" value="" placeholder="Email">
               </div>
               <div class="input-group mb-3">
                 <div class="input-group-append">
-                  <span class="input-group-text"><i class="fas fa-key"></i></span>
+                  <span class="input-group-text rounded-0"><i class="fas fa-key"></i></span>
                 </div>
                 <input type="password" name="" class="form-control input_pass" value="" placeholder="Old Password">
               </div>
               <div class="input-group mb-3">
                 <div class="input-group-append">
-                  <span class="input-group-text"><i class="fas fa-key"></i></span>
+                  <span class="input-group-text rounded-0"><i class="fas fa-key"></i></span>
                 </div>
                 <input type="password" name="" class="form-control input_pass" value="" placeholder="New Password">
               </div>
               <div class="input-group mb-2">
                 <div class="input-group-append">
-                  <span class="input-group-text"><i class="fas fa-key"></i></span>
+                  <span class="input-group-text rounded-0"><i class="fas fa-key"></i></span>
                 </div>
                 <input type="text" name="" class="form-control input_user" value="" placeholder="Repeat New Password">
               </div>
-                <div class="d-flex justify-content-center mt-3 login_container">
-                  <button class="btn btn-dark text-light text-center mr-3" type="button" name="button" class="btn login_btn">Save Changes</button>
-                  <button class="btn btn-dark text-light text-center" type="button" name="button" class="btn login_btn">Discard Changes</button>
+              <div class="d-flex justify-content-center mt-3 login_container">
+                <button class="btn btn-dark text-center mr-3" type="button" name="button" class="btn login_btn">Discard Changes</button>
+                <button class="btn btn-success text-light text-center " type="button" name="button" class="btn login_btn">Save Changes</button>
               </div>
             </form>
           </div>
@@ -75,5 +75,5 @@
 <!-- Grid row -->
 
 <?php
-  include_once(__DIR__ . "/templates/footer.php");
+include_once(__DIR__ . "/templates/footer.php");
 ?>
