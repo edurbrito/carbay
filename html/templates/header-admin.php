@@ -1,11 +1,10 @@
 <?php include_once(__DIR__ . "/head.php"); ?>
 
 <body class="bg-primary">
-    <nav class="navbar fixed-top navbar-expand-lg navbar-primary bg-primary text-light border-bottom border-danger" style="background-color:rgba(0, 0, 0, 0.8) !important;">
+    <nav class="navbar fixed-top navbar-expand-lg navbar-primary bg-primary text-light border-bottom border-dark" style="background-color:rgba(0, 0, 0, 0.8) !important;">
         <div class="container-fluid">
             <a class="navbar-brand text-light" href="/">
-                <i class="fas fa-car"></i>
-                CarBay
+                <img src="/css/icon.png" style="max-height: 36px;">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon">

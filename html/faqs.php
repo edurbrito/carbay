@@ -60,6 +60,10 @@ breadcrum();
         </div>
     </div>
 </div>
+<div class="row-sm-12 col-md-12 mt-4 text-center">
+    <img src="/css/icon.png" class="m-auto" style="max-height: 50px;">
+    <!-- <h4 class="mt-3 text-light">Thank You!</h4> -->
+</div>
 
 <?php
 include_once(__DIR__ . "/templates/footer.php");

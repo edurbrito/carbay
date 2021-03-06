@@ -5,19 +5,16 @@ breadcrum();
 
 <!-- Section: About -->
 <section class="container text-center">
-  <div class="row justify-content-center">
-    <div class="col-8 col-sm-10">
-      <h1 class="w-100 text-light p-md-4">About</h1>
+      <h1 class="w-100 text-light mb-4">About</h1>
       <p class="w-100 lead"> An online bidding platform destined for car model lovers, allowing them to sell or complete their private collections, by participating in real-time traditional auctions and interacting with other worldwide collectors. </p>
-    </div>
-  </div>
+
 </section>
 
 <!-- Section: Development Team -->
-<section class="team-section text-center">
+<section class="team-section text-center mt-5">
 
   <!-- Section heading -->
-  <h2 class="h1-responsive font-weight-bold my-5 text-light">Development Team</h2>
+  <h2 class="h1-responsive font-weight-bold mb-4 text-light">Development Team</h2>
 
   <!-- Grid row -->
   <div class="row text-center">

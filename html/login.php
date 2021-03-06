@@ -2,9 +2,9 @@
 include_once(__DIR__ . "/templates/header.php");
 breadcrum();
 ?>
+<h1 class="text-center text-light mb-5">Log In</h1>
 
 <div class="container">
-    <h1 class="text-center text-light m-5">Log In</h1>
     <style scoped>
         @media (min-width: 567px) {
             .responsive-form {
