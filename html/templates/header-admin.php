@@ -17,9 +17,9 @@
                     <li class="nav-item mr-0 mr-lg-4 navbar-brand ">
                         <a href="/search.php" class="text-decoration-none text-reset"><i class="fas fa-search"></i><span class="d-lg-none .d-xl-block"> Search</span></a>
                     </li>
-                    <li class="nav-item navbar-brand mr-0 mr-lg-4"><a href="/create-auction.php" class="text-decoration-none text-reset"><i class="fas fa-plus"></i><span class="d-lg-none .d-xl-block"> Create Auction</span></a></li>
+                    <li class="nav-item navbar-brand mr-0 mr-lg-4"><a href="/admin.php" class="text-decoration-none text-reset"><i class="fas fa-cog"></i></i><span class="d-lg-none .d-xl-block"> Admin Panel</span></a></li>
                     <li class="nav-item navbar-brand mr-0 mr-lg-4"><a href="/notifications.php" class="text-decoration-none text-reset"><i class="fas fa-bell"></i><span class="d-lg-none .d-xl-block"> Notifications</span></a></li>
-                    <li class="nav-item navbar-brand mr-0 mr-lg-4"><a href="/profile.php" class="text-decoration-none text-reset"><i class="fas fa-user-circle"></i> John Doe</a></li>
+                    <li class="nav-item navbar-brand mr-0 mr-lg-4"><a href="/profile.php" class="text-decoration-none text-reset"><i class="fas fa-user-circle"></i> Admin1</a></li>
                     <li class="nav-item navbar-brand mr-0 mr-lg-4"><a href="/logout.php" class="text-decoration-none text-reset"><i class="fas fa-sign-out-alt"></i><span class="d-lg-none .d-xl-block"> Log Out</span></a></li>
                 </ul>
             </div>
