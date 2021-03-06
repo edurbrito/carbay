@@ -42,6 +42,7 @@
             </div>
         </div>
     </li>
+    
     <li class="list-group-item">
         <div class="d-flex align-items-center justify-content-start rounded-0 flex-vertical">
             <a class="d-flex align-items-center justify-content-start mb-3 mb-sm-0" href="/profile.php">
