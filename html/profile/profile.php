@@ -6,7 +6,7 @@
     <div class="col-md-12 mb-md-0">
       <div class="avatar mx-auto col-md-12 position-relative">
         <img src="https://www.droege-group.com/fileadmin/_processed_/4/0/csm_joerg.kieborz_67255b87b6.jpg" class="rounded z-depth-1-half img-fluid" alt="Sample avatar" style="min-height:300px;height:300px;min-width:300px;width:300">
-        <i class="fas fa-pencil-alt border fa-3x rounded-circle p-1 position-absolute"></i>
+        <a type="button" class="border rounded-circle p-2 position-absolute" href="../edit-profile.php"><i class="fas fa-pencil-alt fa-3x text-light"></i></a>
       </div>
       <h3 class="font-weight-bold dark-grey-text my-4 text-light">John Doe</h3>
       <h5 class="text-uppercase grey-text mb-3 text-muted"><strong>johndoe@fe.up.pt</strong></h5>
