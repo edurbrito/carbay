@@ -96,17 +96,19 @@
             for ($i = 0; $i < 64; $i++) {
             ?>
                 <div class="col">
-                    <div class="card h-100 rounded-0">
-                        <img src="https://mrcollection.com/wp-content/uploads/2018/07/ferrari-portofino-giallo_01.jpg" class="card-img-top">
-                        <div class="card-body text-primary">
-                            <h5 class="card-title text-center">Car Model <?= $i ?></h5>
-                            <p class="card-text">
+                    <a href="auction_page.php" class="text-decoration-none">
+                        <div class="card h-100 rounded-0">
+                            <img src="https://mrcollection.com/wp-content/uploads/2018/07/ferrari-portofino-giallo_01.jpg" class="card-img-top">
+                            <div class="card-body text-primary">
+                                <h5 class="card-title text-center">Car Model <?= $i ?></h5>
+                                <p class="card-text">
                                 <p><i class="far fa-clock"></i> Time Remaining: 2:35:17</p>
                                 <p><i class="far fa-money-bill-alt"></i> Last Bid: 500$</p>
                                 <p><i class="far fa-credit-card"></i> Buy Now: 2000$</p>
-                            </p>
+                                </p>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
             <?php
             }
