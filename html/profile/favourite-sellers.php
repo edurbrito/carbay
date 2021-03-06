@@ -7,7 +7,7 @@
 </div>
 
 <div class="container-fluid px-0 my-3">
-    <ol class="list-group rounded-0" style="overflow-y: scroll; height: 60vh;">
+    <ol class="list-group rounded-0 pr-sm-3" style="overflow-y: scroll; max-height: 60vh;">
         <li class="list-group-item d-flex align-items-center justify-content-start rounded-0 flex-vertical">
             <a class="d-flex align-items-center justify-content-start mb-3 mb-sm-0" href="/profile.php">
                 <img src="https://media-exp1.licdn.com/dms/image/C5603AQGaHKtE2HKmrg/profile-displayphoto-shrink_200_200/0/1527672049782?e=1617840000&v=beta&t=BCH1OQxmS2idxk3HoirguIiiHs2Rv20RFIkxBx9cUv0" width="36px">

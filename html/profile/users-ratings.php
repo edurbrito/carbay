@@ -1,6 +1,6 @@
 <h1 class="w-100 text-light p-md-4 text-center">Users Ratings</h1>
 
-<ol class="list-group pr-sm-3 rounded-0" style="overflow-y: scroll; height: 70vh;">
+<ol class="list-group pr-sm-3 rounded-0" style="overflow-y: scroll; max-height: 60vh;">
   <li class="list-group-item">
     <div class="d-flex align-items-center justify-content-start rounded-0 flex-vertical">
       <div class="d-flex align-items-center justify-content-start mb-3 mb-sm-0">

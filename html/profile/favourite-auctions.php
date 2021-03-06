@@ -7,7 +7,7 @@
 </div>
 
 <div class="container-fluid px-0 my-3">
-    <ol class="list-group rounded-0" style="overflow-y: scroll; height: 60vh;">
+    <ol class="list-group rounded-0 pr-sm-3" style="overflow-y: scroll; max-height: 60vh;">
         <li class="list-group-item d-flex align-items-center justify-content-start rounded-0 flex-vertical">
             <a class="d-flex align-items-center justify-content-start mb-3 mb-sm-0" href="/auction-page.php">
                 <img src="https://findicons.com/files/icons/1012/racing_cars/256/ferrari.png" width="36px">
