@@ -6,7 +6,7 @@ breadcrum();
 <form class="row align-items-start">
     <div class="col-12 col-sm-9">
         <label for="search" class="form-label">Search</label>
-        <input type="email" class="form-control" id="search" placeholder="Type Something">
+        <input type="text" class="form-control" id="search" placeholder="Type Something">
     </div>
     <div class="col-12 col-sm-3 h-100">
         <label for="sort-by" class="form-label mt-1">Sort By</label>
