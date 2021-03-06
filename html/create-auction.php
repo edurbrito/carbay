@@ -3,7 +3,7 @@ include_once(__DIR__ . "/templates/header-logged-in.php");
 breadcrum();
 ?>
 
-<h1 class="text-light text-center">Create Auction</h1>
+<h1 class="text-light text-center">New Auction</h1>
 
 <div class="row mt-4">
     <div class="col">
@@ -43,7 +43,7 @@ breadcrum();
             </div>
             <div class="custom-file">
                 <input type="file" class="custom-file-input" id="inputGroupFile01">
-                <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                <label class="custom-file-label" for="inputGroupFile01">Upload Image</label>
             </div>
         </div>
     </div>
@@ -134,8 +134,6 @@ breadcrum();
             </div>
         </div>
     </div>
-
-
 </div>
 <div class="row mt-4">
     <div class="form-group">

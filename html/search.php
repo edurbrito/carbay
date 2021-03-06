@@ -10,11 +10,10 @@
     </div>
     <div class="col-12 col-sm-3 h-100">
         <label for="sort-by" class="form-label mt-1">Sort By</label>
-        <select class="form-select rounded-0" id="sort-by" aria-label="Default select example">
-            <option selected>Zero</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+        <select class="form-select rounded-0" id="sort-by" aria-label="Search By">
+            <option selected>Time Remaining</option>
+            <option value="1">Last Bid</option>
+            <option value="2">Buy Now</option>
         </select>
     </div>
 </form>
@@ -76,16 +75,16 @@
                 Last Bid:
             </label>
             <br>
-            <input type="number" min="10" max="100"> to
-            <input type="number" min="10" max="100">
+            <input type="number" min="10" max="100" placeholder="10"> to
+            <input type="number" min="10" max="100" placeholder="100">
             <br>
 
             <label class="form-check-label mt-2" for="flexCheckChecked">
                 Buy Now between:
             </label>
             <br>
-            <input type="number" min="10" max="100"> to
-            <input type="number" min="10" max="100">
+            <input type="number" min="10" max="100" placeholder="10"> to
+            <input type="number" min="10" max="100" placeholder="100">
         </form>
     </div>
     <div class="col container-fluid">
@@ -96,7 +95,7 @@
             for ($i = 0; $i < 64; $i++) {
             ?>
                 <div class="col">
-                    <a href="auction_page.php" class="text-decoration-none">
+                    <a href="auction-page.php" class="text-decoration-none">
                         <div class="card h-100 rounded-0">
                             <img src="https://mrcollection.com/wp-content/uploads/2018/07/ferrari-portofino-giallo_01.jpg" class="card-img-top">
                             <div class="card-body text-primary">

@@ -9,8 +9,8 @@
         <p class="mt-3 text-primary text-justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus provident ad doloremque eius hic laboriosam ullam totam vitae aspernatur natus, autem aliquam? Mollitia perferendis similique nam quidem excepturi harum temporibus sit magnam nulla!</p>
         <div class="row">
             <div class="col">
-                <label for="exampleFormControlTextarea1" class="form-label text-primary">Your Message:</label>
-                <textarea class="form-control p-1 p-sm-3" id="exampleFormControlTextarea1" rows="6"></textarea>
+                <label for="send-message" class="form-label text-primary">Your Message:</label>
+                <textarea class="form-control p-1 p-sm-3" id="send-message" rows="6"></textarea>
             </div>
 
             <div class="col-auto d-flex flex-column mt-2">
@@ -31,8 +31,8 @@
         <p class="mt-3 text-primary text-justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus perferendis reiciendis laudantium adipisci voluptate!</p>
         <div class="row">
             <div class="col">
-                <label for="exampleFormControlTextarea1" class="form-label text-primary">Your Message:</label>
-                <textarea class="form-control p-1 p-sm-3" id="exampleFormControlTextarea1" rows="6"></textarea>
+                <label for="send-message" class="form-label text-primary">Your Message:</label>
+                <textarea class="form-control p-1 p-sm-3" id="send-message" rows="6"></textarea>
             </div>
 
             <div class="col-auto d-flex flex-column mt-2">
@@ -52,8 +52,8 @@
         <p class="mt-3 text-primary text-justify">Lorem ipsum dolor sit amet consectetur adipisicing.</p>
         <div class="row">
             <div class="col">
-                <label for="exampleFormControlTextarea1" class="form-label text-primary">Your Message:</label>
-                <textarea class="form-control p-1 p-sm-3" id="exampleFormControlTextarea1" rows="6"></textarea>
+                <label for="send-message" class="form-label text-primary">Your Message:</label>
+                <textarea class="form-control p-1 p-sm-3" id="send-message" rows="6"></textarea>
             </div>
 
             <div class="col-auto d-flex flex-column mt-2">
