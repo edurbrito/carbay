@@ -17,16 +17,10 @@
                     <li class="nav-item mr-0 mr-lg-4 navbar-brand ">
                         <a href="/search.php" class="text-decoration-none text-reset"><i class="fas fa-search"></i><span class="d-lg-none .d-xl-block"> Search</span></a>
                     </li>
-                    <li class="nav-item navbar-brand mr-0 mr-lg-4">
-                        <a class="text-light" href="/login.php">
-                            Log In
-                        </a>
-                    </li>
-                    <li class="nav-item navbar-brand mr-0 mr-lg-4">
-                        <a class="text-light" href="/signup.php">
-                            Sign Up
-                        </a>
-                    </li>
+                    <li class="nav-item navbar-brand mr-0 mr-lg-4"><a href="/admin.php" class="text-decoration-none text-reset"><i class="fas fa-cog"></i></i><span class="d-lg-none .d-xl-block"> Admin Panel</span></a></li>
+                    <li class="nav-item navbar-brand mr-0 mr-lg-4"><a href="/notifications.php" class="text-decoration-none text-reset"><i class="fas fa-bell"></i><span class="d-lg-none .d-xl-block"> Notifications</span></a></li>
+                    <li class="nav-item navbar-brand mr-0 mr-lg-4"><a href="/profile.php" class="text-decoration-none text-reset"><i class="fas fa-user-circle"></i> Admin1</a></li>
+                    <li class="nav-item navbar-brand mr-0 mr-lg-4"><a href="/logout.php" class="text-decoration-none text-reset"><i class="fas fa-sign-out-alt"></i><span class="d-lg-none .d-xl-block"> Log Out</span></a></li>
                 </ul>
             </div>
         </div>
@@ -34,4 +28,4 @@
 
     <div class="container-lg text-light overflow-auto my-5" style="margin-top: 8rem !important;">
 
-        <?php include_once(__DIR__ . "/breadcrumb.php"); ?>
+    <?php  include_once(__DIR__ . "/breadcrumb.php"); ?>
