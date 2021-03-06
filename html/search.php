@@ -1,6 +1,6 @@
 <?php
-include_once(__DIR__ .  "/templates/header.php");
-breadcrum();
+  include_once(__DIR__ . "/templates/header-logged-in.php");
+  breadcrum();
 ?>
 
 <form class="row align-items-start">
@@ -118,5 +118,5 @@ breadcrum();
 </div>
 
 <?php
-include_once(__DIR__ . "/templates/footer.php");
+  include_once(__DIR__ . "/templates/footer.php");
 ?>
