@@ -5,8 +5,8 @@ breadcrum();
 
 <h1 class="text-light text-center">New Auction</h1>
 
-<div class="row mt-4">
-    <div class="col">
+<div class="row mt-5">
+    <div class="col-12 col-sm-6">
         <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-bs-ride="carousel">
             <div class="carousel-indicators">
                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -38,106 +38,118 @@ breadcrum();
             </button>
         </div>
         <div class="input-group mb-3 mt-3">
-            <div class="input-group-prepend-sm">
-                <span class="input-group-text">Upload Image</span>
-            </div>
             <div class="custom-file">
-                <input type="file" class="custom-file-input" id="inputGroupFile01">
-                <label class="custom-file-label" for="inputGroupFile01">Upload Image</label>
+                <input type="file" class="custom-file-input" id="images" value="Upload Image">
+                <label class="custom-file-label" for="images">Upload Image</label>
             </div>
         </div>
     </div>
-    <div class="col">
-        <div class="input-group mb-3">
-            <div class="input-group-prepend">
-                <span class="input-group-text" id="inputGroup-sizing-default">Title</span>
-            </div>
-            <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
-        </div>
+    <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+        <style scoped>
+            button.active {
+                border-bottom: 6px solid white !important;
+                border-radius: 0 !important;
+                font-weight: bold;
+            }
+        </style>
 
-        <div class="row">
-            <div class="col">
-                <div class="input-group input-group-sm mb-3">
+        <ul class="nav nav-pills mb-3 justify-content-center" id="pills-tab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link text-light active" id="pills-general-info-tab" data-bs-toggle="pill" data-bs-target="#pills-general-info" type="button" role="tab" aria-controls="pills-general-info" aria-selected="true">General Info</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link text-light" id="pills-description-tab" data-bs-toggle="pill" data-bs-target="#pills-description" type="button" role="tab" aria-controls="pills-description" aria-selected="false">Description</button>
+            </li>
+        </ul>
+        <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane show active" id="pills-general-info" role="tabpanel" aria-labelledby="pills-general-info-tab">
+
+                <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <span class="input-group-text">Starting Bid</span>
-                        <span class="input-group-text">€</span>
+                        <span class="input-group-text rounded-0" id="inputGroup-sizing-default">Title</span>
                     </div>
-                    <input type="number" min="0.01" max="100000" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="Car Model A">
                 </div>
-            </div>
-            <div class="col">
-                <div class="input-group input-group-sm mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-sm">Starting Date</span>
-                    </div>
-                    <input type="date" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
-                </div>
-            </div>
-        </div>
-
-        <div class="form-check mt-2">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked>
-            <label class="form-check-label" for="flexCheckDefault">
-                Buy Now option
-            </label>
-        </div>
-
-        <div class="row">
-            <div class="col">
-                <div class="input-group input-group-sm mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-sm">€</span>
-                    </div>
-                    <input type="number" min="10" max="100" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
-                </div>
-            </div>
-            <div class="col">
-                <div class="input-group input-group-sm mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-sm">Duration</span>
-                        <span class="input-group-text" id="inputGroup-sizing-sm">Days</span>
-                    </div>
-                    <input type="number" min="1" max="15" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
-                </div>
-            </div>
-        </div>
-
-        <select class="form-select mt-4 rounded-0" aria-label="Default select example">
-            <option selected>Color:</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-        </select>
-        <select class="form-select mt-2 rounded-0" aria-label="Default select example">
-            <option selected>Brand:</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-        </select>
-        <select class="form-select mt-2 rounded-0" aria-label="Default select example">
-            <option selected>Scale:</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-        </select>
-
-        <div class="row mt-4">
-            <div class="col">
                 <div class="row">
-                    <button type="button" style="background-color:#FFF" onMouseOut="this.style.background='#FFF'" onMouseOver="this.style.background='#d9544f'" class="btn btn-outline-danger">Publish</button>
+                    <div class="col-12 col-sm-6">
+                        <div class="input-group input-group-sm mb-3">
+                            <div class="input-group-prepend rounded-0">
+                                <span class="input-group-text rounded-0" id="start-bid">Starting Bid</span>
+                            </div>
+                            <input type="number" min="0.01" max="100000" class="form-control" aria-label="Small" aria-describedby="start-bid">
+                            <div class="input-group-append rounded-0">
+                                <span class="input-group-text rounded-0">€</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6">
+                        <div class="input-group input-group-sm mb-3">
+                            <div class="input-group-prepend rounded-0">
+                                <span class="input-group-text rounded-0" id="start-date">Starting Date</span>
+                            </div>
+                            <input type="date" class="form-control rounded-0" aria-label="Small" aria-describedby="start-date" width="fit-content">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="buy-now" checked>
+                    <label class="form-check-label" for="buy-now">
+                        Buy Now option
+                    </label>
+                </div>
+
+                <div class="row">
+                    <div class="col-12 col-sm-6">
+                        <div class="input-group input-group-sm mb-3">
+                            <input type="number" min="1" max="100" class="form-control rounded-0" aria-label="Small" aria-describedby="buy-now">
+                            <div class="input-group-append">
+                                <span class="input-group-text rounded-0" id="inputGroup-sizing-sm">€</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6">
+                        <div class="input-group input-group-sm mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text rounded-0" id="duration">Duration</span>
+                            </div>
+                            <input type="number" min="1" max="15" class="form-control" aria-label="Small" aria-describedby="duration">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text rounded-0" id="inputGroup-sizing-sm">Days</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="col">
-                <div class="row">
-                    <button type="button" class="btn btn-danger border">Cancel</button>
+            <div class="tab-pane" id="pills-description" role="tabpanel" aria-labelledby="pills-description-tab">
+
+                <select class="form-select rounded-0" aria-label="Default select example">
+                    <option selected>Color:</option>
+                    <option value="1">Yellow</option>
+                    <option value="2">Red</option>
+                    <option value="3">Green</option>
+                </select>
+                <select class="form-select mt-2 rounded-0" aria-label="Default select example">
+                    <option selected>Brand:</option>
+                    <option value="1">Ferrari</option>
+                    <option value="2">Lamborghini</option>
+                    <option value="3">Citroen</option>
+                </select>
+                <select class="form-select mt-2 rounded-0" aria-label="Default select example">
+                    <option selected>Scale:</option>
+                    <option value="1">1:18</option>
+                    <option value="2">1:64</option>
+                    <option value="3">1:125</option>
+                </select>
+
+                <div class="form-group mt-3">
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Write here the product description..."></textarea>
                 </div>
+            </div>
+            <div class="btn-group ml-sm-auto float-right" role="group" aria-label="Create Auction Buttons">
+                <button type="button" class="btn btn-dark mr-1">Discard</button>
+                <button type="button" class="btn btn-success">Publish</button>
             </div>
         </div>
-    </div>
-</div>
-<div class="row mt-4">
-    <div class="form-group">
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Write here the product description..."></textarea>
     </div>
 </div>
 

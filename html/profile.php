@@ -7,7 +7,7 @@ breadcrum();
   button.active {
     border-left: 6px solid white !important;
     font-weight: bold;
-    border-radius: 0;
+    border-radius: 0 !important;
   }
 
   @media (max-width: 576px) {

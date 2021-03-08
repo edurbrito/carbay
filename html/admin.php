@@ -5,7 +5,7 @@ breadcrum();
 <style scoped>
     button.active {
         border-left: 6px solid white !important;
-        border-radius: 0;
+        border-radius: 0 !important;
         font-weight: bold;
     }
 

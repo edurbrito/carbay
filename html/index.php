@@ -100,8 +100,8 @@ include_once(__DIR__ . "/templates/head.php");
     </div>
     <nav class="navbar navbar-primary border-top border-dark" style="background-color: #000;">
       <div class="container-fluid d-flex justify-content-center">
-        <a class="navbar-brand text-light" href="/about.php">About Us</a>
-        <a class="navbar-brand text-light" href="/faqs.php">FAQs</a>
+        <a class="navbar-brand text-light mr-4 ml-0" href="/about.php">About Us</a>
+        <a class="navbar-brand text-light mr-0 ml-4" href="/faqs.php">FAQs</a>
       </div>
     </nav>
   </div>
