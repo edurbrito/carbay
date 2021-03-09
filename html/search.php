@@ -88,11 +88,11 @@
         </form>
     </div>
     <div class="col container-fluid">
-        <h6 class="w-100 text-light text-center p-4">64 Auctions found</h6>
+        <h6 class="w-100 text-light text-center p-4">16 Auctions found</h6>
         <div class="row row-cols-1 row-cols-md-3 g-4">
             <?php
 
-            for ($i = 0; $i < 64; $i++) {
+            for ($i = 0; $i < 16; $i++) {
             ?>
                 <div class="col">
                     <a href="auction-page.php" class="text-decoration-none">
