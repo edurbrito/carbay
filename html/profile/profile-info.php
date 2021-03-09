@@ -1,4 +1,4 @@
-<h1 class="w-100 text-light pb-4 text-center">My Profile</h1>
+<h1 class="w-100 text-primary pb-4 text-center">My Profile</h1>
 
 <!-- Section: Info -->
 <section class="row text-center">
@@ -6,10 +6,10 @@
       <img src="https://www.droege-group.com/fileadmin/_processed_/4/0/csm_joerg.kieborz_67255b87b6.jpg" class="rounded z-depth-1-half img-fluid" alt="Sample avatar" style="min-height:200px;height:200px;min-width:200px;width:200">
     </div>
     <div class="col-0 col-sm-6 text-sm-left">
-      <h3 class="font-weight-bold dark-grey-text my-4 text-light">John Doe</h3>
+      <h3 class="font-weight-bold dark-grey-text my-4 text-primary">John Doe</h3>
       <h5 class="text-lowercase grey-text mb-3 text-muted"><strong>johndoe@fe.up.pt</strong></h5>
-      <div class="dark-grey-text my-4 text-light">
-        <h5 class="font-weight-bold dark-grey-text my-4 text-light">Rating: <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i> (10 votes)</h5>
+      <div class="dark-grey-text my-4 text-primary">
+        <h5 class="font-weight-bold dark-grey-text my-4 text-primary">Rating: <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i> (10 votes)</h5>
       </div>
       <a href="/../edit-profile.php" class="mr-sm-5"><button class="btn btn-dark">Edit Profile</button></a>
     </div>
@@ -17,7 +17,7 @@
 
 <!-- Section: Statistics -->
 <section class="container mt-5">
-  <h2 class="w-100 text-light mb-4 text-center">Statistics</h2>
+  <h2 class="w-100 text-primary mb-4 text-center">Statistics</h2>
   <div class="row justify-content-center">
     <div class="col-12 col-sm-4 mb-3 mb-sm-0">
       <div class="card">

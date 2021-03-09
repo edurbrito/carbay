@@ -1,7 +1,7 @@
 <div class="container-fluid mx-auto">
-    <h1 class="w-100 text-light p-md-4 text-center">My Auctions</h1>
+    <h1 class="w-100 text-primary p-md-4 text-center">My Auctions</h1>
     <form class="row align-items-start position-relative">
-        <label for="search" class="form-label">Search</label>
+        <label for="search" class="form-label text-primary">Search</label>
         <input type="text" class="form-control" id="search" placeholder="Type Something">
     </form>
 </div>

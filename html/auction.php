@@ -64,7 +64,7 @@ breadcrum();
       <strong>Scale:</strong>
       1:18
       <br>
-      <strong>Seller:</strong><a href="#" class="ml-2">rickwheels</a>
+      <strong>Seller:</strong><a href="/profile.php" class="ml-2">rickwheels</a>
     </p>
     <button class="btn btn-dark text-light text-center btn" data-bs-toggle="modal" data-bs-target="#buy-now" role="button">Buy Now</button>
     <button class="btn btn-success text-light text-center btn" data-bs-toggle="modal" data-bs-target="#place-bid" role="button">Place Bid</button>

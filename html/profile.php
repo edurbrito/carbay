@@ -32,10 +32,11 @@ breadcrum();
       padding: 0 !important;
       margin-bottom: 2rem !important;
       flex-wrap: nowrap;
-      width: 100vw;
+      min-width: 70vw;
+      max-width: 80vw;
       overflow-x: scroll;
-      margin-right: 5px;
-      margin-left: 5px;
+      margin: 0;
+      padding-left: 2rem !important;
     }
 
     button.mb-3 {
@@ -49,10 +50,11 @@ breadcrum();
   <div class="nav flex-column nav-pills me-3 border-right p-3 flex-horizontal d-sm-flex" id="v-pills-tab" role="tablist" aria-orientation="vertical">
     <button class="nav-link active text-primary" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="true">Profile</button>
     <button class="nav-link text-primary" id="v-pills-bid-history-tab" data-bs-toggle="pill" data-bs-target="#v-pills-bid-history" type="button" role="tab" aria-controls="v-pills-bid-history" aria-selected="false">Bid History</button>
-    <button class="nav-link text-primary" id="v-pills-auctions-created-tab" data-bs-toggle="pill" data-bs-target="#v-pills-auctions-created" type="button" role="tab" aria-controls="v-pills-auctions-created" aria-selected="false">Auctions Created</button>
+    <button class="nav-link text-primary" id="v-pills-my-auctions-tab" data-bs-toggle="pill" data-bs-target="#v-pills-my-auctions" type="button" role="tab" aria-controls="v-pills-auctions-created" aria-selected="false">Auctions Created</button>
     <button class="nav-link text-primary" id="v-pills-favourite-auctions-tab" data-bs-toggle="pill" data-bs-target="#v-pills-favourite-auctions" type="button" role="tab" aria-controls="v-pills-favourite-auctions" aria-selected="false">Favourite Auctions</button>
     <button class="nav-link text-primary" id="v-pills-favourite-sellers-tab" data-bs-toggle="pill" data-bs-target="#v-pills-favourite-sellers" type="button" role="tab" aria-controls="v-pills-favourite-sellers" aria-selected="false">Favourite Sellers</button>
     <button class="nav-link text-primary" id="v-pills-users-ratings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-users-ratings" type="button" role="tab" aria-controls="v-pills-users-ratings" aria-selected="false">Users Ratings</button>
+    <button class="nav-link text-primary" id="v-pills-users-rated-tab" data-bs-toggle="pill" data-bs-target="#v-pills-users-rated" type="button" role="tab" aria-controls="v-pills-users-rated" aria-selected="false">Users Rated</button>
   </div>
   <div class="tab-content w-100" id="v-pills-tabContent">
     <div class="tab-pane fade show active" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">

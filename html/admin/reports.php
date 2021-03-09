@@ -13,8 +13,8 @@
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#discard" role="button" data-bs-toggle="modal" data-bs-target="#discard" role="button">Discard</button>
                 </div>
             </div>
-            <p class="mt-3 text-primary text-justify"><strong class="text-primary">Location:</strong> <br><a href="/profile.php">Profile</a> </p>
-            <p class="mt-3 text-primary text-justify"><strong class="text-primary">Reason:</strong> <br> He threatened to come to my house and to steal all my car models. He is dangerous! </p>
+            <p class="mt-3 text-primary text-justify"><span class="text-primary fs-6">Location: </span><a href="/profile.php">Profile</a> </p>
+            <p class="mt-3 text-primary text-justify"><span class="text-primary fs-6">Reason: </span> He threatened to come to my house and to steal all my car models. He is dangerous! </p>
         </li>
 
         <li class="list-group-item">
@@ -28,8 +28,8 @@
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#discard" role="button" data-bs-toggle="modal" data-bs-target="#discard" role="button">Discard</button>
                 </div>
             </div>
-            <p class="mt-3 text-primary text-justify"><strong class="text-primary">Location:</strong> <br><a href="/profile.php">Profile</a> </p>
-            <p class="mt-3 text-primary text-justify"><strong class="text-primary">Reason:</strong> <br> Ban this person! He is always winning the auctions I want!</p>
+            <p class="mt-3 text-primary text-justify"><span class="text-primary fs-6">Location: </span><a href="/profile.php">Profile</a> </p>
+            <p class="mt-3 text-primary text-justify"><span class="text-primary fs-6">Reason: </span> Ban this person! He is always winning the auctions I want!</p>
         </li>
 
         <li class="list-group-item">
@@ -43,8 +43,8 @@
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#discard" role="button" data-bs-toggle="modal" data-bs-target="#discard" role="button">Discard</button>
                 </div>
             </div>
-            <p class="mt-3 text-primary text-justify"><strong class="text-primary">Location:</strong> <br><a href="/profile.php">Profile</a> </p>
-            <p class="mt-3 text-primary text-justify"><strong class="text-primary">Reason:</strong> <br> This individual is selling car models he does not possess. Unacceptable!</p>
+            <p class="mt-3 text-primary text-justify"><span class="text-primary fs-6">Location: </span><a href="/profile.php">Profile</a> </p>
+            <p class="mt-3 text-primary text-justify"><span class="text-primary fs-6">Reason: </span> This individual is selling car models he does not possess. Unacceptable!</p>
         </li>
 
         <li class="list-group-item">
@@ -58,8 +58,8 @@
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#discard" role="button" data-bs-toggle="modal" data-bs-target="#discard" role="button">Discard</button>
                 </div>
             </div>
-            <p class="mt-3 text-primary text-justify"><strong class="text-primary">Location:</strong> <br><a href="/profile.php">Profile</a> </p>
-            <p class="mt-3 text-primary text-justify"><strong class="text-primary">Reason:</strong> <br> This user is selling fake models! All made in China with low-cost materials! ALL FAKE! Ban him, please! We cannot have people like this in our community! </p>
+            <p class="mt-3 text-primary text-justify"><span class="text-primary fs-6">Location: </span><a href="/profile.php">Profile</a> </p>
+            <p class="mt-3 text-primary text-justify"><span class="text-primary fs-6">Reason: </span> This user is selling fake models! All made in China with low-cost materials! ALL FAKE! Ban him, please! We cannot have people like this in our community! </p>
         </li>
 
         <li class="list-group-item">
@@ -73,8 +73,8 @@
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#discard" role="button" data-bs-toggle="modal" data-bs-target="#discard" role="button">Discard</button>
                 </div>
             </div>
-            <p class="mt-3 text-primary text-justify"><strong class="text-primary">Location:</strong> <br><a href="/profile.php">Profile</a> </p>
-            <p class="mt-3 text-primary text-justify"><strong class="text-primary">Reason:</strong> <br> Not trustworthy! Ban asap.</p>
+            <p class="mt-3 text-primary text-justify"><span class="text-primary fs-6">Location: </span><a href="/profile.php">Profile</a> </p>
+            <p class="mt-3 text-primary text-justify"><span class="text-primary fs-6">Reason: </span> Not trustworthy! Ban asap.</p>
         </li>
 
         <li class="list-group-item">
@@ -88,8 +88,8 @@
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#discard" role="button" data-bs-toggle="modal" data-bs-target="#discard" role="button">Discard</button>
                 </div>
             </div>
-            <p class="mt-3 text-primary text-justify"><strong class="text-primary">Location:</strong> <br><a href="/profile.php">Profile</a> </p>
-            <p class="mt-3 text-primary text-justify"><strong class="text-primary">Reason:</strong> <br> He sent me a message threatening my family!! This is completely unacceptable. All because I said I was not interested in the product and ended up buying it. Business skills are not allowed now? LOL. Ban him!</p>
+            <p class="mt-3 text-primary text-justify"><span class="text-primary fs-6">Location: </span><a href="/profile.php">Profile</a> </p>
+            <p class="mt-3 text-primary text-justify"><span class="text-primary fs-6">Reason: </span> He sent me a message threatening my family!! This is completely unacceptable. All because I said I was not interested in the product and ended up buying it. Business skills are not allowed now? LOL. Ban him!</p>
         </li>
     </ol>
 </div>

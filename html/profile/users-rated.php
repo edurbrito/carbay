@@ -1,4 +1,4 @@
-<h1 class="w-100 text-light p-md-4 text-center">Users Rated</h1>
+<h1 class="w-100 text-primary p-md-4 text-center">Users Rated</h1>
 
 <ol class="list-group rounded-0">
   <li class="list-group-item">
