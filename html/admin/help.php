@@ -6,7 +6,7 @@
                 <span class="text-primary ml-3">John Doe</span>
             </a>
         </div>
-        <p class="mt-3 text-primary text-justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus provident ad doloremque eius hic laboriosam ullam totam vitae aspernatur natus, autem aliquam? Mollitia perferendis similique nam quidem excepturi harum temporibus sit magnam nulla!</p>
+        <p class="mt-3 text-primary text-justify">I've just won an auction, it's my first time on this website. What should I do now? Will I be contacted by the website or should I reach the seller by his email?</p>
         <div class="row">
             <div class="col">
                 <label for="send-message" class="form-label text-primary">Your Message:</label>
@@ -28,7 +28,7 @@
                 <span class="text-primary ml-3">Mary Rose</span>
             </a>
         </div>
-        <p class="mt-3 text-primary text-justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus perferendis reiciendis laudantium adipisci voluptate!</p>
+        <p class="mt-3 text-primary text-justify">There's an inappropriate comment on my profile page, some user left there a link that looks suspicious! What could I do to get it checked by some admin?</p>
         <div class="row">
             <div class="col">
                 <label for="send-message" class="form-label text-primary">Your Message:</label>
@@ -50,7 +50,7 @@
                 <span class="text-primary ml-3">Anthony Taylor</span>
             </a>
         </div>
-        <p class="mt-3 text-primary text-justify">Lorem ipsum dolor sit amet consectetur adipisicing.</p>
+        <p class="mt-3 text-primary text-justify">What does the favorite auctions functionality do? Will I be notified of its main events?</p>
         <div class="row">
             <div class="col">
                 <label for="send-message" class="form-label text-primary">Your Message:</label>
