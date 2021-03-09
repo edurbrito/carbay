@@ -1,6 +1,6 @@
 <?php
-  include_once(__DIR__ . "/templates/header-logged-in.php");
-  breadcrum();
+include_once(__DIR__ . "/templates/header-logged-in.php");
+breadcrum();
 ?>
 
 <form class="row align-items-start">
@@ -88,13 +88,195 @@
         </form>
     </div>
     <div class="col container-fluid">
-        <h6 class="w-100 text-light text-center p-4">16 Auctions found</h6>
+        <h6 class="w-100 text-light text-center p-4">12 Auctions found</h6>
         <div class="row row-cols-1 row-cols-md-3 g-4">
-            <?php
+            <div class="col">
+                <a href="auction-page.php" class="text-decoration-none">
+                    <div class="card h-100 rounded-0">
+                        <img src="https://mrcollection.com/wp-content/uploads/2018/07/ferrari-portofino-giallo_01.jpg" class="card-img-top">
+                        <div class="card-body text-primary">
+                            <h5 class="card-title text-center">Ferrari Portofino</h5>
+                            <p class="card-text">
+                            <p><i class="far fa-clock"></i> Time Remaining: 2:35:17</p>
+                            <p><i class="far fa-money-bill-alt"></i> Last Bid: 500$</p>
+                            <p><i class="far fa-credit-card"></i> Buy Now: 2000$</p>
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col">
+                <a href="auction-page.php" class="text-decoration-none">
+                    <div class="card h-100 rounded-0">
+                        <img src="https://mrcollection.com/wp-content/uploads/2016/08/bugatti-chiron-black_01.jpg" class="card-img-top">
+                        <div class="card-body text-primary">
+                            <h5 class="card-title text-center">Bugatti Chiron</h5>
+                            <p class="card-text">
+                            <p><i class="far fa-clock"></i> Time Remaining: 2:35:17</p>
+                            <p><i class="far fa-money-bill-alt"></i> Last Bid: 500$</p>
+                            <p><i class="far fa-credit-card"></i> Buy Now: 2000$</p>
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col">
+                <a href="auction-page.php" class="text-decoration-none">
+                    <div class="card h-100 rounded-0">
+                        <img src="https://mrcollection.com/wp-content/uploads/2020/09/lamborghini-veneno_02-600x400.jpg" class="card-img-top">
+                        <div class="card-body text-primary">
+                            <h5 class="card-title text-center">Lamborghini Veneno</h5>
+                            <p class="card-text">
+                            <p><i class="far fa-clock"></i> Time Remaining: 2:35:17</p>
+                            <p><i class="far fa-money-bill-alt"></i> Last Bid: 500$</p>
+                            <p><i class="far fa-credit-card"></i> Buy Now: 2000$</p>
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col">
+                <a href="auction-page.php" class="text-decoration-none">
+                    <div class="card h-100 rounded-0">
+                        <img src="https://mrcollection.com/wp-content/uploads/2017/10/bentley-new-continental-gt-01-768x510.jpg" class="card-img-top">
+                        <div class="card-body text-primary">
+                            <h5 class="card-title text-center">Bentley Continental</h5>
+                            <p class="card-text">
+                            <p><i class="far fa-clock"></i> Time Remaining: 2:35:17</p>
+                            <p><i class="far fa-money-bill-alt"></i> Last Bid: 500$</p>
+                            <p><i class="far fa-credit-card"></i> Buy Now: 2000$</p>
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col">
+                <a href="auction-page.php" class="text-decoration-none">
+                    <div class="card h-100 rounded-0">
+                        <img src="https://mrcollection.com/wp-content/uploads/2017/02/pagani-huayra-roadster_01-768x512.jpg" class="card-img-top">
+                        <div class="card-body text-primary">
+                            <h5 class="card-title text-center">Pagani Huayra Roadster</h5>
+                            <p class="card-text">
+                            <p><i class="far fa-clock"></i> Time Remaining: 2:35:17</p>
+                            <p><i class="far fa-money-bill-alt"></i> Last Bid: 500$</p>
+                            <p><i class="far fa-credit-card"></i> Buy Now: 2000$</p>
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col">
+                <a href="auction-page.php" class="text-decoration-none">
+                    <div class="card h-100 rounded-0">
+                        <img src="https://mrcollection.com/wp-content/uploads/2018/01/lamborghini-aventador-s-roadster-white_01.jpg" class="card-img-top">
+                        <div class="card-body text-primary">
+                            <h5 class="card-title text-center">Lamborghini Aventador S Roadster</h5>
+                            <p class="card-text">
+                            <p><i class="far fa-clock"></i> Time Remaining: 2:35:17</p>
+                            <p><i class="far fa-money-bill-alt"></i> Last Bid: 500$</p>
+                            <p><i class="far fa-credit-card"></i> Buy Now: 2000$</p>
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col">
+                <a href="auction-page.php" class="text-decoration-none">
+                    <div class="card h-100 rounded-0">
+                        <img src="https://mrcollection.com/wp-content/uploads/2017/09/ferrari-812-superfast-rosso-scuderia_01.jpg" class="card-img-top">
+                        <div class="card-body text-primary">
+                            <h5 class="card-title text-center">Ferrari 812 Superfast</h5>
+                            <p class="card-text">
+                            <p><i class="far fa-clock"></i> Time Remaining: 2:35:17</p>
+                            <p><i class="far fa-money-bill-alt"></i> Last Bid: 500$</p>
+                            <p><i class="far fa-credit-card"></i> Buy Now: 2000$</p>
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col">
+                <a href="auction-page.php" class="text-decoration-none">
+                    <div class="card h-100 rounded-0">
+                        <img src="https://mrcollection.com/wp-content/uploads/2016/10/ferrari-laferrari-aperta-gray01.jpg" class="card-img-top">
+                        <div class="card-body text-primary">
+                            <h5 class="card-title text-center">Ferrari LaFerrari Aperta</h5>
+                            <p class="card-text">
+                            <p><i class="far fa-clock"></i> Time Remaining: 2:35:17</p>
+                            <p><i class="far fa-money-bill-alt"></i> Last Bid: 500$</p>
+                            <p><i class="far fa-credit-card"></i> Buy Now: 2000$</p>
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col">
+                <a href="auction-page.php" class="text-decoration-none">
+                    <div class="card h-100 rounded-0">
+                        <img src="https://mrcollection.com/wp-content/uploads/2016/06/ferrari-f12tdf-blu_01.jpg" class="card-img-top">
+                        <div class="card-body text-primary">
+                            <h5 class="card-title text-center">Ferrari F12 tdf</h5>
+                            <p class="card-text">
+                            <p><i class="far fa-clock"></i> Time Remaining: 2:35:17</p>
+                            <p><i class="far fa-money-bill-alt"></i> Last Bid: 500$</p>
+                            <p><i class="far fa-credit-card"></i> Buy Now: 2000$</p>
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col">
+                <a href="auction-page.php" class="text-decoration-none">
+                    <div class="card h-100 rounded-0">
+                        <img src="https://mrcollection.com/wp-content/uploads/2015/11/ferrari_488_spider_scale_1_18_fe017-1.jpg" class="card-img-top">
+                        <div class="card-body text-primary">
+                            <h5 class="card-title text-center">Ferrari 458 Speciale A</h5>
+                            <p class="card-text">
+                            <p><i class="far fa-clock"></i> Time Remaining: 2:35:17</p>
+                            <p><i class="far fa-money-bill-alt"></i> Last Bid: 500$</p>
+                            <p><i class="far fa-credit-card"></i> Buy Now: 2000$</p>
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col">
+                <a href="auction-page.php" class="text-decoration-none">
+                    <div class="card h-100 rounded-0">
+                        <img src="https://mrcollection.com/wp-content/uploads/2017/10/bugatti-chiron-zero-400-zero_01-768x512.jpg" class="card-img-top">
+                        <div class="card-body text-primary">
+                            <h5 class="card-title text-center">Bugatti Chiron ZERO - 400 - ZERO Rear Wing Up</h5>
+                            <p class="card-text">
+                            <p><i class="far fa-clock"></i> Time Remaining: 2:35:17</p>
+                            <p><i class="far fa-money-bill-alt"></i> Last Bid: 500$</p>
+                            <p><i class="far fa-credit-card"></i> Buy Now: 2000$</p>
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col">
+                <a href="auction-page.php" class="text-decoration-none">
+                    <div class="card h-100 rounded-0">
+                        <img src="https://mrcollection.com/wp-content/uploads/2018/01/lamborghini-centenario-roadster-black_01.jpg" class="card-img-top">
+                        <div class="card-body text-primary">
+                            <h5 class="card-title text-center">Lamborghini Centenario Roadster</h5>
+                            <p class="card-text">
+                            <p><i class="far fa-clock"></i> Time Remaining: 2:35:17</p>
+                            <p><i class="far fa-money-bill-alt"></i> Last Bid: 500$</p>
+                            <p><i class="far fa-credit-card"></i> Buy Now: 2000$</p>
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            
 
-            for ($i = 0; $i < 16; $i++) {
-            ?>
-                <div class="col">
+            <!-- <?php
+
+                    for ($i = 0; $i < 16; $i++) {
+                    ?> -->
+            <!-- <div class="col">
                     <a href="auction-page.php" class="text-decoration-none">
                         <div class="card h-100 rounded-0">
                             <img src="https://mrcollection.com/wp-content/uploads/2018/07/ferrari-portofino-giallo_01.jpg" class="card-img-top">
@@ -108,16 +290,16 @@
                             </div>
                         </div>
                     </a>
-                </div>
-            <?php
-            }
+                </div> -->
+            <!-- <?php
+                    }
 
-            ?>
+                    ?> -->
 
         </div>
     </div>
 </div>
 
 <?php
-  include_once(__DIR__ . "/templates/footer-logged-in.php");
+include_once(__DIR__ . "/templates/footer-logged-in.php");
 ?>
