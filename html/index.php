@@ -2,11 +2,11 @@
 include_once(__DIR__ . "/templates/head.php");
 ?>
 
-<body class="bg-primary" style="height: 100vh; background-image: url(/css/cover.png); background-repeat: no-repeat; background-size: cover; background-position: center; background-image: linear-gradient(to bottom, rgba(0,0,0,0.45) 0%,rgba(0,0,0,0.45) 100%), url(/css/cover.png);">
+<body class="bg-primary" style="height: 100vh; background-image: url(/images/cover.png); background-repeat: no-repeat; background-size: cover; background-position: center; background-image: linear-gradient(to bottom, rgba(0,0,0,0.45) 0%,rgba(0,0,0,0.45) 100%), url(/images/cover.png);">
   <nav class="navbar navbar-expand-lg navbar-primary bg-primary text-light border-bottom border-dark" style="background-color:rgba(0, 0, 0, 0.8) !important;">
     <div class="container-fluid">
       <a class="navbar-brand text-light" href="/">
-        <img src="/css/icon.png" style="max-height: 36px;">
+        <img src="/images/icon.png" style="max-height: 36px;">
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon">

@@ -26,6 +26,13 @@ breadcrum();
         button.mb-3 {
             margin-bottom: 0 !important;
         }
+
+        button.active {
+            border-left: 0 !important;
+            border-bottom: 6px solid white !important;
+            border-radius: 0 !important;
+            font-weight: bold;
+        }
     }
 </style>
 <h1 class="text-center text-light">Admin Panel</h1>

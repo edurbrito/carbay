@@ -4,7 +4,7 @@
     <nav class="navbar fixed-top navbar-expand-lg navbar-primary bg-primary text-light border-bottom border-dark" style="background-color:rgba(0, 0, 0, 0.8) !important;">
         <div class="container-fluid">
             <a class="navbar-brand text-light" href="/">
-                <img src="/css/icon.png" style="max-height: 36px;">
+                <img src="/images/icon.png" style="max-height: 36px;">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon">
