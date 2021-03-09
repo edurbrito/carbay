@@ -11,7 +11,7 @@
         <h5 class="font-weight-bold text-primary my-auto">Rated: <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></h5>
       </div>
     </div>
-    <p class="mt-3 text-primary text-justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus provident ad doloremque eius hic laboriosam ullam totam vitae aspernatur natus, autem aliquam? Mollitia perferendis similique nam quidem excepturi harum temporibus sit magnam nulla!</p>
+    <p class="mt-3 text-primary text-justify">Great negotiator! Won one of his auctions, and got my product only three days after! Nice man, and reliable!</p>
   </li>
 
   <li class="list-group-item">
@@ -24,7 +24,7 @@
       <h5 class="font-weight-bold text-primary my-auto">Rated: <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></h5>
       </div>
     </div>
-    <p class="mt-3 text-primary text-justify">Lorem ipsum dolor sit.</p>
+    <p class="mt-3 text-primary text-justify">Not such a nice man, but goes straight to the point.</p>
   </li>
 
   <li class="list-group-item">
@@ -37,7 +37,7 @@
       <h5 class="font-weight-bold text-primary my-auto">Rated: <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></h5>
       </div>
     </div>
-    <p class="mt-3 text-primary text-justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem non iusto reiciendis sint? Laboriosam eveniet a modi molestias nostrum placeat minima hic accusantium, id inventore deserunt laborum animi explicabo.</p>
+    <p class="mt-3 text-primary text-justify">Likeable user, trust-worthy! I would definitely want to negotiate with this man again!</p>
   </li>
 
   <li class="list-group-item">
@@ -50,7 +50,7 @@
       <h5 class="font-weight-bold text-primary my-auto">Rated: <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></h5>
       </div>
     </div>
-    <p class="mt-3 text-primary text-justify">Lorem ipsum dolor sit amet consectetur adipisicing.</p>
+    <p class="mt-3 text-primary text-justify">Great man, trustable and always available until the item reached me</p>
   </li>
 
   <li class="list-group-item">
@@ -63,6 +63,6 @@
       <h5 class="font-weight-bold text-primary my-auto">Rated: <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></h5>
       </div>
     </div>
-    <p class="mt-3 text-primary text-justify">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Atque, asperiores.</p>
+    <p class="mt-3 text-primary text-justify">Arrogant negotiator, without worries about the bidders</p>
   </li>
 </ol>

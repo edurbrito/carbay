@@ -46,7 +46,7 @@ breadcrum();
   </div>
   <div class="tab-content w-100" id="v-pills-tabContent">
     <div class="tab-pane fade show active" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-      <?php include_once(__DIR__ . "/profile/profile.php"); ?>
+      <?php include_once(__DIR__ . "/profile/profile-info.php"); ?>
     </div>
     <div class="tab-pane fade" id="v-pills-bid-history" role="tabpanel" aria-labelledby="v-pills-bid-history-tab">
       <?php include_once(__DIR__ . "/profile/bid-history.php"); ?>
