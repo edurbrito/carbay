@@ -1,5 +1,5 @@
 <div class="container-fluid mx-auto">
-    <h1 class="w-100 text-light p-md-4 text-center">Auctions Created</h1>
+    <h1 class="w-100 text-light p-md-4 text-center">My Auctions</h1>
     <form class="row align-items-start position-relative">
         <label for="search" class="form-label">Search</label>
         <input type="text" class="form-control" id="search" placeholder="Type Something">
@@ -7,7 +7,7 @@
 </div>
 
 <div class="container-fluid px-0 my-3">
-    <ol class="list-group rounded-0 pr-sm-3" style="overflow-y: scroll; max-height: 60vh;">
+    <ol class="list-group rounded-0">
         <li class="list-group-item d-flex align-items-center justify-content-start rounded-0 flex-vertical">
             <a class="d-flex align-items-center justify-content-start mb-3 mb-sm-0" href="/auction.php">
                 <img src="https://findicons.com/files/icons/1012/racing_cars/256/ferrari.png" width="36px">

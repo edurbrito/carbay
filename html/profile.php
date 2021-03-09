@@ -61,8 +61,8 @@ breadcrum();
     <div class="tab-pane fade" id="v-pills-bid-history" role="tabpanel" aria-labelledby="v-pills-bid-history-tab">
       <?php include_once(__DIR__ . "/profile/bid-history.php"); ?>
     </div>
-    <div class="tab-pane fade" id="v-pills-auctions-created" role="tabpanel" aria-labelledby="v-pills-auctions-created-tab">
-      <?php include_once(__DIR__ . "/profile/auctions-created.php"); ?>
+    <div class="tab-pane fade" id="v-pills-my-auctions" role="tabpanel" aria-labelledby="v-pills-my-auctions-tab">
+      <?php include_once(__DIR__ . "/profile/my-auctions.php"); ?>
     </div>
     <div class="tab-pane fade" id="v-pills-favourite-auctions" role="tabpanel" aria-labelledby="v-pills-favourite-auctions-tab">
       <?php include_once(__DIR__ . "/profile/favourite-auctions.php"); ?>
@@ -72,6 +72,9 @@ breadcrum();
     </div>
     <div class="tab-pane fade" id="v-pills-users-ratings" role="tabpanel" aria-labelledby="v-pills-users-ratings-tab">
       <?php include_once(__DIR__ . "/profile/users-ratings.php"); ?>
+    </div>
+    <div class="tab-pane fade" id="v-pills-users-rated" role="tabpanel" aria-labelledby="v-pills-users-rated-tab">
+      <?php include_once(__DIR__ . "/profile/users-rated.php"); ?>
     </div>
   </div>
 </div>
