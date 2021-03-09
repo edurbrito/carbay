@@ -1,6 +1,6 @@
 <?php include_once(__DIR__ . "/head.php"); ?>
 
-<body class="bg-primary">
+<body class="bg-light">
     <nav class="navbar fixed-top navbar-expand-lg navbar-primary bg-primary text-light border-bottom border-dark" style="background-color:rgba(0, 0, 0, 0.8) !important;">
         <div class="container-fluid">
             <a class="navbar-brand text-light" href="/">

@@ -2,8 +2,8 @@
 include_once(__DIR__ .  "/templates/header-logged-in.php");
 breadcrum();
 ?>
-<h1 class="text-center text-light">Your Questions</h1>
-<div class="d-flex my-5 flex-shrink-1 flex-column" style="max-height: 35vh; overflow-y: auto; padding: 1rem;">
+<h1 class="text-center">Your Questions</h1>
+<div class="d-flex my-5 flex-shrink-1 flex-column hide-scroll" style="max-height: 35vh; overflow-y: auto; padding: 1rem;">
 <style scoped>
 
 @media (max-width: 600px) {
@@ -55,11 +55,11 @@ breadcrum();
     </div>
 </div>
 
-<div>
-    <label for="send-question" class="form-label">Message:</label>
-    <textarea class="form-control" id="send-question" rows="3"></textarea>
-    <button type="button" class="btn btn-success mt-3 float-right">Send</button>
-</div>
+<form>
+    <label for="send-question" class="form-label text-primary">Message:</label>
+    <textarea class="form-control" id="send-question" rows="3" required></textarea>
+    <button type="submit" class="btn btn-success mt-3 float-right">Send</button>
+</form>
 
 <?php
 include_once(__DIR__ . "/templates/footer-logged-in.php");

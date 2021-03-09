@@ -31,19 +31,19 @@ breadcrum();
               <div class="input-group-append">
                 <span class="input-group-text rounded-0"><i class="fas fa-id-card"></i></span>
               </div>
-              <input type="text" name="" class="form-control" value="" placeholder="Name">
+              <input type="text" name="" class="form-control" value="John Doe" placeholder="Name" required>
             </div>
             <div class="input-group mb-3">
               <div class="input-group-append">
                 <span class="input-group-text rounded-0"><i class="fas fa-at"></i></span>
               </div>
-              <input type="text" name="" class="form-control" value="" placeholder="Email">
+              <input type="email" name="" class="form-control" value="johnmamandoe@thebest.com" placeholder="Email" required>
             </div>
             <div class="input-group mb-3">
               <div class="input-group-append">
                 <span class="input-group-text rounded-0"><i class="fas fa-key"></i></span>
               </div>
-              <input type="password" name="" class="form-control" value="" placeholder="Old Password">
+              <input type="password" name="" class="form-control" value="" placeholder="Current Password" required>
             </div>
             <div class="input-group mb-3">
               <div class="input-group-append">
@@ -55,11 +55,11 @@ breadcrum();
               <div class="input-group-append">
                 <span class="input-group-text rounded-0"><i class="fas fa-key"></i></span>
               </div>
-              <input type="text" name="" class="form-control" value="" placeholder="Repeat New Password">
+              <input type="password" name="" class="form-control" value="" placeholder="Repeat New Password">
             </div>
             <div class="d-flex justify-content-center mt-3">
               <button class="btn btn-dark text-center mr-3" type="button" name="button" class="btn">Discard Changes</button>
-              <button class="btn btn-success text-light text-center " type="button" name="button" class="btn">Save Changes</button>
+              <button class="btn btn-success text-light text-center " type="submit" name="button" class="btn">Save Changes</button>
             </div>
           </form>
         </div>

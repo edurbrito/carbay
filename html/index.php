@@ -33,10 +33,12 @@ include_once(__DIR__ . "/templates/head.php");
     </div>
   </nav>
 
-  <div id="carousel" class="carousel slide" style="width: fit-content !important;" data-bs-ride="carousel" data-bs-interval="5000">
+  <div id="carousel" class="carousel slide p-5" style="width: fit-content !important;" data-bs-ride="carousel" data-bs-interval="5000">
+
+  <h4 class="text-light">Featured Auctions</h4>
     <div class="carousel-inner">
       <div class="carousel-item active">
-        <a class="m-5 border-left p-3 d-flex flex-column text-decoration-none" href="/auction-page.php">
+        <a class="border-left p-3 d-flex flex-column text-decoration-none" href="/auction.php">
           <h5 class="text-light">Ferrari 458 Italia</h5>
           <div class="text-light">
             <i class="far fa-clock"></i>
@@ -53,7 +55,7 @@ include_once(__DIR__ . "/templates/head.php");
         </a>
       </div>
       <div class="carousel-item">
-        <a class="m-5 border-left p-3 d-flex flex-column text-decoration-none" href="/auction-page.php">
+        <a class="border-left p-3 d-flex flex-column text-decoration-none" href="/auction.php">
           <h5 class="text-light">Citroen do Paulo</h5>
           <div class="text-light">
             <i class="far fa-clock"></i>
@@ -70,7 +72,7 @@ include_once(__DIR__ . "/templates/head.php");
         </a>
       </div>
       <div class="carousel-item">
-        <a class="m-5 border-left p-3 d-flex flex-column text-decoration-none" href="/auction-page.php">
+        <a class="border-left p-3 d-flex flex-column text-decoration-none" href="/auction.php">
           <h5 class="text-light">Lamborghini Tractor</h5>
           <div class="text-light">
             <i class="far fa-clock"></i>

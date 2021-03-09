@@ -3,7 +3,7 @@ include_once(__DIR__ . "/templates/header.php");
 breadcrum();
 ?>
 
-<h1 class="text-light text-center">FAQs</h1>
+<h1 class="text-primary text-center">FAQs</h1>
 
 <div class="row-sm-12 col-md-12 mt-2  text-right mt-5">
     <div class="btn-group" role="group" aria-label="Basic example">
@@ -62,7 +62,7 @@ breadcrum();
 </div>
 <div class="row-sm-12 col-md-12 mt-4 text-center">
     <img src="/images/icon.png" class="m-auto" style="max-height: 50px;">
-    <!-- <h4 class="mt-3 text-light">Thank You!</h4> -->
+    <!-- <h4 class="mt-3 text-primary">Thank You!</h4> -->
 </div>
 
 <?php

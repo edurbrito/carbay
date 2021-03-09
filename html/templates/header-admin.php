@@ -1,6 +1,6 @@
 <?php include_once(__DIR__ . "/head.php"); ?>
 
-<body class="bg-primary">
+<body>
     <nav class="navbar fixed-top navbar-expand-lg navbar-primary bg-primary text-light border-bottom border-dark" style="background-color:rgba(0, 0, 0, 0.8) !important;">
         <div class="container-fluid">
             <a class="navbar-brand text-light" href="/">
@@ -16,7 +16,7 @@
                     <li class="nav-item mr-0 mr-lg-4 navbar-brand ">
                         <a href="/search.php" class="text-decoration-none text-reset"><i class="fas fa-search"></i><span class="d-lg-none .d-xl-block"> Search</span></a>
                     </li>
-                    <li class="nav-item navbar-brand mr-0 mr-lg-4"><a href="/admin.php" class="text-decoration-none text-reset"><i class="fas fa-cog"></i></i><span class="d-lg-none .d-xl-block"> Admin Panel</span></a></li>
+                    <li class="nav-item navbar-brand mr-0 mr-lg-4"><a href="/admin.php" class="text-decoration-none text-reset"><i class="fas fa-user-shield"></i></i><span class="d-lg-none .d-xl-block"> Admin Panel</span></a></li>
                     <li class="nav-item navbar-brand mr-0 mr-lg-4"><a data-bs-toggle="modal" data-bs-target="#notifications" class="text-decoration-none text-reset" style="cursor: pointer;"><i class="fas fa-bell"></i><span class="d-lg-none .d-xl-block"> Notifications</span></a></li>
                     <li class="nav-item navbar-brand mr-0 mr-lg-4"><a href="/profile.php" class="text-decoration-none text-reset"><i class="fas fa-user-circle"></i> Admin1</a></li>
                     <li class="nav-item navbar-brand mr-0 mr-lg-4"><a href="/index.php" class="text-decoration-none text-reset"><i class="fas fa-sign-out-alt"></i><span class="d-lg-none .d-xl-block"> Log Out</span></a></li>

@@ -1,16 +1,16 @@
-<label for="search" class="form-label">Search:</label>
+<label for="search" class="form-label text-primary">Search:</label>
 <input type="text" class="form-control w-100" id="search" placeholder="Type Something">
 
 <div class="container-fluid px-0 my-3">
-    <ol class="list-group pr-sm-3 rounded-0" style="overflow-y: scroll; height: 60vh;">
+    <ol class="list-group rounded-0">
         <li class="list-group-item d-flex align-items-center justify-content-start rounded-0 flex-vertical">
             <a class="d-flex align-items-center justify-content-start mb-3 mb-sm-0" href="/auction.php">
                 <img src="https://findicons.com/files/icons/1012/racing_cars/256/ferrari.png" width="36px">
                 <span class="text-primary ml-3">Ferrari Demon</span>
             </a>
             <div class="btn-group ml-sm-auto" role="group" aria-label="User Management Buttons">
-                <button type="button" class="btn btn-danger mr-1">Suspend</button>
-                <button type="button" class="btn btn-primary">Reschedule</button>
+                <button type="button" class="btn btn-danger mr-1" data-bs-toggle="modal" data-bs-target="#suspend" role="button">Suspend</button>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reschedule" role="button" data-bs-toggle="modal" data-bs-target="#reschedule" role="button">Reschedule</button>
             </div>
         </li>
 
@@ -20,8 +20,8 @@
                 <span class="text-primary ml-3">Lambo Spyder</span>
             </a>
             <div class="btn-group ml-sm-auto" role="group" aria-label="User Management Buttons">
-                <button type="button" class="btn btn-danger mr-1">Suspend</button>
-                <button type="button" class="btn btn-primary">Reschedule</button>
+                <button type="button" class="btn btn-danger mr-1" data-bs-toggle="modal" data-bs-target="#suspend" role="button">Suspend</button>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reschedule" role="button" data-bs-toggle="modal" data-bs-target="#reschedule" role="button">Reschedule</button>
             </div>
         </li>
 
@@ -31,8 +31,8 @@
                 <span class="text-primary ml-3">Mazerati MC12</span>
             </a>
             <div class="btn-group ml-sm-auto" role="group" aria-label="User Management Buttons">
-                <button type="button" class="btn btn-danger mr-1">Suspend</button>
-                <button type="button" class="btn btn-primary">Reschedule</button>
+                <button type="button" class="btn btn-danger mr-1" data-bs-toggle="modal" data-bs-target="#suspend" role="button">Suspend</button>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reschedule" role="button" data-bs-toggle="modal" data-bs-target="#reschedule" role="button">Reschedule</button>
             </div>
         </li>
         <li class="list-group-item d-flex align-items-center justify-content-start rounded-0 flex-vertical">
@@ -41,8 +41,8 @@
                 <span class="text-primary ml-3">Ferrari Demon</span>
             </a>
             <div class="btn-group ml-sm-auto" role="group" aria-label="User Management Buttons">
-                <button type="button" class="btn btn-danger mr-1">Suspend</button>
-                <button type="button" class="btn btn-primary">Reschedule</button>
+                <button type="button" class="btn btn-danger mr-1" data-bs-toggle="modal" data-bs-target="#suspend" role="button">Suspend</button>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reschedule" role="button" data-bs-toggle="modal" data-bs-target="#reschedule" role="button">Reschedule</button>
             </div>
         </li>
 
@@ -52,8 +52,8 @@
                 <span class="text-primary ml-3">Lambo Spyder</span>
             </a>
             <div class="btn-group ml-sm-auto" role="group" aria-label="User Management Buttons">
-                <button type="button" class="btn btn-danger mr-1">Suspend</button>
-                <button type="button" class="btn btn-primary">Reschedule</button>
+                <button type="button" class="btn btn-danger mr-1" data-bs-toggle="modal" data-bs-target="#suspend" role="button">Suspend</button>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reschedule" role="button" data-bs-toggle="modal" data-bs-target="#reschedule" role="button">Reschedule</button>
             </div>
         </li>
 
@@ -63,8 +63,8 @@
                 <span class="text-primary ml-3">Mazerati MC12</span>
             </a>
             <div class="btn-group ml-sm-auto" role="group" aria-label="User Management Buttons">
-                <button type="button" class="btn btn-danger mr-1">Suspend</button>
-                <button type="button" class="btn btn-primary">Reschedule</button>
+                <button type="button" class="btn btn-danger mr-1" data-bs-toggle="modal" data-bs-target="#suspend" role="button">Suspend</button>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reschedule" role="button" data-bs-toggle="modal" data-bs-target="#reschedule" role="button">Reschedule</button>
             </div>
         </li>
 
@@ -74,8 +74,8 @@
                 <span class="text-primary ml-3">Ferrari Demon</span>
             </a>
             <div class="btn-group ml-sm-auto" role="group" aria-label="User Management Buttons">
-                <button type="button" class="btn btn-danger mr-1">Suspend</button>
-                <button type="button" class="btn btn-primary">Reschedule</button>
+                <button type="button" class="btn btn-danger mr-1" data-bs-toggle="modal" data-bs-target="#suspend" role="button">Suspend</button>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reschedule" role="button" data-bs-toggle="modal" data-bs-target="#reschedule" role="button">Reschedule</button>
             </div>
         </li>
 
@@ -85,8 +85,8 @@
                 <span class="text-primary ml-3">Lambo Spyder</span>
             </a>
             <div class="btn-group ml-sm-auto" role="group" aria-label="User Management Buttons">
-                <button type="button" class="btn btn-danger mr-1">Suspend</button>
-                <button type="button" class="btn btn-primary">Reschedule</button>
+                <button type="button" class="btn btn-danger mr-1" data-bs-toggle="modal" data-bs-target="#suspend" role="button">Suspend</button>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reschedule" role="button" data-bs-toggle="modal" data-bs-target="#reschedule" role="button">Reschedule</button>
             </div>
         </li>
 
@@ -96,9 +96,45 @@
                 <span class="text-primary ml-3">Mazerati MC12</span>
             </a>
             <div class="btn-group ml-sm-auto" role="group" aria-label="User Management Buttons">
-                <button type="button" class="btn btn-danger mr-1">Suspend</button>
-                <button type="button" class="btn btn-primary">Reschedule</button>
+                <button type="button" class="btn btn-danger mr-1" data-bs-toggle="modal" data-bs-target="#suspend" role="button">Suspend</button>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reschedule" role="button" data-bs-toggle="modal" data-bs-target="#reschedule" role="button">Reschedule</button>
             </div>
         </li>
     </ol>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="suspend" tabindex="-1" aria-labelledby="suspend" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="notifications">Are you sure?</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-primary">
+        <div class="d-flex justify-content-end">
+          <button type="button" class="btn btn-primary mr-2" data-bs-dismiss="modal" aria-label="Dismiss">Dismiss</button>
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal" aria-label="Dismiss" data-bs-toggle="modal" data-bs-target="#suspend" role="button">Suspend</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="reschedule" tabindex="-1" aria-labelledby="reschedule" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="notifications">Are you sure?</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-primary">
+        <div class="d-flex justify-content-end">
+          <button type="button" class="btn btn-primary mr-2" data-bs-dismiss="modal" aria-label="Dismiss">Dismiss</button>
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal" aria-label="Dismiss" data-bs-toggle="modal" data-bs-target="#suspend" role="button" data-bs-toggle="modal" data-bs-target="#reschedule" role="button">Reschedule</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

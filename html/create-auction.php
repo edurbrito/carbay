@@ -3,7 +3,7 @@ include_once(__DIR__ . "/templates/header-logged-in.php");
 breadcrum();
 ?>
 
-<h1 class="text-light text-center">New Auction</h1>
+<h1 class="text-center">New Auction</h1>
 
 <div class="row mt-5">
     <div class="col-12 col-sm-6">
@@ -45,30 +45,33 @@ breadcrum();
         </div>
     </div>
     <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+
         <style scoped>
             button.active {
-                border-bottom: 6px solid white !important;
+                border-bottom: 6px solid black !important;
                 border-radius: 0 !important;
                 font-weight: bold;
+                color: black !important;
+                background-color: white !important;
             }
         </style>
 
-        <ul class="nav nav-pills mb-3 justify-content-center" id="pills-tab" role="tablist">
+        <ul class="nav nav-pills mb-3 justify-content-start" id="pills-tab" role="tablist">
             <li class="nav-item" role="presentation">
-                <button class="nav-link text-light active" id="pills-general-info-tab" data-bs-toggle="pill" data-bs-target="#pills-general-info" type="button" role="tab" aria-controls="pills-general-info" aria-selected="true">General Info</button>
+                <button class="nav-link active" id="pills-general-info-tab" data-bs-toggle="pill" data-bs-target="#pills-general-info" type="button" role="tab" aria-controls="pills-general-info" aria-selected="true">General Info</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link text-light" id="pills-description-tab" data-bs-toggle="pill" data-bs-target="#pills-description" type="button" role="tab" aria-controls="pills-description" aria-selected="false">Description</button>
+                <button class="nav-link" id="pills-description-tab" data-bs-toggle="pill" data-bs-target="#pills-description" type="button" role="tab" aria-controls="pills-description" aria-selected="false">Description</button>
             </li>
         </ul>
-        <div class="tab-content" id="pills-tabContent">
+        <form class="tab-content text-primary d-flex flex-column" id="pills-tabContent">
             <div class="tab-pane show active" id="pills-general-info" role="tabpanel" aria-labelledby="pills-general-info-tab">
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text rounded-0" id="inputGroup-sizing-default">Title</span>
                     </div>
-                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="Car Model A">
+                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="Car Model A" required>
                 </div>
                 <div class="row">
                     <div class="col-12 col-sm-6">
@@ -76,7 +79,7 @@ breadcrum();
                             <div class="input-group-prepend rounded-0">
                                 <span class="input-group-text rounded-0" id="start-bid">Starting Bid</span>
                             </div>
-                            <input type="number" min="0.01" max="100000" class="form-control" aria-label="Small" aria-describedby="start-bid">
+                            <input type="number" min="0.01" max="100000" class="form-control" aria-label="Small" aria-describedby="start-bid" value="0.01" required>
                             <div class="input-group-append rounded-0">
                                 <span class="input-group-text rounded-0">€</span>
                             </div>
@@ -87,12 +90,12 @@ breadcrum();
                             <div class="input-group-prepend rounded-0">
                                 <span class="input-group-text rounded-0" id="start-date">Starting Date</span>
                             </div>
-                            <input type="date" class="form-control rounded-0" aria-label="Small" aria-describedby="start-date" width="fit-content">
+                            <input type="date" class="form-control rounded-0" aria-label="Small" aria-describedby="start-date" width="fit-content" value="09/03/2021" required>
                         </div>
                     </div>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="buy-now" checked>
+                    <input class="form-check-input" type="checkbox" id="buy-now">
                     <label class="form-check-label" for="buy-now">
                         Buy Now option
                     </label>
@@ -112,7 +115,7 @@ breadcrum();
                             <div class="input-group-prepend">
                                 <span class="input-group-text rounded-0" id="duration">Duration</span>
                             </div>
-                            <input type="number" min="1" max="15" class="form-control" aria-label="Small" aria-describedby="duration">
+                            <input type="number" min="1" max="15" class="form-control" aria-label="Small" aria-describedby="duration" value="1" required>
                             <div class="input-group-prepend">
                                 <span class="input-group-text rounded-0" id="inputGroup-sizing-sm">Days</span>
                             </div>
@@ -122,19 +125,19 @@ breadcrum();
             </div>
             <div class="tab-pane" id="pills-description" role="tabpanel" aria-labelledby="pills-description-tab">
 
-                <select class="form-select rounded-0" aria-label="Default select example">
+                <select class="form-select rounded-0" aria-label="color" required>
                     <option selected>Color:</option>
                     <option value="1">Yellow</option>
                     <option value="2">Red</option>
                     <option value="3">Green</option>
                 </select>
-                <select class="form-select mt-2 rounded-0" aria-label="Default select example">
+                <select class="form-select mt-2 rounded-0" aria-label="brand" required>
                     <option selected>Brand:</option>
                     <option value="1">Ferrari</option>
                     <option value="2">Lamborghini</option>
                     <option value="3">Citroen</option>
                 </select>
-                <select class="form-select mt-2 rounded-0" aria-label="Default select example">
+                <select class="form-select mt-2 rounded-0" aria-label="scale" required>
                     <option selected>Scale:</option>
                     <option value="1">1:18</option>
                     <option value="2">1:64</option>
@@ -142,14 +145,14 @@ breadcrum();
                 </select>
 
                 <div class="form-group mt-3">
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Write here the product description..."></textarea>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Write here the product description..." required></textarea>
                 </div>
             </div>
-            <div class="btn-group ml-sm-auto float-right" role="group" aria-label="Create Auction Buttons">
+            <div class="btn-group ml-auto mt-auto" role="group" aria-label="Create Auction Buttons">
                 <button type="button" class="btn btn-dark mr-1">Discard</button>
-                <button type="button" class="btn btn-success">Publish</button>
+                <button type="submit" class="btn btn-success">Publish</button>
             </div>
-        </div>
+        </form>
     </div>
 </div>
 
