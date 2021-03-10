@@ -64,7 +64,7 @@ breadcrum();
                 <button class="nav-link" id="pills-description-tab" data-bs-toggle="pill" data-bs-target="#pills-description" type="button" role="tab" aria-controls="pills-description" aria-selected="false">Description</button>
             </li>
         </ul>
-        <form class="tab-content text-primary d-flex flex-column" id="pills-tabContent">
+        <form class="tab-content text-primary d-flex flex-column" id="pills-tabContent" action="/auction.php">
             <div class="tab-pane show active" id="pills-general-info" role="tabpanel" aria-labelledby="pills-general-info-tab">
 
                 <div class="input-group mb-3">

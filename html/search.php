@@ -3,7 +3,7 @@ include_once(__DIR__ . "/templates/header-logged-in.php");
 breadcrum();
 ?>
 
-<form class="row align-items-end">
+<form class="row align-items-end" action="/search.php">
     <div class="col-12 col-sm-10">
         <label for="search" class="form-label text-primary">Search</label>
         <input type="text" class="form-control" id="search" placeholder="Type Something">
@@ -16,7 +16,7 @@ breadcrum();
     <div class="col-md-auto">
         <h6 class="w-100 text-center p-4 d-none d-lg-block">Advanced Search</h6>
         <button class="btn btn-dark w-100 text-center p-4 d-lg-none .d-xl-block" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="true" aria-controls="collapseExample">Advanced Search</button>
-        <form class="collapse hide d-md-block mt-4" id="collapseExample">
+        <form class="collapse hide d-md-block mt-4" id="collapseExample" action="/search.php">
             <label for="sort-by" class="form-label text-primary">Sort By</label>
             <select class="form-select rounded-0" id="sort-by" aria-label="Search By">
                 <option selected>Time Remaining</option>

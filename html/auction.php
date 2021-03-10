@@ -197,7 +197,7 @@ breadcrum();
       </li>
     </ol>
     <div class="d-flex bg-white align-content-center mt-1">
-      <form class="w-100">
+      <form class="w-100" action="/auction.php">
         <label for="send-question" class="form-label text-primary">Message:</label>
         <textarea class="form-control" id="send-question" rows="1" required=""></textarea>
         <button type="submit" class="btn btn-primary mt-3 float-right">Send</button>

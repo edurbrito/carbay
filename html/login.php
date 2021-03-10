@@ -16,7 +16,7 @@ breadcrum();
             }
         }
     </style>
-    <form class="d-flex justify-content-center flex-column w-100 responsive-form m-auto">
+    <form class="d-flex justify-content-center flex-column w-100 responsive-form m-auto" action="/search.php">
         <div class="input-group mb-3 rounded-0">
             <div class="input-group-append rounded-0">
                 <span class="input-group-text rounded-0"><i class="fas fa-at"></i></span>

@@ -55,7 +55,7 @@ breadcrum();
     </div>
 </div>
 
-<form>
+<form action="/help.php">
     <label for="send-question" class="form-label text-primary">Message:</label>
     <textarea class="form-control" id="send-question" rows="3" required></textarea>
     <button type="submit" class="btn btn-success mt-3 float-right">Send</button>

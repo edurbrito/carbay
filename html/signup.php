@@ -16,7 +16,7 @@ breadcrum();
             }
         }
     </style>
-    <form class="d-flex justify-content-center flex-column w-100 responsive-form m-auto">
+    <form class="d-flex justify-content-center flex-column w-100 responsive-form m-auto" action="/search.php">
 
 
         <div class="input-group mb-3">
