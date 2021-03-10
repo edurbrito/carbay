@@ -5,17 +5,6 @@ breadcrum();
 <h1 class="text-center mb-5">Log In</h1>
 
 <div class="container">
-    <style scoped>
-        @media (min-width: 567px) {
-            .responsive-form {
-                width: 40% !important;
-            }
-
-            .responsive-form button {
-                width: 40% !important;
-            }
-        }
-    </style>
     <form class="d-flex justify-content-center flex-column w-100 responsive-form m-auto" action="/search.php">
         <div class="input-group mb-3 rounded-0">
             <div class="input-group-append rounded-0">

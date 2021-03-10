@@ -1,11 +1,4 @@
 </div>
-<style scoped>
-    @media (max-width: 567px){
-        .fixed-bottom{
-            position: relative !important;
-        }
-    }
-</style>
 <nav class="navbar navbar-primary bg-primary border-top border-dark fixed-bottom">
     <div class="container-fluid d-flex justify-content-center">
         <a class="navbar-brand text-light mr-4 ml-0" href="/about.php">About Us</a>

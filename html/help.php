@@ -4,20 +4,6 @@ breadcrum();
 ?>
 <h1 class="text-center">Your Questions</h1>
 <div class="d-flex my-5 flex-shrink-1 flex-column hide-scroll" style="max-height: 35vh; overflow-y: auto; padding: 1rem;">
-<style scoped>
-
-@media (max-width: 600px) {
-    .limited-width {
-       max-width: 85%;
-    }
-}
-
-@media (min-width: 600px) {
-    .limited-width {
-       max-width: 65%;
-    }
-}
-</style>
     <div class="card rounded-0 w-auto align-self-start my-3 limited-width">
         <div class="card-body">
             <blockquote class="blockquote mb-0 text-primary">

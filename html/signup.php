@@ -5,17 +5,6 @@ breadcrum();
 <h1 class="text-center text-primary mb-5">Sign Up</h1>
 
 <div class="container">
-    <style scoped>
-        @media (min-width: 567px) {
-            .responsive-form {
-                width: 40% !important;
-            }
-
-            .responsive-form button {
-                width: 40% !important;
-            }
-        }
-    </style>
     <form class="d-flex justify-content-center flex-column w-100 responsive-form m-auto" action="/search.php">
 
 

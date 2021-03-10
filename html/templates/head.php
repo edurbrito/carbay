@@ -34,31 +34,7 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/all.css" rel="stylesheet">
     <script src="/js/all.min.js" defer></script>
     <title>CarBay</title>
-
-    <style>
-        @media (min-width: 567px) {
-            .fixed-footer {
-                margin-bottom: 8rem !important;
-            }
-        }
-
-        /* Hide scrollbar for Chrome, Safari and Opera */
-        .hide-scroll::-webkit-scrollbar {
-            display: none;
-        }
-
-        /* Hide scrollbar for IE, Edge and Firefox */
-        .hide-scroll {
-            -ms-overflow-style: none;
-            /* IE and Edge */
-            scrollbar-width: none;
-            /* Firefox */
-        }
-
-        body {
-            border: 0 !important;
-        }
-    </style>
 </head>

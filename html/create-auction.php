@@ -45,23 +45,12 @@ breadcrum();
         </div>
     </div>
     <div class="col-12 col-sm-6 mt-4 mt-sm-0">
-
-        <style scoped>
-            button.active {
-                border-bottom: 6px solid black !important;
-                border-radius: 0 !important;
-                font-weight: bold;
-                color: black !important;
-                background-color: white !important;
-            }
-        </style>
-
         <ul class="nav nav-pills mb-3 justify-content-start" id="pills-tab" role="tablist">
             <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="pills-general-info-tab" data-bs-toggle="pill" data-bs-target="#pills-general-info" type="button" role="tab" aria-controls="pills-general-info" aria-selected="true">General Info</button>
+                <button class="nav-link active btn-auction" id="pills-general-info-tab" data-bs-toggle="pill" data-bs-target="#pills-general-info" type="button" role="tab" aria-controls="pills-general-info" aria-selected="true">General Info</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="pills-description-tab" data-bs-toggle="pill" data-bs-target="#pills-description" type="button" role="tab" aria-controls="pills-description" aria-selected="false">Description</button>
+                <button class="nav-link btn-auction" id="pills-description-tab" data-bs-toggle="pill" data-bs-target="#pills-description" type="button" role="tab" aria-controls="pills-description" aria-selected="false">Description</button>
             </li>
         </ul>
         <form class="tab-content text-primary d-flex flex-column" id="pills-tabContent" action="/auction.php">

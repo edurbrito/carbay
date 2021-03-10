@@ -91,10 +91,7 @@ include_once(__DIR__ . "/templates/head.php");
     </div>
   </div>
 
-
-
-
-  <div class="fixed-bottom">
+  <div class="force-fixed-bottom">
     <div class="d-flex flex-column justify-content-center p-5" style="background: linear-gradient(transparent, black);">
       <h1 class="text-light text-center mb-2" style="font-size: 2.5rem;">START BIDDING NOW</h1>
       <h5 class="text-light text-center mb-3">We have all you need to complete your car collections</h5>

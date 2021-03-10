@@ -77,21 +77,11 @@ breadcrum();
 </div>
 
 <ul class="nav nav-pills my-3" id="pills-tab" role="tablist">
-
-  <style scoped>
-    button.active {
-      border-bottom: 6px solid black !important;
-      border-radius: 0 !important;
-      font-weight: bold;
-      color: black !important;
-      background-color: white !important;
-    }
-  </style>
   <li class="nav-item mr-0" role="presentation">
-    <button class="nav-link active" id="pills-chat-tab" data-bs-toggle="pill" data-bs-target="#pills-chat" type="button" role="tab" aria-controls="pills-chat" aria-selected="false">Chat</button>
+    <button class="nav-link active btn-auction" id="pills-chat-tab" data-bs-toggle="pill" data-bs-target="#pills-chat" type="button" role="tab" aria-controls="pills-chat" aria-selected="false">Chat</button>
   </li>
   <li class="nav-item mr-0" role="presentation">
-    <button class="nav-link" id="pills-bid-history-tab" data-bs-toggle="pill" data-bs-target="#pills-bid-history" type="button" role="tab" aria-controls="pills-bid-history" aria-selected="true">Bid History</button>
+    <button class="nav-link btn-auction" id="pills-bid-history-tab" data-bs-toggle="pill" data-bs-target="#pills-bid-history" type="button" role="tab" aria-controls="pills-bid-history" aria-selected="true">Bid History</button>
   </li>
 </ul>
 <div class="tab-content" id="pills-tabContent">
@@ -99,27 +89,27 @@ breadcrum();
     <ol class="list-group rounded-0 hide-scroll" style="overflow-y: scroll; max-height: 40vh;">
       <li class="list-group-item d-flex align-items-center justify-content-start rounded-0 flex-vertical">
         <p class="text-primary fs-6 mb-0">27-03-2020 17:30</p>
-        <p class="text-primary fs-5 mb-0 ml-auto">135€</p>
+        <p class="text-primary fs-5 mb-0 ml-sm-auto">135€</p>
       </li>
 
       <li class="list-group-item d-flex align-items-center justify-content-start rounded-0 flex-vertical">
         <p class="text-primary fs-6 mb-0">27-03-2020 17:22</p>
-        <p class="text-primary fs-5 mb-0 ml-auto">127€</p>
+        <p class="text-primary fs-5 mb-0 ml-sm-auto">127€</p>
       </li>
 
       <li class="list-group-item d-flex align-items-center justify-content-start rounded-0 flex-vertical">
         <p class="text-primary fs-6 mb-0">27-03-2020 12:10</p>
-        <p class="text-primary fs-5 mb-0 ml-auto">105€</p>
+        <p class="text-primary fs-5 mb-0 ml-sm-auto">105€</p>
       </li>
 
       <li class="list-group-item d-flex align-items-center justify-content-start rounded-0 flex-vertical">
         <p class="text-primary fs-6 mb-0">26-03-2020 23:54</p>
-        <p class="text-primary fs-5 mb-0 ml-auto">69€</p>
+        <p class="text-primary fs-5 mb-0 ml-sm-auto">69€</p>
       </li>
 
       <li class="list-group-item d-flex align-items-center justify-content-start rounded-0 flex-vertical">
         <p class="text-primary fs-6 mb-0">26-03-2020 23:12</p>
-        <p class="text-primary fs-5 mb-0 ml-auto">33€</p>
+        <p class="text-primary fs-5 mb-0 ml-sm-auto">33€</p>
       </li>
     </ol>
   </div>
