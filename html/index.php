@@ -33,7 +33,7 @@ include_once(__DIR__ . "/templates/head.php");
     </div>
   </nav>
 
-  <div id="carousel" class="carousel slide p-5" style="width: fit-content !important;" data-bs-ride="carousel" data-bs-interval="5000">
+  <div id="carousel" class="carousel slide p-3 p-sm-5" style="width: fit-content !important;" data-bs-ride="carousel" data-bs-interval="5000">
 
   <h4 class="text-light">Featured Auctions</h4>
     <div class="carousel-inner">
@@ -92,9 +92,9 @@ include_once(__DIR__ . "/templates/head.php");
   </div>
 
   <div class="force-fixed-bottom">
-    <div class="d-flex flex-column justify-content-center p-5" style="background: linear-gradient(transparent, black);">
-      <h1 class="text-light text-center mb-2" style="font-size: 2.5rem;">START BIDDING NOW</h1>
-      <h5 class="text-light text-center mb-3">We have all you need to complete your car collections</h5>
+    <div class="d-flex flex-column justify-content-center p-3 p-sm-5" style="background: linear-gradient(transparent, black);">
+      <h1 class="text-light text-center mb-2 title-font-size">START BIDDING NOW</h1>
+      <h5 class="text-light text-center mb-3 subtitle-font-size">We have all you need to complete your car collections</h5>
       <a class="btn btn-dark mx-auto" style="width: fit-content;" href="/search.php">View All Auctions</a>
     </div>
     <nav class="navbar navbar-primary border-top border-dark" style="background-color: #000;">

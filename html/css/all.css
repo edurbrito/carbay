@@ -1,9 +1,9 @@
 button.btn-admin.active,
 button.btn-profile.active {
-  border-left: 6px solid black !important;
   background-color: white !important;
   border-radius: 0 !important;
   font-weight: bold;
+  box-shadow: -6px 0px 0px 0px black;
 }
 
 button.btn-auction.active {
