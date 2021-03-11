@@ -93,6 +93,7 @@ body {
   button.btn-profile.active {
     border-left: 0 !important;
     border-bottom: 6px solid black !important;
+    box-shadow: 0px 0px 0px 0px black;
     background-color: white !important;
     border-radius: 0 !important;
     font-weight: bold;
