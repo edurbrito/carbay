@@ -7,7 +7,7 @@ include_once(__DIR__ . "/templates/header.php");
 <h2 class="text-light">ERROR #404 - Page not found</h2>
 <h4 class="text-light">Did your brakes stop working?</h4>
 
-<div class="fixed-bottom">
+<div class="force-fixed-bottom">
     <div class="d-flex flex-column justify-content-center p-5" style="background: linear-gradient(transparent, black);">
       <a class="btn btn-dark mx-auto" style="width: fit-content;" href="/search.php">Go Back to Search</a>
     </div>

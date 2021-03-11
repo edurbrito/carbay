@@ -146,5 +146,5 @@ breadcrum();
 </div>
 
 <?php
-include_once(__DIR__ . "/templates/footer.php");
+include_once(__DIR__ . "/templates/footer-logged-in.php");
 ?>
