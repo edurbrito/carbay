@@ -39,8 +39,8 @@ breadcrum();
         </div>
         <div class="input-group mb-3 mt-3">
             <div class="custom-file">
-                <input type="file" class="custom-file-input" id="images" value="Upload Image">
-                <label class="custom-file-label" for="images">Upload Image</label>
+                <input type="file" class="custom-file-input" id="images" value="Upload Image" style="cursor: pointer;">
+                <label class="custom-file-label" for="images" style="cursor: pointer;">Upload Image</label>
             </div>
         </div>
     </div>

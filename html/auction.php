@@ -47,11 +47,11 @@ breadcrum();
       2d 7h 59m 22s
     </p>
     <p class="fs-4">
-      <i class="fas fa-money-bill-wave-alt"></i>
+      <i class="far fa-money-bill-alt"></i>
       Last Bid: 135€
     </p>
     <p class="fs-4 mt-4">
-      <i class="fas fa-wallet"></i>
+      <i class="far fa-credit-card"></i>
       Buy Now: 2000€
     </p>
     <p>
