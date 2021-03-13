@@ -37,7 +37,7 @@ breadcrum();
               <div class="input-group-append">
                 <span class="input-group-text rounded-0"><i class="fas fa-at"></i></span>
               </div>
-              <input type="email" name="" class="form-control" value="johnmamandoe@thebest.com" placeholder="Email" required>
+              <input type="email" name="" class="form-control" value="johndoe@fe.up.pt" placeholder="Email" required>
             </div>
             <div class="input-group mb-3">
               <div class="input-group-append">
