@@ -5,7 +5,7 @@ include_once(__DIR__ . "/templates/head.php");
 <body class="bg-primary" style="height: 100vh; background-image: url(/images/cover.png); background-repeat: no-repeat; background-size: cover; background-position: center; background-image: linear-gradient(to bottom, rgba(0,0,0,0.45) 0%,rgba(0,0,0,0.45) 100%), url(/images/cover.png);">
   <nav class="navbar navbar-expand-lg navbar-primary bg-primary text-light border-bottom border-dark" style="background-color:rgba(0, 0, 0, 0.8) !important;">
     <div class="container-fluid">
-      <a class="navbar-brand text-light" href="/">
+      <a class="navbar-brand text-light scale-objects-xs" href="/">
         <img src="/images/icon.png" style="max-height: 36px;">
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
@@ -15,7 +15,7 @@ include_once(__DIR__ . "/templates/head.php");
       </button>
       <div class="collapse navbar-collapse" id="navbarToggler">
         <ul class="navbar-nav d-flex justify-content-end align-items-center w-100">
-          <li class="nav-item mr-0 mr-lg-4 navbar-brand ">
+          <li class="nav-item mr-0 mr-lg-4 navbar-brand scale-objects">
             <a href="/search.php" class="text-decoration-none text-reset"><i class="fas fa-search"></i><span class="d-lg-none .d-xl-block"> Search</span></a>
           </li>
           <li class="nav-item navbar-brand mr-0 mr-lg-4">
@@ -38,7 +38,7 @@ include_once(__DIR__ . "/templates/head.php");
   <h4 class="text-light">Featured Auctions</h4>
     <div class="carousel-inner">
       <div class="carousel-item active">
-        <a class="border-left p-3 d-flex flex-column text-decoration-none" href="/auction.php">
+        <a class="border-left p-3 d-flex flex-column text-decoration-none scale-objects-sm" href="/auction.php">
           <h5 class="text-light">Ferrari 458 Italia</h5>
           <div class="text-light">
             <i class="far fa-clock"></i>
@@ -55,7 +55,7 @@ include_once(__DIR__ . "/templates/head.php");
         </a>
       </div>
       <div class="carousel-item">
-        <a class="border-left p-3 d-flex flex-column text-decoration-none" href="/auction.php">
+        <a class="border-left p-3 d-flex flex-column text-decoration-none scale-objects-sm" href="/auction.php">
           <h5 class="text-light">Citroen do Paulo</h5>
           <div class="text-light">
             <i class="far fa-clock"></i>
@@ -72,7 +72,7 @@ include_once(__DIR__ . "/templates/head.php");
         </a>
       </div>
       <div class="carousel-item">
-        <a class="border-left p-3 d-flex flex-column text-decoration-none" href="/auction.php">
+        <a class="border-left p-3 d-flex flex-column text-decoration-none scale-objects-sm" href="/auction.php">
           <h5 class="text-light">Lamborghini Tractor</h5>
           <div class="text-light">
             <i class="far fa-clock"></i>

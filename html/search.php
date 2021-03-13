@@ -94,7 +94,7 @@ breadcrum();
     <div class="col container-fluid">
         <h6 class="w-100 text-primary text-center p-4">12 Auctions found</h6>
         <div class="row row-cols-1 row-cols-md-3 g-4">
-            <div class="col">
+            <div class="col scale-objects-xs">
                 <a href="auction.php" class="text-decoration-none">
                     <div class="card h-100 rounded-0">
                         <img src="https://mrcollection.com/wp-content/uploads/2018/07/ferrari-portofino-giallo_01.jpg" class="card-img-top">
@@ -110,7 +110,7 @@ breadcrum();
                     </div>
                 </a>
             </div>
-            <div class="col">
+            <div class="col scale-objects-xs">
                 <a href="auction.php" class="text-decoration-none">
                     <div class="card h-100 rounded-0">
                         <img src="https://mrcollection.com/wp-content/uploads/2016/08/bugatti-chiron-black_01.jpg" class="card-img-top">
@@ -126,7 +126,7 @@ breadcrum();
                     </div>
                 </a>
             </div>
-            <div class="col">
+            <div class="col scale-objects-xs">
                 <a href="auction.php" class="text-decoration-none">
                     <div class="card h-100 rounded-0">
                         <img src="https://mrcollection.com/wp-content/uploads/2020/09/lamborghini-veneno_02-600x400.jpg" class="card-img-top">
@@ -142,7 +142,7 @@ breadcrum();
                     </div>
                 </a>
             </div>
-            <div class="col">
+            <div class="col scale-objects-xs">
                 <a href="auction.php" class="text-decoration-none">
                     <div class="card h-100 rounded-0">
                         <img src="https://mrcollection.com/wp-content/uploads/2017/10/bentley-new-continental-gt-01-768x510.jpg" class="card-img-top">
@@ -158,7 +158,7 @@ breadcrum();
                     </div>
                 </a>
             </div>
-            <div class="col">
+            <div class="col scale-objects-xs">
                 <a href="auction.php" class="text-decoration-none">
                     <div class="card h-100 rounded-0">
                         <img src="https://mrcollection.com/wp-content/uploads/2017/02/pagani-huayra-roadster_01-768x512.jpg" class="card-img-top">
@@ -174,7 +174,7 @@ breadcrum();
                     </div>
                 </a>
             </div>
-            <div class="col">
+            <div class="col scale-objects-xs">
                 <a href="auction.php" class="text-decoration-none">
                     <div class="card h-100 rounded-0">
                         <img src="https://mrcollection.com/wp-content/uploads/2018/01/lamborghini-aventador-s-roadster-white_01.jpg" class="card-img-top">
@@ -190,7 +190,7 @@ breadcrum();
                     </div>
                 </a>
             </div>
-            <div class="col">
+            <div class="col scale-objects-xs">
                 <a href="auction.php" class="text-decoration-none">
                     <div class="card h-100 rounded-0">
                         <img src="https://mrcollection.com/wp-content/uploads/2017/09/ferrari-812-superfast-rosso-scuderia_01.jpg" class="card-img-top">
@@ -206,7 +206,7 @@ breadcrum();
                     </div>
                 </a>
             </div>
-            <div class="col">
+            <div class="col scale-objects-xs">
                 <a href="auction.php" class="text-decoration-none">
                     <div class="card h-100 rounded-0">
                         <img src="https://mrcollection.com/wp-content/uploads/2016/10/ferrari-laferrari-aperta-gray01.jpg" class="card-img-top">
@@ -222,7 +222,7 @@ breadcrum();
                     </div>
                 </a>
             </div>
-            <div class="col">
+            <div class="col scale-objects-xs">
                 <a href="auction.php" class="text-decoration-none">
                     <div class="card h-100 rounded-0">
                         <img src="https://mrcollection.com/wp-content/uploads/2016/06/ferrari-f12tdf-blu_01.jpg" class="card-img-top">
@@ -238,7 +238,7 @@ breadcrum();
                     </div>
                 </a>
             </div>
-            <div class="col">
+            <div class="col scale-objects-xs">
                 <a href="auction.php" class="text-decoration-none">
                     <div class="card h-100 rounded-0">
                         <img src="https://mrcollection.com/wp-content/uploads/2015/11/ferrari_488_spider_scale_1_18_fe017-1.jpg" class="card-img-top">
@@ -254,7 +254,7 @@ breadcrum();
                     </div>
                 </a>
             </div>
-            <div class="col">
+            <div class="col scale-objects-xs">
                 <a href="auction.php" class="text-decoration-none">
                     <div class="card h-100 rounded-0">
                         <img src="https://mrcollection.com/wp-content/uploads/2017/10/bugatti-chiron-zero-400-zero_01-768x512.jpg" class="card-img-top">
@@ -270,7 +270,7 @@ breadcrum();
                     </div>
                 </a>
             </div>
-            <div class="col">
+            <div class="col scale-objects-xs">
                 <a href="auction.php" class="text-decoration-none">
                     <div class="card h-100 rounded-0">
                         <img src="https://mrcollection.com/wp-content/uploads/2018/01/lamborghini-centenario-roadster-black_01.jpg" class="card-img-top">
