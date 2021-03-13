@@ -20,7 +20,7 @@ Specification of the actors, their user stories, and supplementary requirements 
 
 ### 2.1 Actors:
 
-![Figure 1: Actors](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/uploads/abf6f2f795e51c13d0a3d02c50ef41ac/actors.png)
+![Figure 1: Actors](actors.png)
 
 Figure 1: Actors.
 
@@ -171,7 +171,7 @@ As requested by the project enunciate, the user interface of the website was imp
 
 All the website pages will have the following common elements, whose positions are highlighted in the figure:
 
-| ![Figure 2: Interface's guidelines](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/uploads/88037b00bcd427aa372aada76c6db70c/Homepage-Numbers.png) | ![Figure 2: Interface's guidelines](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/uploads/09a0d7010cbcd68364e3b2b23fa9f46a/M-Homepage-Numbers.png) |
+| ![Figure 2: Interface's guidelines](DesktopImages/Homepage-Numbers.png) | ![Figure 2: Interface's guidelines](MobileImages/M-Homepage-Numbers.png) |
 |----|----|
 
 Figure 2: Interface's guidelines
@@ -195,34 +195,34 @@ Some common characteristics between all the pages are:
 
 ### 3.2 Sitemap
 
-![Figure 3: Sitemap](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/uploads/710bf0a05931453d2c3a8506af6720be/image.png)
+![Figure 3: Sitemap](wireflows/sitemap.png)
 
 Figure 3: Sitemap.
 
 
 ### 3.3 Wireflows
 
-![Figure 4: Wireflow centered on the visitor's options.](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/uploads/a432d66025889877088ff7c9fa653d86/image.png)
+![Figure 4: Wireflow centered on the visitor's options.](wireflows/w2.png)
 
 Figure 4: Wireflow centered on the visitor's options.
 
-![Figure 5: Wireflow for the login and sign up interactions.](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/uploads/744f5a0bfa48b70e31ce68076674da83/lbaw2155.png)
+![Figure 5: Wireflow for the login and sign up interactions.](wireflows/w3.png)
 
 Figure 5: Wireflow for the log-in and sign-up interactions.
 
-![Figure 6: Wireflow centered on the admin's options.](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/uploads/53d0075defd437bcf29750dff6341a0d/image.png)
+![Figure 6: Wireflow centered on the admin's options.](wireflows/w4.png)
 
 Figure 6: Wireflow centered on the admin's options.
 
-![Figure 7: Wireflow centered on the registered user's options.](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/uploads/3ee4b058a16d79e67a3ee7ea3651632b/image.png)
+![Figure 7: Wireflow centered on the registered user's options.](wireflows/w5.png)
 
 Figure 7: Wireflow centered on the registered user's options.
 
-![Figure 8: Wireflow centered on the user's profile options.](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/uploads/c736eabbd596ccbb1a1fb8e5aaed6ca1/lbaw2155__2_.png)
+![Figure 8: Wireflow centered on the user's profile options.](wireflows/w6.png)
 
 Figure 8: Wireflow centered on the user's profile options.
 
-![Figure 9: Wireflow centered on the end of an auction.](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/uploads/bdd4c9e0ac42373e14f9a689c4d9c47b/image.png)
+![Figure 9: Wireflow centered on the end of an auction.](wireflows/w7.png)
 
 Figure 9: Wireflow centered on the end of an auction.
 
@@ -261,168 +261,168 @@ The following interfaces represent our platform's look and available features.
  
 #### UI01: Homepage
 
-| ![Homepage](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/uploads/fd0d734e1d4c8bb81b7573be38e8b5b3/Homepage.png) | ![Homepage](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/uploads/ae3175f62ce8fbd2d5c1bfbebf1daf4f/M-Homepage.png) |
+| ![Homepage](DesktopImages/Homepage.png) | ![Homepage](MobileImages/M-Homepage.png) |
 |----|----|
 
 Figure 10: [Homepage](http://lbaw2155-piu.lbaw-prod.fe.up.pt/)
 
 #### UI02: About Us
 
-| ![AboutUs](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/uploads/d14333dad5e2c39699dc1605d90598c7/About.png) | ![AboutUs](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/uploads/d1930655f0630c496fe68e7f1590ee82/M-About.png) |
+| ![AboutUs](DesktopImages/About.png) | ![AboutUs](MobileImages/M-About.png) |
 |----|----|
 
 Figure 11: [About Us](http://lbaw2155-piu.lbaw-prod.fe.up.pt/about.php)
 
 #### UI03: Faqs
 
-| ![Faqs](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/uploads/8062f69c922cdbcdd3cf77d86628fb71/Faqs.png) | ![Faqs](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/uploads/b01df811444f5c91fd76253ba89a9ff8/M-Faqs.png) |
+| ![Faqs](DesktopImages/Faqs.png) | ![Faqs](MobileImages/M-Faqs.png) |
 |----|----|
 
 Figure 12: [Faqs](http://lbaw2155-piu.lbaw-prod.fe.up.pt/faqs.php)
 
 #### UI04: Help
 
-| ![Help](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/uploads/8baed7099b6c2822791e6e8b0dc36f23/Help.png) | ![Help](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/uploads/e7ca5d3412e99252651f65716e8a89f9/M-Help.png) |
+| ![Help](DesktopImages/Help.png) | ![Help](MobileImages/M-Help.png) |
 |----|----|
 
 Figure 13: [Help](http://lbaw2155-piu.lbaw-prod.fe.up.pt/help.php)
 
 #### UI05: Log In
 
-| ![Login](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/uploads/e40834232de80777553d9541e2fcecc5/Login.png) | ![Login](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/uploads/2c436b5fc57d7e05f702122ccfcbc18c/M-Login.png) |
+| ![Login](DesktopImages/Login.png) | ![Login](MobileImages/M-Login.png) |
 |----|----|
 
 Figure 14: [Log In](http://lbaw2155-piu.lbaw-prod.fe.up.pt/login.php)
 
 #### UI06: Sign Up
 
-| ![SignUp](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/uploads/3c9f153060d96036250fc7e2383f9d62/SignUp.png) | ![SignUp](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/uploads/de6824b5c74199f1a320f90bccd7e644/M-SignUp.png) |
+| ![SignUp](DesktopImages/SignUp.png) | ![SignUp](MobileImages/M-SignUp.png) |
 |----|----|
 
 Figure 15: [Sign Up](http://lbaw2155-piu.lbaw-prod.fe.up.pt/signup.php)
 
 #### UI07: Search
 
-| ![Search](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/uploads/8adda43fdc38b41fb282119955b801c2/Search.png) | ![Search](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/uploads/8db835a8604eaf51e590282bf7400d19/M-Search.png) |
+| ![Search](DesktopImages/Search.png) | ![Search](MobileImages/M-Search.png) |
 |----|----|
 
 Figure 16: [Search](http://lbaw2155-piu.lbaw-prod.fe.up.pt/search.php)
 
 #### UI08: Auction Page - Chat
 
-| ![Auction-Chat](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/uploads/6f217a5ba8719de78acbf74519cd5789/Auction-Chat.png) | ![Auction-Chat](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/uploads/8279a78d19d4cf132d519429bef608e1/M-Auction-Chat.png) |
+| ![Auction-Chat](DesktopImages/Auction-Chat.png) | ![Auction-Chat](MobileImages/M-Auction-Chat.png) |
 |----|----|
 
 Figure 17: [Auction](http://lbaw2155-piu.lbaw-prod.fe.up.pt/auction.php)
 
 #### UI09: Auction Page - Bid History
 
-| ![Auction-BidHistory](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/uploads/3e6c0a5d55365ee4dcdfbff4bb8b38f2/Auction-BidHistory.png) | ![Auction-BidHistory](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/uploads/f9924e04e10da8173944f40acceebd06/M-Auction-BidHistory.png) |
+| ![Auction-BidHistory](DesktopImages/Auction-BidHistory.png) | ![Auction-BidHistory](MobileImages/M-Auction-BidHistory.png) |
 |----|----|
 
 Figure 18: [Auction](http://lbaw2155-piu.lbaw-prod.fe.up.pt/auction.php)
 
 #### UI10: Create Auction - General Info
 
-| ![CreateAuction-GeneralInfo](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/uploads/e6d74449be96128ae46504bb052f5080/CreateAuction-GeneralInfo.png) | ![CreateAuction-GeneralInfo](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/uploads/07e852e682c41c876230d7add4badf61/M-CreateAuction-GeneralInfo.png) |
+| ![CreateAuction-GeneralInfo](DesktopImages/CreateAuction-GeneralInfo.png) | ![CreateAuction-GeneralInfo](MobileImages/M-CreateAuction-GeneralInfo.png) |
 |----|----|
 
 Figure 19: [Create Auction](http://lbaw2155-piu.lbaw-prod.fe.up.pt/create-auction.php)
 
 #### UI11: Create Auction - Description
 
-| ![CreateAuction-Description](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/uploads/e535daf76aff43599f13537a92834301/CreateAuction-Description.png) | ![CreateAuction-Description](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/uploads/33ec389631d694c6c15f3b9e9e939d45/M-CreateAuction-Description.png) |
+| ![CreateAuction-Description](DesktopImages/CreateAuction-Description.png) | ![CreateAuction-Description](MobileImages/M-CreateAuction-Description.png) |
 |----|----|
 
 Figure 20: [Create Auction](http://lbaw2155-piu.lbaw-prod.fe.up.pt/create-auction.php)
 
 #### UI12: Profile
 
-| ![Profile](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/uploads/435b7c813fcf832cc8e824016eb0612d/Profile.png) | ![Profile](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/uploads/df6e652012487379968a4583e777b00d/M-Profile.png) |
+| ![Profile](DesktopImages/Profile.png) | ![Profile](MobileImages/M-Profile.png) |
 |----|----|
 
 Figure 21: [Profile](http://lbaw2155-piu.lbaw-prod.fe.up.pt/profile.php)
 
 #### UI13: Edit Profile
 
-| ![EditProfile](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/uploads/c102735e183b95539e61772e9bd52641/EditProfile.png) | ![EditProfile](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/uploads/96c2210736c3798cbe330307e9d8df93/M-EditProfile.png) |
+| ![EditProfile](DesktopImages/EditProfile.png) | ![EditProfile](MobileImages/M-EditProfile.png) |
 |----|----|
 
 Figure 22: [Edit Profile](http://lbaw2155-piu.lbaw-prod.fe.up.pt/edit-profile.php)
 
 #### UI14: Profile - Bid History
 
-| ![Profile-BidHistory](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/uploads/456d7d2492f919c200366fa5634b8ffe/Profile-BidHistory.png) | ![Profile-BidHistory](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/uploads/1a405c56fd1b89df5b68d6db1b0461ae/M-Profile-BidHistory.png) |
+| ![Profile-BidHistory](DesktopImages/Profile-BidHistory.png) | ![Profile-BidHistory](MobileImages/M-Profile-BidHistory.png) |
 |----|----|
 
 Figure 23: [Profile](http://lbaw2155-piu.lbaw-prod.fe.up.pt/profile.php)
 
 #### UI15: Profile - Auctions Created
 
-| ![Profile-AuctionsCreated](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/uploads/e9b7e096d4bd754b40e6226ba6b0b203/Profile-AuctionsCreated.png) | ![Profile-AuctionsCreated](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/uploads/850a0c38845c913877574513366f1ca6/M-Profile-AuctionsCreated.png) |
+| ![Profile-AuctionsCreated](DesktopImages/Profile-AuctionsCreated.png) | ![Profile-AuctionsCreated](MobileImages/M-Profile-AuctionsCreated.png) |
 |----|----|
 
 Figure 24: [Profile](http://lbaw2155-piu.lbaw-prod.fe.up.pt/profile.php)
 
 #### UI16: Profile - Favourite Auctions
 
-| ![Profile-FavouriteAuctions](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/uploads/a640d2f5b95cef8c6b63f0c4e459e4ef/Profile-FavouriteAuctions.png) | ![Profile-FavoriteAuctions](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/uploads/1e3e49241c065f0c8316de6b6f36ae48/M-Profile-FavoriteAuctions.png) |
+| ![Profile-FavouriteAuctions](DesktopImages/Profile-FavouriteAuctions.png) | ![Profile-FavoriteAuctions](MobileImages/M-Profile-FavoriteAuctions.png) |
 |----|----|
 
 Figure 25: [Profile](http://lbaw2155-piu.lbaw-prod.fe.up.pt/profile.php)
 
 #### UI17: Profile - Favourite Sellers
 
-| ![Profile-FavouriteSellers](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/uploads/968d13019192ea2e16e38b786eaf1f4c/Profile-FavouriteSellers.png) | ![M-Profile-FavoriteSellers](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/uploads/bee61a3920bf495ea9352a6d7f0711b0/M-Profile-FavoriteSellers.png) |
+| ![Profile-FavouriteSellers](DesktopImages/Profile-FavouriteSellers.png) | ![M-Profile-FavoriteSellers](MobileImages/M-Profile-FavoriteSellers.png) |
 |----|----|
 
 Figure 26: [Profile](http://lbaw2155-piu.lbaw-prod.fe.up.pt/profile.php)
 
 #### UI18: Profile - Users Ratings
 
-| ![Profile-UserRatings](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/uploads/7f307e7daca9cd72ae2c559c52633ed6/Profile-UserRatings.png) | ![M-Profile-UserRatings](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/uploads/e043dbc84331550aa8965126310c7cfa/M-Profile-UserRatings.png) |
+| ![Profile-UserRatings](DesktopImages/Profile-UserRatings.png) | ![M-Profile-UserRatings](MobileImages/M-Profile-UserRatings.png) |
 |----|----|
 
 Figure 27: [Profile](http://lbaw2155-piu.lbaw-prod.fe.up.pt/profile.php)
 
 #### UI19: Profile - Users Rated
 
-| ![Profile-UsersRated](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/uploads/d8f23875e178d8263797e79c82b90675/Profile-UsersRated.png) | ![Profile-UsersRated](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/uploads/fb89513fc401b83c95009bdbe6c4686a/M-Profile-UsersRated.png) |
+| ![Profile-UsersRated](DesktopImages/Profile-UsersRated.png) | ![Profile-UsersRated](MobileImages/M-Profile-UsersRated.png) |
 |----|----|
 
 Figure 28: [Profile](http://lbaw2155-piu.lbaw-prod.fe.up.pt/profile.php)
 
 #### UI20: Admin Panel - Users Management
 
-| ![Admin-UsersManagement](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/uploads/a8d117df170edfc1978384c5e904cf22/Admin-UsersManagement.png) | ![Admin-UsersManagement](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/uploads/ddb8a15832c188cee8ba20c0ffef4dce/M-Admin-UsersManagement.png) |
+| ![Admin-UsersManagement](DesktopImages/Admin-UsersManagement.png) | ![Admin-UsersManagement](MobileImages/M-Admin-UsersManagement.png) |
 |----|----|
 
 Figure 29: [Admin Panel](http://lbaw2155-piu.lbaw-prod.fe.up.pt/admin.php)
 
 #### UI21: Admin Panel - Auctions Management
 
-| ![Admin-AuctionsManagement](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/uploads/b66642c1613f8193903260d01c346eeb/Admin-AuctionsManagement.png) | ![Admin-AuctionsManagement](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/uploads/0fb66788cf8c1dbc2d18c8797ca7437e/M-Admin-AuctionsManagement.png) |
+| ![Admin-AuctionsManagement](DesktopImages/Admin-AuctionsManagement.png) | ![Admin-AuctionsManagement](MobileImages/M-Admin-AuctionsManagement.png) |
 |----|----|
 
 Figure 30: [Admin Panel](http://lbaw2155-piu.lbaw-prod.fe.up.pt/admin.php)
 
 #### UI22: Admin Panel - Reports
 
-| ![Admin-Reports](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/uploads/6811c673364d7510ef32109e09070263/Admin-Reports.png) | ![Admin-Reports](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/uploads/ba3286eaebcbc9a1a8a803b6296db655/M-Admin-Reports.png) |
+| ![Admin-Reports](DesktopImages/Admin-Reports.png) | ![Admin-Reports](MobileImages/M-Admin-Reports.png) |
 |----|----|
 
 Figure 31: [Admin Panel](http://lbaw2155-piu.lbaw-prod.fe.up.pt/admin.php)
 
 #### UI23: Admin Panel - Help
 
-| ![Admin-Help](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/uploads/8fd0635f7a4e844bca699fc5c23b99ec/Admin-Help.png) | ![Admin-Help](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/uploads/f4b3cce83ab207447fee27961f025dff/M-Admin-Help.png) |
+| ![Admin-Help](DesktopImages/Admin-Help.png) | ![Admin-Help](MobileImages/M-Admin-Help.png) |
 |----|----|
 
 Figure 32: [Admin Panel](http://lbaw2155-piu.lbaw-prod.fe.up.pt/admin.php)
 
 #### UI24: Error 404
 
-| ![Error404](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/uploads/9291a0c3ba27337cb876cb9dba7e1501/Error404.png) | ![Error404](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/uploads/868e3e083b3ad5f9f8c49169c3dd92fb/M-Error404.png) |
+| ![Error404](DesktopImages/Error404.png) | ![Error404](MobileImages/M-Error404.png) |
 |----|----|
 
 Figure 33: [Error 404](http://lbaw2155-piu.lbaw-prod.fe.up.pt/404.php)
