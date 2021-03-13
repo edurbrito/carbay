@@ -83,22 +83,7 @@ breadcrum();
                         </div>
                     </div>
                 </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="buy-now">
-                    <label class="form-check-label" for="buy-now">
-                        Buy Now option
-                    </label>
-                </div>
-
                 <div class="row">
-                    <div class="col-12 col-sm-6">
-                        <div class="input-group input-group-sm mb-3">
-                            <input type="number" min="1" max="100" class="form-control rounded-0" aria-label="Small" aria-describedby="buy-now">
-                            <div class="input-group-append">
-                                <span class="input-group-text rounded-0" id="inputGroup-sizing-sm">€</span>
-                            </div>
-                        </div>
-                    </div>
                     <div class="col-12 col-sm-6">
                         <div class="input-group input-group-sm mb-3">
                             <div class="input-group-prepend">
@@ -107,6 +92,20 @@ breadcrum();
                             <input type="number" min="1" max="15" class="form-control" aria-label="Small" aria-describedby="duration" value="1" required>
                             <div class="input-group-prepend">
                                 <span class="input-group-text rounded-0" id="inputGroup-sizing-sm">Days</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 row flex-row mb-3 pr-0">
+                        <div class="col-6">
+                        <input type="checkbox" id="buy-now" onchange="document.getElementById('buy-now-input-group').hidden = !this.checked;">
+                        <label for="buy-now">
+                            Buy Now
+                        </label>
+                        </div>
+                        <div class="input-group input-group-sm col-6 p-0" id="buy-now-input-group" hidden>
+                            <input type="number" min="1" max="100" class="form-control rounded-0" aria-label="Small" aria-describedby="buy-now" id="buy-now-value">
+                            <div class="input-group-append">
+                                <span class="input-group-text rounded-0" id="inputGroup-sizing-sm">€</span>
                             </div>
                         </div>
                     </div>
