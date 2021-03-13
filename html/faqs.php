@@ -60,8 +60,8 @@ breadcrum();
         </div>
     </div>
 </div>
-<div class="row-sm-12 col-md-12 mt-4 text-center">
-    <img src="/images/icon.png" class="m-auto" style="max-height: 50px;">
+<div class="row-sm-12 col-md-12 mt-0 text-center">
+    <img src="/images/logo.png" class="m-auto" style="max-height: 200px;">
     <!-- <h4 class="mt-3 text-primary">Thank You!</h4> -->
 </div>
 
