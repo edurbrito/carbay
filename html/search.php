@@ -15,8 +15,8 @@ breadcrum();
 <div class="row mt-4">
     <div class="col-md-auto">
         <h6 class="w-100 text-center p-4 d-none d-lg-block">Advanced Search</h6>
-        <button class="btn btn-dark w-100 text-center p-4 d-lg-none .d-xl-block" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="true" aria-controls="collapseExample">Advanced Search</button>
-        <form class="collapse hide d-md-block mt-4" id="collapseExample" action="/search.php">
+        <button class="btn btn-dark w-100 text-center p-4 d-lg-none .d-xl-block" data-bs-toggle="collapse" href="#collapseSearch" role="button" aria-expanded="true" aria-controls="collapseSearch">Advanced Search</button>
+        <form class="collapse hide d-md-block mt-4" id="collapseSearch" action="/search.php">
             <label for="sort-by" class="form-label text-primary">Sort By</label>
             <select class="form-select rounded-0" id="sort-by" aria-label="Search By">
                 <option selected>Time Remaining</option>

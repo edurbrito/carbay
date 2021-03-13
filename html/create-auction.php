@@ -7,12 +7,12 @@ breadcrum();
 
 <div class="row mt-5">
     <div class="col-12 col-sm-6">
-        <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-bs-ride="carousel">
+        <div id="carouselIndicators" class="carousel slide carousel-fade" data-bs-ride="carousel">
             <div class="carousel-indicators">
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                <button type="button" data-bs-target="#carouselIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                <button type="button" data-bs-target="#carouselIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
             </div>
             <div class="carousel-inner">
                 <div class="carousel-item active">
@@ -28,11 +28,11 @@ breadcrum();
                     <img src="https://mrcollection.com/wp-content/uploads/2017/09/ferrari-812-superfast-rosso-scuderia_05.jpg" class="d-block w-100" alt="...">
                 </div>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselIndicators" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>
             </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselIndicators" data-bs-slide="next">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Next</span>
             </button>
@@ -115,26 +115,26 @@ breadcrum();
             <div class="tab-pane" id="pills-description" role="tabpanel" aria-labelledby="pills-description-tab">
 
                 <select class="form-select rounded-0" aria-label="color" required>
-                    <option selected>Color:</option>
+                    <option selected>Color</option>
                     <option value="1">Yellow</option>
                     <option value="2">Red</option>
                     <option value="3">Green</option>
                 </select>
                 <select class="form-select mt-2 rounded-0" aria-label="brand" required>
-                    <option selected>Brand:</option>
+                    <option selected>Brand</option>
                     <option value="1">Ferrari</option>
                     <option value="2">Lamborghini</option>
                     <option value="3">Citroen</option>
                 </select>
                 <select class="form-select mt-2 rounded-0" aria-label="scale" required>
-                    <option selected>Scale:</option>
+                    <option selected>Scale</option>
                     <option value="1">1:18</option>
                     <option value="2">1:64</option>
                     <option value="3">1:125</option>
                 </select>
 
                 <div class="form-group mt-3">
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Write here the product description..." required></textarea>
+                    <textarea class="form-control" id="description" rows="3" placeholder="Write here the product description..." required></textarea>
                 </div>
             </div>
             <div class="btn-group ml-auto mt-auto" role="group" aria-label="Create Auction Buttons">

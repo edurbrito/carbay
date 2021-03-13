@@ -6,12 +6,12 @@
             <a class="navbar-brand text-light" href="/">
                 <img src="/images/icon.png" style="max-height: 36px;">
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon">
                     <i class="fas fa-bars" style="color:#fff; font-size:28px;"></i>
                 </span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+            <div class="collapse navbar-collapse" id="navbarToggler">
                 <ul class="navbar-nav d-flex justify-content-end align-items-center w-100">
                     <li class="nav-item mr-0 mr-lg-4 navbar-brand ">
                         <a href="/search.php" class="text-decoration-none text-reset"><i class="fas fa-search"></i><span class="d-lg-none .d-xl-block"> Search</span></a>
