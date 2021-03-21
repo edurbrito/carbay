@@ -16,7 +16,7 @@ CREATE TABLE User (
     password            VARCHAR(50),
     image               VARCHAR(50),
 
-    CONSTRAINT UserPK PRIMARY KEY (id),
+    CONSTRAINT UserPK SERIAL PRIMARY KEY (id),
     CONSTRAINT UserNameNN NOT NULL (name),
     CONSTRAINT UserUsernameNN NOT NULL (username),
     CONSTRAINT UserUsernameUK UNIQUE (username),
@@ -33,7 +33,7 @@ CREATE TABLE Registered (
     id                  INTEGER,
     banned              BOOLEAN DEFAULT FALSE,
 
-    CONSTRAINT RegisteredPK PRIMARY KEY (id),
+    CONSTRAINT RegisteredPK SERIAL PRIMARY KEY (id),
     CONSTRAINT RegisteredFK FOREIGN KEY (id) REFERENCES User ON UPDATE CASCADE ON DELETE CASCADE,
     CONSTRAINT RegisteredBannedNN NOT NULL (banned)
 );
@@ -45,7 +45,7 @@ CREATE TABLE FavoriteSeller (
     user1                 INTEGER,
     user2                 INTEGER,
 
-    CONSTRAINT FavoriteSellerPK PRIMARY KEY (user1,user2),
+    CONSTRAINT FavoriteSellerPK SERIAL PRIMARY KEY (user1,user2),
     CONSTRAINT FavoriteSellerUser1FK FOREIGN KEY (user1) REFERENCES Registered ON UPDATE CASCADE ON DELETE CASCADE,
     CONSTRAINT FavoriteSellerUser2FK FOREIGN KEY (user2) REFERENCES Registered ON UPDATE CASCADE ON DELETE CASCADE
 );
@@ -57,7 +57,7 @@ CREATE TABLE FavoriteAuction (
     user                 INTEGER,
     auction              INTEGER,
 
-    CONSTRAINT FavoriteAuctionPK PRIMARY KEY (user,auction),
+    CONSTRAINT FavoriteAuctionPK SERIAL PRIMARY KEY (user,auction),
     CONSTRAINT FavoriteAuctionUserFK FOREIGN KEY (user) REFERENCES Registered ON UPDATE CASCADE ON DELETE CASCADE,
     CONSTRAINT FavoriteAutionAuctionFK FOREIGN KEY (auction) REFERENCES Auction ON UPDATE CASCADE ON DELETE CASCADE
 );
@@ -68,7 +68,7 @@ DROP TABLE IF EXISTS Admin;
 CREATE TABLE Admin (
     user                  INTEGER,
 
-    CONSTRAINT AdminPK PRIMARY KEY (user),
+    CONSTRAINT AdminPK SERIAL PRIMARY KEY (user),
     CONSTRAINT AdminFK FOREIGN KEY (user) REFERENCES User ON UPDATE CASCADE ON DELETE CASCADE
 );
 
@@ -83,7 +83,7 @@ CREATE TABLE HelpMessage (
     sender                  INTEGER,
     recipient               INTEGER,
     
-    CONSTRAINT HelpMessagePK PRIMARY KEY (id),
+    CONSTRAINT HelpMessagePK SERIAL PRIMARY KEY (id),
     CONSTRAINT HelpMessageTextNN NOT NULL (text),
     CONSTRAINT HelpMessageDateNN NOT NULL (date),
     CONSTRAINT HelpMessageDateLT CHECK (date <= now()),
@@ -104,7 +104,7 @@ CREATE TABLE Rating (
     date                    DATE DEFAULT now(),
     comment                 VARCHAR(50),
 
-    CONSTRAINT RatingPK PRIMARY KEY (auction),
+    CONSTRAINT RatingPK SERIAL PRIMARY KEY (auction),
     CONSTRAINT RatingAuctionFK FOREIGN KEY (auction) REFERENCES Auction ON UPDATE CASCADE ON DELETE CASCADE,
     CONSTRAINT RatingWinnerNN NOT NULL (winner),
     CONSTRAINT RatingWinnerFK FOREIGN KEY (winner) REFERENCES Registered ON UPDATE CASCADE ON DELETE SET NULL,
@@ -129,7 +129,7 @@ CREATE TABLE Report(
     locationRegistered      INTEGER,
     stateType               State DEFAULT "Waiting",
 
-    CONSTRAINT ReportPK PRIMARY KEY (id),
+    CONSTRAINT ReportPK SERIAL PRIMARY KEY (id),
     CONSTRAINT ReportReasonNN NOT NULL (reason),
     CONSTRAINT ReportDateNN NOT NULL (date),
     CONSTRAINT ReportReporterNN NOT NULL (reporter),
@@ -170,7 +170,7 @@ CREATE TABLE Auction (
     colour                   INTEGER,
     seller                   INTEGER,
 
-    CONSTRAINT AuctionPK PRIMARY KEY (id),
+    CONSTRAINT AuctionPK SERIAL PRIMARY KEY (id),
     CONSTRAINT AuctionTitleNN NOT NULL(title),
     CONSTRAINT AuctionStartingPriceNN NOT NULL(startingPrice),
     CONSTRAINT AuctionStartingPriceCK CHECK(startingPriceq >= 1),
@@ -206,7 +206,7 @@ CREATE TABLE Image (
     url                     VARCHAR(50),
     auction                 INTEGER,
 
-    CONSTRAINT ImagePK PRIMARY KEY (id),
+    CONSTRAINT ImagePK SERIAL PRIMARY KEY (id),
     CONSTRAINT ImageUrlNN NOT NULL (url),
     CONSTRAINT ImageUrlUK UNIQUE (url),
     CONSTRAINT ImageAuction NOT NULL (auction),
@@ -220,7 +220,7 @@ CREATE TABLE Colour (
     id                      INTEGER,
     name                    VARCHAR(50),
 
-    CONSTRAINT ColourPK PRIMARY KEY (id),
+    CONSTRAINT ColourPK SERIAL PRIMARY KEY (id),
     CONSTRAINT ColourNameNN NOT NULL (name),
     CONSTRAINT ColourNameUK UNIQUE (name)
 
@@ -233,7 +233,7 @@ CREATE TABLE Brand (
     id                      INTEGER,
     name                    VARCHAR(50),
 
-    CONSTRAINT BrandPK PRIMARY KEY (id),
+    CONSTRAINT BrandPK SERIAL PRIMARY KEY (id),
     CONSTRAINT BrandNameNN NOT NULL (name),
     CONSTRAINT BrandNameUK UNIQUE (name)
 
@@ -249,7 +249,7 @@ CREATE TABLE Bid (
     author                  INTEGER,
     auction                 INTEGER,
 
-    CONSTRAINT BidPK PRIMARY KEY (id),
+    CONSTRAINT BidPK SERIAL PRIMARY KEY (id),
     CONSTRAINT BidValueNN NOT NULL (value),
     CONSTRAINT BidDateNN NOT NULL (date),
     CONSTRAINT BidDateCK CHECK(date <= now()),
@@ -269,7 +269,7 @@ CREATE TABLE Comment (
     author                  INTEGER,
     auction                 INTEGER,
     
-    CONSTRAINT CommentPK PRIMARY KEY (id),
+    CONSTRAINT CommentPK SERIAL PRIMARY KEY (id),
     CONSTRAINT CommentTextNN NOT NULL (text),
     CONSTRAINT CommentDateNN NOT NULL (date),
     CONSTRAINT CommentDateLT CHECK (date <= now()),
@@ -295,7 +295,7 @@ CREATE TABLE Notification (
     contextBid              INTEGER,
     contextComment          INTEGER,
 
-    CONSTRAINT NotificationPK PRIMARY KEY (id),
+    CONSTRAINT NotificationPK SERIAL PRIMARY KEY (id),
     CONSTRAINT NotificationTextNN NOT NULL (text),
     CONSTRAINT NotificationViewedNN NOT NULL (viewed),
     CONSTRAINT NotificationDateNN NOT NULL (date),
