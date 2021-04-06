@@ -1,4 +1,44 @@
 DROP TABLE IF EXISTS "user";
+DROP TABLE IF EXISTS Colour;
+DROP TABLE IF EXISTS Brand;
+DROP TABLE IF EXISTS Auction;
+DROP TABLE IF EXISTS Image;
+DROP TABLE IF EXISTS FavouriteSeller;
+DROP TABLE IF EXISTS FavouriteAuction;
+DROP TABLE IF EXISTS HelpMessage;
+DROP TABLE IF EXISTS Rating;
+DROP TABLE IF EXISTS Comment;
+DROP TABLE IF EXISTS Report;
+DROP TABLE IF EXISTS Bid;
+DROP TABLE IF EXISTS Notification;
+
+
+DROP TYPE IF EXISTS Scale CASCADE;
+DROP TYPE IF EXISTS State CASCADE;
+
+
+DROP TRIGGER IF EXISTS bid_rules ON Bid;
+DROP TRIGGER IF EXISTS help_message_types ON HelpMessage;
+DROP TRIGGER IF EXISTS rating_rules ON Rating;
+DROP TRIGGER IF EXISTS delete_rules ON "user";
+DROP TRIGGER IF EXISTS notify_rating ON Rating;
+DROP TRIGGER IF EXISTS notify_help_message ON HelpMessage;
+DROP TRIGGER IF EXISTS notify_favorite_sellers ON Auction;
+DROP TRIGGER IF EXISTS notify_highest_bid ON Bid;
+DROP TRIGGER IF EXISTS fts_auction_insert ON Auction;
+DROP TRIGGER IF EXISTS fts_auction_update ON Auction;
+
+DROP FUNCTION IF EXISTS bid_rules();
+DROP FUNCTION IF EXISTS help_message_types();
+DROP FUNCTION IF EXISTS rating_rules();
+DROP FUNCTION IF EXISTS delete_rules();
+DROP FUNCTION IF EXISTS notify_rating();
+DROP FUNCTION IF EXISTS notify_help_message();
+DROP FUNCTION IF EXISTS notify_favorite_sellers();
+DROP FUNCTION IF EXISTS notify_highest_bid();
+DROP FUNCTION IF EXISTS auction_search_update();
+
+
 
 CREATE TABLE "user" (
     id                  SERIAL,
@@ -15,6 +55,7 @@ CREATE TABLE "user" (
     CONSTRAINT UserEmailUK UNIQUE (email)
 );
 
+
 CREATE TYPE Scale as ENUM (
   '1:8',
   '1:18',
@@ -22,7 +63,6 @@ CREATE TYPE Scale as ENUM (
   '1:64'
 );
 
-DROP TABLE IF EXISTS Colour;
 
 CREATE TABLE Colour (
     id                      SERIAL,
@@ -34,8 +74,6 @@ CREATE TABLE Colour (
 );
 
 
-DROP TABLE IF EXISTS Brand;
-
 CREATE TABLE Brand (
     id                      SERIAL,
     name                    VARCHAR(50) NOT NULL,
@@ -45,8 +83,6 @@ CREATE TABLE Brand (
 
 );
 
-
-DROP TABLE IF EXISTS Auction;
 
 CREATE TABLE Auction (
     id                       SERIAL,
@@ -61,8 +97,8 @@ CREATE TABLE Auction (
     brandID                  INTEGER NOT NULL,
     colourID                 INTEGER NOT NULL,
     sellerID                 INTEGER,
-    stitle                   TSVECTOR DEFAULT to_tsvector('english', title),
-    sdescription             TSVECTOR DEFAULT to_tsvector('english', description),
+    stitle                   TSVECTOR,
+    sdescription             TSVECTOR,
 
     CONSTRAINT AuctionPK PRIMARY KEY (id),
     CONSTRAINT AuctionStartingPriceCK CHECK(startingPrice >= 1),
@@ -75,8 +111,6 @@ CREATE TABLE Auction (
 );
 
 
-DROP TABLE IF EXISTS Image;
-
 CREATE TABLE Image (
     id                      SERIAL,
     url                     VARCHAR(50) NOT NULL,
@@ -88,8 +122,6 @@ CREATE TABLE Image (
 );
 
 
-DROP TABLE IF EXISTS FavouriteSeller;
-
 CREATE TABLE FavouriteSeller (
     user1ID                 SERIAL,
     user2ID                 SERIAL,
@@ -100,8 +132,6 @@ CREATE TABLE FavouriteSeller (
 );
 
 
-DROP TABLE IF EXISTS FavouriteAuction;
-
 CREATE TABLE FavouriteAuction (
     userID                 SERIAL,
     auctionID              SERIAL,
@@ -111,8 +141,6 @@ CREATE TABLE FavouriteAuction (
     CONSTRAINT FavouriteAutionAuctionFK FOREIGN KEY (auctionID) REFERENCES Auction ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-
-DROP TABLE IF EXISTS HelpMessage;
 
 CREATE TABLE HelpMessage (
     id                      SERIAL,
@@ -129,8 +157,6 @@ CREATE TABLE HelpMessage (
 );
 
 
-DROP TABLE IF EXISTS Rating;
-
 CREATE TABLE Rating (
     auctionID               SERIAL,
     winnerID                INTEGER,
@@ -146,13 +172,13 @@ CREATE TABLE Rating (
     CONSTRAINT RatingDateLT CHECK (dateHour <= now())
 );
 
+
 CREATE TYPE State as ENUM (
   'Waiting',
   'Discarded',
   'Banned'
 );
 
-DROP TABLE IF EXISTS Comment;
 
 CREATE TABLE Comment (
     id                      SERIAL,
@@ -167,7 +193,6 @@ CREATE TABLE Comment (
     CONSTRAINT CommentAuctionFK FOREIGN KEY (auctionID) REFERENCES Auction ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-DROP TABLE IF EXISTS Report;
 
 CREATE TABLE Report(
     id                        SERIAL,
@@ -194,8 +219,6 @@ CREATE TABLE Report(
 );
 
 
-DROP TABLE IF EXISTS Bid;
-
 CREATE TABLE Bid (
     id                      SERIAL,
     value                   DECIMAL NOT NULL,
@@ -209,8 +232,6 @@ CREATE TABLE Bid (
     CONSTRAINT BidAuctionFK FOREIGN KEY (auctionID) REFERENCES Auction ON UPDATE CASCADE ON DELETE RESTRICT
 );
 
-
-DROP TABLE IF EXISTS Notification;
 
 CREATE TABLE Notification (
     id                      SERIAL,
@@ -241,3 +262,244 @@ CREATE TABLE Notification (
     CONSTRAINT NotificationContextBidFK FOREIGN KEY (contextBid) REFERENCES Auction ON UPDATE CASCADE ON DELETE CASCADE,
     CONSTRAINT NotificationContextFavAuctionFK FOREIGN KEY (contextFavAuction) REFERENCES Auction ON UPDATE CASCADE ON DELETE CASCADE
 );
+
+
+------------------------------INDEXES------------------------------
+
+
+CREATE INDEX auction_date ON auction USING btree (finalDate);
+
+CREATE INDEX auction_buyNow ON auction USING btree (buyNow);
+
+CREATE INDEX comment_auction ON comment USING hash (auctionID);
+
+CREATE INDEX bid_value ON bid USING btree (auctionID, value);
+
+
+------------------------------FUNCTIONS------------------------------
+
+
+CREATE FUNCTION bid_rules() RETURNS TRIGGER AS
+$BODY$
+BEGIN
+    IF EXISTS 
+        (SELECT * 
+        FROM bid 
+        WHERE NEW.auctionID = bid.auctionID AND bid.value >= NEW.value)
+    THEN 
+    RAISE EXCEPTION 'A new bid must be higher than any other bids of the auction.';
+    END IF;
+    IF EXISTS 
+        (SELECT 
+            (SELECT startingPrice 
+            FROM auction 
+            WHERE auction.id = NEW.auctionID) AS startingPrice 
+        FROM NEW 
+        WHERE startingPrice > NEW.value)
+    THEN 
+    RAISE EXCEPTION 'A new bid must be higher than the starting price.';
+    END IF;
+    IF EXISTS 
+        (SELECT * 
+        FROM auction 
+        WHERE auction.id = NEW.auctionID AND auction.sellerID = NEW.authorID)
+    THEN 
+    RAISE EXCEPTION 'The author of a new bid must not be the auction seller.';
+    END IF;
+    RETURN NEW;
+END
+$BODY$
+LANGUAGE plpgsql;
+ 
+
+CREATE FUNCTION help_message_types() RETURNS TRIGGER AS
+$BODY$
+BEGIN
+    IF EXISTS 
+        (SELECT 
+            (SELECT admin 
+            FROM "user" 
+            WHERE "user".id = NEW.senderID) AS admin1,
+            (SELECT admin 
+            FROM "user" 
+            WHERE "user".id = NEW.recipientID) AS admin2
+        FROM NEW 
+        WHERE NEW.senderID = NEW.recipientID OR admin1 = admin2)
+    THEN 
+    RAISE EXCEPTION 'In a HelpMessage, the Sender must be of a different type of the Recipient.';
+    END IF;
+    RETURN NEW;
+END
+$BODY$
+LANGUAGE plpgsql;
+ 
+
+CREATE FUNCTION rating_rules() RETURNS TRIGGER AS
+$BODY$
+BEGIN
+    IF EXISTS 
+        (SELECT finalDate FROM NEW, auction WHERE NEW.auctionID = auction.id AND finalDate > NOW())
+        OR
+        (SELECT * 
+            FROM (SELECT bid.authorID, MAX(id) FROM bid WHERE NEW.auctionID = bid.auctionID) AS T
+        WHERE T.authorID != NEW.authorID)
+    THEN 
+    RAISE EXCEPTION 'The registered user can only give a rating to an auction he won.';
+    END IF;
+    RETURN NEW;
+END
+$BODY$
+LANGUAGE plpgsql;
+ 
+
+CREATE FUNCTION delete_rules() RETURNS TRIGGER AS
+$BODY$
+BEGIN
+    IF EXISTS 
+        (SELECT auction.id FROM OLD, auction WHERE OLD.id = auction.sellerID AND finalDate > NOW())
+    THEN 
+    RAISE EXCEPTION 'A user can only delete its account if there are no active auctions where he is the seller.';
+    END IF;
+    IF EXISTS 
+        (SELECT bid.id FROM OLD, bid, auction WHERE OLD.id = bid.authorID AND finalDate > NOW() AND auction.id = bid.auctionID)
+    THEN 
+    RAISE EXCEPTION 'A user can only delete its account if he is not the author of any highest bid.';
+    END IF;
+    RETURN NEW;
+END
+$BODY$
+LANGUAGE plpgsql;
+ 
+
+CREATE FUNCTION notify_rating() RETURNS TRIGGER AS 
+$BODY$
+BEGIN
+    INSERT INTO notification (recipientId, contextRating)
+    VALUES (
+        (SELECT sellerID FROM auction WHERE auction.id = NEW.auctionID),
+        NEW.auctionID
+    );
+END
+$BODY$
+LANGUAGE 'plpgsql';
+
+
+CREATE FUNCTION notify_help_message() RETURNS TRIGGER AS 
+$BODY$
+BEGIN
+    INSERT INTO notification (recipientId, contextHelpMessage)
+    VALUES (NEW.recipientID, NEW.id);
+END
+$BODY$ 
+LANGUAGE 'plpgsql';
+
+
+CREATE FUNCTION notify_favorite_sellers() RETURNS TRIGGER AS 
+$BODY$
+BEGIN
+    INSERT INTO notification (recipientId, contextFavSeller)
+    VALUES 
+    SELECT user1ID , NEW.id 
+        FROM FavouriteSeller 
+        WHERE FavouriteSeller.user2ID = NEW.sellerID;
+END
+$BODY$ 
+LANGUAGE 'plpgsql';
+
+
+CREATE FUNCTION notify_highest_bid() RETURNS TRIGGER AS 
+$BODY$
+BEGIN
+    INSERT INTO notification (recipientId, contextBid)
+    VALUES 
+    SELECT authorID , OLD.auctionID 
+        FROM OLD
+        WHERE OLD.auctionID = NEW.auctionID
+        ORDER BY OLD.value DESC
+        LIMIT 1;
+END
+$BODY$ 
+LANGUAGE 'plpgsql';
+
+
+CREATE FUNCTION auction_search_update() RETURNS TRIGGER AS 
+$BODY$
+BEGIN
+    IF TG_OP = 'INSERT' THEN
+        NEW.stitle = to_tsvector('english', NEW.title);
+        NEW.sdescription = to_tsvector('english', NEW.description);
+    END IF;
+    IF TG_OP = 'UPDATE' THEN
+        IF NEW.title <> OLD.title THEN
+            NEW.stitle = to_tsvector('english', NEW.title);
+        END IF;
+        IF NEW.description <> OLD.description THEN
+            NEW.sdescription = to_tsvector('english', NEW.description);
+        END IF;
+    END IF;
+    RETURN NEW;
+END
+$BODY$ 
+LANGUAGE 'plpgsql';
+
+
+------------------------------TRIGGERS------------------------------
+
+
+CREATE TRIGGER bid_rules
+    BEFORE INSERT ON bid
+    FOR EACH ROW
+    EXECUTE PROCEDURE bid_rules();
+
+
+CREATE TRIGGER help_message_types
+    BEFORE INSERT ON helpMessage
+    FOR EACH ROW
+    EXECUTE PROCEDURE help_message_types();
+
+
+CREATE TRIGGER rating_rules
+    BEFORE INSERT ON rating
+    FOR EACH ROW
+    EXECUTE PROCEDURE rating_rules();
+
+
+CREATE TRIGGER delete_rules
+    BEFORE INSERT ON "user"
+    FOR EACH ROW
+    EXECUTE PROCEDURE delete_rules();
+
+
+CREATE TRIGGER notify_rating
+    AFTER INSERT ON rating
+    FOR EACH ROW
+    EXECUTE PROCEDURE notify_rating();
+
+
+CREATE TRIGGER notify_help_message
+    AFTER INSERT ON helpMessage
+    FOR EACH ROW
+    EXECUTE PROCEDURE notify_help_message();
+
+
+CREATE TRIGGER notify_favorite_sellers
+    AFTER INSERT ON auction
+    FOR EACH ROW
+    EXECUTE PROCEDURE notify_favorite_sellers();
+
+
+CREATE TRIGGER notify_highest_bid
+    AFTER INSERT ON bid
+    FOR EACH ROW
+    EXECUTE PROCEDURE notify_highest_bid();
+
+
+CREATE TRIGGER fts_auction_insert
+    BEFORE INSERT ON auction
+    FOR EACH ROW
+    EXECUTE PROCEDURE auction_search_update();
+
+CREATE TRIGGER fts_auction_update
+    BEFORE UPDATE ON auction
+    FOR EACH ROW
+    EXECUTE PROCEDURE auction_search_update();
