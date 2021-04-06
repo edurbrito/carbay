@@ -99,7 +99,7 @@ CREATE TABLE Auction (
     
     CONSTRAINT AuctionPK PRIMARY KEY (id),
     CONSTRAINT AuctionStartingPriceCK CHECK(startingPrice >= 1),
-    CONSTRAINT AuctionStartDateCK CHECK(startDate >= now()),
+    -- CONSTRAINT AuctionStartDateCK CHECK(startDate >= now()),
     CONSTRAINT AuctionFinalDateCK CHECK(finalDate >= startDate),
     CONSTRAINT AuctionBuyNowCK CHECK (buyNow IS NULL or (buyNow IS NOT NULL and buyNow > startingPrice)),
     CONSTRAINT AuctionBrandFK FOREIGN KEY (brandID) REFERENCES Brand ON UPDATE CASCADE ON DELETE RESTRICT,
@@ -289,12 +289,11 @@ BEGIN
     RAISE EXCEPTION 'A new bid must be higher than any other bids of the auction.';
     END IF;
     IF EXISTS 
-        (SELECT 
-            (SELECT startingPrice 
+        (SELECT *            
+        FROM (SELECT startingPrice 
             FROM auction 
-            WHERE auction.id = NEW.auctionID) AS startingPrice 
-        FROM NEW 
-        WHERE startingPrice > NEW.value)
+            WHERE auction.id = NEW.auctionID) AS ST  
+        WHERE ST.startingPrice > NEW.value)
     THEN 
     RAISE EXCEPTION 'A new bid must be higher than the starting price.';
     END IF;
@@ -314,16 +313,10 @@ LANGUAGE plpgsql;
 CREATE FUNCTION help_message_types() RETURNS TRIGGER AS
 $BODY$
 BEGIN
-    IF EXISTS 
-        (SELECT 
-            (SELECT admin 
-            FROM "user" 
-            WHERE "user".id = NEW.senderID) AS admin1,
-            (SELECT admin 
-            FROM "user" 
-            WHERE "user".id = NEW.recipientID) AS admin2
-        FROM NEW 
-        WHERE NEW.senderID = NEW.recipientID OR admin1 = admin2)
+    IF NEW.senderID = NEW.recipientID OR EXISTS 
+        (SELECT u1.admin , u2.admin 
+        FROM "user" AS u1, "user" AS u2
+        WHERE u1.id = NEW.senderID AND u2.id = NEW.recipientID AND u1.admin = u2.admin)
     THEN 
     RAISE EXCEPTION 'In a HelpMessage, the Sender must be of a different type of the Recipient.';
     END IF;
@@ -337,11 +330,18 @@ CREATE FUNCTION rating_rules() RETURNS TRIGGER AS
 $BODY$
 BEGIN
     IF EXISTS 
-        (SELECT finalDate FROM NEW, auction WHERE NEW.auctionID = auction.id AND finalDate > NOW())
-        OR
-        (SELECT * 
-            FROM (SELECT bid.authorID, MAX(id) FROM bid WHERE NEW.auctionID = bid.auctionID) AS T
-        WHERE T.authorID != NEW.authorID)
+        (SELECT finalDate FROM auction WHERE NEW.auctionID = auction.id AND finalDate > NOW())
+    THEN 
+    RAISE EXCEPTION 'The registered user can only give a rating to an auction that has ended.';
+    END IF;
+    IF NOT EXISTS 
+        (SELECT T.authorID FROM (SELECT MAX(value) AS value, bid.auctionID, bid.authorID 
+                FROM bid 
+                GROUP BY bid.authorID, bid.auctionID
+                HAVING bid.auctionID = NEW.auctionID
+				ORDER BY value DESC
+				LIMIT 1) AS T
+        WHERE T.authorID = NEW.winnerID)
     THEN 
     RAISE EXCEPTION 'The registered user can only give a rating to an auction he won.';
     END IF;
@@ -412,10 +412,10 @@ CREATE FUNCTION notify_highest_bid() RETURNS TRIGGER AS
 $BODY$
 BEGIN
     INSERT INTO notification (recipientId, contextBid) 
-    SELECT authorID , OLD.auctionID 
-        FROM OLD
-        WHERE OLD.auctionID = NEW.auctionID
-        ORDER BY OLD.value DESC
+    SELECT bid.authorID , bid.auctionID 
+        FROM bid
+        WHERE bid.auctionID = NEW.auctionID AND bid.id != NEW.id
+        ORDER BY bid.value DESC
         LIMIT 1;
     RETURN NEW;
 END
