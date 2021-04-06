@@ -1,13 +1,3 @@
-
-
-
-
-
-
-
-
-
-
 insert into "user" (id, name, username, email, password, image, banned, admin) values (1, 'Ainsley Flowerden', 'aflowerden0', 'aflowerden0@posterous.com', 'kNmDqPrWt', 'http://dummyimage.com/135x100.png/dddddd/000000', false, true);
 insert into "user" (id, name, username, email, password, image, banned, admin) values (2, 'Nappy Berrisford', 'nberrisford1', 'nberrisford1@netscape.com', '7C2oJYrT5Yfw', 'http://dummyimage.com/204x100.png/cc0000/ffffff', false, true);
 insert into "user" (id, name, username, email, password, image, banned, admin) values (3, 'Giraud McFadin', 'gmcfadin2', 'gmcfadin2@washington.edu', 'V5O4sbDVNq', 'http://dummyimage.com/117x100.png/ff4444/ffffff', false, true);
@@ -688,4 +678,3 @@ insert into Bid (id, value, dateHour, authorID, BidID) values (47, 311, '2021-05
 insert into Bid (id, value, dateHour, authorID, BidID) values (48, 541, '2021-06-27 18:52:45', 53, 12);
 insert into Bid (id, value, dateHour, authorID, BidID) values (49, 771, '2021-05-26 09:56:28', 120, 9);
 insert into Bid (id, value, dateHour, authorID, BidID) values (50, 176, '2021-06-21 19:52:01', 67, 10);
-
