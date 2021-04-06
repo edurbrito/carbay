@@ -174,9 +174,9 @@ CREATE TABLE Report(
     reason                    VARCHAR(50) NOT NULL,
     dateHour                  TIMESTAMP WITH TIME zone DEFAULT now() NOT NULL,
     reporterID                INTEGER,
-    locationAuctionID         INTEGER,
-    locationCommentID         INTEGER,
-    locationRegisteredID      INTEGER,
+    locationAuctionID         INTEGER NULL,
+    locationCommentID         INTEGER NULL,
+    locationRegisteredID      INTEGER NULL,
     stateType                 State DEFAULT 'Waiting' NOT NULL,
 
     CONSTRAINT ReportPK PRIMARY KEY (id),
