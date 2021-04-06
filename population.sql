@@ -166,12 +166,12 @@ insert into Colour (id, name) values (4, 'Red');
 insert into Colour (id, name) values (5, 'Indigo');
 insert into Colour (id, name) values (6, 'Pink');
 insert into Colour (id, name) values (7, 'Khaki');
-insert into Colour (id, name) values (8, 'Pink');
+insert into Colour (id, name) values (8, 'Purple');
 insert into Colour (id, name) values (9, 'Violet');
 insert into Colour (id, name) values (10, 'Orange');
 insert into Colour (id, name) values (11, 'Crimson');
 insert into Colour (id, name) values (12, 'Blue');
-insert into Colour (id, name) values (13, 'Red');
+insert into Colour (id, name) values (13, 'Dark Red');
 insert into Colour (id, name) values (14, 'Green');
 insert into Colour (id, name) values (15, 'Teal');
 
@@ -230,14 +230,6 @@ insert into Image (id, url, auctionID) values (18, 'https://mrcollection.com/wp-
 insert into Image (id, url, auctionID) values (19, 'https://mrcollection.com/wp-content/uploads/2017/09/ferrari-812-superfast-rosso-scuderia_05.jpg',3);
 insert into Image (id, url, auctionID) values (20, 'https://mrcollection.com/wp-content/uploads/2017/09/ferrari-812-superfast-rosso-scuderia_06.jpg',3);
 insert into Image (id, url, auctionID) values (21, 'https://mrcollection.com/wp-content/uploads/2017/09/ferrari-812-superfast-rosso-scuderia_07.jpg',3);
-
-insert into Image (id, url, auctionID) values (15, 'https://mrcollection.com/wp-content/uploads/2016/10/ferrari-laferrari-aperta-gray01.jpg',4);
-insert into Image (id, url, auctionID) values (16, 'https://mrcollection.com/wp-content/uploads/2016/10/ferrari-laferrari-aperta-gray01.jpg',4);
-insert into Image (id, url, auctionID) values (17, 'https://mrcollection.com/wp-content/uploads/2016/10/ferrari-laferrari-aperta-gray01.jpg',4);
-insert into Image (id, url, auctionID) values (18, 'https://mrcollection.com/wp-content/uploads/2016/10/ferrari-laferrari-aperta-gray01.jpg',4);
-insert into Image (id, url, auctionID) values (19, 'https://mrcollection.com/wp-content/uploads/2016/10/ferrari-laferrari-aperta-gray01.jpg',4);
-insert into Image (id, url, auctionID) values (20, 'https://mrcollection.com/wp-content/uploads/2016/10/ferrari-laferrari-aperta-gray01.jpg',4);
-insert into Image (id, url, auctionID) values (21, 'https://mrcollection.com/wp-content/uploads/2016/10/ferrari-laferrari-aperta-gray01.jpg',4);
 
 insert into Image (id, url, auctionID) values (22, 'https://mrcollection.com/wp-content/uploads/2016/06/ferrari-f12tdf-blu_01.jpg',5);
 insert into Image (id, url, auctionID) values (23, 'https://mrcollection.com/wp-content/uploads/2016/06/ferrari-f12tdf-blu_02.jpg',5);
@@ -537,9 +529,9 @@ INSERT INTO FavouriteAuction (userID,auctionID) VALUES (143,5);
 INSERT INTO FavouriteAuction (userID,auctionID) VALUES (47,5);
 
 insert into HelpMessage (id, text, datehour, read, senderid, recipientid) values (1, 'ultrices posuere cubilia curae nulla dapibus dolor vel est donec odio justo', '2021-04-08 19:36:38', true, 155, 1);
-insert into HelpMessage (id, text, datehour, read, senderid, recipientid) values (2, 'cras pellentesque volutpat dui maecenas tristique est et tempus semper est quam pharetra magna ac consequat', '2021-04-05 00:15:06' false, 35, 10);
+insert into HelpMessage (id, text, datehour, read, senderid, recipientid) values (2, 'cras pellentesque volutpat dui maecenas tristique est et tempus semper est quam pharetra magna ac consequat', '2021-04-05 00:15:06', false, 35, 10);
 insert into HelpMessage (id, text, datehour, read, senderid, recipientid) values (3, 'sapien iaculis congue vivamus metus arcu adipiscing molestie hendrerit at vulputate vitae nisl aenean lectus pellentesque eget nunc donec quis', '2021-04-07 07:47:16', true, 17, 4);
-insert into HelpMessage (id, text, datehour, read, senderid, recipientid) values (4, 'vestibulum proin eu mi nulla ac enim in tempor turpis nec euismod scelerisque quam turpis adipiscing lorem vitae', 2021-04-04 18:41:48, true, 137, 2);
+insert into HelpMessage (id, text, datehour, read, senderid, recipientid) values (4, 'vestibulum proin eu mi nulla ac enim in tempor turpis nec euismod scelerisque quam turpis adipiscing lorem vitae', '2021-04-04 18:41:48', true, 137, 2);
 insert into HelpMessage (id, text, datehour, read, senderid, recipientid) values (5, 'mauris morbi non lectus aliquam sit amet diam in magna bibendum imperdiet nullam orci pede venenatis', '2021-04-07 17:53:37', true, 154, 6);
 insert into HelpMessage (id, text, datehour, read, senderid, recipientid) values (6, 'porta volutpat erat quisque erat eros viverra eget congue eget', '2021-04-04 06:11:20', true, 121, 3);
 insert into HelpMessage (id, text, datehour, read, senderid, recipientid) values (7, 'etiam justo etiam pretium iaculis justo in hac habitasse platea dictumst etiam faucibus cursus urna ut tellus', '2021-04-07 02:18:27', false, 48, 5);

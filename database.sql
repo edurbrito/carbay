@@ -40,11 +40,11 @@ DROP FUNCTION IF EXISTS auction_search_update() CASCADE;
 
 CREATE TABLE "user" (
     id                  SERIAL,
-    name                VARCHAR(50) NOT NULL,
-    username            VARCHAR(50) NOT NULL,
-    email               VARCHAR(50) NOT NULL,
-    password            VARCHAR(50) NOT NULL,
-    image               VARCHAR(50) NOT NULL,
+    name                VARCHAR(300) NOT NULL,
+    username            VARCHAR(300) NOT NULL,
+    email               VARCHAR(300) NOT NULL,
+    password            VARCHAR(300) NOT NULL,
+    image               VARCHAR(300) NOT NULL,
     banned              BOOLEAN DEFAULT FALSE NOT NULL,
     admin               BOOLEAN DEFAULT FALSE NOT NULL,
 
@@ -64,7 +64,7 @@ CREATE TYPE Scale as ENUM (
 
 CREATE TABLE Colour (
     id                      SERIAL,
-    name                    VARCHAR(50) NOT NULL,
+    name                    VARCHAR(300) NOT NULL,
 
     CONSTRAINT ColourPK PRIMARY KEY (id),
     CONSTRAINT ColourNameUK UNIQUE (name)
@@ -74,7 +74,7 @@ CREATE TABLE Colour (
 
 CREATE TABLE Brand (
     id                      SERIAL,
-    name                    VARCHAR(50) NOT NULL,
+    name                    VARCHAR(300) NOT NULL,
 
     CONSTRAINT BrandPK PRIMARY KEY (id),
     CONSTRAINT BrandNameUK UNIQUE (name)
@@ -84,8 +84,8 @@ CREATE TABLE Brand (
 
 CREATE TABLE Auction (
     id                       SERIAL,
-    title                    VARCHAR(50) NOT NULL,
-    description              VARCHAR(50) NOT NULL,
+    title                    VARCHAR(300) NOT NULL,
+    description              VARCHAR(300) NOT NULL,
     startingPrice            DECIMAL NOT NULL,
     startDate                TIMESTAMP WITH TIME zone DEFAULT now() NOT NULL,
     finalDate                TIMESTAMP WITH TIME zone NOT NULL,
@@ -110,7 +110,7 @@ CREATE TABLE Auction (
 
 CREATE TABLE Image (
     id                      SERIAL,
-    url                     VARCHAR(50) NOT NULL,
+    url                     VARCHAR(300) NOT NULL,
     auctionID               INTEGER NOT NULL,
 
     CONSTRAINT ImagePK PRIMARY KEY (id),
@@ -141,7 +141,7 @@ CREATE TABLE FavouriteAuction (
 
 CREATE TABLE HelpMessage (
     id                      SERIAL,
-    text                    VARCHAR(50) NOT NULL,
+    text                    VARCHAR(300) NOT NULL,
     dateHour                TIMESTAMP WITH TIME zone DEFAULT now() NOT NULL,
     read                    BOOLEAN DEFAULT FALSE NOT NULL,
     senderID                INTEGER,
@@ -159,7 +159,7 @@ CREATE TABLE Rating (
     winnerID                INTEGER,
     value                   INTEGER NOT NULL,
     dateHour                TIMESTAMP WITH TIME zone DEFAULT now() NOT NULL,
-    comment                 VARCHAR(50) NOT NULL,
+    comment                 VARCHAR(300) NOT NULL,
 
     CONSTRAINT RatingPK PRIMARY KEY (auctionID),
     CONSTRAINT RatingAuctionFK FOREIGN KEY (auctionID) REFERENCES Auction ON UPDATE CASCADE ON DELETE CASCADE,
@@ -179,7 +179,7 @@ CREATE TYPE State as ENUM (
 
 CREATE TABLE Comment (
     id                      SERIAL,
-    text                    VARCHAR(50) NOT NULL,
+    text                    VARCHAR(300) NOT NULL,
     dateHour                TIMESTAMP WITH TIME zone DEFAULT now() NOT NULL,
     authorID                INTEGER NOT NULL,
     auctionID               INTEGER NOT NULL,
@@ -193,7 +193,7 @@ CREATE TABLE Comment (
 
 CREATE TABLE Report(
     id                        SERIAL,
-    reason                    VARCHAR(50) NOT NULL,
+    reason                    VARCHAR(300) NOT NULL,
     dateHour                  TIMESTAMP WITH TIME zone DEFAULT now() NOT NULL,
     reporterID                INTEGER,
     locationAuctionID         INTEGER DEFAULT NULL,
@@ -378,6 +378,7 @@ BEGIN
         (SELECT sellerID FROM auction WHERE auction.id = NEW.auctionID),
         NEW.auctionID
     );
+    RETURN NEW;
 END
 $BODY$
 LANGUAGE 'plpgsql';
@@ -388,6 +389,7 @@ $BODY$
 BEGIN
     INSERT INTO notification (recipientId, contextHelpMessage)
     VALUES (NEW.recipientID, NEW.id);
+    RETURN NEW;
 END
 $BODY$ 
 LANGUAGE 'plpgsql';
@@ -400,6 +402,7 @@ BEGIN
     SELECT user1ID , NEW.id 
         FROM FavouriteSeller 
         WHERE FavouriteSeller.user2ID = NEW.sellerID;
+    RETURN NEW;
 END
 $BODY$ 
 LANGUAGE 'plpgsql';
@@ -414,6 +417,7 @@ BEGIN
         WHERE OLD.auctionID = NEW.auctionID
         ORDER BY OLD.value DESC
         LIMIT 1;
+    RETURN NEW;
 END
 $BODY$ 
 LANGUAGE 'plpgsql';
@@ -459,7 +463,7 @@ CREATE TRIGGER rating_rules
 
 
 CREATE TRIGGER delete_rules
-    BEFORE INSERT ON "user"
+    BEFORE DELETE ON "user"
     FOR EACH ROW
     EXECUTE PROCEDURE delete_rules();
 
