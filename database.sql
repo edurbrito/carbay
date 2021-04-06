@@ -1,6 +1,6 @@
-DROP TABLE IF EXISTS "User";
+DROP TABLE IF EXISTS "user";
 
-CREATE TABLE "User" (
+CREATE TABLE "user" (
     id                  SERIAL,
     name                VARCHAR(50) NOT NULL,
     username            VARCHAR(50) NOT NULL,
@@ -51,6 +51,7 @@ DROP TABLE IF EXISTS Auction;
 CREATE TABLE Auction (
     id                       SERIAL,
     title                    VARCHAR(50) NOT NULL,
+    description              VARCHAR(50) NOT NULL,
     startingPrice            DECIMAL NOT NULL,
     startDate                TIMESTAMP WITH TIME zone DEFAULT now() NOT NULL,
     finalDate                TIMESTAMP WITH TIME zone NOT NULL,
@@ -59,7 +60,9 @@ CREATE TABLE Auction (
     scaleType                Scale NOT NULL,
     brandID                  INTEGER NOT NULL,
     colourID                 INTEGER NOT NULL,
-    sellerID                 INTEGER NOT NULL,
+    sellerID                 INTEGER,
+    stitle                   TSVECTOR DEFAULT to_tsvector('english', title),
+    sdescription             TSVECTOR DEFAULT to_tsvector('english', description),
 
     CONSTRAINT AuctionPK PRIMARY KEY (id),
     CONSTRAINT AuctionStartingPriceCK CHECK(startingPrice >= 1),
@@ -68,7 +71,7 @@ CREATE TABLE Auction (
     CONSTRAINT AuctionBuyNowCK CHECK (buyNow IS NULL or (buyNow IS NOT NULL and buyNow > startingPrice)),
     CONSTRAINT AuctionBrandFK FOREIGN KEY (brandID) REFERENCES Brand ON UPDATE CASCADE ON DELETE RESTRICT,
     CONSTRAINT AuctionColourFK FOREIGN KEY (colourID) REFERENCES Colour ON UPDATE CASCADE ON DELETE RESTRICT,
-    CONSTRAINT AuctionSellerFK FOREIGN KEY (sellerID) REFERENCES "User" ON UPDATE CASCADE ON DELETE RESTRICT
+    CONSTRAINT AuctionSellerFK FOREIGN KEY (sellerID) REFERENCES "user" ON UPDATE CASCADE ON DELETE SET NULL
 );
 
 
@@ -92,8 +95,8 @@ CREATE TABLE FavouriteSeller (
     user2ID                 SERIAL,
 
     CONSTRAINT FavouriteSellerPK PRIMARY KEY (user1ID, user2ID),
-    CONSTRAINT FavouriteSellerUser1FK FOREIGN KEY (user1ID) REFERENCES "User" ON UPDATE CASCADE ON DELETE CASCADE,
-    CONSTRAINT FavouriteSellerUser2FK FOREIGN KEY (user2ID) REFERENCES "User" ON UPDATE CASCADE ON DELETE CASCADE
+    CONSTRAINT FavouriteSellerUser1FK FOREIGN KEY (user1ID) REFERENCES "user" ON UPDATE CASCADE ON DELETE CASCADE,
+    CONSTRAINT FavouriteSellerUser2FK FOREIGN KEY (user2ID) REFERENCES "user" ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 
@@ -104,7 +107,7 @@ CREATE TABLE FavouriteAuction (
     auctionID              SERIAL,
 
     CONSTRAINT FavouriteAuctionPK PRIMARY KEY (userID,auctionID),
-    CONSTRAINT FavouriteAuctionUserFK FOREIGN KEY (userID) REFERENCES "User" ON UPDATE CASCADE ON DELETE CASCADE,
+    CONSTRAINT FavouriteAuctionUserFK FOREIGN KEY (userID) REFERENCES "user" ON UPDATE CASCADE ON DELETE CASCADE,
     CONSTRAINT FavouriteAutionAuctionFK FOREIGN KEY (auctionID) REFERENCES Auction ON UPDATE CASCADE ON DELETE CASCADE
 );
 
@@ -116,13 +119,13 @@ CREATE TABLE HelpMessage (
     text                    VARCHAR(50) NOT NULL,
     dateHour                TIMESTAMP WITH TIME zone DEFAULT now() NOT NULL,
     read                    BOOLEAN DEFAULT FALSE NOT NULL,
-    senderID                INTEGER NOT NULL,
-    recipientID             INTEGER NOT NULL,
+    senderID                INTEGER,
+    recipientID             INTEGER,
     
     CONSTRAINT HelpMessagePK PRIMARY KEY (id),
     CONSTRAINT HelpMessageDateLT CHECK (dateHour <= now()),
-    CONSTRAINT HelpMessageSenderFK FOREIGN KEY (senderID) REFERENCES "User" ON UPDATE CASCADE ON DELETE SET NULL,
-    CONSTRAINT HelpMessageRecipientFK FOREIGN KEY (recipientID) REFERENCES "User" ON UPDATE CASCADE ON DELETE SET NULL
+    CONSTRAINT HelpMessageSenderFK FOREIGN KEY (senderID) REFERENCES "user" ON UPDATE CASCADE ON DELETE SET NULL,
+    CONSTRAINT HelpMessageRecipientFK FOREIGN KEY (recipientID) REFERENCES "user" ON UPDATE CASCADE ON DELETE SET NULL
 );
 
 
@@ -130,14 +133,14 @@ DROP TABLE IF EXISTS Rating;
 
 CREATE TABLE Rating (
     auctionID               SERIAL,
-    winnerID                INTEGER NOT NULL,
+    winnerID                INTEGER,
     value                   INTEGER NOT NULL,
     dateHour                TIMESTAMP WITH TIME zone DEFAULT now() NOT NULL,
     comment                 VARCHAR(50) NOT NULL,
 
     CONSTRAINT RatingPK PRIMARY KEY (auctionID),
     CONSTRAINT RatingAuctionFK FOREIGN KEY (auctionID) REFERENCES Auction ON UPDATE CASCADE ON DELETE CASCADE,
-    CONSTRAINT RatingWinnerFK FOREIGN KEY (winnerID) REFERENCES "User" ON UPDATE CASCADE ON DELETE SET NULL,
+    CONSTRAINT RatingWinnerFK FOREIGN KEY (winnerID) REFERENCES "user" ON UPDATE CASCADE ON DELETE SET NULL,
     CONSTRAINT RatingValueHT CHECK (value >= 1),
     CONSTRAINT RatingValueLT CHECK (value <= 5),
     CONSTRAINT RatingDateLT CHECK (dateHour <= now())
@@ -154,13 +157,13 @@ DROP TABLE IF EXISTS Comment;
 CREATE TABLE Comment (
     id                      SERIAL,
     text                    VARCHAR(50) NOT NULL,
-    dateHour               TIMESTAMP WITH TIME zone DEFAULT now() NOT NULL,
+    dateHour                TIMESTAMP WITH TIME zone DEFAULT now() NOT NULL,
     authorID                INTEGER NOT NULL,
     auctionID               INTEGER NOT NULL,
     
     CONSTRAINT CommentPK PRIMARY KEY (id),
     CONSTRAINT CommentDateLT CHECK (dateHour <= now()),
-    CONSTRAINT CommentAuthorFK FOREIGN KEY (authorID) REFERENCES "User" ON UPDATE CASCADE ON DELETE CASCADE,
+    CONSTRAINT CommentAuthorFK FOREIGN KEY (authorID) REFERENCES "user" ON UPDATE CASCADE ON DELETE CASCADE,
     CONSTRAINT CommentAuctionFK FOREIGN KEY (auctionID) REFERENCES Auction ON UPDATE CASCADE ON DELETE CASCADE
 );
 
@@ -170,14 +173,14 @@ CREATE TABLE Report(
     id                        SERIAL,
     reason                    VARCHAR(50) NOT NULL,
     dateHour                  TIMESTAMP WITH TIME zone DEFAULT now() NOT NULL,
-    reporterID                INTEGER NOT NULL,
+    reporterID                INTEGER,
     locationAuctionID         INTEGER,
     locationCommentID         INTEGER,
     locationRegisteredID      INTEGER,
     stateType                 State DEFAULT 'Waiting' NOT NULL,
 
     CONSTRAINT ReportPK PRIMARY KEY (id),
-    CONSTRAINT ReportReporterFK FOREIGN KEY (reporterID) REFERENCES "User" ON UPDATE CASCADE ON DELETE SET NULL,
+    CONSTRAINT ReportReporterFK FOREIGN KEY (reporterID) REFERENCES "user" ON UPDATE CASCADE ON DELETE SET NULL,
     CONSTRAINT ReportExclusiveORLocation CHECK (
         1 = (
             CASE WHEN locationAuctionID IS NOT NULL THEN 1 ELSE 0 END +
@@ -187,7 +190,7 @@ CREATE TABLE Report(
     ),
     CONSTRAINT ReportLocationAuctionFK FOREIGN KEY (locationAuctionID) REFERENCES Auction ON UPDATE CASCADE ON DELETE CASCADE,
     CONSTRAINT ReportLocationCommentFK FOREIGN KEY (locationCommentID) REFERENCES Comment ON UPDATE CASCADE ON DELETE CASCADE,
-    CONSTRAINT ReportLocationRegisteredFK FOREIGN KEY (locationRegisteredID) REFERENCES "User" ON UPDATE CASCADE ON DELETE CASCADE
+    CONSTRAINT ReportLocationRegisteredFK FOREIGN KEY (locationRegisteredID) REFERENCES "user" ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 
@@ -197,12 +200,12 @@ CREATE TABLE Bid (
     id                      SERIAL,
     value                   DECIMAL NOT NULL,
     dateHour                TIMESTAMP WITH TIME zone DEFAULT now() NOT NULL,
-    authorID                INTEGER NOT NULL,
+    authorID                INTEGER,
     auctionID               INTEGER NOT NULL,
 
     CONSTRAINT BidPK PRIMARY KEY (id),
     CONSTRAINT BidDateCK CHECK(dateHour <= now()),
-    CONSTRAINT BidAuthorFK FOREIGN KEY (authorID) REFERENCES "User" ON UPDATE CASCADE ON DELETE RESTRICT,
+    CONSTRAINT BidAuthorFK FOREIGN KEY (authorID) REFERENCES "user" ON UPDATE CASCADE ON DELETE SET NULL,
     CONSTRAINT BidAuctionFK FOREIGN KEY (auctionID) REFERENCES Auction ON UPDATE CASCADE ON DELETE RESTRICT
 );
 
@@ -211,33 +214,30 @@ DROP TABLE IF EXISTS Notification;
 
 CREATE TABLE Notification (
     id                      SERIAL,
-    text                    VARCHAR(50) NOT NULL,
     viewed                  BOOLEAN DEFAULT FALSE NOT NULL,
     dateHour                TIMESTAMP WITH TIME zone DEFAULT now() NOT NULL,
     recipientID             INTEGER NOT NULL,
-    contextAuctionID        INTEGER,
-    contextRatingID         INTEGER,
-    contextHelpMessageID    INTEGER,
-    contextRegisteredID     INTEGER,
-    contextBidID            INTEGER,
-    contextCommentID        INTEGER,
+    contextRating           INTEGER DEFAULT NULL,
+    contextHelpMessage      INTEGER DEFAULT NULL,
+    contextFavSeller        INTEGER DEFAULT NULL,
+    contextBid              INTEGER DEFAULT NULL,
+    contextFavAuction       INTEGER DEFAULT NULL,
 
     CONSTRAINT NotificationPK PRIMARY KEY (id),
     CONSTRAINT NotificationDateLT CHECK (dateHour <= now()),
     CONSTRAINT NotificationExclusiveORContext CHECK (
         1 = (
-            CASE WHEN contextAuctionID IS NOT NULL THEN 1 ELSE 0 END +
-            CASE WHEN contextRatingID IS NOT NULL THEN 1 ELSE 0 END +
-            CASE WHEN contextHelpMessageID IS NOT NULL THEN 1 ELSE 0 END +
-            CASE WHEN contextRegisteredID IS NOT NULL THEN 1 ELSE 0 END +
-            CASE WHEN contextBidID IS NOT NULL THEN 1 ELSE 0 END +
-            CASE WHEN contextCommentID IS NOT NULL THEN 1 ELSE 0 END
+            CASE WHEN contextRating IS NOT NULL THEN 1 ELSE 0 END +
+            CASE WHEN contextHelpMessage IS NOT NULL THEN 1 ELSE 0 END +
+            CASE WHEN contextFavSeller IS NOT NULL THEN 1 ELSE 0 END +
+            CASE WHEN contextBid IS NOT NULL THEN 1 ELSE 0 END +
+            CASE WHEN contextFavAuction IS NOT NULL THEN 1 ELSE 0 END
         )
     ),
-    CONSTRAINT NotificationContextAuctionFK FOREIGN KEY (contextAuctionID) REFERENCES Auction ON UPDATE CASCADE ON DELETE CASCADE,
-    CONSTRAINT NotificationContextRatingFK FOREIGN KEY (contextRatingID) REFERENCES Rating ON UPDATE CASCADE ON DELETE CASCADE,
-    CONSTRAINT NotificationContextHelpMessageFK FOREIGN KEY (contextHelpMessageID) REFERENCES HelpMessage ON UPDATE CASCADE ON DELETE CASCADE,
-    CONSTRAINT NotificationContextRegisteredFK FOREIGN KEY (contextRegisteredID) REFERENCES "User" ON UPDATE CASCADE ON DELETE CASCADE,
-    CONSTRAINT NotificationContextBidFK FOREIGN KEY (contextBidID) REFERENCES Bid ON UPDATE CASCADE ON DELETE CASCADE,
-    CONSTRAINT NotificationContextCommentFK FOREIGN KEY (contextCommentID) REFERENCES Comment ON UPDATE CASCADE ON DELETE CASCADE
+    CONSTRAINT NotificationRecipientIDFK FOREIGN KEY (recipientID) REFERENCES "user" ON UPDATE CASCADE ON DELETE CASCADE,
+    CONSTRAINT NotificationContextRatingFK FOREIGN KEY (contextRating) REFERENCES Auction ON UPDATE CASCADE ON DELETE CASCADE,
+    CONSTRAINT NotificationContextHelpMessageFK FOREIGN KEY (contextHelpMessage) REFERENCES HelpMessage ON UPDATE CASCADE ON DELETE CASCADE,
+    CONSTRAINT NotificationContextFavSellerFK FOREIGN KEY (contextFavSeller) REFERENCES "user" ON UPDATE CASCADE ON DELETE CASCADE,
+    CONSTRAINT NotificationContextBidFK FOREIGN KEY (contextBid) REFERENCES Auction ON UPDATE CASCADE ON DELETE CASCADE,
+    CONSTRAINT NotificationContextFavAuctionFK FOREIGN KEY (contextFavAuction) REFERENCES Auction ON UPDATE CASCADE ON DELETE CASCADE
 );
