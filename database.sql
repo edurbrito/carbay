@@ -1,21 +1,19 @@
-DROP TABLE IF EXISTS "user";
-DROP TABLE IF EXISTS Colour;
-DROP TABLE IF EXISTS Brand;
-DROP TABLE IF EXISTS Auction;
-DROP TABLE IF EXISTS Image;
-DROP TABLE IF EXISTS FavouriteSeller;
-DROP TABLE IF EXISTS FavouriteAuction;
-DROP TABLE IF EXISTS HelpMessage;
-DROP TABLE IF EXISTS Rating;
-DROP TABLE IF EXISTS Comment;
-DROP TABLE IF EXISTS Report;
-DROP TABLE IF EXISTS Bid;
-DROP TABLE IF EXISTS Notification;
-
+DROP TABLE IF EXISTS Rating CASCADE;
+DROP TABLE IF EXISTS Report CASCADE;
+DROP TABLE IF EXISTS Comment CASCADE;
+DROP TABLE IF EXISTS Image CASCADE;
+DROP TABLE IF EXISTS Auction CASCADE;
+DROP TABLE IF EXISTS Brand CASCADE;
+DROP TABLE IF EXISTS Colour CASCADE;
+DROP TABLE IF EXISTS FavouriteSeller CASCADE;
+DROP TABLE IF EXISTS FavouriteAuction CASCADE;
+DROP TABLE IF EXISTS "user" CASCADE;
+DROP TABLE IF EXISTS HelpMessage CASCADE;
+DROP TABLE IF EXISTS Bid CASCADE;
+DROP TABLE IF EXISTS Notification CASCADE;
 
 DROP TYPE IF EXISTS Scale CASCADE;
 DROP TYPE IF EXISTS State CASCADE;
-
 
 DROP TRIGGER IF EXISTS bid_rules ON Bid;
 DROP TRIGGER IF EXISTS help_message_types ON HelpMessage;
@@ -28,15 +26,15 @@ DROP TRIGGER IF EXISTS notify_highest_bid ON Bid;
 DROP TRIGGER IF EXISTS fts_auction_insert ON Auction;
 DROP TRIGGER IF EXISTS fts_auction_update ON Auction;
 
-DROP FUNCTION IF EXISTS bid_rules();
-DROP FUNCTION IF EXISTS help_message_types();
-DROP FUNCTION IF EXISTS rating_rules();
-DROP FUNCTION IF EXISTS delete_rules();
-DROP FUNCTION IF EXISTS notify_rating();
-DROP FUNCTION IF EXISTS notify_help_message();
-DROP FUNCTION IF EXISTS notify_favorite_sellers();
-DROP FUNCTION IF EXISTS notify_highest_bid();
-DROP FUNCTION IF EXISTS auction_search_update();
+DROP FUNCTION IF EXISTS bid_rules() CASCADE;
+DROP FUNCTION IF EXISTS help_message_types() CASCADE;
+DROP FUNCTION IF EXISTS rating_rules() CASCADE;
+DROP FUNCTION IF EXISTS delete_rules() CASCADE;
+DROP FUNCTION IF EXISTS notify_rating() CASCADE;
+DROP FUNCTION IF EXISTS notify_help_message() CASCADE;
+DROP FUNCTION IF EXISTS notify_favorite_sellers() CASCADE;
+DROP FUNCTION IF EXISTS notify_highest_bid() CASCADE;
+DROP FUNCTION IF EXISTS auction_search_update() CASCADE;
 
 
 
@@ -97,9 +95,8 @@ CREATE TABLE Auction (
     brandID                  INTEGER NOT NULL,
     colourID                 INTEGER NOT NULL,
     sellerID                 INTEGER,
-    stitle                   TSVECTOR,
-    sdescription             TSVECTOR,
-
+    search                   TSVECTOR,
+    
     CONSTRAINT AuctionPK PRIMARY KEY (id),
     CONSTRAINT AuctionStartingPriceCK CHECK(startingPrice >= 1),
     CONSTRAINT AuctionStartDateCK CHECK(startDate >= now()),
@@ -275,6 +272,8 @@ CREATE INDEX comment_auction ON comment USING hash (auctionID);
 
 CREATE INDEX bid_value ON bid USING btree (auctionID, value);
 
+CREATE INDEX auction_search ON auction USING gist (search);
+
 
 ------------------------------FUNCTIONS------------------------------
 
@@ -397,8 +396,7 @@ LANGUAGE 'plpgsql';
 CREATE FUNCTION notify_favorite_sellers() RETURNS TRIGGER AS 
 $BODY$
 BEGIN
-    INSERT INTO notification (recipientId, contextFavSeller)
-    VALUES 
+    INSERT INTO notification (recipientId, contextFavSeller) 
     SELECT user1ID , NEW.id 
         FROM FavouriteSeller 
         WHERE FavouriteSeller.user2ID = NEW.sellerID;
@@ -410,8 +408,7 @@ LANGUAGE 'plpgsql';
 CREATE FUNCTION notify_highest_bid() RETURNS TRIGGER AS 
 $BODY$
 BEGIN
-    INSERT INTO notification (recipientId, contextBid)
-    VALUES 
+    INSERT INTO notification (recipientId, contextBid) 
     SELECT authorID , OLD.auctionID 
         FROM OLD
         WHERE OLD.auctionID = NEW.auctionID
@@ -426,21 +423,18 @@ CREATE FUNCTION auction_search_update() RETURNS TRIGGER AS
 $BODY$
 BEGIN
     IF TG_OP = 'INSERT' THEN
-        NEW.stitle = to_tsvector('english', NEW.title);
-        NEW.sdescription = to_tsvector('english', NEW.description);
+        NEW.search =  setweight(to_tsvector('english', NEW.title), 'A') || setweight(to_tsvector('english', NEW.description), 'B');
     END IF;
     IF TG_OP = 'UPDATE' THEN
-        IF NEW.title <> OLD.title THEN
-            NEW.stitle = to_tsvector('english', NEW.title);
-        END IF;
-        IF NEW.description <> OLD.description THEN
-            NEW.sdescription = to_tsvector('english', NEW.description);
+        IF NEW.title <> OLD.title OR NEW.description <> OLD.description THEN
+            NEW.search = setweight(to_tsvector('english', NEW.title), 'A') || setweight(to_tsvector('english', NEW.description), 'B'); 
         END IF;
     END IF;
     RETURN NEW;
 END
 $BODY$ 
 LANGUAGE 'plpgsql';
+
 
 
 ------------------------------TRIGGERS------------------------------
