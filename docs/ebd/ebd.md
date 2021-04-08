@@ -1,3 +1,182 @@
+# EBD: Database Specification Component
+
+An online bidding platform destined for car model lovers, allowing them to sell or complete their private collections, by participating in real-time traditional auctions and interacting with other worldwide collectors.
+
+## A4: Conceptual Data Model
+
+The goal of this artefact is to describe and identify the main entities of the domain, as well as their relationships, attributes and constraints, using a UML class diagram.
+
+### 1. Class diagram
+
+![UML Class diagram](uml.png)
+
+Figure 1: UML Class Diagram.
+
+### 2. Additional Business Rules
+
+- In a HelpMessage, the Sender must be of a different type of the Recipient.
+- A new bid must have a greater value than the starting price of the auction.
+- A new bid must have a greater value than the previous set bid.
+- The seller cannot bid on his own auction.
+- The registered user can only give a rating to an auction he won.
+- Report only has one location.
+- Notification only has one context.
+- A user can only delete its account if there are no active auctions or bids.
+
+## A5: Relational Schema, validation and schema refinement
+
+The following artefact has by objective mapping the Conceptual Data Model, obtaining the Relational Schema, which gives information about the primary keys, foreign keys and other integrity rules of the UML tables. 
+The domain, functional dependencies and normalization of all relations schemas are also present, as well as the corresponding SQL code.
+Since every relation is in the Boyce–Codd Normal Form (BCNF), the relational schema is also in the BCNF, not being its normalization necessary.
+
+### 1. Relational Schema
+
+| Relation reference | Relation Compact Notation|
+|:------------------:|--------------------------|
+|         R01        | "user"(<ins>id</ins>, name **NN**, username **UK** **NN**, email **UK** **NN**, password **NN**, image **NN**, banned **NN** **DF** False, admin **NN** **DF** False)|
+|         R02        | favouriteSeller(<ins>user1ID</ins> -> "user", <ins>user2ID</ins> -> "user")|
+|         R03        | favouriteAuction(<ins>userID</ins> -> "user", <ins>auctionID</ins> -> auction)|
+|         R04        | helpMessage(<ins>id</ins>, text **NN**, dateHour **NN** **DF** Now **CK** dateHour <= Now, read **NN** **DF** False, senderID -> "user" **NN**, recipientID -> "user" **NN**)|
+|         R05        | rating(<ins>auctionID</ins> -> auction, winnerID -> "user" **NN**, value **NN** **CK** value >= 1 **AND** value <= 5, dateHour **NN** **DF** Now **CK** dateHour <= Now, comment **NN**)|
+|         R06        | report(<ins>id</ins>, reason **NN**, dateHour **NN** **DF** Now, reporterID -> "user" **NN**, locationAuctionID -> auction, locationCommentID -> comment, locationRegisteredID -> "user", stateType **NN** **DF** Waiting **CK** stateType **IN** State)|
+|         R07        | auction(<ins>id</ins>, title **NN**, description **NN**, startingPrice **NN** **CK** startingPrice >= 1, startDate **NN** **DF** Now **CK** startDate >= Now, finalDate **NN** **CK** finalDate >= startDate, suspend **DF** **NN** False, buyNow **IS NULL OR** (buyNow **IS NOT NULL AND** buyNow > startingPrice), scaleType **NN** **CK** scaleType **IN** Scale , brandID -> brand **NN**, colourID -> colour **NN**, sellerID -> "user" **NN**)|
+|         R08        | image(<ins>id</ins>, url **NN** **UK**, auctionID -> auction **NN**)|
+|         R09        | colour(<ins>id</ins>, name **NN** **UK**)|
+|         R10        | brand(<ins>id</ins>, name **NN** **UK**)|
+|         R11        | bid(<ins>id</ins>, value **NN**, dateHour **NN** **DF** Now **CK** dateHour <= Now, authorID -> "user" **NN**, auctionID -> Auction **NN**)|
+|         R12        | comment(<ins>id</ins>, text **NN**, dateHour **NN** **DF** Now **CK** dateHour <= Now, authorID -> "user" **NN**, auctionID -> Auction **NN**)|
+|         R13        | notification(<ins>id</ins>, text **NN**, viewed **NN** **DF** False, dateHour **NN** **DF** Now **CK** dateHour <= Now, contextRating -> Auction, contextHelpMessage -> helpMessage, contextFavSeller -> Auction, contextBid -> Auction, contextFavAuction -> Auction, recipientID -> "user" **NN**)|
+
+### 2. Domains
+
+| Domain Name |          Domain Specification          |
+|:-----------:|:--------------------------------------:|
+|     Now     |  DATETIME DEFAULT CURRENT_TIMESTAMP    |
+|    Scale    |   ENUM ('1:8', '1:18', '1:43', '1:64') |
+|    State    | ENUM ('Waiting', 'Discarded', 'Banned')|
+
+### 3. Schema validation
+
+|         **Table R01**          |                            "user"                               |
+|:------------------------------:|:---------------------------------------------------------------:|
+|           **Keys**             |                       {id, username, email}                     |
+| **Functional Dependencies**    |                                                                 |
+|            FD01                | {id} -> {name, username, email, password, image, banned, admin} |
+|            FD02                | {username} -> {id, name, email, password, image, banned, admin} |
+|            FD03                | {email} -> {id, name, username, password, image, banned, admin} |
+|       **NORMAL FORM**          |                               BCNF                              |
+
+----
+
+|        **Table R02**           |                  favouriteSeller                 |
+|:------------------------------:|:------------------------------------------------:|
+|           **Keys**             |                {user1ID, user2ID}                |
+| **Functional Dependencies**    |                                                  |
+|                                |                 No non-trivial FDs               |
+|       **NORMAL FORM**          |                       BCNF                       |
+
+----
+
+|        **Table R03**           |                  favouriteAuction                |
+|:------------------------------:|:------------------------------------------------:|
+|           **Keys**             |                 {userID, auctionID}              |
+| **Functional Dependencies**    |                                                  |
+|                                |                  No non-trivial FDs              |
+|       **NORMAL FORM**          |                         BCNF                     |
+
+----
+
+|        **Table R04**           |                   helpMessage                        |
+|:------------------------------:|:----------------------------------------------------:|
+|           **Keys**             |                       {id}                           |
+| **Functional Dependencies**    |                                                      |
+|           FD51                 |  {id} -> {text, date, read, senderID, recipientID}   |
+|       **NORMAL FORM**          |                       BCNF                           |
+
+----
+
+|        **Table R05**           |                      rating                      |
+|:------------------------------:|:------------------------------------------------:|
+|           **Keys**             |                   {auctionID}                    |
+| **Functional Dependencies**    |                                                  |
+|           FD61                 | {auctionID} -> {winnerID, value, date, comment}  |
+|       **NORMAL FORM**          |                      BCNF                        |
+
+----
+
+|        **Table R06**           |                       report                     |
+|:------------------------------:|:------------------------------------------------:|
+|           **Keys**             |                         {id}                     |
+| **Functional Dependencies**    |                                                  |
+|           FD71                 |  {id} -> {reason, date, reporterID, locationAuctionID, locationCommentID, locationRegisteredID, stateType}   |
+|       **NORMAL FORM**          |                         BCNF                     |
+
+----
+
+|        **Table R07**           |                        auction                   |
+|:------------------------------:|:------------------------------------------------:|
+|           **Keys**             |                         {id}                     |
+| **Functional Dependencies**    |                                                  |
+|           FD81                 | {id} -> {title, description, startingPrice, startDate, finalDate, suspend, buyNow, scaleType, brandID, colourID, sellerID} |
+|       **NORMAL FORM**          |                         BCNF                     |
+
+----
+
+|        **Table R08**           |                         image                    |
+|:------------------------------:|:------------------------------------------------:|
+|           **Keys**             |                      {id, url}                   |
+| **Functional Dependencies**    |                                                  |
+|           FD91                 |               {id} -> {url, auctionID}           |
+|           FD92                 |               {url} -> {id, auctionID}           |
+|       **NORMAL FORM**          |                         BCNF                     |
+
+----
+
+|        **Table R09**           |                        colour                    |
+|:------------------------------:|:------------------------------------------------:|
+|           **Keys**             |                      {id, name}                  |
+| **Functional Dependencies**    |                                                  |
+|          FD101                 |                    {id} -> {name}                |
+|          FD102                 |                    {name} -> {id}                |
+|       **NORMAL FORM**          |                         BCNF                     |
+
+----
+
+|        **Table R10**           |                        brand                     |
+|:------------------------------:|:------------------------------------------------:|
+|           **Keys**             |                      {id, name}                  |
+| **Functional Dependencies**    |                                                  |
+|          FD111                 |                    {id} -> {name}                |
+|          FD112                 |                    {name} -> {id}                |
+|       **NORMAL FORM**          |                         BCNF                     |
+
+----
+
+|        **Table R11**           |                         bid                      |
+|:------------------------------:|:------------------------------------------------:|
+|           **Keys**             |                        {id}                      |
+| **Functional Dependencies**    |                                                  |
+|          FD121                 |   {id} -> {value, date, authorID, auctionID}     |
+|       NORMAL FORM              |                       BCNF                       |
+
+----
+
+|        **Table R12**           |                      comment                     |
+|:------------------------------:|:------------------------------------------------:|
+|           **Keys**             |                       {id}                       |
+| **Functional Dependencies**    |                                                  |
+|          FD131                 |    {id} -> {text, date, authorID, auctionID}     |
+|       **NORMAL FORM**          |                        BCNF                      |
+
+----
+
+|        **Table R13**           |                    notification                  |
+|:------------------------------:|:------------------------------------------------:|
+|           **Keys**             |                       {id}                       |
+|  **Functional Dependencies**   |                                                  |
+|          FD141                 | {id} -> {viewed, date, contextFavAuction, contextRating, contextHelpMessage, contextFavSeller, contextBid, recipientID} |
+|       **NORMAL FORM**          |                       BCNF                       |  
+
 ## A6: Indexes, triggers, user functions, transactions and population
 
 This artefact contains the estimation of the tuples growth and magnitude, the identification of the most frequent queries, database modifications, the indexes to be applied in order to enhance the performance, and the indexes relative to the full-text search. It also enumerates the triggers and transactions needed to ensure consistency and integrity. Finally, there is the complete SQL code and the script to populate the database.
