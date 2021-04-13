@@ -6,6 +6,11 @@ info:
   description: Web Resources Specification (A7) for CarBay
 
 servers:
+# Added by API Auto Mocking Plugin
+- description: SwaggerHub API Auto Mocking
+  url: https://virtserver.swaggerhub.com/lbaw2155/lbaw2155-api/1.0
+- description: SwaggerHub API Auto Mocking
+  url: https://virtserver.swaggerhub.com/F2778/lbaw2155-api/1.0
 - url: http://lbaw-prod.fe.up.pt
   description: Production server
 
@@ -187,6 +192,13 @@ paths:
       tags:
         - 'M01: Authentication and Individual Profile'
     
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
+
       requestBody:
         required: true
         content:
@@ -295,25 +307,25 @@ paths:
           name: min_bid
           description: 'Only show auctions last bids with value above the minimum'
           schema:
-            type: float
+            type: number
           required: false
         - in: query
           name: max_bid
           description: 'Only show auctions last bids with value below the maximum'
           schema:
-            type: float
+            type: number
           required: false
         - in: query
           name: min_buy_now
           description: 'Only show auctions with buy now value above the minimum'
           schema:
-            type: float
+            type: number
           required: false
         - in: query
           name: max_buy_now
           description: 'Only show auctions with buy now value below the maximum'
           schema:
-            type: float
+            type: number
           required: false
           
       responses:
@@ -335,13 +347,13 @@ paths:
                     final_date:
                       type: string
                     highest_bid:
-                      type: float
+                      type: number
                     buy_now:
-                      type: float
+                      type: number
                     seller:
                       type: string
                     seller_rating:
-                      type: float
+                      type: number
                 example:
                   - id: 1
                     image_url: 'https://lbaw2155-piu/static/images/qkewndms-qqnw-213-skmsmsak.jpg'
@@ -407,7 +419,7 @@ paths:
                     date:
                       type: string
                     value:
-                      type: float
+                      type: number
                 example:
                   - date: "2021-04-23 12:39:41"
                     value: 1345.12
@@ -438,13 +450,25 @@ paths:
                 username:
                   type: string
                 value:
-                  type: float
+                  type: number
               required:
                 - username
                 - value
+
       responses:
-        '200':
-          description: 'Ok. Show [UI08](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/er#ui08-auction-page-chat)'
+        '302':
+          description: 'Redirect after processing the new bid information.'
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: 'Successful bid. Redirect to auction page.'
+                  value: '/auctions/{id}'
+                302Failure:
+                  description: 'Failed bid. Redirect to auction page.'
+                  value: '/auctions/{id}'
   
   /auctions/create:
     get:
@@ -474,11 +498,11 @@ paths:
                 title:
                   type: string
                 starting_bid:
-                  type: float
+                  type: number
                 start_date:
                   type: string
                 buy_now:
-                  type: float
+                  type: number
                 duration:
                   type: integer
                 color:
@@ -503,6 +527,20 @@ paths:
                 - scale
                 - photos
                 - description
+      responses:
+        '302':
+          description: 'Redirect after processing the new auction information.'
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: 'Successful creation. Redirect to auction page.'
+                  value: '/auctions/{id}'
+                302Failure:
+                  description: 'Failed auction creation. Redirect to create auction page.'
+                  value: '/auctions/create'
 
   /auctions/{id}/comments:
     get:
@@ -544,8 +582,8 @@ paths:
                     date: '2021-04-12 12:39:41'
       
     post:
-      operationId: R207
-      summary: 'R207: Comment in auction'
+      operationId: R208
+      summary: 'R208: Comment in auction'
       description: 'Processes the new comment in the auction. Access: USR'
       tags:
         - 'M02: Auctions'
@@ -573,14 +611,26 @@ paths:
                 - text
                 
       responses:
-        '200':
-          description: 'Ok. Show [UI08](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/er#ui08-auction-page-chat)'
+        '302':
+          description: 'Redirect after processing the new comment.'
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: 'Successful comment. Redirect to auction page.'
+                  value: '/auctions/{id}'
+                302Failure:
+                  description: 'Failed comment. Redirect to auction page.'
+                  value: '/auctions/{id}'
+
           
   /auctions/{id}/buy_now:
       
     post:
-      operationId: R208
-      summary: 'R208: Buy Now in the auction'
+      operationId: R209
+      summary: 'R209: Buy Now in the auction'
       description: 'Processes the use of the Buy Now option in the auction. Access: USR'
       tags:
         - 'M02: Auctions'
@@ -602,13 +652,25 @@ paths:
                 username:
                   type: string
                 value:
-                  type: float
+                  type: number
               required:
                 - username
                 - value
+
       responses:
-        '200':
-          description: 'Ok. Show [UI08](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/er#ui08-auction-page-chat)'
+        '302':
+          description: 'Redirect after processing buy now action.'
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: 'Successful buy now. Redirect to auction page.'
+                  value: '/auctions/{id}'
+                302Failure:
+                  description: 'Failed buy now. Redirect to auction page.'
+                  value: '/auctions/{id}'
           
   /users/{username}/fav_auctions:
     get:
@@ -656,6 +718,13 @@ paths:
       tags:
         - 'M03: Favourites and Ratings'
 
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
+
       requestBody:
         required: true
         content:
@@ -667,7 +736,21 @@ paths:
                   type: integer
               required:
                 - id
-                
+      responses:
+        '302':
+          description: 'Redirect after processing favourite auction.'
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: 'Successful add/remove favourite auction request. Redirect to auction page.'
+                  value: '/auctions/{id}'
+                302Failure:
+                  description: 'Failed add/remove favourite auction request. Redirect to auction page.'
+                  value: '/auctions/{id}'    
+
   /users/{username}/fav_sellers:
     get:
       operationId: R303
@@ -710,6 +793,13 @@ paths:
       tags:
         - 'M03: Favourites and Ratings'
 
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
+
       requestBody:
         required: true
         content:
@@ -717,11 +807,26 @@ paths:
             schema:
               type: object
               properties:
-                username:
+                seller:
                   type: string
               required:
-                - username
-                
+                - seller
+
+      responses:
+        '302':
+          description: 'Redirect after processing favourite seller.'
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: 'Successful add/remove favourite seller request. Redirect to profile page.'
+                  value: '/users/{seller}'
+                302Failure:
+                  description: 'Failed add/remove favourite seller request. Redirect to profile page.'
+                  value: '/users/{seller}'   
+
   /users/{username}/rating:
     get:
       operationId: R305
@@ -772,6 +877,13 @@ paths:
       tags:
         - 'M03: Favourites and Ratings'
 
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
+
       requestBody:
         required: true
         content:
@@ -779,18 +891,31 @@ paths:
             schema:
               type: object
               properties:
-                username:
-                  type: string
+                auction:
+                  type: integer
                 rating:
-                      type: integer
+                  type: integer
                 text:
                   type: string
-                date:
-                  type: string
               required:
-                - username
+                - auction
                 - rating
-                
+
+      responses:
+        '302':
+          description: 'Redirect after processing rating to seller.'
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: 'Successful rating to seller request. Redirect to auction page.'
+                  value: '/auctions/{auction}'
+                302Failure:
+                  description: 'Failed rating to seller request. Redirect to auction page.'
+                  value: '/auctions/{auction}'       
+
   /users/{username}/help:
     get:
       operationId: R401
@@ -837,6 +962,13 @@ paths:
       tags:
         - 'M04: Reports and Help Messages'
 
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
+
       requestBody:
         required: true
         content:
@@ -851,7 +983,22 @@ paths:
               required:
                 - username
                 - text
-         
+
+      responses:
+        '302':
+          description: 'Redirect after processing help message.'
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: 'Successful help message request. Redirect to help page.'
+                  value: '/users/{username}/help'
+                302Failure:
+                  description: 'Failed help message request. Redirect to help page.'
+                  value: '/users/{username}/help'    
+                  
   /home:
     get:
       operationId: R501
@@ -877,9 +1024,9 @@ paths:
                     final_date:
                       type: string
                     highest_bid:
-                      type: float
+                      type: number
                     buy_now:
-                      type: float
+                      type: number
                 example:
                   - id: 1
                     title: 'Ferrari Portofino'
@@ -900,6 +1047,13 @@ paths:
       tags:
         - 'M05: User Administration and Static pages'
     
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+
       requestBody:
         required: true
         content:
@@ -914,8 +1068,19 @@ paths:
                 final_date:
                   type: string
       responses:
-        '200':
-          description: 'Ok. Show [UI21](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/er#ui21-admin-panel-auctions-management)'
+        '302':
+          description: 'Redirect after processing auction management.'
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: 'Successful auction management request. Redirect to admin panel.'
+                  value: '/auctions/{id}/manage'
+                302Failure:
+                  description: 'Failed auction management request. Redirect to admin panel.'
+                  value: '/auctions/{id}/manage'  
           
   /about:
     get:
