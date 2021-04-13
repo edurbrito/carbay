@@ -901,7 +901,7 @@ CREATE TRIGGER notify_highest_bid
 
 | Trigger         | TRIGGER09 |
 |-----------------|-----------|
-| Description     | When an auction is inserted or updated, add a new column for tsvector values based on the title and description. |
+| Description     | When an auction is inserted or updated, add a new column for tsvector values based on the title, colour, brand, seller username and description. |
 
 ```sql
 CREATE FUNCTION auction_search_update() RETURNS TRIGGER AS 
