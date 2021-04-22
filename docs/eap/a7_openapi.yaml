@@ -9,11 +9,11 @@ servers:
 - url: http://lbaw2155-piu.lbaw-prod.fe.up.pt/
   description: Production server
 
-externalDocs:
-- description: SwaggerHub API Auto Mocking
-  url: https://virtserver.swaggerhub.com/F2778/lbaw2155-api/1.0
-- description: Find more info here.
-  url: https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/eap
+# externalDocumentation:
+# - description: SwaggerHub API Auto Mocking
+# url: https://virtserver.swaggerhub.com/F2778/lbaw2155-api/1.0
+# - description: Find more info here.
+# url: https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/eap
 
 tags:
   - name: 'M01: Static Pages'
@@ -38,36 +38,8 @@ paths:
       responses:
         '200':
           description: 'Ok. Show [UI01](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/er#ui01-homepage)'
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    id:
-                      type: integer
-                    title:
-                      type: string
-                    final_date:
-                      type: string
-                    highest_bid:
-                      type: number
-                    buy_now:
-                      type: number
-                example:
-                  - id: 1
-                    title: 'Ferrari Portofino'
-                    final_date: '2021-04-25 12:00:00'
-                    highest_bid: 500
-                    buy_now: 2000
-                  - id: 4
-                    title: 'Bentley Continental'
-                    final_date: '2021-04-26 14:50:00'
-                    highest_bid: 650
-                    buy_now: 1950
                              
-   /about:
+  /about:
     get:
       operationId: R102
       summary: 'R102: About Us Page'
@@ -113,9 +85,9 @@ paths:
             schema:
               type: object
               properties:
-                email:          # <!--- form field name
+                email:
                   type: string
-                password:    # <!--- form field name
+                password:
                   type: string
               required:
                 - email
@@ -302,125 +274,11 @@ paths:
       description: 'Show the search page with all the auctions. Access: PUB'
       tags:
         - 'M02: Auctions'
-
-      parameters:
-        - in: query
-          name: query
-          description: 'String to use for full-text search'
-          schema:
-            type: string
-          required: false
-        - in: query
-          name: sort_by
-          description: 'Sort by Time Remaining, Last Bid, or Buy Now'
-          schema:
-            type: string
-          required: false
-        - in: query
-          name: buy_now
-          description: 'Boolean to search only auctions with buy now option'
-          schema:
-            type: boolean
-          required: false
-        - in: query
-          name: ended_auctions
-          description: 'Boolean to only show ended auctions'
-          schema:
-            type: boolean
-          required: false
-        - in: query
-          name: color
-          description: 'Filter by color name'
-          schema:
-            type: string
-          required: false
-        - in: query
-          name: brand
-          description: 'Filter by brand name'
-          schema:
-            type: string
-          required: false
-        - in: query
-          name: scale
-          description: 'Filter by scale of the model'
-          schema:
-            type: string
-          required: false
-        - in: query
-          name: seller
-          description: 'Filter by seller name'
-          schema:
-            type: string
-          required: false
-        - in: query
-          name: min_bid
-          description: 'Only show auctions with last bids whose value is above the minimum'
-          schema:
-            type: number
-          required: false
-        - in: query
-          name: max_bid
-          description: 'Only show auctions with last bids whose value is below the maximum'
-          schema:
-            type: number
-          required: false
-        - in: query
-          name: min_buy_now
-          description: 'Only show auctions with buy now value above the minimum'
-          schema:
-            type: number
-          required: false
-        - in: query
-          name: max_buy_now
-          description: 'Only show auctions with buy now value below the maximum'
-          schema:
-            type: number
-          required: false
-          
+     
       responses:
         '200':
           description: 'Ok. Show [UI07](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/er#ui07-search)'
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    id:
-                      type: integer
-                    image_url:
-                      type: string
-                    title:
-                      type: string
-                    final_date:
-                      type: string
-                    highest_bid:
-                      type: number
-                    buy_now:
-                      type: number
-                    seller:
-                      type: string
-                    seller_rating:
-                      type: number
-                example:
-                  - id: 1
-                    image_url: 'https://lbaw2155-piu/static/images/qkewndms-qqnw-213-skmsmsak.jpg'
-                    title: 'Ferrari Portofino'
-                    final_date: '2021-04-25 12:00:00'
-                    highest_bid: 500
-                    buy_now: 2000
-                    seller: 'johndoe'
-                    seller_rating: 4.8
-                  - id: 4
-                    image_url: 'https://lbaw2155-piu/static/images/otituvnc-qoqo-345-mekwkwkw.jpg'
-                    title: 'Bentley Continental'
-                    final_date: '2021-04-26 14:50:00'
-                    highest_bid: 650
-                    buy_now: 1950
-                    seller: 'rickwheels'
-                    seller_rating: 4.2
-                    
+
   /auctions/{id}:
     get:
       operationId: R202
@@ -674,9 +532,7 @@ paths:
                   description: 'Failed comment. Redirect to auction page.'
                   value: '/auctions/{id}'
 
-          
-  /auctions/{id}/buy_now:
-      
+  /auctions/{id}/buy_now:   
     post:
       operationId: R209
       summary: 'R209: Buy Now in the auction'
@@ -918,7 +774,6 @@ paths:
                 302Failure:
                   description: 'Failed add favourite seller request. Redirect to profile page.'
                   value: '/users/{seller}'   
-
                  
   /users/{username}/fav_sellers/remove:
     post:                    
@@ -961,7 +816,6 @@ paths:
                 302Failure:
                   description: 'Failed remove favourite seller request. Redirect to profile page.'
                   value: '/users/{seller}' 
-
 
   /users/{username}/rating:
     get:
@@ -1133,8 +987,6 @@ paths:
                   description: 'Failed help message request. Redirect to help page.'
                   value: '/users/{username}/help'    
                   
-  
-
   /auctions/{id}/manage:
     post:
       operationId: R302
@@ -1176,4 +1028,260 @@ paths:
                   value: '/auctions/{id}/manage'
                 302Failure:
                   description: 'Failed auction management request. Redirect to admin panel.'
-                  value: '/auctions/{id}/manage'  
+                  value: '/auctions/{id}/manage'
+
+##################################################################################################################################
+
+  # /api/users/{username}:
+
+  # /api/users/{username}/fav_auctions:
+
+  # /api/users/{username}/fav_sellers:
+
+  # /api/users/{username}/rating:
+
+  # /api/users/{username}/help:
+
+  /api/auctions/featured:
+    get:
+      operationId: R201
+      summary: 'R201: Get all featured auctions'
+      description: 'Search through all the featured auctions shown in the homepage. Access: PUB'
+      tags:
+        - 'M02: Auctions'
+          
+      responses:
+        '200':
+          description: 'Ok. Show featured auctions'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    title:
+                      type: string
+                    final_date:
+                      type: string
+                    highest_bid:
+                      type: number
+                    buy_now:
+                      type: number
+                example:
+                  - id: 1
+                    title: 'Ferrari Portofino'
+                    final_date: '2021-04-25 12:00:00'
+                    highest_bid: 500
+                    buy_now: 2000
+                  - id: 4
+                    title: 'Bentley Continental'
+                    final_date: '2021-04-26 14:50:00'
+                    highest_bid: 650
+                    buy_now: 1950
+
+  /api/auctions/search:
+    get:
+      operationId: R201
+      summary: 'R201: Get search results'
+      description: 'Search through all the auctions. Access: PUB'
+      tags:
+        - 'M02: Auctions'
+
+      parameters:
+        - in: query
+          name: query
+          description: 'String to use for full-text search'
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: sort_by
+          description: 'Sort by Time Remaining, Last Bid, or Buy Now'
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: buy_now
+          description: 'Boolean to search only auctions with buy now option'
+          schema:
+            type: boolean
+          required: false
+        - in: query
+          name: ended_auctions
+          description: 'Boolean to only show ended auctions'
+          schema:
+            type: boolean
+          required: false
+        - in: query
+          name: color
+          description: 'Filter by color name'
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: brand
+          description: 'Filter by brand name'
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: scale
+          description: 'Filter by scale of the model'
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: seller
+          description: 'Filter by seller name'
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: min_bid
+          description: 'Only show auctions with last bids whose value is above the minimum'
+          schema:
+            type: number
+          required: false
+        - in: query
+          name: max_bid
+          description: 'Only show auctions with last bids whose value is below the maximum'
+          schema:
+            type: number
+          required: false
+        - in: query
+          name: min_buy_now
+          description: 'Only show auctions with buy now value above the minimum'
+          schema:
+            type: number
+          required: false
+        - in: query
+          name: max_buy_now
+          description: 'Only show auctions with buy now value below the maximum'
+          schema:
+            type: number
+          required: false
+          
+      responses:
+        '200':
+          description: 'Ok. Show auctions'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    image_url:
+                      type: string
+                    title:
+                      type: string
+                    final_date:
+                      type: string
+                    highest_bid:
+                      type: number
+                    buy_now:
+                      type: number
+                    seller:
+                      type: string
+                    seller_rating:
+                      type: number
+                example:
+                  - id: 1
+                    image_url: 'https://lbaw2155-piu/static/images/qkewndms-qqnw-213-skmsmsak.jpg'
+                    title: 'Ferrari Portofino'
+                    final_date: '2021-04-25 12:00:00'
+                    highest_bid: 500
+                    buy_now: 2000
+                    seller: 'johndoe'
+                    seller_rating: 4.8
+                  - id: 4
+                    image_url: 'https://lbaw2155-piu/static/images/otituvnc-qoqo-345-mekwkwkw.jpg'
+                    title: 'Bentley Continental'
+                    final_date: '2021-04-26 14:50:00'
+                    highest_bid: 650
+                    buy_now: 1950
+                    seller: 'rickwheels'
+                    seller_rating: 4.2
+                
+  # /api/auctions/{id}:
+
+  # /api/auctions/{id}/bids:
+
+  # /api/auctions/{id}/comments:
+
+  /api/colours:
+   get:
+      operationId: R
+      summary: 'R: Available Colours'
+      description: 'View all available colour values. Access: PUB'
+      tags:
+        - 'M0'
+
+      responses:
+        '200':
+          description: 'Ok. Show all colour values'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    colour:
+                      type: string
+                example:
+                  - colour: 'Yellow'
+                  - colour: 'Red'
+
+  /api/brands:
+   get:
+      operationId: R
+      summary: 'R: Available Brands'
+      description: 'View all available brand values. Access: PUB'
+      tags:
+        - 'M0'
+
+      responses:
+        '200':
+          description: 'Ok. Show all brand values'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    brand:
+                      type: string
+                example:
+                  - brand: 'Ferrari'
+                  - brand: 'Toyota'
+
+  /api/scales:
+   get:
+      operationId: R
+      summary: 'R: Available Scales'
+      description: 'View all available scale values. Access: PUB'
+      tags:
+        - 'M0'
+
+      responses:
+        '200':
+          description: 'Ok. Show all scale values'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    scale:
+                      type: string
+                example:
+                  - scale: '18:1'
+                  - scale: '24:1'
