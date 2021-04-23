@@ -6,14 +6,12 @@ info:
   description: Web Resources Specification (A7) for CarBay
 
 servers:
-- url: http://lbaw2155-piu.lbaw-prod.fe.up.pt/
+- url: http://lbaw2155.lbaw-prod.fe.up.pt/
   description: Production server
 
-# externalDocumentation:
-# - description: SwaggerHub API Auto Mocking
-# url: https://virtserver.swaggerhub.com/F2778/lbaw2155-api/1.0
-# - description: Find more info here.
-# url: https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/eap
+externalDocs:
+  description: Find more info here.
+  url: https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/eap
 
 tags:
   - name: 'M01: Static Pages'
@@ -180,6 +178,358 @@ paths:
                 302Failure:
                   description: 'Failed authentication. Redirect to signup form.'
                   value: '/signup'
+
+  /auctions/search: 
+    get:
+      operationId: R301
+      summary: 'R301: View search page'
+      description: 'Show the search page with all the auctions. Access: PUB'
+      tags:
+        - 'M03: Auctions'
+     
+      responses:
+        '200':
+          description: 'Ok. Show [UI07](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/er#ui07-search)'
+
+  /auctions/{id}:
+    get:
+      operationId: R302
+      summary: 'R302: View auction page'
+      description: 'Show the auction details. Access: PUB'
+      tags:
+        - 'M03: Auctions'
+
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+
+      responses:
+        '200':
+          description: 'Ok. Show [UI08](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/er#ui08-auction-page-chat)'
+          
+  /auctions/{id}/bids:
+    get:
+      operationId: R303
+      summary: 'R303: View auction bid history'
+      description: 'View all bids made in the auction. Access: PUB'
+      tags:
+        - 'M03: Auctions'
+    
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+            
+      responses:
+        '200':
+          description: 'Ok. Show [UI09](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/er#ui09-auction-page-bid-history)'
+      
+    post:
+      operationId: R304
+      summary: 'R304: Bid in auction'
+      description: 'Processes the new bid in the auction. Access: USR'
+      tags:
+        - 'M03: Auctions'
+    
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                value:
+                  type: number
+              required:
+                - value
+
+      responses:
+        '302':
+          description: 'Redirect after processing the new bid information.'
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: 'Successful bid. Redirect to auction page.'
+                  value: '/auctions/{id}'
+                302Failure:
+                  description: 'Failed bid. Redirect to auction page.'
+                  value: '/auctions/{id}'
+
+  /auctions/{id}/comments:
+    get:
+      operationId: R307
+      summary: 'R307: View all comments in auction'
+      description: 'View all comments made in the auction chat. Access: PUB'
+      tags:
+        - 'M03: Auctions'
+    
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          
+      responses:
+        '200':
+          description: 'Ok. Show [UI08](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/er#ui08-auction-page-chat)'
+      
+    post:
+      operationId: R308
+      summary: 'R308: Comment in auction'
+      description: 'Processes the new comment in the auction. Access: USR'
+      tags:
+        - 'M03: Auctions'
+    
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                text:
+                  type: string
+              required:
+                - text
+                
+      responses:
+        '302':
+          description: 'Redirect after processing the new comment.'
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: 'Successful comment. Redirect to auction page.'
+                  value: '/auctions/{id}'
+                302Failure:
+                  description: 'Failed comment. Redirect to auction page.'
+                  value: '/auctions/{id}'
+
+  /auctions/{id}/buy_now:   
+    post:
+      operationId: R309
+      summary: 'R309: Buy Now in the auction'
+      description: 'Processes the use of the Buy Now option in the auction. Access: USR'
+      tags:
+        - 'M03: Auctions'
+    
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                value:
+                  type: number
+              required:
+                - value
+
+      responses:
+        '302':
+          description: 'Redirect after processing buy now action.'
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: 'Successful buy now. Redirect to auction page.'
+                  value: '/auctions/{id}'
+                302Failure:
+                  description: 'Failed buy now. Redirect to auction page.'
+                  value: '/auctions/{id}'
+          
+  /auctions/{id}/rate:
+    post:                    
+      operationId: R306
+      summary: 'R306: Submit rating'
+      description: 'Rate a given auction. Access: BID'
+      tags:
+        - 'M03: Auctions'
+
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                rating:
+                  type: integer
+                text:
+                  type: string
+              required:
+                - rating
+
+      responses:
+        '302':
+          description: 'Redirect after processing rating to auction.'
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: 'Successful rating to auction request. Redirect to auction page.'
+                  value: '/auctions/{auction}'
+                302Failure:
+                  description: 'Failed rating to auction request. Redirect to auction page.'
+                  value: '/auctions/{auction}'       
+  
+  /auctions/create:
+    get:
+      operationId: R305
+      summary: 'R305: Create new auction'
+      description: 'Provide new auction information form. Access: USR'
+      tags:
+        - 'M03: Auctions'
+      responses:
+        '200':
+          description: 'Ok. Show [UI10](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/er#ui10-create-auction-general-info)'
+
+    post:
+      operationId: R306
+      summary: 'R306: Create new auction Action'
+      description: 'Processes the new auction information form submission. Access: USR'
+      tags:
+        - 'M03: Auctions'
+
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                starting_bid:
+                  type: number
+                start_date:
+                  type: string
+                buy_now:
+                  type: number
+                duration:
+                  type: integer
+                color:
+                  type: string
+                brand:
+                  type: string
+                scale:
+                  type: string
+                photos: 
+                  type: array
+                  items:
+                    type: string
+                description:
+                  type: string
+              required:
+                - title
+                - starting_bid
+                - start_date
+                - duration
+                - color
+                - brand
+                - scale
+                - photos
+                - description
+      responses:
+        '302':
+          description: 'Redirect after processing the new auction information.'
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: 'Successful creation. Redirect to auction page.'
+                  value: '/auctions/{id}'
+                302Failure:
+                  description: 'Failed auction creation. Redirect to create auction page.'
+                  value: '/auctions/create'
+                  
+  /auctions/{id}/manage:
+    post:
+      operationId: R310
+      summary: 'R310: Reschedule/Suspend the auction'
+      description: 'Processes the admin action in the auction. Access: ADM'
+      tags:
+        - 'M03: Auctions'
+    
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                suspend:
+                  type: boolean
+                start_date:
+                  type: string
+                final_date:
+                  type: string
+      responses:
+        '302':
+          description: 'Redirect after processing auction management.'
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: 'Successful auction management request. Redirect to admin panel.'
+                  value: '/auctions/{id}/manage'
+                302Failure:
+                  description: 'Failed auction management request. Redirect to admin panel.'
+                  value: '/auctions/{id}/manage'
                     
   /users/{username}:
     get:
@@ -267,316 +617,6 @@ paths:
                   description: 'Failed update. Redirect to edit profile form.'
                   value: '/users/edit'
 
-  /auctions/search: 
-    get:
-      operationId: R201
-      summary: 'R201: View search page'
-      description: 'Show the search page with all the auctions. Access: PUB'
-      tags:
-        - 'M02: Auctions'
-     
-      responses:
-        '200':
-          description: 'Ok. Show [UI07](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/er#ui07-search)'
-
-  /auctions/{id}:
-    get:
-      operationId: R202
-      summary: 'R202: View auction page'
-      description: 'Show the auction details. Access: PUB'
-      tags:
-        - 'M02: Auctions'
-
-      parameters:
-        - in: path
-          name: id
-          schema:
-            type: integer
-          required: true
-
-      responses:
-        '200':
-          description: 'Ok. Show [UI08](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/er#ui08-auction-page-chat)'
-          
-  /auctions/{id}/bids:
-    get:
-      operationId: R203
-      summary: 'R203: View auction bid history'
-      description: 'View all bids made in the auction. Access: PUB'
-      tags:
-        - 'M02: Auctions'
-    
-      parameters:
-        - in: path
-          name: id
-          schema:
-            type: integer
-          required: true
-            
-      responses:
-        '200':
-          description: 'Ok. Show [UI09](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/er#ui09-auction-page-bid-history)'
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    date:
-                      type: string
-                    value:
-                      type: number
-                example:
-                  - date: "2021-04-23 12:39:41"
-                    value: 1345.12
-                  - date: "2021-04-23 12:39:55"
-                    value: 1369.12
-      
-    post:
-      operationId: R204
-      summary: 'R204: Bid in auction'
-      description: 'Processes the new bid in the auction. Access: USR'
-      tags:
-        - 'M02: Auctions'
-    
-      parameters:
-        - in: path
-          name: id
-          schema:
-            type: integer
-          required: true
-
-      requestBody:
-        required: true
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              type: object
-              properties:
-                username:
-                  type: string
-                value:
-                  type: number
-              required:
-                - username
-                - value
-
-      responses:
-        '302':
-          description: 'Redirect after processing the new bid information.'
-          headers:
-            Location:
-              schema:
-                type: string
-              examples:
-                302Success:
-                  description: 'Successful bid. Redirect to auction page.'
-                  value: '/auctions/{id}'
-                302Failure:
-                  description: 'Failed bid. Redirect to auction page.'
-                  value: '/auctions/{id}'
-  
-  /auctions/create:
-    get:
-      operationId: R205
-      summary: 'R205: Create new auction'
-      description: 'Provide new auction information form. Access: USR'
-      tags:
-        - 'M02: Auctions'
-      responses:
-        '200':
-          description: 'Ok. Show [UI10](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/er#ui10-create-auction-general-info)'
-
-    post:
-      operationId: R206
-      summary: 'R206: Create new auction Action'
-      description: 'Processes the new auction information form submission. Access: USR'
-      tags:
-        - 'M02: Auctions'
-
-      requestBody:
-        required: true
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              type: object
-              properties:
-                title:
-                  type: string
-                starting_bid:
-                  type: number
-                start_date:
-                  type: string
-                buy_now:
-                  type: number
-                duration:
-                  type: integer
-                color:
-                  type: string
-                brand:
-                  type: string
-                scale:
-                  type: string
-                photos: 
-                  type: array
-                  items:
-                    type: string
-                description:
-                  type: string
-              required:
-                - title
-                - starting_bid
-                - start_date
-                - duration
-                - color
-                - brand
-                - scale
-                - photos
-                - description
-      responses:
-        '302':
-          description: 'Redirect after processing the new auction information.'
-          headers:
-            Location:
-              schema:
-                type: string
-              examples:
-                302Success:
-                  description: 'Successful creation. Redirect to auction page.'
-                  value: '/auctions/{id}'
-                302Failure:
-                  description: 'Failed auction creation. Redirect to create auction page.'
-                  value: '/auctions/create'
-
-  /auctions/{id}/comments:
-    get:
-      operationId: R207
-      summary: 'R207: View all comments in auction'
-      description: 'View all comments made in the auction chat. Access: USR'
-      tags:
-        - 'M02: Auctions'
-    
-      parameters:
-        - in: path
-          name: id
-          schema:
-            type: integer
-          required: true
-          
-      responses:
-        '200':
-          description: 'Ok. Show [UI08](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/er#ui08-auction-page-chat)'
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    username:
-                      type: string
-                    text:
-                      type: string
-                    date:
-                      type: string
-                example:
-                  - username: 'johndoe'
-                    text: 'Bulish'
-                    date: '2021-04-12 12:39:41'
-                  - username: 'sophydoors'
-                    text: 'Not Interest anymore in this piece of rubish'
-                    date: '2021-04-12 12:39:41'
-      
-    post:
-      operationId: R208
-      summary: 'R208: Comment in auction'
-      description: 'Processes the new comment in the auction. Access: USR'
-      tags:
-        - 'M02: Auctions'
-    
-      parameters:
-        - in: path
-          name: id
-          schema:
-            type: integer
-          required: true
-
-      requestBody:
-        required: true
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              type: object
-              properties:
-                username:
-                  type: string
-                text:
-                  type: string
-              required:
-                - username
-                - text
-                
-      responses:
-        '302':
-          description: 'Redirect after processing the new comment.'
-          headers:
-            Location:
-              schema:
-                type: string
-              examples:
-                302Success:
-                  description: 'Successful comment. Redirect to auction page.'
-                  value: '/auctions/{id}'
-                302Failure:
-                  description: 'Failed comment. Redirect to auction page.'
-                  value: '/auctions/{id}'
-
-  /auctions/{id}/buy_now:   
-    post:
-      operationId: R209
-      summary: 'R209: Buy Now in the auction'
-      description: 'Processes the use of the Buy Now option in the auction. Access: USR'
-      tags:
-        - 'M02: Auctions'
-    
-      parameters:
-        - in: path
-          name: id
-          schema:
-            type: integer
-          required: true
-
-      requestBody:
-        required: true
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              type: object
-              properties:
-                username:
-                  type: string
-                value:
-                  type: number
-              required:
-                - username
-                - value
-
-      responses:
-        '302':
-          description: 'Redirect after processing buy now action.'
-          headers:
-            Location:
-              schema:
-                type: string
-              examples:
-                302Success:
-                  description: 'Successful buy now. Redirect to auction page.'
-                  value: '/auctions/{id}'
-                302Failure:
-                  description: 'Failed buy now. Redirect to auction page.'
-                  value: '/auctions/{id}'
-          
   /users/{username}/fav_auctions:
     get:
       operationId: R301
@@ -860,50 +900,6 @@ paths:
                     text: "Horrendous! The car model was broken!"
                     date: "2021-04-23 16:21:20"
 
-  /auctions/{id}/rate:
-    post:                    
-      operationId: R306
-      summary: 'R306: Submit rating'
-      description: 'Rate a given auction. Access: BID'
-      tags:
-        - 'M03: Favourites and Ratings'
-
-      parameters:
-        - in: path
-          name: id
-          schema:
-            type: integer
-          required: true
-
-      requestBody:
-        required: true
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              type: object
-              properties:
-                rating:
-                  type: integer
-                text:
-                  type: string
-              required:
-                - rating
-
-      responses:
-        '302':
-          description: 'Redirect after processing rating to auction.'
-          headers:
-            Location:
-              schema:
-                type: string
-              examples:
-                302Success:
-                  description: 'Successful rating to auction request. Redirect to auction page.'
-                  value: '/auctions/{auction}'
-                302Failure:
-                  description: 'Failed rating to auction request. Redirect to auction page.'
-                  value: '/auctions/{auction}'       
-
   /users/{username}/help:
     get:
       operationId: R401
@@ -986,21 +982,57 @@ paths:
                 302Failure:
                   description: 'Failed help message request. Redirect to help page.'
                   value: '/users/{username}/help'    
-                  
-  /auctions/{id}/manage:
+
+  # /users/{username}/report:
+
+  # /admin/{username}/help:
+
+  # /admin/{username}/report:
+
+##################################################################################################################################
+
+  /api/login:
     post:
-      operationId: R302
-      summary: 'R302: Reschedule/Suspend the auction'
-      description: 'Processes the admin action in the auction. Access: ADM'
+      operationId: R202
+      summary: 'R202: Login Action'
+      description: 'Processes the login. Access: PUB'
       tags:
-        - 'M03: Auctions'
-    
-      parameters:
-        - in: path
-          name: id
-          schema:
-            type: integer
-          required: true
+        - 'M02: Authentication and Individual Profile'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+                - email
+                - password
+
+      responses:
+        '200':
+          description: 'OK, after processing the login.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: string
+                example:
+                  - result: 'success'
+
+  /api/signup:
+    post:
+      operationId: R205
+      summary: 'R205: Signup Action'
+      description: 'Processes the new user signup. Access: PUB'
+      tags:
+        - 'M02: Authentication and Individual Profile'
 
       requestBody:
         required: true
@@ -1009,46 +1041,40 @@ paths:
             schema:
               type: object
               properties:
-                suspend:
-                  type: boolean
-                start_date:
+                name:
                   type: string
-                final_date:
+                username:
                   type: string
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+                - username
+                - name
+                - email
+                - password
+
       responses:
-        '302':
-          description: 'Redirect after processing auction management.'
-          headers:
-            Location:
+        '200':
+          description: 'OK, after processing the signup.'
+          content:
+            application/json:
               schema:
-                type: string
-              examples:
-                302Success:
-                  description: 'Successful auction management request. Redirect to admin panel.'
-                  value: '/auctions/{id}/manage'
-                302Failure:
-                  description: 'Failed auction management request. Redirect to admin panel.'
-                  value: '/auctions/{id}/manage'
-
-##################################################################################################################################
-
-  # /api/users/{username}:
-
-  # /api/users/{username}/fav_auctions:
-
-  # /api/users/{username}/fav_sellers:
-
-  # /api/users/{username}/rating:
-
-  # /api/users/{username}/help:
+                type: object
+                properties:
+                  result:
+                    type: string
+                example:
+                  - result: 'success'
 
   /api/auctions/featured:
     get:
-      operationId: R201
-      summary: 'R201: Get all featured auctions'
+      operationId: R311
+      summary: 'R311: Get all featured auctions'
       description: 'Search through all the featured auctions shown in the homepage. Access: PUB'
       tags:
-        - 'M02: Auctions'
+        - 'M03: Auctions'
           
       responses:
         '200':
@@ -1084,11 +1110,11 @@ paths:
 
   /api/auctions/search:
     get:
-      operationId: R201
-      summary: 'R201: Get search results'
+      operationId: R312
+      summary: 'R312: Get search results'
       description: 'Search through all the auctions. Access: PUB'
       tags:
-        - 'M02: Auctions'
+        - 'M03: Auctions'
 
       parameters:
         - in: query
@@ -1208,19 +1234,404 @@ paths:
                     seller: 'rickwheels'
                     seller_rating: 4.2
                 
-  # /api/auctions/{id}:
+  /api/auctions/{id}:
+    get:
+      operationId: R302
+      summary: 'R302: View auction details'
+      description: 'Show the auction details. Access: PUB'
+      tags:
+        - 'M03: Auctions'
 
-  # /api/auctions/{id}/bids:
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
 
-  # /api/auctions/{id}/comments:
+      responses:
+        '200':
+          description: 'Ok. Show auction details'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    title:
+                      type: string
+                    seller:
+                      type: string
+                    colour:
+                      type: string
+                    brand:
+                      type: string
+                    scale:
+                      type: string
+                    description:
+                      type: string
+                    final_date:
+                      type: string
+                    highest_bid:
+                      type: number
+                    buy_now:
+                      type: number
+                example:
+                  - title: "Ferrari Portofino"
+                    seller: "johndoe"
+                    colour: "Yellow"
+                    brand: "Ferrari"
+                    scale: "18:1"
+                    description: "lorem ipsum description dusty rusty busty"
+                    final_date: "2021-04-23 12:39:41"
+                    highest_bid: 1345.12
+                    buy_now: 2000
+          
+  /api/auctions/{id}/bids:
+    get:
+      operationId: R303
+      summary: 'R303: View auction bid history'
+      description: 'View all bids made in the auction. Access: PUB'
+      tags:
+        - 'M03: Auctions'
+    
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+            
+      responses:
+        '200':
+          description: 'Ok. Show auction bid history'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    date:
+                      type: string
+                    value:
+                      type: number
+                example:
+                  - date: "2021-04-23 12:39:41"
+                    value: 1345.12
+                  - date: "2021-04-23 12:39:55"
+                    value: 1369.12
+       
+    post:
+      operationId: R304
+      summary: 'R304: Bid in auction'
+      description: 'Processes the new bid in the auction. Access: USR'
+      tags:
+        - 'M03: Auctions'
+    
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                value:
+                  type: number
+              required:
+                - value
+
+      responses:
+        '200':
+          description: 'OK, after processing the new bid.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: string
+                example:
+                  - result: 'success'
+     
+  /api/auctions/{id}/comments:
+    get:
+      operationId: R313
+      summary: 'R313: View all comments in auction'
+      description: 'View all comments made in the auction chat. Access: USR'
+      tags:
+        - 'M03: Auctions'
+    
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          
+      responses:
+        '200':
+          description: 'Ok. Show all comments'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    username:
+                      type: string
+                    text:
+                      type: string
+                    date:
+                      type: string
+                example:
+                  - username: 'johndoe'
+                    text: 'Bulish'
+                    date: '2021-04-12 12:39:41'
+                  - username: 'sophydoors'
+                    text: 'Not Interest anymore in this piece of rubish'
+                    date: '2021-04-12 12:39:41'
+
+    post:
+      operationId: R308
+      summary: 'R308: Comment in auction'
+      description: 'Processes the new comment in the auction. Access: USR'
+      tags:
+        - 'M03: Auctions'
+    
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                text:
+                  type: string
+              required:
+                - text
+                
+      responses:
+        '200':
+          description: 'OK, after processing the new comment.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: string
+                example:
+                  - result: 'success'
+
+  /api/auctions/{id}/buy_now:   
+    post:
+      operationId: R309
+      summary: 'R309: Buy Now in the auction'
+      description: 'Processes the use of the Buy Now option in the auction. Access: USR'
+      tags:
+        - 'M03: Auctions'
+    
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                value:
+                  type: number
+              required:
+                - value
+
+      responses:
+        '200':
+          description: 'OK, after processing the buy now option.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: string
+                example:
+                  - result: 'success'
+
+  /api/auctions/{id}/rate:
+    post:                    
+      operationId: R306
+      summary: 'R306: Submit rating'
+      description: 'Rate a given auction. Access: BID'
+      tags:
+        - 'M03: Auctions'
+
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                rating:
+                  type: integer
+                text:
+                  type: string
+              required:
+                - rating
+
+      responses:
+        '200':
+          description: 'OK, after processing the rating.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: string
+                example:
+                  - result: 'success'
+ 
+  /api/auctions/create:
+    post:
+      operationId: R306
+      summary: 'R306: Create new auction Action'
+      description: 'Processes the new auction information. Access: USR'
+      tags:
+        - 'M03: Auctions'
+
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                starting_bid:
+                  type: number
+                start_date:
+                  type: string
+                buy_now:
+                  type: number
+                duration:
+                  type: integer
+                color:
+                  type: string
+                brand:
+                  type: string
+                scale:
+                  type: string
+                photos: 
+                  type: array
+                  items:
+                    type: string
+                description:
+                  type: string
+              required:
+                - title
+                - starting_bid
+                - start_date
+                - duration
+                - color
+                - brand
+                - scale
+                - photos
+                - description
+
+      responses:
+        '200':
+          description: 'OK, after processing the auction creation.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: string
+                example:
+                  - result: 'success'
+
+  /api/auctions/{id}/manage:
+    post:
+      operationId: R310
+      summary: 'R310: Reschedule/Suspend the auction'
+      description: 'Processes the admin action in the auction. Access: ADM'
+      tags:
+        - 'M03: Auctions'
+    
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                suspend:
+                  type: boolean
+                start_date:
+                  type: string
+                final_date:
+                  type: string
+
+      responses:
+        '200':
+          description: 'OK, after processing the auction management.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: string
+                example:
+                  - result: 'success'
 
   /api/colours:
    get:
-      operationId: R
-      summary: 'R: Available Colours'
+      operationId: R313
+      summary: 'R313: Available Colours'
       description: 'View all available colour values. Access: PUB'
       tags:
-        - 'M0'
+        - 'M03: Auctions'
 
       responses:
         '200':
@@ -1240,11 +1651,11 @@ paths:
 
   /api/brands:
    get:
-      operationId: R
-      summary: 'R: Available Brands'
+      operationId: R314
+      summary: 'R314: Available Brands'
       description: 'View all available brand values. Access: PUB'
       tags:
-        - 'M0'
+        - 'M03: Auctions'
 
       responses:
         '200':
@@ -1264,11 +1675,11 @@ paths:
 
   /api/scales:
    get:
-      operationId: R
-      summary: 'R: Available Scales'
+      operationId: R315
+      summary: 'R315: Available Scales'
       description: 'View all available scale values. Access: PUB'
       tags:
-        - 'M0'
+        - 'M03: Auctions'
 
       responses:
         '200':
@@ -1285,3 +1696,31 @@ paths:
                 example:
                   - scale: '18:1'
                   - scale: '24:1'
+
+  # /api/users/{username}:
+
+  # /api/users/{username}/edit:
+
+  # /api/users/{username}/fav_auctions:
+
+  # /api/users/{username}/fav_auctions/add:
+
+  # /api/users/{username}/fav_auctions/remove:
+
+  # /api/users/{username}/fav_sellers:
+
+  # /api/users/{username}/fav_sellers/add:
+
+  # /api/users/{username}/fav_sellers/remove:
+
+  # /api/users/{username}/rating:
+
+  # /api/users/{username}/notification:
+
+  # /api/users/{username}/help:
+
+  # /api/users/{username}/report:
+  
+  # /api/admin/{username}/help:
+  
+  # /api/admin/{username}/report:
