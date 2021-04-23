@@ -15,13 +15,12 @@ externalDocs:
 
 tags:
   - name: 'M01: Static Pages'
-  - name: 'M02: Authentication and Individual Profile'
+  - name: 'M02: Authentication'
   - name: 'M03: Auctions'
-  - name: 'M04: Favourites'
-  - name: 'M05: Ratings'
+  - name: 'M04: Users'
+  - name: 'M05: Help Messages'
   - name: 'M06: Reports'
-  - name: 'M07: Help Messages'
-  - name: 'M08: User Administration'
+  - name: 'M07: Administration'
 
 paths:
 
@@ -65,7 +64,7 @@ paths:
       summary: 'R201: Login Form'
       description: 'Provide login form. Access: PUB'
       tags:
-        - 'M02: Authentication and Individual Profile'
+        - 'M02: Authentication'
       responses:
         '200':
           description: 'Ok. Show [UI05](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/er#ui05-log-in)'
@@ -75,7 +74,7 @@ paths:
       summary: 'R202: Login Action'
       description: 'Processes the login form submission. Access: PUB'
       tags:
-        - 'M02: Authentication and Individual Profile'
+        - 'M02: Authentication'
       requestBody:
         required: true
         content:
@@ -112,7 +111,7 @@ paths:
         summary: 'R203: Logout Action'
         description: 'Logout the current authenticated user. Access: USR, ADM'
         tags:
-          - 'M02: Authentication and Individual Profile'
+          - 'M02: Authentication'
         responses:
           '302':
             description: 'Redirect after processing logout.'
@@ -131,7 +130,7 @@ paths:
       summary: 'R204: Signup Form'
       description: 'Provide new user signup form. Access: PUB'
       tags:
-        - 'M02: Authentication and Individual Profile'
+        - 'M02: Authentication'
       responses:
         '200':
           description: 'Ok. Show [UI06](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/er#ui06-sign-up)'
@@ -141,7 +140,7 @@ paths:
       summary: 'R205: Signup Action'
       description: 'Processes the new user signup form submission. Access: PUB'
       tags:
-        - 'M02: Authentication and Individual Profile'
+        - 'M02: Authentication'
 
       requestBody:
         required: true
@@ -272,8 +271,8 @@ paths:
 
   /auctions/{id}/comments:
     get:
-      operationId: R307
-      summary: 'R307: View all comments in auction'
+      operationId: R305
+      summary: 'R305: View all comments in auction'
       description: 'View all comments made in the auction chat. Access: PUB'
       tags:
         - 'M03: Auctions'
@@ -290,8 +289,8 @@ paths:
           description: 'Ok. Show [UI08](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/er#ui08-auction-page-chat)'
       
     post:
-      operationId: R308
-      summary: 'R308: Comment in auction'
+      operationId: R306
+      summary: 'R306: Comment in auction'
       description: 'Processes the new comment in the auction. Access: USR'
       tags:
         - 'M03: Auctions'
@@ -332,8 +331,8 @@ paths:
 
   /auctions/{id}/buy_now:   
     post:
-      operationId: R309
-      summary: 'R309: Buy Now in the auction'
+      operationId: R307
+      summary: 'R307: Buy Now in the auction'
       description: 'Processes the use of the Buy Now option in the auction. Access: USR'
       tags:
         - 'M03: Auctions'
@@ -374,8 +373,8 @@ paths:
           
   /auctions/{id}/rate:
     post:                    
-      operationId: R306
-      summary: 'R306: Submit rating'
+      operationId: R308
+      summary: 'R308: Submit rating'
       description: 'Rate a given auction. Access: BID'
       tags:
         - 'M03: Auctions'
@@ -418,8 +417,8 @@ paths:
   
   /auctions/create:
     get:
-      operationId: R305
-      summary: 'R305: Create new auction'
+      operationId: R309
+      summary: 'R309: Create new auction'
       description: 'Provide new auction information form. Access: USR'
       tags:
         - 'M03: Auctions'
@@ -428,8 +427,8 @@ paths:
           description: 'Ok. Show [UI10](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/er#ui10-create-auction-general-info)'
 
     post:
-      operationId: R306
-      summary: 'R306: Create new auction Action'
+      operationId: R310
+      summary: 'R310: Create new auction Action'
       description: 'Processes the new auction information form submission. Access: USR'
       tags:
         - 'M03: Auctions'
@@ -490,11 +489,11 @@ paths:
                   
   /auctions/{id}/manage:
     post:
-      operationId: R310
-      summary: 'R310: Reschedule/Suspend the auction'
+      operationId: R701
+      summary: 'R701: Reschedule/Suspend the auction'
       description: 'Processes the admin action in the auction. Access: ADM'
       tags:
-        - 'M03: Auctions'
+        - 'M07: Administration'
     
       parameters:
         - in: path
@@ -525,19 +524,19 @@ paths:
                 type: string
               examples:
                 302Success:
-                  description: 'Successful auction management request. Redirect to admin panel.'
-                  value: '/auctions/{id}/manage'
+                  description: 'Successful auction management request. Redirect to auction page.'
+                  value: '/auctions/{id}'
                 302Failure:
-                  description: 'Failed auction management request. Redirect to admin panel.'
-                  value: '/auctions/{id}/manage'
+                  description: 'Failed auction management request. Redirect to auction page.'
+                  value: '/auctions/{id}'
                     
   /users/{username}:
     get:
-      operationId: R206
-      summary: 'R206: View user profile'
-      description: 'Show the individual user profile. Show user info, created auctions, ratings given and ratings received. If the user is the owner of the profile, also show the personal statistics, favourite auctions and sellers and bid history. Access: PUB, OWN'
+      operationId: R401
+      summary: 'R401: View user profile'
+      description: 'Show the individual user profile. If the user is the owner of the profile, also show the personal statistics. Access: PUB, OWN'
       tags:
-        - 'M02: Authentication and Individual Profile'
+        - 'M04: Users'
 
       parameters:
         - in: path
@@ -552,11 +551,11 @@ paths:
             
   /users/{username}/edit:
     get:
-      operationId: R207
-      summary: 'R207: Edit user profile'
+      operationId: R402
+      summary: 'R402: Edit user profile'
       description: 'Edit the user profile information. Access: OWN'
       tags:
-        - 'M02: Authentication and Individual Profile'
+        - 'M04: Users'
         
       parameters:
         - in: path
@@ -570,11 +569,11 @@ paths:
           description: 'Ok. Show [UI13](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/er#ui13-edit-profile)'
 
     post:
-      operationId: R208
-      summary: 'R208: Edit Profile Action'
+      operationId: R403
+      summary: 'R403: Edit Profile Action'
       description: 'Processes the new user profile form submission. Access: OWN'
       tags:
-        - 'M02: Authentication and Individual Profile'
+        - 'M04: Users'
     
       parameters:
         - in: path
@@ -617,13 +616,51 @@ paths:
                   description: 'Failed update. Redirect to edit profile form.'
                   value: '/users/edit'
 
+  /users/{username}/bids:
+    get:
+      operationId: R404
+      summary: 'R404: User bid history'
+      description: 'List all the bids created by the user. Access: OWN'
+      tags:
+        - 'M04: Users'
+
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
+
+      responses:
+        '200':
+          description: 'Ok. Show [UI14](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/er#ui14-profile-bid-history)'
+
+  /users/{username}/auctions:
+    get:
+      operationId: R404
+      summary: 'R404: Auctions created by the user'
+      description: 'List all the auctions created by the user. Access: PUB'
+      tags:
+        - 'M04: Users'
+
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
+
+      responses:
+        '200':
+          description: 'Ok. Show [UI15](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/er#ui15-profile-auctions-created)'
+
   /users/{username}/fav_auctions:
     get:
-      operationId: R301
-      summary: 'R301: User favourite auctions'
+      operationId: R404
+      summary: 'R404: User favourite auctions'
       description: 'List all the favourite auctions of the user. Access: OWN'
       tags:
-        - 'M03: Favourites and Ratings'
+        - 'M04: Users'
 
       parameters:
         - in: path
@@ -635,34 +672,14 @@ paths:
       responses:
         '200':
           description: 'Ok. Show [UI16](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/er#ui16-profile-favourite-auctions)'
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    id:
-                      type: integer
-                    title:
-                      type: string
-                    photo:
-                      type: string
-                example:
-                  - id: 1
-                    title: 'Ferrari Portofino'
-                    photo: 'https://lbaw2155-piu/static/images/qkewndms-qqnw-213-skmsmsak.jpg'
-                  - id: 4
-                    title: 'Bentley Continental'
-                    photo: 'https://lbaw2155-piu/static/images/otituvnc-qoqo-345-mekwkwkw.jpg'
 
   /users/{username}/fav_auctions/add:
     post:                    
-      operationId: R302
-      summary: 'R302: Add favourite auction'
+      operationId: R405
+      summary: 'R405: Add favourite auction'
       description: 'Add auction to favourite list. Access: OWN'
       tags:
-        - 'M03: Favourites and Ratings'
+        - 'M04: Users'
 
       parameters:
         - in: path
@@ -699,11 +716,11 @@ paths:
 
   /users/{username}/fav_auctions/remove:
     post:                    
-      operationId: R302
-      summary: 'R302: Remove favourite auction'
+      operationId: R406
+      summary: 'R406: Remove favourite auction'
       description: 'Remove auction from favourite list. Access: OWN'
       tags:
-        - 'M03: Favourites and Ratings'
+        - 'M04: Users'
 
       parameters:
         - in: path
@@ -740,11 +757,11 @@ paths:
 
   /users/{username}/fav_sellers:
     get:
-      operationId: R303
-      summary: 'R303: User favourite sellers'
+      operationId: R407
+      summary: 'R407: User favourite sellers'
       description: 'List all the favourite sellers of the user. Access: OWN'
       tags:
-        - 'M03: Favourites and Ratings'
+        - 'M04: Users'
 
       parameters:
         - in: path
@@ -756,30 +773,14 @@ paths:
       responses:
         '200':
           description: 'Ok. Show [UI17](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/er#ui17-profile-favourite-sellers)'
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    username:
-                      type: string
-                    photo:
-                      type: string
-                example:
-                  - username: 'johndoe'
-                    photo: 'https://lbaw2155-piu/static/images/mdkjeam-skfjhejs.jpg'
-                  - username: 'rickwheels'
-                    photo: 'https://lbaw2155-piu/static/images/okqiela-grsusnre.jpg'
-                    
+
   /users/{username}/fav_sellers/add:
     post:                    
-      operationId: R304
-      summary: 'R304: Add favourite seller'
+      operationId: R408
+      summary: 'R408: Add favourite seller'
       description: 'Add seller to favourite list. Access: OWN'
       tags:
-        - 'M03: Favourites and Ratings'
+        - 'M04: Users'
 
       parameters:
         - in: path
@@ -817,11 +818,11 @@ paths:
                  
   /users/{username}/fav_sellers/remove:
     post:                    
-      operationId: R304
-      summary: 'R304: Remove favourite seller'
+      operationId: R409
+      summary: 'R409: Remove favourite seller'
       description: 'Remove seller from favourite list. Access: OWN'
       tags:
-        - 'M03: Favourites and Ratings'
+        - 'M04: Users'
 
       parameters:
         - in: path
@@ -856,14 +857,14 @@ paths:
                 302Failure:
                   description: 'Failed remove favourite seller request. Redirect to profile page.'
                   value: '/users/{seller}' 
-
-  /users/{username}/rating:
+  
+  /users/{username}/ratings:
     get:
-      operationId: R305
-      summary: 'R305: User Ratings and comments'
-      description: 'View user given ratings and comments. Access: PUB'
+      operationId: R404
+      summary: 'R404: Ratings given to the user'
+      description: 'List all the ratings given to the user. Access: PUB'
       tags:
-        - 'M03: Favourites and Ratings'
+        - 'M04: Users'
 
       parameters:
         - in: path
@@ -875,38 +876,33 @@ paths:
       responses:
         '200':
           description: 'Ok. Show [UI18](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/er#ui18-profile-users-ratings)'
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    winner:
-                      type: string
-                    rating:
-                      type: integer
-                    text:
-                      type: string
-                    date:
-                      type: string
-                example:
-                  - winner: 'johndoe'
-                    rating: 4
-                    text: "Good seller!"
-                    date: "2021-04-23 12:39:41"
-                  - winner: 'sophyspeed'
-                    rating: 2
-                    text: "Horrendous! The car model was broken!"
-                    date: "2021-04-23 16:21:20"
+
+  /users/{username}/rated:
+    get:
+      operationId: R404
+      summary: 'R404: Ratings given by the user'
+      description: 'List all the ratings given by the user. Access: PUB'
+      tags:
+        - 'M04: Users'
+
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
+
+      responses:
+        '200':
+          description: 'Ok. Show [UI19](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/er#ui19-profile-users-rated)'
 
   /users/{username}/help:
     get:
-      operationId: R401
-      summary: 'R401: View Help Messages'
-      description: 'View the Help Message chat. Access: OWN, ADM'
+      operationId: R501
+      summary: 'R501: View Help Messages'
+      description: 'View the Help Message chat. Access: OWN'
       tags:
-        - 'M04: Reports and Help Messages'
+        - 'M05: Help Messages'
 
       parameters:
         - in: path
@@ -918,33 +914,13 @@ paths:
       responses:
         '200':
           description: 'Ok. Show [UI04](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/er#ui04-help)'
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    sender:
-                      type: string
-                    text:
-                      type: string
-                    date:
-                      type: string
-                example:
-                  - sender: 'johndoe'
-                    text: "Will I be notified about my favourite seller?"
-                    date: "2021-04-23 12:39:41"
-                  - sender: 'rickwheels'
-                    text: "Yes, you should be notified everytime a favourite seller of yours creates a new auction."
-                    date: "2021-04-23 12:59:24"
 
     post:                    
-      operationId: R402
-      summary: 'R402: Send Help Message'
+      operationId: R502
+      summary: 'R502: Send Help Message'
       description: 'Send a new Help Message in the Help chat. Access: OWN, ADM'
       tags:
-        - 'M04: Reports and Help Messages'
+        - 'M05: Help Messages'
 
       parameters:
         - in: path
@@ -960,12 +936,9 @@ paths:
             schema:
               type: object
               properties:
-                username:
-                  type: string
                 text:
                   type: string
               required:
-                - username
                 - text
 
       responses:
@@ -983,21 +956,171 @@ paths:
                   description: 'Failed help message request. Redirect to help page.'
                   value: '/users/{username}/help'    
 
-  # /users/{username}/report:
+  /users/{username}/report:
+    post:                    
+      operationId: R601
+      summary: 'R601: Submit a Report'
+      description: 'Submit a Report to be reviewed by the administrators. Access: USR'
+      tags:
+        - 'M06: Reports'
 
-  # /admin/{username}/help:
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
 
-  # /admin/{username}/report:
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                context:
+                  type: string
+                text:
+                  type: string
+              required:
+                - context
+                - text
 
+      responses:
+        '200':
+          description: 'OK, after processing the report.'
+                  
+  /users/{username}/manage:
+    post:
+      operationId: R702
+      summary: 'R702: Suspend the user'
+      description: 'Processes the admin action in the user. Access: ADM'
+      tags:
+        - 'M07: Administration'
+    
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                suspend:
+                  type: boolean
+
+      responses:
+        '302':
+          description: 'Redirect after processing user management.'
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: 'Successful user management request. Redirect to user profile.'
+                  value: '/users/{username}'
+                302Failure:
+                  description: 'Failed user management request. Redirect to user profile.'
+                  value: '/users/{username}'
+
+  /admin/{username}/help:
+    get:
+      operationId: R503
+      summary: 'R503: View Pending Help Messages'
+      description: 'View Pending Help Messages from users. Access: ADM'
+      tags:
+        - 'M05: Help Messages'
+
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
+
+      responses:
+        '200':
+          description: 'Ok. Show [UI23](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/er#ui23-admin-panel-help)'
+
+    post:                    
+      operationId: R504
+      summary: 'R504: Send Help Message'
+      description: 'Send a new Help Message in the Help chat. Access: ADM'
+      tags:
+        - 'M05: Help Messages'
+
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
+
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                recipient: 
+                  type: string
+                text:
+                  type: string
+              required:
+                - recipient
+                - text
+
+      responses:
+        '302':
+          description: 'Redirect after processing help message.'
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: 'Successful help message request. Redirect to help page.'
+                  value: '/admin/{username}/help'
+                302Failure:
+                  description: 'Failed help message request. Redirect to help page.'
+                  value: '/admin/{username}/help'    
+
+  /admin/{username}/reports:
+    get:
+      operationId: R602
+      summary: 'R602: View Pending Reports'
+      description: 'View Pending Reports from users. Access: ADM'
+      tags:
+        - 'M06: Reports'
+
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
+
+      responses:
+        '200':
+          description: 'Ok. Show [UI22](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/er#ui22-admin-panel-reports)'
+          
 ##################################################################################################################################
 
   /api/login:
     post:
-      operationId: R202
-      summary: 'R202: Login Action'
+      operationId: R
+      summary: 'R: Login Action'
       description: 'Processes the login. Access: PUB'
       tags:
-        - 'M02: Authentication and Individual Profile'
+        - ''
       requestBody:
         required: true
         content:
@@ -1025,14 +1148,35 @@ paths:
                     type: string
                 example:
                   - result: 'success'
-
+                
+  /api/logout:
+    post:
+      operationId: R
+      summary: 'R: Logout Action'
+      description: 'Logout the current authenticated user. Access: USR, ADM'
+      tags:
+        - ''
+        
+      responses:
+        '200':
+          description: 'OK, after processing the login.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: string
+                example:
+                  - result: 'success'
+            
   /api/signup:
     post:
-      operationId: R205
-      summary: 'R205: Signup Action'
+      operationId: R
+      summary: 'R: Signup Action'
       description: 'Processes the new user signup. Access: PUB'
       tags:
-        - 'M02: Authentication and Individual Profile'
+        - ''
 
       requestBody:
         required: true
@@ -1070,11 +1214,11 @@ paths:
 
   /api/auctions/featured:
     get:
-      operationId: R311
-      summary: 'R311: Get all featured auctions'
+      operationId: R
+      summary: 'R: Get all featured auctions'
       description: 'Search through all the featured auctions shown in the homepage. Access: PUB'
       tags:
-        - 'M03: Auctions'
+        - ''
           
       responses:
         '200':
@@ -1110,11 +1254,11 @@ paths:
 
   /api/auctions/search:
     get:
-      operationId: R312
-      summary: 'R312: Get search results'
+      operationId: R
+      summary: 'R: Get search results'
       description: 'Search through all the auctions. Access: PUB'
       tags:
-        - 'M03: Auctions'
+        - ''
 
       parameters:
         - in: query
@@ -1236,11 +1380,11 @@ paths:
                 
   /api/auctions/{id}:
     get:
-      operationId: R302
-      summary: 'R302: View auction details'
+      operationId: R
+      summary: 'R: View auction details'
       description: 'Show the auction details. Access: PUB'
       tags:
-        - 'M03: Auctions'
+        - ''
 
       parameters:
         - in: path
@@ -1290,11 +1434,11 @@ paths:
           
   /api/auctions/{id}/bids:
     get:
-      operationId: R303
-      summary: 'R303: View auction bid history'
+      operationId: R
+      summary: 'R: View auction bid history'
       description: 'View all bids made in the auction. Access: PUB'
       tags:
-        - 'M03: Auctions'
+        - ''
     
       parameters:
         - in: path
@@ -1324,11 +1468,11 @@ paths:
                     value: 1369.12
        
     post:
-      operationId: R304
-      summary: 'R304: Bid in auction'
+      operationId: R
+      summary: 'R: Bid in auction'
       description: 'Processes the new bid in the auction. Access: USR'
       tags:
-        - 'M03: Auctions'
+        - ''
     
       parameters:
         - in: path
@@ -1364,11 +1508,11 @@ paths:
      
   /api/auctions/{id}/comments:
     get:
-      operationId: R313
-      summary: 'R313: View all comments in auction'
+      operationId: R
+      summary: 'R: View all comments in auction'
       description: 'View all comments made in the auction chat. Access: USR'
       tags:
-        - 'M03: Auctions'
+        - ''
     
       parameters:
         - in: path
@@ -1402,11 +1546,11 @@ paths:
                     date: '2021-04-12 12:39:41'
 
     post:
-      operationId: R308
-      summary: 'R308: Comment in auction'
+      operationId: R
+      summary: 'R: Comment in auction'
       description: 'Processes the new comment in the auction. Access: USR'
       tags:
-        - 'M03: Auctions'
+        - ''
     
       parameters:
         - in: path
@@ -1442,11 +1586,11 @@ paths:
 
   /api/auctions/{id}/buy_now:   
     post:
-      operationId: R309
-      summary: 'R309: Buy Now in the auction'
+      operationId: R
+      summary: 'R: Buy Now in the auction'
       description: 'Processes the use of the Buy Now option in the auction. Access: USR'
       tags:
-        - 'M03: Auctions'
+        - ''
     
       parameters:
         - in: path
@@ -1482,11 +1626,11 @@ paths:
 
   /api/auctions/{id}/rate:
     post:                    
-      operationId: R306
-      summary: 'R306: Submit rating'
+      operationId: R
+      summary: 'R: Submit rating'
       description: 'Rate a given auction. Access: BID'
       tags:
-        - 'M03: Auctions'
+        - ''
 
       parameters:
         - in: path
@@ -1524,11 +1668,11 @@ paths:
  
   /api/auctions/create:
     post:
-      operationId: R306
-      summary: 'R306: Create new auction Action'
+      operationId: R
+      summary: 'R: Create new auction Action'
       description: 'Processes the new auction information. Access: USR'
       tags:
-        - 'M03: Auctions'
+        - ''
 
       requestBody:
         required: true
@@ -1585,11 +1729,11 @@ paths:
 
   /api/auctions/{id}/manage:
     post:
-      operationId: R310
-      summary: 'R310: Reschedule/Suspend the auction'
+      operationId: R
+      summary: 'R: Reschedule/Suspend the auction'
       description: 'Processes the admin action in the auction. Access: ADM'
       tags:
-        - 'M03: Auctions'
+        - ''
     
       parameters:
         - in: path
@@ -1627,11 +1771,11 @@ paths:
 
   /api/colours:
    get:
-      operationId: R313
-      summary: 'R313: Available Colours'
+      operationId: R
+      summary: 'R: Available Colours'
       description: 'View all available colour values. Access: PUB'
       tags:
-        - 'M03: Auctions'
+        - ''
 
       responses:
         '200':
@@ -1651,11 +1795,11 @@ paths:
 
   /api/brands:
    get:
-      operationId: R314
-      summary: 'R314: Available Brands'
+      operationId: R
+      summary: 'R: Available Brands'
       description: 'View all available brand values. Access: PUB'
       tags:
-        - 'M03: Auctions'
+        - ''
 
       responses:
         '200':
@@ -1675,11 +1819,11 @@ paths:
 
   /api/scales:
    get:
-      operationId: R315
-      summary: 'R315: Available Scales'
+      operationId: R
+      summary: 'R: Available Scales'
       description: 'View all available scale values. Access: PUB'
       tags:
-        - 'M03: Auctions'
+        - ''
 
       responses:
         '200':
@@ -1697,30 +1841,754 @@ paths:
                   - scale: '18:1'
                   - scale: '24:1'
 
-  # /api/users/{username}:
+  /api/users/{username}:
+    get:
+      operationId: R
+      summary: 'R: View user profile'
+      description: 'Show the individual user profile. If the user is the owner of the profile, also show the personal statistics. Access: PUB, OWN'
+      tags:
+        - ''
 
-  # /api/users/{username}/edit:
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
 
-  # /api/users/{username}/fav_auctions:
+      responses:
+        '200':
+          description: 'Ok. Show user profile information'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  username:
+                    type: string
+                  name:
+                    type: string
+                  email:
+                    type: string
+                  rating:
+                    type: number
 
-  # /api/users/{username}/fav_auctions/add:
+  /api/users/{username}/edit:
+    post:
+      operationId: R
+      summary: 'R: Edit Profile Action'
+      description: 'Processes the new user profile form submission. Access: OWN'
+      tags:
+        - ''
+    
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
 
-  # /api/users/{username}/fav_auctions/remove:
-
-  # /api/users/{username}/fav_sellers:
-
-  # /api/users/{username}/fav_sellers/add:
-
-  # /api/users/{username}/fav_sellers/remove:
-
-  # /api/users/{username}/rating:
-
-  # /api/users/{username}/notification:
-
-  # /api/users/{username}/help:
-
-  # /api/users/{username}/report:
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                old_password:
+                  type: string
+                new_password:
+                  type: string
+                photo:
+                  type: string
+              required:
+                - old_password
+      responses:
+        '200':
+          description: 'OK, after processing the profile edit.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: string
+                example:
+                  - result: 'success'
   
-  # /api/admin/{username}/help:
+  /api/users/{username}/bids:
+    get:
+      operationId: R404
+      summary: 'R404: User bid history'
+      description: 'List all the bids created by the user. Access: OWN'
+      tags:
+        - ''
+
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
+
+      responses:
+        '200':
+          description: 'Ok. Show Bids'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    auction_id:
+                      type: number
+                    value:
+                      type: number
+
+  /api/users/{username}/auctions:
+    get:
+      operationId: R404
+      summary: 'R404: Auctions created by the user'
+      description: 'List all the auctions created by the user. Access: PUB'
+      tags:
+        - ''
+
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
+
+      responses:
+        '200':
+          description: 'Ok. Show Auctions'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    title:
+                      type: string
+
+  /api/users/{username}/fav_auctions:
+    get:
+      operationId: R
+      summary: 'R: User favourite auctions'
+      description: 'List all the favourite auctions of the user. Access: OWN'
+      tags:
+        - ''
+
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
+
+      responses:
+        '200':
+          description: 'Ok. Show favourite auctions'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    title:
+                      type: string
+                    photo:
+                      type: string
+                example:
+                  - id: 1
+                    title: 'Ferrari Portofino'
+                    photo: 'https://lbaw2155-piu/static/images/qkewndms-qqnw-213-skmsmsak.jpg'
+                  - id: 4
+                    title: 'Bentley Continental'
+                    photo: 'https://lbaw2155-piu/static/images/otituvnc-qoqo-345-mekwkwkw.jpg'
+
+  /api/users/{username}/fav_auctions/add:
+    post:                    
+      operationId: R
+      summary: 'R: Add favourite auction'
+      description: 'Add auction to favourite list. Access: OWN'
+      tags:
+        - ''
+
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
+
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+              required:
+                - id
+
+      responses:
+        '200':
+          description: 'OK, after processing the add to favourite action.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: string
+                example:
+                  - result: 'success'
+
+  /api/users/{username}/fav_auctions/remove:
+    post:                    
+      operationId: R
+      summary: 'R: Remove favourite auction'
+      description: 'Remove auction from favourite list. Access: OWN'
+      tags:
+        - ''
+
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
+
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+              required:
+                - id
+
+      responses:
+        '200':
+          description: 'OK, after processing the remove from favourite action.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: string
+                example:
+                  - result: 'success'
+
+  /api/users/{username}/fav_sellers:
+    get:
+      operationId: R
+      summary: 'R: User favourite sellers'
+      description: 'List all the favourite sellers of the user. Access: OWN'
+      tags:
+        - ''
+
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
+
+      responses:
+        '200':
+          description: 'Ok. Show favourite sellers'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    username:
+                      type: string
+                    photo:
+                      type: string
+                example:
+                  - username: 'johndoe'
+                    photo: 'https://lbaw2155-piu/static/images/mdkjeam-skfjhejs.jpg'
+                  - username: 'rickwheels'
+                    photo: 'https://lbaw2155-piu/static/images/okqiela-grsusnre.jpg'
+                    
+  /api/users/{username}/fav_sellers/add:
+    post:                    
+      operationId: R
+      summary: 'R: Add favourite seller'
+      description: 'Add seller to favourite list. Access: OWN'
+      tags:
+        - ''
+
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
+
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                seller:
+                  type: string
+              required:
+                - seller
+
+      responses:
+        '200':
+          description: 'OK, after processing the add to favourite action.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: string
+                example:
+                  - result: 'success'
+
+  /api/users/{username}/fav_sellers/remove:
+    post:                    
+      operationId: R
+      summary: 'R: Remove favourite seller'
+      description: 'Remove seller from favourite list. Access: OWN'
+      tags:
+        - ''
+
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
+
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                seller:
+                  type: string
+              required:
+                - seller
+
+      responses:
+        '200':
+          description: 'OK, after processing the remove from favourite action.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: string
+                example:
+                  - result: 'success' 
+         
+  /api/users/{username}/ratings:
+    get:
+      operationId: R404
+      summary: 'R404: Ratings given to the user'
+      description: 'List all the ratings given to the user. Access: PUB'
+      tags:
+        - ''
+
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
+
+      responses:
+        '200':
+          description: 'Ok. Show Ratings'
+          content:
+            application/json:
+              schema:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      username:
+                        type: string
+                      description:
+                        type: string
+                      value:
+                        type: number
+
+  /api/users/{username}/rated:
+    get:
+      operationId: R404
+      summary: 'R404: Ratings given by the user'
+      description: 'List all the ratings given by the user. Access: PUB'
+      tags:
+        - ''
+
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
+
+      responses:
+        '200':
+          description: 'Ok. Show Ratings'
+          content:
+            application/json:
+              schema:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      username:
+                        type: string
+                      description:
+                        type: string
+                      value:
+                        type: number
+           
+  /api/users/{username}/notifications:
+    get:
+      operationId: R
+      summary: 'R: View Pending Notifications'
+      description: 'View the Pending Notifications list. Access: OWN'
+      tags:
+        - ''
+
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
+
+      responses:
+        '200':
+          description: 'Ok. Show Pending Notifications'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    text:
+                      type: string
+                    date:
+                      type: string
+                example:
+                  - text: "johndoe created a new auction! Go check it out"
+                    date: "2021-04-23 12:39:41"
+                  - text: "Auction #314 is over! View the results"
+                    date: "2021-04-23 12:59:24"
+
+  /api/users/{username}/help:
+    get:
+      operationId: R
+      summary: 'R: View Help Messages'
+      description: 'View the Help Messages list. Access: OWN'
+      tags:
+        - ''
+
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
+
+      responses:
+        '200':
+          description: 'Ok. Show Help Messages'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    sender:
+                      type: string
+                    text:
+                      type: string
+                    date:
+                      type: string
+                example:
+                  - sender: 'johndoe'
+                    text: "Will I be notified about my favourite seller?"
+                    date: "2021-04-23 12:39:41"
+                  - sender: 'rickwheels'
+                    text: "Yes, you should be notified everytime a favourite seller of yours creates a new auction."
+                    date: "2021-04-23 12:59:24"
+
+    post:                    
+      operationId: R
+      summary: 'R: Send Help Message'
+      description: 'Send a new Help Message. Access: OWN, ADM'
+      tags:
+        - ''
+
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
+
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                text:
+                  type: string
+              required:
+                - username
+                - text
+
+      responses:
+        '200':
+          description: 'OK, after processing the help message.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: string
+                example:
+                  - result: 'success' 
+
+  /api/users/{username}/report:
+    post:                    
+      operationId: R
+      summary: 'R: Submit a Report'
+      description: 'Submit a Report to be reviewed by the administrators. Access: USR'
+      tags:
+        - ''
+
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
+
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                context:
+                  type: string
+                text:
+                  type: string
+              required:
+                - context
+                - text
+
+      responses:
+        '200':
+          description: 'OK, after processing the report.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: string
+                example:
+                  - result: 'success' 
+                  
+  /api/users/{username}/manage:
+    post:
+      operationId: R
+      summary: 'R: Suspend the user'
+      description: 'Processes the admin action in the user. Access: ADM'
+      tags:
+        - ''
+    
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                suspend:
+                  type: boolean
+
+      responses:
+        '200':
+          description: 'OK, after processing the user management.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: string
+                example:
+                  - result: 'success'
+
+  /api/admin/{username}/help:
+    get:
+      operationId: R
+      summary: 'R: View Pending Help Messages'
+      description: 'View Pending Help Messages from users. Access: ADM'
+      tags:
+        - ''
+
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
+
+      responses:
+        '200':
+          description: 'Ok. Show Help Messages'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    sender:
+                      type: string
+                    text:
+                      type: string
+                    date:
+                      type: string
+                example:
+                  - sender: 'johndoe'
+                    text: "Will I be notified about my favourite seller?"
+                    date: "2021-04-23 12:39:41"
+                  - sender: 'rickwheels'
+                    text: "Yes, you should be notified everytime a favourite seller of yours creates a new auction."
+                    date: "2021-04-23 12:59:24"
+
+    post:                    
+      operationId: R
+      summary: 'R: Send Help Message'
+      description: 'Send a new Help Message to a given user. Access: ADM'
+      tags:
+        - ''
+
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
+
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                recipient: 
+                  type: string
+                text:
+                  type: string
+              required:
+                - recipient
+                - text
+
+      responses:
+        '200':
+          description: 'OK, after processing the help message.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: string
+                example:
+                  - result: 'success' 
   
-  # /api/admin/{username}/report:
+  /api/admin/{username}/reports:
+    get:
+      operationId: R
+      summary: 'R: View Pending Reports'
+      description: 'View Pending Reports from users. Access: ADM'
+      tags:
+        - ''
+
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
+
+      responses:
+        '200':
+          description: 'Ok. Show Reports'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    reporter:
+                      type: string
+                    context:
+                      type: string
+                    reason:
+                      type: string
+                example:
+                  - reporter: 'rickwheels'
+                    context: "Auction #993"
+                    reason: "This guy is trying to sell a fake fiat model! Stop it!!"
+ 
