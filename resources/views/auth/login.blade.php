@@ -11,23 +11,24 @@
                 <span class="input-group-text rounded-0"><i class="fas fa-at"></i></span>
             </div>
             <input id="email" type="email" name="email" class="form-control input_user" value="{{ old('email') }}" placeholder="example@email.com" required autofocus>
-            @if ($errors->has('email'))
-                <span class="error">
-                {{ $errors->first('email') }}
-                </span>
-            @endif
+
         </div>
+        @if ($errors->has('email'))
+            <div class="input-group mb-3">
+            {{ $errors->first('email') }}
+            </div>
+        @endif
         <div class="input-group mb-3">
             <div class="input-group-append rounded-0">
                 <span class="input-group-text rounded-0"><i class="fas fa-key"></i></span>
             </div>
             <input id="password" type="password" name="password" class="form-control input_pass" placeholder="password" required>
-            @if ($errors->has('password'))
-                <span class="error">
-                    {{ $errors->first('password') }}
-                </span>
-            @endif
         </div>
+        @if ($errors->has('password'))
+            <div class="input-group mb-3">
+                {{ $errors->first('password') }}
+            </div>
+        @endif
         <label>
             <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
         </label>
