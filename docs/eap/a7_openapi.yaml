@@ -194,7 +194,7 @@ paths:
     get:
       operationId: R302
       summary: 'R302: View auction page'
-      description: 'Show the auction details. Access: PUB'
+      description: 'Show the auction details. If the user is SEL, also show the bid authors, and the bid and buy now options are not available. If the user is ADM, these options are also not available, and besides seeing the bid authors, an extra scheduling/cancelling option is shown. Access: PUB'
       tags:
         - 'M03: Auctions'
 
@@ -213,7 +213,7 @@ paths:
     get:
       operationId: R303
       summary: 'R303: View auction bid history'
-      description: 'View all bids made in the auction. Access: PUB'
+      description: 'View all bids made in the auction. If the user is SEL or ADM, also show the bid authors. Access: PUB'
       tags:
         - 'M03: Auctions'
     
@@ -231,7 +231,7 @@ paths:
     post:
       operationId: R304
       summary: 'R304: Bid in auction'
-      description: 'Processes the new bid in the auction. Access: USR'
+      description: 'Processes the new bid in the auction. Access: BUY'
       tags:
         - 'M03: Auctions'
     
@@ -333,7 +333,7 @@ paths:
     post:
       operationId: R307
       summary: 'R307: Buy Now in the auction'
-      description: 'Processes the use of the Buy Now option in the auction. Access: USR'
+      description: 'Processes the use of the Buy Now option in the auction. Access: BUY'
       tags:
         - 'M03: Auctions'
     
@@ -375,7 +375,7 @@ paths:
     post:                    
       operationId: R308
       summary: 'R308: Submit rating'
-      description: 'Rate a given auction. Access: BID'
+      description: 'Rate a given auction. Access: BUY'
       tags:
         - 'M03: Auctions'
 
@@ -419,7 +419,7 @@ paths:
     get:
       operationId: R309
       summary: 'R309: Create new auction'
-      description: 'Provide new auction information form. Access: USR'
+      description: 'Provide new auction information form. Access: SEL'
       tags:
         - 'M03: Auctions'
       responses:
@@ -429,7 +429,7 @@ paths:
     post:
       operationId: R310
       summary: 'R310: Create new auction Action'
-      description: 'Processes the new auction information form submission. Access: USR'
+      description: 'Processes the new auction information form submission. Access: SEL'
       tags:
         - 'M03: Auctions'
 
@@ -488,7 +488,7 @@ paths:
                   value: '/auctions/create'
                   
   /auctions/{id}/manage:
-    post:
+    put:
       operationId: R701
       summary: 'R701: Reschedule/Suspend the auction'
       description: 'Processes the admin action in the auction. Access: ADM'
@@ -534,7 +534,7 @@ paths:
     get:
       operationId: R401
       summary: 'R401: View user profile'
-      description: 'Show the individual user profile. If the user is the owner of the profile, also show the personal statistics. Access: PUB, OWN'
+      description: 'Show the individual user profile. If the user is OWN, also show the personal statistics, bid history and favourite lists. If user is ADM, besides all the user private information, also show a ban option. Access: PUB'
       tags:
         - 'M04: Users'
 
@@ -568,7 +568,7 @@ paths:
         '200':
           description: 'Ok. Show [UI13](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/er#ui13-edit-profile)'
 
-    post:
+    put:
       operationId: R403
       summary: 'R403: Edit Profile Action'
       description: 'Processes the new user profile form submission. Access: OWN'
@@ -620,7 +620,7 @@ paths:
     get:
       operationId: R404
       summary: 'R404: User bid history'
-      description: 'List all the bids created by the user. Access: OWN'
+      description: 'List all the bids created by the user. Access: OWN, ADM'
       tags:
         - 'M04: Users'
 
@@ -637,8 +637,8 @@ paths:
 
   /users/{username}/auctions:
     get:
-      operationId: R404
-      summary: 'R404: Auctions created by the user'
+      operationId: R405
+      summary: 'R405: Auctions created by the user'
       description: 'List all the auctions created by the user. Access: PUB'
       tags:
         - 'M04: Users'
@@ -656,8 +656,8 @@ paths:
 
   /users/{username}/fav_auctions:
     get:
-      operationId: R404
-      summary: 'R404: User favourite auctions'
+      operationId: R406
+      summary: 'R406: User favourite auctions'
       description: 'List all the favourite auctions of the user. Access: OWN'
       tags:
         - 'M04: Users'
@@ -675,8 +675,8 @@ paths:
 
   /users/{username}/fav_auctions/add:
     post:                    
-      operationId: R405
-      summary: 'R405: Add favourite auction'
+      operationId: R407
+      summary: 'R407: Add favourite auction'
       description: 'Add auction to favourite list. Access: OWN'
       tags:
         - 'M04: Users'
@@ -716,8 +716,8 @@ paths:
 
   /users/{username}/fav_auctions/remove:
     post:                    
-      operationId: R406
-      summary: 'R406: Remove favourite auction'
+      operationId: R408
+      summary: 'R408: Remove favourite auction'
       description: 'Remove auction from favourite list. Access: OWN'
       tags:
         - 'M04: Users'
@@ -757,8 +757,8 @@ paths:
 
   /users/{username}/fav_sellers:
     get:
-      operationId: R407
-      summary: 'R407: User favourite sellers'
+      operationId: R409
+      summary: 'R409: User favourite sellers'
       description: 'List all the favourite sellers of the user. Access: OWN'
       tags:
         - 'M04: Users'
@@ -776,8 +776,8 @@ paths:
 
   /users/{username}/fav_sellers/add:
     post:                    
-      operationId: R408
-      summary: 'R408: Add favourite seller'
+      operationId: R410
+      summary: 'R410: Add favourite seller'
       description: 'Add seller to favourite list. Access: OWN'
       tags:
         - 'M04: Users'
@@ -818,8 +818,8 @@ paths:
                  
   /users/{username}/fav_sellers/remove:
     post:                    
-      operationId: R409
-      summary: 'R409: Remove favourite seller'
+      operationId: R411
+      summary: 'R411: Remove favourite seller'
       description: 'Remove seller from favourite list. Access: OWN'
       tags:
         - 'M04: Users'
@@ -860,8 +860,8 @@ paths:
   
   /users/{username}/ratings:
     get:
-      operationId: R404
-      summary: 'R404: Ratings given to the user'
+      operationId: R412
+      summary: 'R412: Ratings given to the user'
       description: 'List all the ratings given to the user. Access: PUB'
       tags:
         - 'M04: Users'
@@ -879,8 +879,8 @@ paths:
 
   /users/{username}/rated:
     get:
-      operationId: R404
-      summary: 'R404: Ratings given by the user'
+      operationId: R413
+      summary: 'R413: Ratings given by the user'
       description: 'List all the ratings given by the user. Access: PUB'
       tags:
         - 'M04: Users'
@@ -900,7 +900,7 @@ paths:
     get:
       operationId: R501
       summary: 'R501: View Help Messages'
-      description: 'View the Help Message chat. Access: OWN'
+      description: 'View the Help Message chat. Access: OWN, ADM'
       tags:
         - 'M05: Help Messages'
 
@@ -918,7 +918,7 @@ paths:
     post:                    
       operationId: R502
       summary: 'R502: Send Help Message'
-      description: 'Send a new Help Message in the Help chat. Access: OWN, ADM'
+      description: 'Send a new Help Message in the Help chat. Access: OWN'
       tags:
         - 'M05: Help Messages'
 
@@ -991,7 +991,7 @@ paths:
           description: 'OK, after processing the report.'
                   
   /users/{username}/manage:
-    post:
+    put:
       operationId: R702
       summary: 'R702: Suspend the user'
       description: 'Processes the admin action in the user. Access: ADM'
@@ -1032,8 +1032,8 @@ paths:
 
   /admin/{username}/users:
     get:
-      operationId: R503
-      summary: 'R503: View Users Admin Panel'
+      operationId: R703
+      summary: 'R703: View Users Admin Panel'
       description: 'View Users Admin Panel. Access: ADM'
       tags:
         - 'M07: Administration'
@@ -1051,8 +1051,8 @@ paths:
 
   /admin/{username}/auctions:
     get:
-      operationId: R503
-      summary: 'R503: View Auctions Admin Panel'
+      operationId: R704
+      summary: 'R704: View Auctions Admin Panel'
       description: 'View Auctions Admin Panel. Access: ADM'
       tags:
         - 'M07: Administration'
@@ -1070,11 +1070,11 @@ paths:
 
   /admin/{username}/help:
     get:
-      operationId: R503
-      summary: 'R503: View Pending Help Messages'
+      operationId: R705
+      summary: 'R705: View Pending Help Messages'
       description: 'View Pending Help Messages from users. Access: ADM'
       tags:
-        - 'M05: Help Messages'
+        - 'M07: Administration'
 
       parameters:
         - in: path
@@ -1088,8 +1088,8 @@ paths:
           description: 'Ok. Show [UI23](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/er#ui23-admin-panel-help)'
 
     post:                    
-      operationId: R504
-      summary: 'R504: Send Help Message'
+      operationId: R503
+      summary: 'R503: Send Help Message'
       description: 'Send a new Help Message in the Help chat. Access: ADM'
       tags:
         - 'M05: Help Messages'
@@ -1133,11 +1133,11 @@ paths:
 
   /admin/{username}/reports:
     get:
-      operationId: R602
-      summary: 'R602: View Pending Reports'
+      operationId: R706
+      summary: 'R706: View Pending Reports'
       description: 'View Pending Reports from users. Access: ADM'
       tags:
-        - 'M06: Reports'
+        - 'M07: Administration'
 
       parameters:
         - in: path
@@ -1154,11 +1154,11 @@ paths:
 
   /api/login:
     post:
-      operationId: R
-      summary: 'R: Login Action'
+      operationId: R206
+      summary: 'R206: Login Action'
       description: 'Processes the login. Access: PUB'
       tags:
-        - ''
+        - 'M02: Authentication'
       requestBody:
         required: true
         content:
@@ -1189,11 +1189,11 @@ paths:
                 
   /api/logout:
     post:
-      operationId: R
-      summary: 'R: Logout Action'
+      operationId: R207
+      summary: 'R207: Logout Action'
       description: 'Logout the current authenticated user. Access: USR, ADM'
       tags:
-        - ''
+        - 'M02: Authentication'
         
       responses:
         '200':
@@ -1210,11 +1210,11 @@ paths:
             
   /api/signup:
     post:
-      operationId: R
-      summary: 'R: Signup Action'
+      operationId: R208
+      summary: 'R208: Signup Action'
       description: 'Processes the new user signup. Access: PUB'
       tags:
-        - ''
+        - 'M02: Authentication'
 
       requestBody:
         required: true
@@ -1252,11 +1252,11 @@ paths:
 
   /api/auctions/featured:
     get:
-      operationId: R
-      summary: 'R: Get all featured auctions'
+      operationId: R311
+      summary: 'R311: Get all featured auctions'
       description: 'Search through all the featured auctions shown in the homepage. Access: PUB'
       tags:
-        - ''
+        - 'M03: Auctions'
           
       responses:
         '200':
@@ -1292,11 +1292,11 @@ paths:
 
   /api/auctions/search:
     get:
-      operationId: R
-      summary: 'R: Get search results'
+      operationId: R312
+      summary: 'R312: Get search results'
       description: 'Search through all the auctions. Access: PUB'
       tags:
-        - ''
+        - 'M03: Auctions'
 
       parameters:
         - in: query
@@ -1418,11 +1418,11 @@ paths:
                 
   /api/auctions/{id}:
     get:
-      operationId: R
-      summary: 'R: View auction details'
+      operationId: R313
+      summary: 'R313: View auction details'
       description: 'Show the auction details. Access: PUB'
       tags:
-        - ''
+        - 'M03: Auctions'
 
       parameters:
         - in: path
@@ -1472,11 +1472,11 @@ paths:
           
   /api/auctions/{id}/bids:
     get:
-      operationId: R
-      summary: 'R: View auction bid history'
+      operationId: R314
+      summary: 'R314: View auction bid history'
       description: 'View all bids made in the auction. Access: PUB'
       tags:
-        - ''
+        - 'M03: Auctions'
     
       parameters:
         - in: path
@@ -1506,11 +1506,11 @@ paths:
                     value: 1369.12
        
     post:
-      operationId: R
-      summary: 'R: Bid in auction'
-      description: 'Processes the new bid in the auction. Access: USR'
+      operationId: R315
+      summary: 'R315: Bid in auction'
+      description: 'Processes the new bid in the auction. Access: BUY'
       tags:
-        - ''
+        - 'M03: Auctions'
     
       parameters:
         - in: path
@@ -1546,11 +1546,11 @@ paths:
      
   /api/auctions/{id}/comments:
     get:
-      operationId: R
-      summary: 'R: View all comments in auction'
-      description: 'View all comments made in the auction chat. Access: USR'
+      operationId: R316
+      summary: 'R316: View all comments in auction'
+      description: 'View all comments made in the auction chat. Access: PUB'
       tags:
-        - ''
+        - 'M03: Auctions'
     
       parameters:
         - in: path
@@ -1584,11 +1584,11 @@ paths:
                     date: '2021-04-12 12:39:41'
 
     post:
-      operationId: R
-      summary: 'R: Comment in auction'
+      operationId: R317
+      summary: 'R317: Comment in auction'
       description: 'Processes the new comment in the auction. Access: USR'
       tags:
-        - ''
+        - 'M03: Auctions'
     
       parameters:
         - in: path
@@ -1624,11 +1624,11 @@ paths:
 
   /api/auctions/{id}/buy_now:   
     post:
-      operationId: R
-      summary: 'R: Buy Now in the auction'
-      description: 'Processes the use of the Buy Now option in the auction. Access: USR'
+      operationId: R318
+      summary: 'R318: Buy Now in the auction'
+      description: 'Processes the use of the Buy Now option in the auction. Access: BUY'
       tags:
-        - ''
+        - 'M03: Auctions'
     
       parameters:
         - in: path
@@ -1664,11 +1664,11 @@ paths:
 
   /api/auctions/{id}/rate:
     post:                    
-      operationId: R
-      summary: 'R: Submit rating'
-      description: 'Rate a given auction. Access: BID'
+      operationId: R319
+      summary: 'R319: Submit rating'
+      description: 'Rate a given auction. Access: BUY'
       tags:
-        - ''
+        - 'M03: Auctions'
 
       parameters:
         - in: path
@@ -1706,11 +1706,11 @@ paths:
  
   /api/auctions/create:
     post:
-      operationId: R
-      summary: 'R: Create new auction Action'
-      description: 'Processes the new auction information. Access: USR'
+      operationId: R320
+      summary: 'R320: Create new auction Action'
+      description: 'Processes the new auction information. Access: SEL'
       tags:
-        - ''
+        - 'M03: Auctions'
 
       requestBody:
         required: true
@@ -1766,12 +1766,12 @@ paths:
                   - result: 'success'
 
   /api/auctions/{id}/manage:
-    post:
-      operationId: R
-      summary: 'R: Reschedule/Suspend the auction'
+    put:
+      operationId: R707
+      summary: 'R707: Reschedule/Suspend the auction'
       description: 'Processes the admin action in the auction. Access: ADM'
       tags:
-        - ''
+        - 'M07: Administration'
     
       parameters:
         - in: path
@@ -1809,11 +1809,11 @@ paths:
 
   /api/colours:
    get:
-      operationId: R
-      summary: 'R: Available Colours'
+      operationId: R321
+      summary: 'R321: Available Colours'
       description: 'View all available colour values. Access: PUB'
       tags:
-        - ''
+        - 'M03: Auctions'
 
       responses:
         '200':
@@ -1833,11 +1833,11 @@ paths:
 
   /api/brands:
    get:
-      operationId: R
-      summary: 'R: Available Brands'
+      operationId: R322
+      summary: 'R322: Available Brands'
       description: 'View all available brand values. Access: PUB'
       tags:
-        - ''
+        - 'M03: Auctions'
 
       responses:
         '200':
@@ -1857,11 +1857,11 @@ paths:
 
   /api/scales:
    get:
-      operationId: R
-      summary: 'R: Available Scales'
+      operationId: R323
+      summary: 'R323: Available Scales'
       description: 'View all available scale values. Access: PUB'
       tags:
-        - ''
+        - 'M03: Auctions'
 
       responses:
         '200':
@@ -1881,11 +1881,11 @@ paths:
 
   /api/users/{username}:
     get:
-      operationId: R
-      summary: 'R: View user profile'
-      description: 'Show the individual user profile. If the user is the owner of the profile, also show the personal statistics. Access: PUB, OWN'
+      operationId: R414
+      summary: 'R414: View user profile'
+      description: 'Show the individual user profile. If the user is OWN, also show the personal statistics, bid history and favourite lists. If user is ADM, besides all the user private information, also show a ban option. Access: PUB'
       tags:
-        - ''
+        - 'M04: Users'
 
       parameters:
         - in: path
@@ -1912,12 +1912,12 @@ paths:
                     type: number
 
   /api/users/{username}/edit:
-    post:
-      operationId: R
-      summary: 'R: Edit Profile Action'
+    put:
+      operationId: R415
+      summary: 'R415: Edit Profile Action'
       description: 'Processes the new user profile form submission. Access: OWN'
       tags:
-        - ''
+        - 'M04: Users'
     
       parameters:
         - in: path
@@ -1960,11 +1960,11 @@ paths:
   
   /api/users/{username}/bids:
     get:
-      operationId: R404
-      summary: 'R404: User bid history'
-      description: 'List all the bids created by the user. Access: OWN'
+      operationId: R416
+      summary: 'R416: User bid history'
+      description: 'List all the bids created by the user. Access: OWN, ADM'
       tags:
-        - ''
+        - 'M04: Users'
 
       parameters:
         - in: path
@@ -1990,11 +1990,11 @@ paths:
 
   /api/users/{username}/auctions:
     get:
-      operationId: R404
-      summary: 'R404: Auctions created by the user'
+      operationId: R417
+      summary: 'R417: Auctions created by the user'
       description: 'List all the auctions created by the user. Access: PUB'
       tags:
-        - ''
+        - 'M04: Users'
 
       parameters:
         - in: path
@@ -2020,11 +2020,11 @@ paths:
 
   /api/users/{username}/fav_auctions:
     get:
-      operationId: R
-      summary: 'R: User favourite auctions'
+      operationId: R418
+      summary: 'R418: User favourite auctions'
       description: 'List all the favourite auctions of the user. Access: OWN'
       tags:
-        - ''
+        - 'M04: Users'
 
       parameters:
         - in: path
@@ -2059,11 +2059,11 @@ paths:
 
   /api/users/{username}/fav_auctions/add:
     post:                    
-      operationId: R
-      summary: 'R: Add favourite auction'
+      operationId: R419
+      summary: 'R419: Add favourite auction'
       description: 'Add auction to favourite list. Access: OWN'
       tags:
-        - ''
+        - 'M04: Users'
 
       parameters:
         - in: path
@@ -2099,11 +2099,11 @@ paths:
 
   /api/users/{username}/fav_auctions/remove:
     post:                    
-      operationId: R
-      summary: 'R: Remove favourite auction'
+      operationId: R420
+      summary: 'R420: Remove favourite auction'
       description: 'Remove auction from favourite list. Access: OWN'
       tags:
-        - ''
+        - 'M04: Users'
 
       parameters:
         - in: path
@@ -2139,11 +2139,11 @@ paths:
 
   /api/users/{username}/fav_sellers:
     get:
-      operationId: R
-      summary: 'R: User favourite sellers'
+      operationId: R421
+      summary: 'R421: User favourite sellers'
       description: 'List all the favourite sellers of the user. Access: OWN'
       tags:
-        - ''
+        - 'M04: Users'
 
       parameters:
         - in: path
@@ -2174,11 +2174,11 @@ paths:
                     
   /api/users/{username}/fav_sellers/add:
     post:                    
-      operationId: R
-      summary: 'R: Add favourite seller'
+      operationId: R422
+      summary: 'R422: Add favourite seller'
       description: 'Add seller to favourite list. Access: OWN'
       tags:
-        - ''
+        - 'M04: Users'
 
       parameters:
         - in: path
@@ -2214,11 +2214,11 @@ paths:
 
   /api/users/{username}/fav_sellers/remove:
     post:                    
-      operationId: R
-      summary: 'R: Remove favourite seller'
+      operationId: R423
+      summary: 'R423: Remove favourite seller'
       description: 'Remove seller from favourite list. Access: OWN'
       tags:
-        - ''
+        - 'M04: Users'
 
       parameters:
         - in: path
@@ -2254,11 +2254,11 @@ paths:
          
   /api/users/{username}/ratings:
     get:
-      operationId: R404
-      summary: 'R404: Ratings given to the user'
+      operationId: R424
+      summary: 'R424: Ratings given to the user'
       description: 'List all the ratings given to the user. Access: PUB'
       tags:
-        - ''
+        - 'M04: Users'
 
       parameters:
         - in: path
@@ -2286,11 +2286,11 @@ paths:
 
   /api/users/{username}/rated:
     get:
-      operationId: R404
-      summary: 'R404: Ratings given by the user'
+      operationId: R425
+      summary: 'R425: Ratings given by the user'
       description: 'List all the ratings given by the user. Access: PUB'
       tags:
-        - ''
+        - 'M04: Users'
 
       parameters:
         - in: path
@@ -2318,11 +2318,11 @@ paths:
            
   /api/users/{username}/notifications:
     get:
-      operationId: R
-      summary: 'R: View Pending Notifications'
+      operationId: R426
+      summary: 'R426: View Pending Notifications'
       description: 'View the Pending Notifications list. Access: OWN'
       tags:
-        - ''
+        - 'M04: Users'
 
       parameters:
         - in: path
@@ -2353,11 +2353,11 @@ paths:
 
   /api/users/{username}/help:
     get:
-      operationId: R
-      summary: 'R: View Help Messages'
-      description: 'View the Help Messages list. Access: OWN'
+      operationId: R504
+      summary: 'R504: View Help Messages'
+      description: 'View the Help Messages list. Access: OWN, ADM'
       tags:
-        - ''
+        - 'M05: Help Messages'
 
       parameters:
         - in: path
@@ -2391,11 +2391,11 @@ paths:
                     date: "2021-04-23 12:59:24"
 
     post:                    
-      operationId: R
-      summary: 'R: Send Help Message'
-      description: 'Send a new Help Message. Access: OWN, ADM'
+      operationId: R505
+      summary: 'R505: Send Help Message'
+      description: 'Send a new Help Message. Access: OWN'
       tags:
-        - ''
+        - 'M05: Help Messages'
 
       parameters:
         - in: path
@@ -2434,11 +2434,11 @@ paths:
 
   /api/users/{username}/report:
     post:                    
-      operationId: R
-      summary: 'R: Submit a Report'
+      operationId: R602
+      summary: 'R602: Submit a Report'
       description: 'Submit a Report to be reviewed by the administrators. Access: USR'
       tags:
-        - ''
+        - 'M06: Reports'
 
       parameters:
         - in: path
@@ -2476,12 +2476,12 @@ paths:
                   - result: 'success' 
                   
   /api/users/{username}/manage:
-    post:
-      operationId: R
-      summary: 'R: Suspend the user'
+    put:
+      operationId: R708
+      summary: 'R708: Suspend the user'
       description: 'Processes the admin action in the user. Access: ADM'
       tags:
-        - ''
+        - 'M07: Administration'
     
       parameters:
         - in: path
@@ -2515,11 +2515,11 @@ paths:
 
   /api/admin/{username}/help:
     get:
-      operationId: R
-      summary: 'R: View Pending Help Messages'
+      operationId: R709
+      summary: 'R709: View Pending Help Messages'
       description: 'View Pending Help Messages from users. Access: ADM'
       tags:
-        - ''
+        - 'M07: Administration'
 
       parameters:
         - in: path
@@ -2553,11 +2553,11 @@ paths:
                     date: "2021-04-23 12:59:24"
 
     post:                    
-      operationId: R
-      summary: 'R: Send Help Message'
+      operationId: R506
+      summary: 'R506: Send Help Message'
       description: 'Send a new Help Message to a given user. Access: ADM'
       tags:
-        - ''
+        - 'M05: Help Messages'
 
       parameters:
         - in: path
@@ -2596,11 +2596,11 @@ paths:
   
   /api/admin/{username}/reports:
     get:
-      operationId: R
-      summary: 'R: View Pending Reports'
+      operationId: R710
+      summary: 'R710: View Pending Reports'
       description: 'View Pending Reports from users. Access: ADM'
       tags:
-        - ''
+        - 'M07: Administration'
 
       parameters:
         - in: path
