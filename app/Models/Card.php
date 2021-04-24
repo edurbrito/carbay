@@ -12,14 +12,16 @@ class Card extends Model
   /**
    * The user this card belongs to
    */
-  public function user() {
+  public function user()
+  {
     return $this->belongsTo('App\Models\User');
   }
 
   /**
    * Items inside this card
    */
-  public function items() {
+  public function items()
+  {
     return $this->hasMany('App\Models\Item');
   }
 }

@@ -12,7 +12,8 @@ class Item extends Model
   /**
    * The card this item belongs to.
    */
-  public function card() {
+  public function card()
+  {
     return $this->belongsTo('App\Models\Card');
   }
 }
