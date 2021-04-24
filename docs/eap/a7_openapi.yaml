@@ -1000,9 +1000,9 @@ paths:
     
       parameters:
         - in: path
-          name: id
+          name: username
           schema:
-            type: integer
+            type: string
           required: true
 
       requestBody:
@@ -2485,9 +2485,9 @@ paths:
     
       parameters:
         - in: path
-          name: id
+          name: username
           schema:
-            type: integer
+            type: string
           required: true
 
       requestBody:
@@ -2629,4 +2629,3 @@ paths:
                   - reporter: 'rickwheels'
                     context: "Auction #993"
                     reason: "This guy is trying to sell a fake fiat model! Stop it!!"
- 
