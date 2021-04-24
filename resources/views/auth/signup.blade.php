@@ -11,61 +11,60 @@
                 <span class="input-group-text rounded-0"><i class="fas fa-id-card"></i></span>
             </div>
             <input id="name" type="text" name="name" class="form-control" value="{{ old('name') }}" placeholder="Name" required autofocus>
-            @if ($errors->has('name'))
-              <span class="error">
-                  {{ $errors->first('name') }}
-              </span>
-            @endif
         </div>
+        @if ($errors->has('name'))
+            <div class="input-group mb-3 text-danger">
+                {{ $errors->first('name') }}
+            </div>
+        @endif
 
         <div class="input-group mb-3">
             <div class="input-group-append rounded-0">
                 <span class="input-group-text rounded-0"><i class="fas fa-user"></i></span>
             </div>
             <input id="username" type="text" name="username" class="form-control" value="{{ old('username') }}" placeholder="Username" required>
-            @if ($errors->has('username'))
-              <span class="error">
-                  {{ $errors->first('username') }}
-              </span>
-            @endif
         </div>
+        @if ($errors->has('username'))
+            <div class="input-group mb-3 text-danger">
+                {{ $errors->first('username') }}
+            </div>
+        @endif
 
         <div class="input-group mb-3">
             <div class="input-group-append rounded-0">
                 <span class="input-group-text rounded-0"><i class="fas fa-at"></i></span>
             </div>
             <input id="email" type="email" name="email" class="form-control" value="{{ old('email') }}" placeholder="example@email.com" required>
-            @if ($errors->has('email'))
-              <span class="error">
-                  {{ $errors->first('email') }}
-              </span>
-            @endif
         </div>
-
+        @if ($errors->has('email'))
+            <div class="input-group mb-3 text-danger">
+            {{ $errors->first('email') }}
+            </div>
+        @endif
 
         <div class="input-group mb-3">
             <div class="input-group-append rounded-0">
                 <span class="input-group-text rounded-0"><i class="fas fa-key"></i></span>
             </div>
             <input id="password" type="password" name="password" class="form-control" value="" placeholder="Password" required>
-            @if ($errors->has('password'))
-              <span class="error">
-                  {{ $errors->first('password') }}
-              </span>
-            @endif
         </div>
+        @if ($errors->has('password'))
+            <div class="input-group mb-3 text-danger">
+                {{ $errors->first('password') }}
+            </div>
+        @endif
 
         <div class="input-group mb-3">
             <div class="input-group-append rounded-0">
                 <span class="input-group-text rounded-0"><i class="fas fa-key"></i></span>
             </div>
-            <input id="password-confirm" type="password" name="password-confirm" class="form-control" value="" placeholder="Repeat Password" required>
-            @if ($errors->has('password-confirm'))
-              <span class="error">
-                  {{ $errors->first('password-confirm') }}
-              </span>
-            @endif
+            <input id="password_confirmation" type="password" name="password_confirmation" class="form-control" value="" placeholder="Repeat Password" required>
         </div>
+        @if ($errors->has('password_confirmation'))
+            <div class="input-group mb-3 text-danger">
+                {{ $errors->first('password_confirmation') }}
+            </div>
+        @endif
 
         <button class="btn btn-primary align-self-center w-75" type="submit" name="button" class="btn">Sign Up</button>
         <span class="text-center mt-2">or Sign Up with </span>

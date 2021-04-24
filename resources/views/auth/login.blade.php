@@ -14,7 +14,7 @@
 
         </div>
         @if ($errors->has('email'))
-            <div class="input-group mb-3">
+            <div class="input-group mb-3 text-danger">
             {{ $errors->first('email') }}
             </div>
         @endif
@@ -25,7 +25,7 @@
             <input id="password" type="password" name="password" class="form-control input_pass" placeholder="password" required>
         </div>
         @if ($errors->has('password'))
-            <div class="input-group mb-3">
+            <div class="input-group mb-3 text-danger">
                 {{ $errors->first('password') }}
             </div>
         @endif

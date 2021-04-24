@@ -33,4 +33,7 @@ Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
-Route::post('signup', 'Auth\RegisterController@signup');
+Route::post('signup', 'Auth\RegisterController@register');
+
+// Search
+Route::get('search', 'AuctionController@search');

@@ -82,4 +82,8 @@ class AuctionController extends Controller
     {
         //
     }
+
+    public function search() {
+        return view('pages.search');
+    }
 }
