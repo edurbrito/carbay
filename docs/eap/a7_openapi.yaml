@@ -1030,6 +1030,44 @@ paths:
                   description: 'Failed user management request. Redirect to user profile.'
                   value: '/users/{username}'
 
+  /admin/{username}/users:
+    get:
+      operationId: R503
+      summary: 'R503: View Users Admin Panel'
+      description: 'View Users Admin Panel. Access: ADM'
+      tags:
+        - 'M07: Administration'
+
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
+
+      responses:
+        '200':
+          description: 'Ok. Show [UI20](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/er#ui20-admin-panel-users-management)'
+
+  /admin/{username}/auctions:
+    get:
+      operationId: R503
+      summary: 'R503: View Auctions Admin Panel'
+      description: 'View Auctions Admin Panel. Access: ADM'
+      tags:
+        - 'M07: Administration'
+
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
+
+      responses:
+        '200':
+          description: 'Ok. Show [UI21](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/er#ui21-admin-panel-auctions-management)'
+
   /admin/{username}/help:
     get:
       operationId: R503
