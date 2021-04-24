@@ -1,32 +1,42 @@
-@extends('layouts.app')
+@extends('layouts.content')
 
-@section('content')
-<form method="POST" action="{{ route('login') }}">
-    {{ csrf_field() }}
+@section('div_content')
+<h1 class="text-center mb-5">Log In</h1>
 
-    <label for="email">E-mail</label>
-    <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus>
-    @if ($errors->has('email'))
-        <span class="error">
-          {{ $errors->first('email') }}
-        </span>
-    @endif
+<div class="container">
+    <form class="d-flex justify-content-center flex-column w-100 responsive-form m-auto" method="POST" action="{{ route('login') }}">
+        {{ csrf_field() }}
+        <div class="input-group mb-3 rounded-0">
+            <div class="input-group-append rounded-0">
+                <span class="input-group-text rounded-0"><i class="fas fa-at"></i></span>
+            </div>
+            <input id="email" type="email" name="email" class="form-control input_user" value="{{ old('email') }}" placeholder="example@email.com" required autofocus>
+            @if ($errors->has('email'))
+                <span class="error">
+                {{ $errors->first('email') }}
+                </span>
+            @endif
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-append rounded-0">
+                <span class="input-group-text rounded-0"><i class="fas fa-key"></i></span>
+            </div>
+            <input id="password" type="password" name="password" class="form-control input_pass" placeholder="password" required>
+            @if ($errors->has('password'))
+                <span class="error">
+                    {{ $errors->first('password') }}
+                </span>
+            @endif
+        </div>
+        <label>
+            <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
+        </label>
+        <button class="btn btn-primary align-self-center w-75" type="submit" name="button" class="btn">Log In</button>
+        <span class="text-center mt-2">or Log In with </span>
+        <button class="btn btn-dark align-self-center mt-2 w-75" type="button" name="button" class="btn">Google</button>
 
-    <label for="password" >Password</label>
-    <input id="password" type="password" name="password" required>
-    @if ($errors->has('password'))
-        <span class="error">
-            {{ $errors->first('password') }}
-        </span>
-    @endif
-
-    <label>
-        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
-    </label>
-
-    <button type="submit">
-        Login
-    </button>
-    <a class="button button-outline" href="{{ route('register') }}">Register</a>
-</form>
+        <span class="text-center mt-3">Don't have an account? <a href="{{ route('signup') }}" class="ml-2 text-danger">Sign Up</a></span>
+        <!-- <a href="#" class="text-light text-center">Forgot your password?</a> -->
+    </form>
+</div>
 @endsection

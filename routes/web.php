@@ -11,7 +11,11 @@
 |
 */
 // Home
-Route::get('/', 'Auth\LoginController@home');
+Route::get('/', 'StaticController@home');
+// About
+Route::get('/about', 'StaticController@about');
+// FAQs
+Route::get('/faqs', 'StaticController@faqs');
 
 // Cards
 Route::get('cards', 'CardController@list');
@@ -28,5 +32,5 @@ Route::delete('api/item/{id}', 'ItemController@delete');
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
-Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
-Route::post('register', 'Auth\RegisterController@register');
+Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
+Route::post('signup', 'Auth\RegisterController@signup');
