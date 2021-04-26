@@ -71,7 +71,10 @@
       <strong>Scale:</strong>
       1:18
       <br>
-      <strong>Seller:</strong><a href="/profile.php" class="ml-2">{{ $auction->seller_name() }}</a>
+      @php
+      $seller_name=$auction->seller_name()
+      @endphp
+      <strong>Seller:</strong><a href="{{ $seller_name }}/profile.php" class="ml-2">{{ $seller_name }}</a>
     </p>
     <button class="btn btn-dark text-light text-center btn" data-bs-toggle="modal" data-bs-target="#buy-now" role="button">Buy Now</button>
     <button class="btn btn-success text-light text-center btn" data-bs-toggle="modal" data-bs-target="#place-bid" role="button">Place Bid</button>
@@ -94,30 +97,12 @@
 <div class="tab-content" id="pills-tabContent">
   <div class="tab-pane" id="pills-bid-history" role="tabpanel" aria-labelledby="pills-bid-history-tab">
     <ol class="list-group rounded-0 hide-scroll" style="overflow-y: scroll; max-height: 40vh;">
-      <li class="list-group-item d-flex align-items-center justify-content-start rounded-0 flex-vertical">
-        <p class="text-primary fs-6 mb-0">27-03-2020 17:30</p>
-        <p class="text-primary fs-5 mb-0 ml-sm-auto">135€</p>
-      </li>
-
-      <li class="list-group-item d-flex align-items-center justify-content-start rounded-0 flex-vertical">
-        <p class="text-primary fs-6 mb-0">27-03-2020 17:22</p>
-        <p class="text-primary fs-5 mb-0 ml-sm-auto">127€</p>
-      </li>
-
-      <li class="list-group-item d-flex align-items-center justify-content-start rounded-0 flex-vertical">
-        <p class="text-primary fs-6 mb-0">27-03-2020 12:10</p>
-        <p class="text-primary fs-5 mb-0 ml-sm-auto">105€</p>
-      </li>
-
-      <li class="list-group-item d-flex align-items-center justify-content-start rounded-0 flex-vertical">
-        <p class="text-primary fs-6 mb-0">26-03-2020 23:54</p>
-        <p class="text-primary fs-5 mb-0 ml-sm-auto">69€</p>
-      </li>
-
-      <li class="list-group-item d-flex align-items-center justify-content-start rounded-0 flex-vertical">
-        <p class="text-primary fs-6 mb-0">26-03-2020 23:12</p>
-        <p class="text-primary fs-5 mb-0 ml-sm-auto">33€</p>
-      </li>
+      @for ($i = count($auction->bids)-1; $i >= 0 ; $i--)
+        <li class="list-group-item d-flex align-items-center justify-content-start rounded-0 flex-vertical">
+          <p class="text-primary fs-6 mb-0">{{substr($auction->bids[$i]->datehour, 0, -6)}}</p>
+          <p class="text-primary fs-5 mb-0 ml-sm-auto">{{$auction->bids[$i]->value}}€</p>
+        </li>
+      @endfor
     </ol>
   </div>
   <div class="tab-pane show active" id="pills-chat" role="tabpanel" aria-labelledby="pills-chat-tab">
