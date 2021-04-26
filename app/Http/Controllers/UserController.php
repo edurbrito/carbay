@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Auction;
+use App\Models\FavouriteSeller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -81,5 +84,17 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         //
+    }
+
+    public function sellers() 
+    {
+        $id = Auth::check() ? Auth::user()->id : -1;
+        
+        $favourites = User::whereIn('id', FavouriteSeller::where('user1id','=',$id)->get('user2id'));
+
+        $sellers = ['favourites' => $favourites->get(),
+                    'all' => User::whereIn('id', Auction::all(['sellerid']))->whereNotIn('id', $favourites->get('id'))->get()];
+                    
+        return json_encode($sellers);
     }
 }

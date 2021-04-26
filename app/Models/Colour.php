@@ -10,7 +10,7 @@ class Colour extends Model
     use Notifiable;
 
     public $timestamps  = false;
-    protected $table = 'Colour';
+    protected $table = 'colour';
 
     /**
      * The attributes that are mass assignable.

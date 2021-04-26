@@ -10,7 +10,7 @@ class FavouriteSeller extends Model
     use Notifiable;
 
     public $timestamps  = false;
-    protected $table = 'FavouriteSeller';
+    protected $table = 'favouriteseller';
 
     /**
      * The attributes that are mass assignable.

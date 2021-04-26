@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Auction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuctionController extends Controller
 {
@@ -87,11 +88,57 @@ class AuctionController extends Controller
         //
     }
 
+    public function scales() {
+        return json_encode([
+            ['id' => 0, 'name' => '1:8'],
+            ['id' => 1, 'name' => '1:18'],
+            ['id' => 2, 'name' => '1:43'],
+            ['id' => 3, 'name' => '1:64']]);
+    }
+
     public function search(Request $request) {
+        $fullText = $request->input('full-text');
+        $sortBy = $request->input('sort-by');
+        $order = $request->input('order');
+        $buyNow = $request->input('buy-now');
+        $endedAuctions = $request->input('ended-auctions');
+        $colour = $request->input('colour');
+        $brand = $request->input('brand');
+        $scale = $request->input('scale');
+        $seller = $request->input('seller');
+        $minBid = $request->input('min-bid');
+        $maxBid = $request->input('max-bid');
+        $minBuyNow = $request->input('min-buy-now');
+        $maxBuyNow = $request->input('max-buy-now');
+
+        $afterSortBy = sortBy($sortBy)
+        $afterOrder = sortBy($order)
+
+        $colourLastID = Colour::latest()->id;
+        $brandLastID = Brand::latest()->id;
+        $colourLastID = Colour::latest()->id;
+        $sellerLastID = Seller::latest()->id;
+
+        $validated = $request->validate([
+            'full-text' => 'nullable|string',
+            'sort-by' => Rule::in(['0','1','2']),
+            'order' => Rule::in(['0','1']),
+            'buyNow' => Rule::in(['0','1']),
+            'endedAuctions' => Rule::in(['0','1']),
+            'colour' => 'nullable|numeric|between:0,' . $colourLastID,
+            'brand' => 'nullable|numeric|between:0,' . $brandLastID,
+            'scale' => Rule::in(['0','1','2','3']),
+            'seller' => 'nullable|numeric|between:0,' . $sellerLastID,
+            'minBid' => 'nullable|numeric|lt:maxBid|gt:0',
+            'maxBid' => 'nullable|numeric|gt:minBid',
+            'minBuyNow' => 'nullable|numeric|lt:maxBuyNow|gt:0',
+            'maxBuyNow' => 'nullable|numeric|gt:minBuyNow',
+        ]);
+
         return json_encode($request);
     }
 
-    public function create_page(){
+    public function create_page() {
         return view('pages.create');
     }
 }
