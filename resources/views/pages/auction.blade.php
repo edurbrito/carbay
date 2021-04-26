@@ -107,76 +107,15 @@
   </div>
   <div class="tab-pane show active" id="pills-chat" role="tabpanel" aria-labelledby="pills-chat-tab">
     <ol class="list-group rounded-0 hide-scroll" style="overflow-y: scroll; max-height: 40vh;">
+      @for ($i = count($auction->comments)-1; $i >= 0 ; $i--)
       <li class="list-group-item d-flex align-items-center justify-content-start rounded-0 flex-column">
         <div class="d-flex w-100 mb-1">
-          <p class="text-primary fs-5 mb-0 mr-auto float-left">johndoe123:</p>
-          <p class="text-primary fs-6 mb-0 text-right float-right">27-03-2020 17:30</p>
+          <p class="text-primary fs-5 mb-0 mr-auto float-left">{{$auction->comments[$i]->author->username}}</p>
+          <p class="text-primary fs-6 mb-0 text-right float-right">{{substr($auction->comments[$i]->datehour, 0, -6)}}</p>
         </div>
-        <p class="w-100 text-primary mb-0">Bullish</p>
+        <p class="w-100 text-primary mb-0">{{$auction->comments[$i]->text}}</p>
       </li>
-
-      <li class="list-group-item d-flex align-items-center justify-content-start rounded-0 flex-column">
-        <div class="d-flex w-100 mb-1">
-          <p class="text-primary fs-5 mb-0 mr-auto float-left">edurbrito:</p>
-          <p class="text-primary fs-6 mb-0 text-right float-right">27-03-2020 17:27</p>
-        </div>
-        <p class="w-100 text-primary mb-0">Lost Interest! It seems a huge scam :/</p>
-      </li>
-
-      <li class="list-group-item d-flex align-items-center justify-content-start rounded-0 flex-column">
-        <div class="d-flex w-100 mb-1">
-          <p class="text-primary fs-5 mb-0 mr-auto float-left">pjbomxd:</p>
-          <p class="text-primary fs-6 mb-0 text-right float-right">27-03-2020 17:22</p>
-        </div>
-        <p class="w-100 text-primary mb-0">I will try again later</p>
-      </li>
-      <li class="list-group-item d-flex align-items-center justify-content-start rounded-0 flex-column">
-        <div class="d-flex w-100 mb-1">
-          <p class="text-primary fs-5 mb-0 mr-auto float-left">johndoe123:</p>
-          <p class="text-primary fs-6 mb-0 text-right float-right">27-03-2020 17:30</p>
-        </div>
-        <p class="w-100 text-primary mb-0">Bullish</p>
-      </li>
-
-      <li class="list-group-item d-flex align-items-center justify-content-start rounded-0 flex-column">
-        <div class="d-flex w-100 mb-1">
-          <p class="text-primary fs-5 mb-0 mr-auto float-left">edurbrito:</p>
-          <p class="text-primary fs-6 mb-0 text-right float-right">27-03-2020 17:27</p>
-        </div>
-        <p class="w-100 text-primary mb-0">Lost Interest! It seems a huge scam :/</p>
-      </li>
-
-      <li class="list-group-item d-flex align-items-center justify-content-start rounded-0 flex-column">
-        <div class="d-flex w-100 mb-1">
-          <p class="text-primary fs-5 mb-0 mr-auto float-left">pjbomxd:</p>
-          <p class="text-primary fs-6 mb-0 text-right float-right">27-03-2020 17:22</p>
-        </div>
-        <p class="w-100 text-primary mb-0">I will try again later</p>
-      </li>
-
-      <li class="list-group-item d-flex align-items-center justify-content-start rounded-0 flex-column">
-        <div class="d-flex w-100 mb-1">
-          <p class="text-primary fs-5 mb-0 mr-auto float-left">johndoe123:</p>
-          <p class="text-primary fs-6 mb-0 text-right float-right">27-03-2020 17:30</p>
-        </div>
-        <p class="w-100 text-primary mb-0">Bullish</p>
-      </li>
-
-      <li class="list-group-item d-flex align-items-center justify-content-start rounded-0 flex-column">
-        <div class="d-flex w-100 mb-1">
-          <p class="text-primary fs-5 mb-0 mr-auto float-left">edurbrito:</p>
-          <p class="text-primary fs-6 mb-0 text-right float-right">27-03-2020 17:27</p>
-        </div>
-        <p class="w-100 text-primary mb-0">Lost Interest! It seems a huge scam :/</p>
-      </li>
-
-      <li class="list-group-item d-flex align-items-center justify-content-start rounded-0 flex-column">
-        <div class="d-flex w-100 mb-1">
-          <p class="text-primary fs-5 mb-0 mr-auto float-left">pjbomxd:</p>
-          <p class="text-primary fs-6 mb-0 text-right float-right">27-03-2020 17:22</p>
-        </div>
-        <p class="w-100 text-primary mb-0">I will try again later</p>
-      </li>
+      @endfor
     </ol>
     <div class="d-flex bg-white align-content-center mt-1">
       <form class="w-100" action="/auction.php">

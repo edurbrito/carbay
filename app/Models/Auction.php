@@ -48,6 +48,11 @@ class Auction extends Model
         return $this->hasMany(Bid::class, 'auctionid');
     }
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'auctionid');
+    }
+
     public function first_image()
     {
         return $this->images->first();

@@ -45,6 +45,11 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Models\FavouriteAuction', 'userid');
     }
+    
+    public function comments()
+    {
+        return $this->hasMany('App\Models\Comment', 'authorID');
+    }
 
     public function rating()
     {

@@ -10,7 +10,7 @@ class Comment extends Model
     use Notifiable;
 
     public $timestamps  = false;
-    protected $table = 'Comment';
+    protected $table = 'comment';
 
     /**
      * The attributes that are mass assignable.
@@ -20,4 +20,14 @@ class Comment extends Model
     protected $fillable = [
         'text', 'dateHour', 'authorID', 'auctionID'
     ];
+
+    public function comments()
+    {
+        return $this->belongsTo('App\Models\Auction', 'auctionid');
+    }
+
+    public function author()
+    {
+        return $this->belongsTo('App\Models\User', 'authorid');
+    }
 }
