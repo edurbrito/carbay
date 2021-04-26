@@ -10,7 +10,7 @@ class Image extends Model
     use Notifiable;
 
     public $timestamps  = false;
-    protected $table = 'Image';
+    protected $table = 'image';
 
     /**
      * The attributes that are mass assignable.
@@ -23,6 +23,6 @@ class Image extends Model
 
     public function images()
     {
-        return $this->belongsTo('App\Models\Auction', 'auctionID');
+        return $this->belongsTo('App\Models\Auction', 'auctionid');
     }
 }

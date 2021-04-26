@@ -10,7 +10,7 @@ class Rating extends Model
     use Notifiable;
 
     public $timestamps  = false;
-    protected $table = 'Rating';
+    protected $table = 'rating';
 
     /**
      * The attributes that are mass assignable.
@@ -23,11 +23,11 @@ class Rating extends Model
 
     public function seller()
     {
-        return $this->belongsTo('App\Models\Person', 'winnerID')->withPivot('value', 'dateHour', 'comment');
+        return $this->belongsTo('App\Models\User', 'winnerid')->withPivot('value', 'datehour', 'comment');
     }
 
     public function rated()
     {
-        return $this->belongsToMany('App\Models\Car', 'autionID')->withPivot('value', 'dateHour', 'comment');
+        return $this->belongsToMany('App\Models\Auction', 'auctionid')->withPivot('value', 'datehour', 'comment');
     }
 }

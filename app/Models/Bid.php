@@ -11,7 +11,7 @@ class Bid extends Model
 
     // Don't add create and update timestamps in database.
     public $timestamps  = false;
-    protected $table = 'Bid';
+    protected $table = 'bid';
 
     /**
      * The attributes that are mass assignable.
@@ -24,11 +24,11 @@ class Bid extends Model
 
     public function bidAuction()
     {
-        return $this->belongsTo('App\Models\Auction', 'auctionID');
+        return $this->belongsTo('App\Models\Auction', 'auctionid');
     }
 
     public function author()
     {
-        return $this->belongsTo('App\Models\User', 'authorID');
+        return $this->belongsTo('App\Models\User', 'authorid');
     }
 }

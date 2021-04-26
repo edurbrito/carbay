@@ -859,6 +859,8 @@ INSERT INTO Image (url, auctionID) VALUES ('https://mrcollection.com/wp-content/
 INSERT INTO Image (url, auctionID) VALUES ('https://mrcollection.com/wp-content/uploads/2017/09/ferrari-812-superfast-rosso-scuderia_06.jpg',3);
 INSERT INTO Image (url, auctionID) VALUES ('https://mrcollection.com/wp-content/uploads/2017/09/ferrari-812-superfast-rosso-scuderia_07.jpg',3);
 
+INSERT INTO Image (url, auctionID) VALUES ('https://mrcollection.com/wp-content/uploads/2015/08/0000056-alfa02a.jpg', 4);
+
 INSERT INTO Image (url, auctionID) VALUES ('https://mrcollection.com/wp-content/uploads/2016/06/ferrari-f12tdf-blu_01.jpg',5);
 INSERT INTO Image (url, auctionID) VALUES ('https://mrcollection.com/wp-content/uploads/2016/06/ferrari-f12tdf-blu_02.jpg',5);
 INSERT INTO Image (url, auctionID) VALUES ('https://mrcollection.com/wp-content/uploads/2016/06/ferrari-f12tdf-blu_03.jpg',5);

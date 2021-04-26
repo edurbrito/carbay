@@ -14,7 +14,10 @@ class AuctionController extends Controller
      */
     public function index()
     {
-        //
+        date_default_timezone_set("Europe/Lisbon");
+
+        $auctions = Auction::whereRaw('finaldate > NOW()')->orderBy('finaldate')->get();
+        return view('pages.search', ['total' => sizeof($auctions), 'auctions' => $auctions]);
     }
 
     /**
@@ -83,7 +86,7 @@ class AuctionController extends Controller
         //
     }
 
-    public function search() {
-        return view('pages.search');
+    public function search(Request $request) {
+        return json_encode($request);
     }
 }

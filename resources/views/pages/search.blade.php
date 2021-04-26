@@ -91,11 +91,9 @@
         </form>
     </div>
     <div class="col container-fluid">
-        <h6 class="w-100 text-primary text-center p-4">12 Auctions found</h6>
-        <div class="row row-cols-1 row-cols-md-3 g-4">
-        @for ($i = 0; $i < 10; $i++)
-            @each('partials.auction',[1],'auction')
-        @endfor
+        <h6 class="w-100 text-primary text-center p-4">{{ $total }} Auctions found</h6>
+        <div class="row row-cols-1 row-cols-md-3 g-4" id="auctions">
+            @each('partials.auction', $auctions ?? '', 'auction')
         </div>
     </div>
 </div>

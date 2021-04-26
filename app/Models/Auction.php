@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use DateTime;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,7 +12,7 @@ class Auction extends Model
 
     // Don't add create and update timestamps in database.
     public $timestamps  = false;
-    protected $table = 'Auction';
+    protected $table = 'auction';
 
     /**
      * The attributes that are mass assignable.
@@ -24,26 +25,55 @@ class Auction extends Model
 
     public function brand()
     {
-        return $this->belongsTo(Brand::class, 'brandID');
+        return $this->belongsTo(Brand::class, 'brandid');
     }
 
     public function colour()
     {
-        return $this->belongsTo(Colour::class, 'colourID');
+        return $this->belongsTo(Colour::class, 'colourid');
     }
 
     public function images()
     {
-        return $this->hasMany(Image::class, 'auctionID');
+        return $this->hasMany(Image::class, 'auctionid');
     }
 
     public function seller()
     {
-        return $this->belongsTo(User::class, 'sellerID');
+        return $this->belongsTo(User::class, 'sellerid');
     }
 
-    public function bid()
+    public function bids()
     {
-        return $this->hasMany(Bid::class, 'auctionID');
+        return $this->hasMany(Bid::class, 'auctionid');
+    }
+
+    public function first_image()
+    {
+        return $this->images->first();
+    }
+
+    public function time_remaining()
+    {
+        date_default_timezone_set("Europe/Lisbon");
+        
+        $now = new DateTime();
+        $date = new DateTime($this->finaldate);
+        
+        return $date->diff($now)->format("%ad %hh %im %ss");
+    }
+
+    public function highest_bid()
+    {
+        return $this->bids->last();
+    }
+
+    public function rating()
+    {
+        $rating = $this->hasOne(Rating::class, 'auctionid')->first();
+        if(isset($rating))
+            return $rating->value;
+        else
+            return 0;
     }
 }

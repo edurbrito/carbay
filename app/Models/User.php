@@ -19,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'username', 'email', 'password', 'image', 'banned', 'admin',
+        'id', 'name', 'username', 'email', 'password', 'image', 'banned', 'admin',
     ];
 
     /**
@@ -33,16 +33,33 @@ class User extends Authenticatable
 
     public function auctions()
     {
-        return $this->hasMany('App\Models\Auction', 'sellerID');
+        return $this->hasMany('App\Models\Auction', 'sellerid');
     }
 
     public function bids()
     {
-        return $this->hasMany('App\Models\Bid', 'authorID');
+        return $this->hasMany('App\Models\Bid', 'authorid');
     }
 
     public function favouriteAuctions()
     {
-        return $this->belongsToMany('App\Models\FavouriteAuction', 'userID');
+        return $this->belongsToMany('App\Models\FavouriteAuction', 'userid');
+    }
+
+    public function rating()
+    {
+        $value = 0;
+        $count = 0;
+        foreach ($this->auctions as $auction) { 
+            $rating = $auction->rating();
+            if($rating > 0) {
+                $value += $auction->rating();
+                $count += 1;
+            }
+        }
+        if($count > 0)
+            return $value / $count;
+        else 
+            return 0;
     }
 }
