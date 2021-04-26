@@ -14,7 +14,7 @@
                     <a href="/search" class="text-decoration-none text-reset"><i class="fas fa-search"></i><span class="d-lg-none .d-xl-block"> Search</span></a>
                 </li>
                 @if(Auth::check())
-                <li class="nav-item navbar-brand mr-0 mr-lg-4 scale-objects"><a href="/create-auction" class="text-decoration-none text-reset"><i class="fas fa-plus"></i><span class="d-lg-none .d-xl-block"> Create Auction</span></li>
+                <li class="nav-item navbar-brand mr-0 mr-lg-4 scale-objects"><a href="/auctions/create" class="text-decoration-none text-reset"><i class="fas fa-plus"></i><span class="d-lg-none .d-xl-block"> Create Auction</span></li>
                 <li class="nav-item navbar-brand mr-0 mr-lg-4 scale-objects"><a data-bs-toggle="modal" data-bs-target="#notifications" class="text-decoration-none text-reset" style="cursor: pointer;"><i class="fas fa-bell"></i><span class="d-lg-none .d-xl-block"> Notifications</span></a></li>
                 <li class="nav-item navbar-brand mr-0 mr-lg-4 scale-objects-sm"><a href="/profile" class="text-decoration-none text-reset"><i class="fas fa-user-circle"></i> {{ Auth::user()->username }}</a></li>
                 <li class="nav-item navbar-brand mr-0 mr-lg-4 scale-objects"><a href="/logout" class="text-decoration-none text-reset"><i class="fas fa-sign-out-alt"></i><span class="d-lg-none .d-xl-block"> Log Out</span></a></li>

@@ -44,12 +44,13 @@ class AuctionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Auction  $auction
      * @return \Illuminate\Http\Response
      */
-    public function show(Auction $auction)
+    public function show($id)
     {
-        //
+        $auction = Auction::find($id);
+
+        return view('pages.auction', ['auction' => $auction]);
     }
 
     /**
@@ -88,5 +89,9 @@ class AuctionController extends Controller
 
     public function search(Request $request) {
         return json_encode($request);
+    }
+
+    public function create_page(){
+        return view('pages.create');
     }
 }

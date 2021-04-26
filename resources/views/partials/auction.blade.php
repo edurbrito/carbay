@@ -1,5 +1,5 @@
 <div class="col scale-objects-xs">
-    <a href="/auction/{{ $auction->id }}" class="text-decoration-none">
+    <a href="/auctions/{{ $auction->id }}" class="text-decoration-none">
         <div class="card h-100 rounded-0" id="auction-{{ $auction->id }}">
             @if($auction->first_image()!== null )<img src="{{$auction->first_image()->url}}" class="card-img-top">@endif
             <div class="card-body text-primary">

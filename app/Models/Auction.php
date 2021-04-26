@@ -76,4 +76,8 @@ class Auction extends Model
         else
             return 0;
     }
+
+    public function brand_name(){
+        return $this->brand->name;
+    }
 }
