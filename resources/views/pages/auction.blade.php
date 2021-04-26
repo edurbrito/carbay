@@ -48,8 +48,7 @@
   </div>
   <div class="col-12 col-sm-6 mt-4 mt-sm-0 text-primary text-center text-sm-left">
     <p class="fs-2">
-      <i class="far fa-clock"></i>
-      {{ $auction->time_remaining() }}
+      <span title="Time Remaining" id="time-remaining" data-time="{{$auction->finaldate}}"><i class="far fa-clock"></i> <span id="time-remaining-value">{{$auction->time_remaining()}}</span></span>
     </p>
     <p class="fs-4">
       <i class="far fa-money-bill-alt"></i>
