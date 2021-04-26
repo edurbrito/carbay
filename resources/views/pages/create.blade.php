@@ -53,14 +53,15 @@
                 <button class="nav-link btn-auction" id="pills-description-tab" data-bs-toggle="pill" data-bs-target="#pills-description" type="button" role="tab" aria-controls="pills-description" aria-selected="false">Description</button>
             </li>
         </ul>
-        <form class="tab-content text-primary d-flex flex-column" id="pills-tabContent" action="/auction.php">
+        <form class="tab-content text-primary d-flex flex-column" id="pills-tabContent" method="POST" action="create">
+            {{ csrf_field() }}
             <div class="tab-pane show active" id="pills-general-info" role="tabpanel" aria-labelledby="pills-general-info-tab">
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text rounded-0" id="inputGroup-sizing-default">Title</span>
                     </div>
-                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="Car Model A" required>
+                    <input type="text" name="title" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="Car Model A" required>
                 </div>
                 <div class="row">
                     <div class="col-12 col-sm-6">
@@ -68,7 +69,7 @@
                             <div class="input-group-prepend rounded-0">
                                 <span class="input-group-text rounded-0" id="start-bid">Starting Bid</span>
                             </div>
-                            <input type="number" min="0.01" max="100000" class="form-control" aria-label="Small" aria-describedby="start-bid" value="0.01" required>
+                            <input type="number" name="startingPrice" min="1" max="100000" class="form-control" aria-label="Small" aria-describedby="start-bid" value="1" required>
                             <div class="input-group-append rounded-0">
                                 <span class="input-group-text rounded-0">€</span>
                             </div>
@@ -79,7 +80,7 @@
                             <div class="input-group-prepend rounded-0">
                                 <span class="input-group-text rounded-0" id="start-date">Starting Date</span>
                             </div>
-                            <input type="date" class="form-control rounded-0" aria-label="Small" aria-describedby="start-date" width="fit-content" value="09/03/2021" required>
+                            <input type="date" name="startDate" class="form-control rounded-0" aria-label="Small" aria-describedby="start-date" width="fit-content" value="09/03/2021" required>
                         </div>
                     </div>
                 </div>
@@ -89,7 +90,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text rounded-0" id="duration">Duration</span>
                             </div>
-                            <input type="number" min="1" max="15" class="form-control" aria-label="Small" aria-describedby="duration" value="1" required>
+                            <input type="number" name="duration" min="1" max="15" class="form-control" aria-label="Small" aria-describedby="duration" value="1" required>
                             <div class="input-group-prepend">
                                 <span class="input-group-text rounded-0" id="inputGroup-sizing-sm">Days</span>
                             </div>
@@ -103,7 +104,7 @@
                         </label>
                         </div>
                         <div class="input-group input-group-sm col-6 p-0" id="buy-now-input-group" hidden>
-                            <input type="number" min="1" max="100" class="form-control rounded-0" aria-label="Small" aria-describedby="buy-now" id="buy-now-value">
+                            <input type="number" name="buyNow" min="1" max="1000000" class="form-control rounded-0" aria-label="Small" aria-describedby="buy-now" id="buy-now-value">
                             <div class="input-group-append">
                                 <span class="input-group-text rounded-0" id="inputGroup-sizing-sm">€</span>
                             </div>
@@ -113,31 +114,31 @@
             </div>
             <div class="tab-pane" id="pills-description" role="tabpanel" aria-labelledby="pills-description-tab">
 
-                <select class="form-select rounded-0" aria-label="color" required>
+                <select class="form-select rounded-0" name="colourID" aria-label="color" required>
                     <option selected>Color</option>
                     <option value="1">Yellow</option>
                     <option value="2">Red</option>
                     <option value="3">Green</option>
                 </select>
-                <select class="form-select mt-2 rounded-0" aria-label="brand" required>
+                <select class="form-select mt-2 rounded-0" name="brandID" aria-label="brand" required>
                     <option selected>Brand</option>
                     <option value="1">Ferrari</option>
                     <option value="2">Lamborghini</option>
                     <option value="3">Citroen</option>
                 </select>
-                <select class="form-select mt-2 rounded-0" aria-label="scale" required>
+                <select class="form-select mt-2 rounded-0" name="scaleType" aria-label="scale" required>
                     <option selected>Scale</option>
-                    <option value="1">1:18</option>
-                    <option value="2">1:64</option>
-                    <option value="3">1:125</option>
+                    <option value="1:18">1:18</option>
+                    <option value="1:64">1:64</option>
+                    <option value="1:125">1:125</option>
                 </select>
 
                 <div class="form-group mt-3">
-                    <textarea class="form-control" id="description" rows="3" placeholder="Write here the product description..." required></textarea>
+                    <textarea class="form-control" name="description" id="description" rows="3" placeholder="Write here the product description..." required></textarea>
                 </div>
             </div>
             <div class="btn-group ml-auto mt-auto" role="group" aria-label="Create Auction Buttons">
-                <button type="button" class="btn btn-dark mr-1">Discard</button>
+                <a role="button" class="btn btn-dark mr-1" href="/search">Discard</a>
                 <button type="submit" class="btn btn-success">Publish</button>
             </div>
         </form>
