@@ -12,24 +12,29 @@
   <div class="col-12 col-sm-6">
     <div id="carouselIndicators" class="carousel slide carousel-fade" data-bs-ride="carousel">
       <div class="carousel-indicators">
-        <button type="button" data-bs-target="#carouselIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#carouselIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#carouselIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-        <button type="button" data-bs-target="#carouselIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+        @php 
+        $images = $auction->display_images()
+        @endphp
+        @for ($i = 0; $i < count($images); $i++)
+          @if ($i == 0)
+            <button type="button" data-bs-target="#carouselIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          @else
+            <button type="button" data-bs-target="#carouselIndicators" data-bs-slide-to="{{$i}}" aria-label="Slide {{$i+1}}"></button>
+          @endif
+        @endfor
       </div>
       <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img src="https://mrcollection.com/wp-content/uploads/2017/09/ferrari-812-superfast-rosso-scuderia_01.jpg" class="d-block w-100" alt="...">
-        </div>
-        <div class="carousel-item">
-          <img src="https://mrcollection.com/wp-content/uploads/2017/09/ferrari-812-superfast-rosso-scuderia_07.jpg" class="d-block w-100" alt="...">
-        </div>
-        <div class="carousel-item">
-          <img src="https://mrcollection.com/wp-content/uploads/2017/09/ferrari-812-superfast-rosso-scuderia_02.jpg" class="d-block w-100" alt="...">
-        </div>
-        <div class="carousel-item">
-          <img src="https://mrcollection.com/wp-content/uploads/2017/09/ferrari-812-superfast-rosso-scuderia_05.jpg" class="d-block w-100" alt="...">
-        </div>
+        @for ($i = 0; $i < count($images); $i++)
+          @if ($i == 0)
+            <div class="carousel-item active">
+              <img src="{{$images[$i]->url}}" class="d-block w-100" alt="...">
+            </div>
+          @else
+            <div class="carousel-item">
+              <img src="{{$images[$i]->url}}" class="d-block w-100" alt="...">
+            </div>
+          @endif
+        @endfor
       </div>
       <button class="carousel-control-prev" type="button" data-bs-target="#carouselIndicators" data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -44,19 +49,21 @@
   <div class="col-12 col-sm-6 mt-4 mt-sm-0 text-primary text-center text-sm-left">
     <p class="fs-2">
       <i class="far fa-clock"></i>
-      2d 7h 59m 22s
+      {{ $auction->time_remaining() }}
     </p>
     <p class="fs-4">
       <i class="far fa-money-bill-alt"></i>
-      Last Bid: 135€
+      Last Bid: {{ $auction->highest_bid_value() }}€ 
     </p>
+    @if(isset($auction->buynow))
     <p class="fs-4 mt-4">
       <i class="far fa-credit-card"></i>
-      Buy Now: 2000€
+      Buy Now: {{ $auction->buy_now() }}€
     </p>
+    @endif
     <p>
-      <strong>Color:</strong>
-      Rosso Scuderia
+      <strong>Colour:</strong>
+      {{ $auction->colour_name() }}
       <br>
       <strong>Brand:</strong>
       {{ $auction->brand_name() }}
@@ -64,7 +71,7 @@
       <strong>Scale:</strong>
       1:18
       <br>
-      <strong>Seller:</strong><a href="/profile.php" class="ml-2">rickwheels</a>
+      <strong>Seller:</strong><a href="/profile.php" class="ml-2">{{ $auction->seller_name() }}</a>
     </p>
     <button class="btn btn-dark text-light text-center btn" data-bs-toggle="modal" data-bs-target="#buy-now" role="button">Buy Now</button>
     <button class="btn btn-success text-light text-center btn" data-bs-toggle="modal" data-bs-target="#place-bid" role="button">Place Bid</button>
@@ -72,7 +79,7 @@
   </div>
 
   <p class="text-center text-primary mt-4">
-    The most powerful and performing Ferrari ever made: this is the Ferrari 812 Superfast, the new masterpiece from the house of the Prancing Horse that was be unveiled at Geneva Motor Show 2017. A V12 engine with 800 HP will give to this supercar the incredible speed of 340 km/h.
+    {{ $auction->description() }}
   </p>
 </div>
 
