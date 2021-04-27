@@ -12,24 +12,29 @@
   <div class="col-12 col-sm-6">
     <div id="carouselIndicators" class="carousel slide carousel-fade" data-bs-ride="carousel">
       <div class="carousel-indicators">
-        <button type="button" data-bs-target="#carouselIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#carouselIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#carouselIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-        <button type="button" data-bs-target="#carouselIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+        @php 
+        $images = $auction->display_images()
+        @endphp
+        @for ($i = 0; $i < count($images); $i++)
+          @if ($i == 0)
+            <button type="button" data-bs-target="#carouselIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          @else
+            <button type="button" data-bs-target="#carouselIndicators" data-bs-slide-to="{{$i}}" aria-label="Slide {{$i+1}}"></button>
+          @endif
+        @endfor
       </div>
       <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img src="https://mrcollection.com/wp-content/uploads/2017/09/ferrari-812-superfast-rosso-scuderia_01.jpg" class="d-block w-100" alt="...">
-        </div>
-        <div class="carousel-item">
-          <img src="https://mrcollection.com/wp-content/uploads/2017/09/ferrari-812-superfast-rosso-scuderia_07.jpg" class="d-block w-100" alt="...">
-        </div>
-        <div class="carousel-item">
-          <img src="https://mrcollection.com/wp-content/uploads/2017/09/ferrari-812-superfast-rosso-scuderia_02.jpg" class="d-block w-100" alt="...">
-        </div>
-        <div class="carousel-item">
-          <img src="https://mrcollection.com/wp-content/uploads/2017/09/ferrari-812-superfast-rosso-scuderia_05.jpg" class="d-block w-100" alt="...">
-        </div>
+        @for ($i = 0; $i < count($images); $i++)
+          @if ($i == 0)
+            <div class="carousel-item active">
+              <img src="{{$images[$i]->url}}" class="d-block w-100" alt="...">
+            </div>
+          @else
+            <div class="carousel-item">
+              <img src="{{$images[$i]->url}}" class="d-block w-100" alt="...">
+            </div>
+          @endif
+        @endfor
       </div>
       <button class="carousel-control-prev" type="button" data-bs-target="#carouselIndicators" data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -43,20 +48,21 @@
   </div>
   <div class="col-12 col-sm-6 mt-4 mt-sm-0 text-primary text-center text-sm-left">
     <p class="fs-2">
-      <i class="far fa-clock"></i>
-      2d 7h 59m 22s
+      <span title="Time Remaining" id="time-remaining" data-time="{{$auction->finaldate}}"><i class="far fa-clock"></i> <span id="time-remaining-value">{{$auction->time_remaining()}}</span></span>
     </p>
     <p class="fs-4">
       <i class="far fa-money-bill-alt"></i>
-      Last Bid: 135€
+      Last Bid: {{ $auction->highest_bid_value() }}€ 
     </p>
+    @if(isset($auction->buynow))
     <p class="fs-4 mt-4">
       <i class="far fa-credit-card"></i>
-      Buy Now: 2000€
+      Buy Now: {{ $auction->buy_now() }}€
     </p>
+    @endif
     <p>
-      <strong>Color:</strong>
-      Rosso Scuderia
+      <strong>Colour:</strong>
+      {{ $auction->colour_name() }}
       <br>
       <strong>Brand:</strong>
       {{ $auction->brand_name() }}
@@ -64,7 +70,10 @@
       <strong>Scale:</strong>
       1:18
       <br>
-      <strong>Seller:</strong><a href="/profile.php" class="ml-2">rickwheels</a>
+      @php
+      $seller_name=$auction->seller_name()
+      @endphp
+      <strong>Seller:</strong><a href="{{ $seller_name }}/profile.php" class="ml-2">{{ $seller_name }}</a>
     </p>
     <button class="btn btn-dark text-light text-center btn" data-bs-toggle="modal" data-bs-target="#buy-now" role="button">Buy Now</button>
     <button class="btn btn-success text-light text-center btn" data-bs-toggle="modal" data-bs-target="#place-bid" role="button">Place Bid</button>
@@ -72,7 +81,7 @@
   </div>
 
   <p class="text-center text-primary mt-4">
-    The most powerful and performing Ferrari ever made: this is the Ferrari 812 Superfast, the new masterpiece from the house of the Prancing Horse that was be unveiled at Geneva Motor Show 2017. A V12 engine with 800 HP will give to this supercar the incredible speed of 340 km/h.
+    {{ $auction->description() }}
   </p>
 </div>
 
@@ -87,104 +96,25 @@
 <div class="tab-content" id="pills-tabContent">
   <div class="tab-pane" id="pills-bid-history" role="tabpanel" aria-labelledby="pills-bid-history-tab">
     <ol class="list-group rounded-0 hide-scroll" style="overflow-y: scroll; max-height: 40vh;">
-      <li class="list-group-item d-flex align-items-center justify-content-start rounded-0 flex-vertical">
-        <p class="text-primary fs-6 mb-0">27-03-2020 17:30</p>
-        <p class="text-primary fs-5 mb-0 ml-sm-auto">135€</p>
-      </li>
-
-      <li class="list-group-item d-flex align-items-center justify-content-start rounded-0 flex-vertical">
-        <p class="text-primary fs-6 mb-0">27-03-2020 17:22</p>
-        <p class="text-primary fs-5 mb-0 ml-sm-auto">127€</p>
-      </li>
-
-      <li class="list-group-item d-flex align-items-center justify-content-start rounded-0 flex-vertical">
-        <p class="text-primary fs-6 mb-0">27-03-2020 12:10</p>
-        <p class="text-primary fs-5 mb-0 ml-sm-auto">105€</p>
-      </li>
-
-      <li class="list-group-item d-flex align-items-center justify-content-start rounded-0 flex-vertical">
-        <p class="text-primary fs-6 mb-0">26-03-2020 23:54</p>
-        <p class="text-primary fs-5 mb-0 ml-sm-auto">69€</p>
-      </li>
-
-      <li class="list-group-item d-flex align-items-center justify-content-start rounded-0 flex-vertical">
-        <p class="text-primary fs-6 mb-0">26-03-2020 23:12</p>
-        <p class="text-primary fs-5 mb-0 ml-sm-auto">33€</p>
-      </li>
+      @for ($i = count($auction->bids)-1; $i >= 0 ; $i--)
+        <li class="list-group-item d-flex align-items-center justify-content-start rounded-0 flex-vertical">
+          <p class="text-primary fs-6 mb-0">{{substr($auction->bids[$i]->datehour, 0, -6)}}</p>
+          <p class="text-primary fs-5 mb-0 ml-sm-auto">{{$auction->bids[$i]->value}}€</p>
+        </li>
+      @endfor
     </ol>
   </div>
   <div class="tab-pane show active" id="pills-chat" role="tabpanel" aria-labelledby="pills-chat-tab">
     <ol class="list-group rounded-0 hide-scroll" style="overflow-y: scroll; max-height: 40vh;">
+      @for ($i = count($auction->comments)-1; $i >= 0 ; $i--)
       <li class="list-group-item d-flex align-items-center justify-content-start rounded-0 flex-column">
         <div class="d-flex w-100 mb-1">
-          <p class="text-primary fs-5 mb-0 mr-auto float-left">johndoe123:</p>
-          <p class="text-primary fs-6 mb-0 text-right float-right">27-03-2020 17:30</p>
+          <p class="text-primary fs-5 mb-0 mr-auto float-left">{{$auction->comments[$i]->author->username}}</p>
+          <p class="text-primary fs-6 mb-0 text-right float-right">{{substr($auction->comments[$i]->datehour, 0, -6)}}</p>
         </div>
-        <p class="w-100 text-primary mb-0">Bullish</p>
+        <p class="w-100 text-primary mb-0">{{$auction->comments[$i]->text}}</p>
       </li>
-
-      <li class="list-group-item d-flex align-items-center justify-content-start rounded-0 flex-column">
-        <div class="d-flex w-100 mb-1">
-          <p class="text-primary fs-5 mb-0 mr-auto float-left">edurbrito:</p>
-          <p class="text-primary fs-6 mb-0 text-right float-right">27-03-2020 17:27</p>
-        </div>
-        <p class="w-100 text-primary mb-0">Lost Interest! It seems a huge scam :/</p>
-      </li>
-
-      <li class="list-group-item d-flex align-items-center justify-content-start rounded-0 flex-column">
-        <div class="d-flex w-100 mb-1">
-          <p class="text-primary fs-5 mb-0 mr-auto float-left">pjbomxd:</p>
-          <p class="text-primary fs-6 mb-0 text-right float-right">27-03-2020 17:22</p>
-        </div>
-        <p class="w-100 text-primary mb-0">I will try again later</p>
-      </li>
-      <li class="list-group-item d-flex align-items-center justify-content-start rounded-0 flex-column">
-        <div class="d-flex w-100 mb-1">
-          <p class="text-primary fs-5 mb-0 mr-auto float-left">johndoe123:</p>
-          <p class="text-primary fs-6 mb-0 text-right float-right">27-03-2020 17:30</p>
-        </div>
-        <p class="w-100 text-primary mb-0">Bullish</p>
-      </li>
-
-      <li class="list-group-item d-flex align-items-center justify-content-start rounded-0 flex-column">
-        <div class="d-flex w-100 mb-1">
-          <p class="text-primary fs-5 mb-0 mr-auto float-left">edurbrito:</p>
-          <p class="text-primary fs-6 mb-0 text-right float-right">27-03-2020 17:27</p>
-        </div>
-        <p class="w-100 text-primary mb-0">Lost Interest! It seems a huge scam :/</p>
-      </li>
-
-      <li class="list-group-item d-flex align-items-center justify-content-start rounded-0 flex-column">
-        <div class="d-flex w-100 mb-1">
-          <p class="text-primary fs-5 mb-0 mr-auto float-left">pjbomxd:</p>
-          <p class="text-primary fs-6 mb-0 text-right float-right">27-03-2020 17:22</p>
-        </div>
-        <p class="w-100 text-primary mb-0">I will try again later</p>
-      </li>
-
-      <li class="list-group-item d-flex align-items-center justify-content-start rounded-0 flex-column">
-        <div class="d-flex w-100 mb-1">
-          <p class="text-primary fs-5 mb-0 mr-auto float-left">johndoe123:</p>
-          <p class="text-primary fs-6 mb-0 text-right float-right">27-03-2020 17:30</p>
-        </div>
-        <p class="w-100 text-primary mb-0">Bullish</p>
-      </li>
-
-      <li class="list-group-item d-flex align-items-center justify-content-start rounded-0 flex-column">
-        <div class="d-flex w-100 mb-1">
-          <p class="text-primary fs-5 mb-0 mr-auto float-left">edurbrito:</p>
-          <p class="text-primary fs-6 mb-0 text-right float-right">27-03-2020 17:27</p>
-        </div>
-        <p class="w-100 text-primary mb-0">Lost Interest! It seems a huge scam :/</p>
-      </li>
-
-      <li class="list-group-item d-flex align-items-center justify-content-start rounded-0 flex-column">
-        <div class="d-flex w-100 mb-1">
-          <p class="text-primary fs-5 mb-0 mr-auto float-left">pjbomxd:</p>
-          <p class="text-primary fs-6 mb-0 text-right float-right">27-03-2020 17:22</p>
-        </div>
-        <p class="w-100 text-primary mb-0">I will try again later</p>
-      </li>
+      @endfor
     </ol>
     <div class="d-flex bg-white align-content-center mt-1">
       <form class="w-100" action="/auction.php">

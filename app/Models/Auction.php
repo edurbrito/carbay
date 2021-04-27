@@ -48,6 +48,11 @@ class Auction extends Model
         return $this->hasMany(Bid::class, 'auctionid');
     }
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'auctionid');
+    }
+
     public function first_image()
     {
         return $this->images->first();
@@ -56,10 +61,10 @@ class Auction extends Model
     public function time_remaining()
     {
         date_default_timezone_set("Europe/Lisbon");
-        
+
         $now = new DateTime();
         $date = new DateTime($this->finaldate);
-        
+
         return $date->diff($now)->format("%ad %hh %im %ss");
     }
 
@@ -71,13 +76,43 @@ class Auction extends Model
     public function rating()
     {
         $rating = $this->hasOne(Rating::class, 'auctionid')->first();
-        if(isset($rating))
+        if (isset($rating))
             return $rating->value;
         else
             return 0;
     }
 
-    public function brand_name(){
+    public function brand_name()
+    {
         return $this->brand->name;
+    }
+
+    public function colour_name()
+    {
+        return $this->colour->name;
+    }
+
+    public function seller_name()
+    {
+        return $this->seller->username;
+    }
+
+    public function highest_bid_value()
+    {
+        return $this->highest_bid()->value;
+    }
+
+    public function buy_now()
+    {
+        return $this->buynow;
+    }
+
+    public function description(){
+        return $this->description;
+    }
+
+    public function display_images()
+    {
+        return $this->images;
     }
 }
