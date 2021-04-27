@@ -42,3 +42,4 @@ Route::get('api/auctions/search', 'AuctionController@search');
 // Auction
 Route::get('auctions/create', 'AuctionController@create_page');
 Route::get('auctions/{id}', 'AuctionController@show');
+Route::post('auctions/{id}/bids', 'BidController@create');

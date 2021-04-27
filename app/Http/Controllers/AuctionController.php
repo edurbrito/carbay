@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Auction;
-use Illuminate\Http\Request;
+use App\Models\Bid;
+use Illuminate\Support\Facades\Auth;
 
 class AuctionController extends Controller
 {
@@ -87,11 +88,13 @@ class AuctionController extends Controller
         //
     }
 
-    public function search(Request $request) {
+    public function search(Request $request)
+    {
         return json_encode($request);
     }
 
-    public function create_page(){
+    public function create_page()
+    {
         return view('pages.create');
     }
 }

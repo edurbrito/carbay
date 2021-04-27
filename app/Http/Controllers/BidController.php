@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Bid;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Auction;
 
 class BidController extends Controller
 {
@@ -22,9 +24,15 @@ class BidController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $bid = new Bid();
+        $bid->datehour = now();
+        $bid->value = $request->input('value');
+        $bid->auctionid = $request->input('id');
+        $bid->authorid = Auth::user()->id;
+        $bid->save();
+        return redirect()->to('auctions/'.$request->input('id'));
     }
 
     /**

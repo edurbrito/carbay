@@ -153,17 +153,18 @@
         <h5 class="modal-title" id="notifications">Are you sure?</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body text-primary">
-
-        <label class="form-check-label mt-2 text-primary" for="flexCheckChecked">
-            Bid Value:
-        </label>
-        <input type="number" min="10" max="100" placeholder="10">
-        <div class="d-flex justify-content-end">
-          <button type="button" class="btn btn-primary mr-2" data-bs-dismiss="modal" aria-label="Dismiss">Dismiss</button>
-          <button type="button" class="btn btn-success" data-bs-dismiss="modal" aria-label="Dismiss">Place Bid</button>
-        </div>
-      </div>
+        <form method="POST" action="/auctions/{{$auction->id}}/bids" class="modal-body text-primary">
+          {{ csrf_field() }}
+          <input type="number" hidden name="id" value={{$auction->id}}>
+          <label class="form-check-label mt-2 text-primary" for="flexCheckChecked">
+              Bid Value:
+          </label>
+            <input type="number" min="10" max="10000" placeholder="100" name="value">
+            <div class="d-flex justify-content-end">
+              <button type="button" class="btn btn-primary mr-2" data-bs-dismiss="modal" aria-label="Dismiss">Dismiss</button>
+              <button type="submit" class="btn btn-success">Place Bid</button>
+            </div>
+      </form>
     </div>
   </div>
 </div>
