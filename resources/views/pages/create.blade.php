@@ -8,14 +8,14 @@
 <div class="row mt-5">
     <div class="col-12 col-sm-6">
         <div id="carouselIndicators" class="carousel slide carousel-fade" data-bs-ride="carousel">
-            <div class="carousel-indicators">
-                <button type="button" data-bs-target="#carouselIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <div class="carousel-indicators" id="carousel-indicators">
+                {{-- <button type="button" data-bs-target="#carouselIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
                 <button type="button" data-bs-target="#carouselIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
                 <button type="button" data-bs-target="#carouselIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                <button type="button" data-bs-target="#carouselIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                <button type="button" data-bs-target="#carouselIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button> --}}
             </div>
-            <div class="carousel-inner">
-                <div class="carousel-item active">
+            <div class="carousel-inner" id="carousel-inner">
+                {{-- <div class="carousel-item active">
                     <img src="https://mrcollection.com/wp-content/uploads/2017/09/ferrari-812-superfast-rosso-scuderia_01.jpg" class="d-block w-100" alt="...">
                 </div>
                 <div class="carousel-item">
@@ -26,7 +26,7 @@
                 </div>
                 <div class="carousel-item">
                     <img src="https://mrcollection.com/wp-content/uploads/2017/09/ferrari-812-superfast-rosso-scuderia_05.jpg" class="d-block w-100" alt="...">
-                </div>
+                </div> --}}
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselIndicators" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -39,7 +39,7 @@
         </div>
         <div class="input-group mb-3 mt-3">
             <div class="custom-file">
-                <input type="file" class="custom-file-input" id="images" value="Upload Image" style="cursor: pointer;">
+                <input type="file" class="custom-file-input" id="images" name="images[]" onchange="preview_images(this);" value="Upload Image" style="cursor: pointer;">
                 <label class="custom-file-label" for="images" style="cursor: pointer;">Upload Image</label>
             </div>
         </div>
