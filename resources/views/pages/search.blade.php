@@ -2,7 +2,8 @@
 
 @section('div_content')
 
-<form class="row align-items-end" action="/search">
+<form id="full-text-form" class="row align-items-end">
+    {{ csrf_field() }}
     <div class="col-12 col-sm-10">
         <label for="full-text" class="form-label text-primary">Search</label>
         <input type="text" name="full-text" class="form-control" id="full-text" placeholder="Type Something">
@@ -15,7 +16,7 @@
     <div class="col-md-auto">
         <h6 class="w-100 text-center p-4 d-none d-lg-block">Advanced Search</h6>
         <button class="btn btn-dark w-100 text-center p-4 d-lg-none .d-xl-block" data-bs-toggle="collapse" href="#collapseSearch" role="button" aria-expanded="true" aria-controls="collapseSearch">Advanced Search</button>
-        <form class="collapse hide d-md-block mt-4" id="collapseSearch" action="/search">
+        <form  id="advanced-form" class="collapse hide d-md-block mt-4" id="collapseSearch">
             <label for="sort-by" class="form-label text-primary">Sort By</label>
             <select name="sort-by" class="form-select rounded-0" id="sort-by" aria-label="Search By">
                 <option selected value="0">Time Remaining</option>
@@ -23,26 +24,26 @@
                 <option value="2">Buy Now</option>
             </select>
             <div class="form-check mt-4 text-primary">
-                <input class="form-check-input" type="radio" name="order" id="flexRadioDefault1">
-                <label class="form-check-label" for="flexRadioDefault1">
+                <input class="form-check-input" type="radio" name="order" id="ascending" value="0">
+                <label class="form-check-label" for="ascending">
                     Ascending
                 </label>
             </div>
             <div class="form-check text-primary">
-                <input class="form-check-input" type="radio" name="order" id="flexRadioDefault2" checked>
-                <label class="form-check-label" for="flexRadioDefault2">
+                <input class="form-check-input" type="radio" name="order" id="descending" checked value="1">
+                <label class="form-check-label" for="descending">
                     Descending
                 </label>
             </div>
             <div class="form-check mt-4 text-primary">
-                <input name="buy-now" class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked>
-                <label class="form-check-label" for="flexCheckDefault">
+                <input name="buy-now" class="form-check-input" type="checkbox" id="buy-now" checked>
+                <label class="form-check-label" for="buy-now">
                     Buy Now option
                 </label>
             </div>
             <div class="form-check text-primary">
-                <input name="ended-auctions" class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
-                <label class="form-check-label" for="flexCheckChecked">
+                <input name="ended-auctions" class="form-check-input" type="checkbox" id="ended-auctions">
+                <label class="form-check-label" for="ended-auctions">
                     Show ended auctions
                 </label>
             </div>
@@ -60,20 +61,20 @@
                 <option selected value="-1">Seller</option>
             </select>
 
-            <label class="form-check-label mt-4 text-primary" for="flexCheckChecked">
+            <label class="form-check-label mt-4 text-primary">
                 Last Bid between
             </label>
             <br>
-            <input type="number" min="10" max="100" placeholder="10" name="min-bid"> to
-            <input type="number" min="10" max="100" placeholder="100" name="max-bid">
+            <input id="min-bid" type="number" min="1" max="100" placeholder="10" name="min-bid"> to
+            <input id="max-bid" type="number" min="1" max="100" placeholder="100" name="max-bid">
             <br>
 
-            <label class="form-check-label mt-2 text-primary" for="flexCheckChecked">
+            <label class="form-check-label mt-2 text-primary">
                 Buy Now between
             </label>
             <br>
-            <input type="number" min="10" max="100" placeholder="10" name="min-buy-now"> to
-            <input type="number" min="10" max="100" placeholder="100" name="max-buy-now">
+            <input id="min-buy-now" type="number" min="1" max="100" placeholder="10" name="min-buy-now"> to
+            <input id="max-buy-now" type="number" min="1" max="100" placeholder="100" name="max-buy-now">
             <br>
             <button class="btn btn-primary w-100 mt-4" type="submit">Apply</button>
         </form>

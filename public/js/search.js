@@ -24,11 +24,17 @@ function encodeForAjax(data) {
 function sendAjaxRequest(method, url, data, handler) {
     let request = new XMLHttpRequest();
 
+    if(method == "GET")
+        url = url + `?${encodeForAjax(data)}`
+
     request.open(method, url, true);
     request.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').content);
     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     request.addEventListener('load', handler);
-    request.send(encodeForAjax(data));
+    if(method == "GET")
+        request.send()
+    else
+        request.send(encodeForAjax(data));
 }
 
 function setSelect(response, attribute = "name") {
@@ -117,3 +123,53 @@ function getAllSelectData() {
 }
 
 getAllSelectData()
+
+full_text_form = document.querySelector("#full-text-form")
+
+full_text_form.addEventListener('submit', search)
+
+advanced_form = document.querySelector("#advanced-form")
+
+advanced_form.addEventListener('submit', search)
+
+function search(e) {
+    e.preventDefault()
+
+    full_text = full_text_form.querySelector("#full-text").value
+    sort_by = advanced_form.querySelector("#sort-by").value
+    order_by = advanced_form.querySelector('input[name="order"]:checked').value
+    buy_now = advanced_form.querySelector("#buy-now").checked
+    ended_auctions = advanced_form.querySelector("#ended-auctions").checked
+
+    colour = advanced_form.querySelector("#select-colour").value
+    brand = advanced_form.querySelector("#select-brand").value
+    scale = advanced_form.querySelector("#select-scale").value
+    seller = advanced_form.querySelector("#select-seller").value
+
+    min_bid = advanced_form.querySelector("#min-bid").value
+    max_bid = advanced_form.querySelector("#max-bid").value
+    min_buy_now = advanced_form.querySelector("#min-buy-now").value
+    max_buy_now = advanced_form.querySelector("#max-buy-now").value
+
+    data = {
+        'full-text' : full_text,
+        'sort-by' : sort_by,
+        'order-by' : order_by,
+        'buy-now' : buy_now,
+        'ended-auctions' : ended_auctions,
+        'colour' : colour,
+        'brand' : brand,
+        'scale' : scale,
+        'seller' : seller,
+        'min-bid' : min_bid,
+        'max-bid' : max_bid,
+        'min-buy-now' : min_buy_now,
+        'max-buy-now' : max_buy_now,
+    }
+
+    sendAjaxRequest('GET','/api/auctions/search', data, refresh_search)
+}
+
+function refresh_search() {
+    console.log(JSON.parse(this.response))
+}

@@ -3,8 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Auction;
+use App\Models\Colour;
+use App\Models\Brand;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class AuctionController extends Controller
 {
@@ -97,6 +103,31 @@ class AuctionController extends Controller
     }
 
     public function search(Request $request) {
+
+        $colourLastID = Colour::latest()->id;
+        $brandLastID = Brand::latest()->id;
+        $sellerLastID = User::latest()->id;
+
+        $validator = Validator::make($request->all(), [
+            'full-text' => 'nullable|string',
+            'sort-by' => Rule::in(['0','1','2']),
+            'order' => Rule::in(['0','1']),
+            'buy-now' => Rule::in(['true','false']),
+            'ended-auctions' => Rule::in(['true','false']),
+            'colour' => 'nullable|numeric|between:-1,' . $colourLastID,
+            'brand' => 'nullable|numeric|between:-1,' . $brandLastID,
+            'scale' => Rule::in(['-1','0','1','2','3']),
+            'seller' => 'nullable|numeric|between:-1,' . $sellerLastID,
+            'min-bid' => 'nullable|numeric|lt:maxBid|gt:0',
+            'max-bid' => 'nullable|numeric|gt:minBid',
+            'min-buy-now' => 'nullable|numeric|lt:maxBuyNow|gt:0',
+            'max-buy-now' => 'nullable|numeric|gt:minBuyNow',
+        ]);
+
+        if ($validator->fails()) {
+            return json_encode(["auctions" => [], "errors" => $validator->errors()]);
+        }
+
         $fullText = $request->input('full-text');
         $sortBy = $request->input('sort-by');
         $order = $request->input('order');
@@ -111,31 +142,24 @@ class AuctionController extends Controller
         $minBuyNow = $request->input('min-buy-now');
         $maxBuyNow = $request->input('max-buy-now');
 
-        $afterSortBy = sortBy($sortBy)
-        $afterOrder = sortBy($order)
+        $auctions = Auction::all();
 
-        $colourLastID = Colour::latest()->id;
-        $brandLastID = Brand::latest()->id;
-        $colourLastID = Colour::latest()->id;
-        $sellerLastID = Seller::latest()->id;
+        if($seller != "-1") {
+            // SELECT * FROM Auction WHERE sellerID = $seller;
+            $auctions = $auctions->where("sellerid","=",$seller)->get();
+        }
 
-        $validated = $request->validate([
-            'full-text' => 'nullable|string',
-            'sort-by' => Rule::in(['0','1','2']),
-            'order' => Rule::in(['0','1']),
-            'buyNow' => Rule::in(['0','1']),
-            'endedAuctions' => Rule::in(['0','1']),
-            'colour' => 'nullable|numeric|between:0,' . $colourLastID,
-            'brand' => 'nullable|numeric|between:0,' . $brandLastID,
-            'scale' => Rule::in(['0','1','2','3']),
-            'seller' => 'nullable|numeric|between:0,' . $sellerLastID,
-            'minBid' => 'nullable|numeric|lt:maxBid|gt:0',
-            'maxBid' => 'nullable|numeric|gt:minBid',
-            'minBuyNow' => 'nullable|numeric|lt:maxBuyNow|gt:0',
-            'maxBuyNow' => 'nullable|numeric|gt:minBuyNow',
-        ]);
+        
 
-        return json_encode($request);
+        if ($buyNow) {
+            // SELECT * FROM Auction WHERE buyNow IS NOT NULL;
+            
+        }
+
+        // $afterSortBy = sortBy($sortBy);
+        // $afterOrder = sortBy($order);
+
+        return json_encode(["auctions" => $auctions, "errors" => []]);
     }
 
     public function create_page() {
