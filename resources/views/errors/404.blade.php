@@ -9,7 +9,7 @@
 
 <div class="force-fixed-bottom">
     <div class="d-flex flex-column justify-content-center p-5" style="background: linear-gradient(transparent, black);">
-      <a class="btn btn-dark mx-auto" style="width: fit-content;" href="/search">Go Back to Search</a>
+      <a class="btn btn-dark mx-auto" style="width: fit-content;" href="/auctions/search">Go Back to Search</a>
     </div>
     <nav class="navbar navbar-primary border-top border-dark" style="background-color: #000;">
       <div class="container-fluid d-flex justify-content-center">

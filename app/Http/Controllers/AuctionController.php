@@ -55,9 +55,15 @@ class AuctionController extends Controller
      */
     public function show($id)
     {
+        if(!is_numeric($id)){
+            return view('errors.404');
+        }
+
         $auction = Auction::find($id);
 
-        return view('pages.auction', ['auction' => $auction]);
+        $view = !is_null($auction) ? view('pages.auction', ['auction' => $auction]) : view('errors.404');
+
+        return $view;
     }
 
     /**
@@ -94,19 +100,25 @@ class AuctionController extends Controller
         //
     }
 
+    public static $scales = [
+        ['id' => 0, 'name' => '1:8'],
+        ['id' => 1, 'name' => '1:18'],
+        ['id' => 2, 'name' => '1:43'],
+        ['id' => 3, 'name' => '1:64']];
+
     public function scales() {
-        return json_encode([
-            ['id' => 0, 'name' => '1:8'],
-            ['id' => 1, 'name' => '1:18'],
-            ['id' => 2, 'name' => '1:43'],
-            ['id' => 3, 'name' => '1:64']]);
+        return json_encode(AuctionController::$scales);
+    }
+
+    public function get_scale($id) {
+        return AuctionController::$scales[$id]["name"];
     }
 
     public function search(Request $request) {
 
-        $colourLastID = Colour::latest()->id;
-        $brandLastID = Brand::latest()->id;
-        $sellerLastID = User::latest()->id;
+        $colourLastID = Colour::max("id");
+        $brandLastID = Brand::max("id");
+        $sellerLastID = User::max("id");
 
         $validator = Validator::make($request->all(), [
             'full-text' => 'nullable|string',
@@ -118,10 +130,12 @@ class AuctionController extends Controller
             'brand' => 'nullable|numeric|between:-1,' . $brandLastID,
             'scale' => Rule::in(['-1','0','1','2','3']),
             'seller' => 'nullable|numeric|between:-1,' . $sellerLastID,
-            'min-bid' => 'nullable|numeric|lt:maxBid|gt:0',
-            'max-bid' => 'nullable|numeric|gt:minBid',
-            'min-buy-now' => 'nullable|numeric|lt:maxBuyNow|gt:0',
-            'max-buy-now' => 'nullable|numeric|gt:minBuyNow',
+            'min-bid' => 'nullable|numeric|gt:0',
+            'max-bid' => 'nullable|numeric',
+            'max-bid' => 'exclude_unless:min-bid,gt:min-bid',
+            'min-buy-now' => 'nullable|numeric|gt:0',
+            'max-buy-now' => 'nullable|numeric',
+            'max-buy-now' => 'exclude_unless:min-buy-now,gt:min-buy-now'
         ]);
 
         if ($validator->fails()) {
@@ -130,7 +144,7 @@ class AuctionController extends Controller
 
         $fullText = $request->input('full-text');
         $sortBy = $request->input('sort-by');
-        $order = $request->input('order');
+        $order = $request->input('order-by');
         $buyNow = $request->input('buy-now');
         $endedAuctions = $request->input('ended-auctions');
         $colour = $request->input('colour');
@@ -142,24 +156,96 @@ class AuctionController extends Controller
         $minBuyNow = $request->input('min-buy-now');
         $maxBuyNow = $request->input('max-buy-now');
 
-        $auctions = Auction::all();
+        $auctions = [];
 
-        if($seller != "-1") {
-            // SELECT * FROM Auction WHERE sellerID = $seller;
-            $auctions = $auctions->where("sellerid","=",$seller)->get();
-        }
-
+        if(is_null($fullText))
+            $auctions = Auction::all();
+        else
+            $auctions = Auction::whereRaw('auction.search @@ plainto_tsquery(\'english\', ?)', array(strtolower($fullText)))->get();
         
 
-        if ($buyNow) {
-            // SELECT * FROM Auction WHERE buyNow IS NOT NULL;
-            
+        if($seller != "-1") {
+            $auctions = $auctions->where("sellerid","=",$seller);
         }
 
-        // $afterSortBy = sortBy($sortBy);
-        // $afterOrder = sortBy($order);
+        if($colour != "-1") {
+            $auctions = $auctions->where("colourid","=",$colour);
+        }
 
-        return json_encode(["auctions" => $auctions, "errors" => []]);
+        if($brand != "-1") {
+            $auctions = $auctions->where("brandid","=",$brand);
+        }
+
+        if($scale != "-1") {
+            $auctions = $auctions->where("scaletype","=",$this->get_scale($scale));
+        }
+
+        if(!is_null($minBid)) {
+            $auctions = $auctions->filter(function ($auction) use($minBid) {
+                $bid = $auction->highest_bid();
+                $value = !is_null($bid) ? $bid->value : -1;
+                return $value >= intval($minBid);
+            });
+        }
+
+        if(!is_null($maxBid)) {
+            $auctions = $auctions->filter(function ($auction) use($maxBid) {
+                $bid = $auction->highest_bid();
+                $value = !is_null($bid) ? $bid->value : -1;
+                return $value <= intval($maxBid);
+            });
+        }
+
+        if(!is_null($minBuyNow)) {
+            $auctions = $auctions->filter(function ($auction) use($minBuyNow) {
+                $buyNow = $auction->buynow;
+                $buyNow = !is_null($buyNow) ? $buyNow : -1;
+                return $buyNow >= intval($minBuyNow);
+            });
+        }
+
+        if(!is_null($maxBuyNow)) {
+            $auctions = $auctions->filter(function ($auction) use($maxBuyNow) {
+                $buyNow = $auction->buynow;
+                $buyNow = !is_null($buyNow) ? $buyNow : -1;
+                return $buyNow <= intval($maxBuyNow);
+            });
+        }
+
+        if (strcmp($buyNow,"false") == 0) {
+            $auctions = $auctions->whereNull("buynow");
+        }
+
+        if (strcmp($endedAuctions,"false") == 0) {
+            $auctions = $auctions->where('finaldate','>',now());
+        }
+
+        $order_ad = strcmp($order,"0") == 0 ? false : true;
+        
+        $auctions = $auctions->sortBy(function ($a) use($sortBy) {
+            switch (strcmp($sortBy,"1")) {
+                case -1:
+                    return $a["finaldate"];
+                case 0:
+                    return $a->highest_bid();
+                case 1:
+                    return $a["buynow"];
+                default:
+                    break;
+            }
+            return $a["finaldate"];
+        }, SORT_REGULAR, $order_ad);
+
+        if($request->acceptsHtml()) {
+            $result = "";
+            foreach ($auctions as $a) {
+                $result .= view("partials.auction", ["auction" => $a])->render() . "\n";
+            }
+
+            return $result;
+        }
+
+        return json_encode(["auctions" => $auctions, "count" => count($auctions), "errors" => []]);
     }
 
     public function create_page() {

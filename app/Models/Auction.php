@@ -99,15 +99,18 @@ class Auction extends Model
 
     public function highest_bid_value()
     {
-        return $this->highest_bid()->value;
+        $bid = $this->highest_bid();
+        $value = !is_null($bid) ? $bid->value . "$" : "None";
+        return $value;
     }
 
     public function buy_now()
     {
-        return $this->buynow;
+        return $this->buynow . "$";
     }
 
-    public function description(){
+    public function description()
+    {
         return $this->description;
     }
 

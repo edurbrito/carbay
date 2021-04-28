@@ -15,8 +15,9 @@
 <div class="row mt-4">
     <div class="col-md-auto">
         <h6 class="w-100 text-center p-4 d-none d-lg-block">Advanced Search</h6>
-        <button class="btn btn-dark w-100 text-center p-4 d-lg-none .d-xl-block" data-bs-toggle="collapse" href="#collapseSearch" role="button" aria-expanded="true" aria-controls="collapseSearch">Advanced Search</button>
-        <form  id="advanced-form" class="collapse hide d-md-block mt-4" id="collapseSearch">
+        <button class="btn btn-dark w-100 text-center p-4 d-lg-none .d-xl-block" data-bs-toggle="collapse" href="#advanced-form" role="button" aria-expanded="true" aria-controls="advanced-form">Advanced Search</button>
+        <form  id="advanced-form" class="collapse hide d-md-block mt-4">
+            <button class="btn-md btn-secondary w-100 mb-4" type="button" id="reset-button">Reset</button>
             <label for="sort-by" class="form-label text-primary">Sort By</label>
             <select name="sort-by" class="form-select rounded-0" id="sort-by" aria-label="Search By">
                 <option selected value="0">Time Remaining</option>
@@ -65,22 +66,22 @@
                 Last Bid between
             </label>
             <br>
-            <input id="min-bid" type="number" min="1" max="100" placeholder="10" name="min-bid"> to
-            <input id="max-bid" type="number" min="1" max="100" placeholder="100" name="max-bid">
+            <input id="min-bid" type="number" min="1" max="1000000" placeholder="10" name="min-bid"> to
+            <input id="max-bid" type="number" min="1" max="1000000" placeholder="100" name="max-bid">
             <br>
 
             <label class="form-check-label mt-2 text-primary">
                 Buy Now between
             </label>
             <br>
-            <input id="min-buy-now" type="number" min="1" max="100" placeholder="10" name="min-buy-now"> to
-            <input id="max-buy-now" type="number" min="1" max="100" placeholder="100" name="max-buy-now">
+            <input id="min-buy-now" type="number" min="1" max="1000000" placeholder="10" name="min-buy-now"> to
+            <input id="max-buy-now" type="number" min="1" max="1000000" placeholder="100" name="max-buy-now">
             <br>
             <button class="btn btn-primary w-100 mt-4" type="submit">Apply</button>
         </form>
     </div>
     <div class="col container-fluid">
-        <h6 class="w-100 text-primary text-center p-4">{{ $total }} Auctions found</h6>
+        <h6 class="w-100 text-primary text-center p-4" id="total-search">{{ $total }} Auctions found</h6>
         <div class="row row-cols-1 row-cols-md-3 g-4" id="auctions">
             @each('partials.auction', $auctions ?? '', 'auction')
         </div>

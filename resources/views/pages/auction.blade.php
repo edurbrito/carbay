@@ -52,12 +52,12 @@
     </p>
     <p class="fs-4">
       <i class="far fa-money-bill-alt"></i>
-      Last Bid: {{ $auction->highest_bid_value() }}€ 
+      Last Bid: {{ $auction->highest_bid_value() }}
     </p>
-    @if(isset($auction->buynow))
+    @if(!is_null($auction->buynow))
     <p class="fs-4 mt-4">
       <i class="far fa-credit-card"></i>
-      Buy Now: {{ $auction->buy_now() }}€
+      Buy Now: {{ $auction->buy_now() }}
     </p>
     @endif
     <p>
@@ -99,7 +99,7 @@
       @for ($i = count($auction->bids)-1; $i >= 0 ; $i--)
         <li class="list-group-item d-flex align-items-center justify-content-start rounded-0 flex-vertical">
           <p class="text-primary fs-6 mb-0">{{substr($auction->bids[$i]->datehour, 0, -6)}}</p>
-          <p class="text-primary fs-5 mb-0 ml-sm-auto">{{$auction->bids[$i]->value}}€</p>
+          <p class="text-primary fs-5 mb-0 ml-sm-auto">{{$auction->bids[$i]->value}}$</p>
         </li>
       @endfor
     </ol>
@@ -135,7 +135,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body text-primary">
-        Value: 2000 €
+        Value: 2000 $
         <div class="d-flex justify-content-end">
           <button type="button" class="btn btn-primary mr-2" data-bs-dismiss="modal" aria-label="Dismiss">Dismiss</button>
           <button type="button" class="btn btn-dark" data-bs-dismiss="modal" aria-label="Dismiss">Buy Now</button>

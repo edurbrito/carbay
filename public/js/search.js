@@ -5,9 +5,11 @@ function update_time_remaining() {
         let final_date = auction.getAttribute("data-time");
         let date2 = new Date(final_date);
         let date1 = new Date();
-        var diff = new Date(date2.getTime() - date1.getTime());
-        var new_time = `${Math.floor(diff.getTime() / (1000 * 3600 * 24))}d ${diff.getHours()}h ${diff.getMinutes()}m ${diff.getSeconds()}s`;
+        let diff = new Date(date2.getTime() - date1.getTime());
+        let new_time = `${Math.floor(diff.getTime() / (1000 * 3600 * 24))}d ${diff.getHours()}h ${diff.getMinutes()}m ${diff.getSeconds()}s`;
 
+        new_time = diff.getTime() < 0 ? "Ended" : new_time;
+        
         auction.querySelector("#time-remaining-value").innerHTML = new_time;
     }
 }
@@ -21,7 +23,7 @@ function encodeForAjax(data) {
     }).join('&');
 }
 
-function sendAjaxRequest(method, url, data, handler) {
+function sendAjaxRequest(method, url, data, handler, headers = []) {
     let request = new XMLHttpRequest();
 
     if(method == "GET")
@@ -30,6 +32,9 @@ function sendAjaxRequest(method, url, data, handler) {
     request.open(method, url, true);
     request.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').content);
     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    for (const header of headers) {
+        request.setRequestHeader(header.name, header.value);
+    }
     request.addEventListener('load', handler);
     if(method == "GET")
         request.send()
@@ -132,44 +137,93 @@ advanced_form = document.querySelector("#advanced-form")
 
 advanced_form.addEventListener('submit', search)
 
+full_text = full_text_form.querySelector("#full-text")
+sort_by = advanced_form.querySelector("#sort-by")
+order_by = advanced_form.querySelector('input[name="order"]:checked')
+buy_now = advanced_form.querySelector("#buy-now")
+ended_auctions = advanced_form.querySelector("#ended-auctions")
+
+colour = advanced_form.querySelector("#select-colour")
+brand = advanced_form.querySelector("#select-brand")
+scale = advanced_form.querySelector("#select-scale")
+seller = advanced_form.querySelector("#select-seller")
+
+min_bid = advanced_form.querySelector("#min-bid")
+max_bid = advanced_form.querySelector("#max-bid")
+min_buy_now = advanced_form.querySelector("#min-buy-now")
+max_buy_now = advanced_form.querySelector("#max-buy-now")
+
 function search(e) {
     e.preventDefault()
 
-    full_text = full_text_form.querySelector("#full-text").value
-    sort_by = advanced_form.querySelector("#sort-by").value
-    order_by = advanced_form.querySelector('input[name="order"]:checked').value
-    buy_now = advanced_form.querySelector("#buy-now").checked
-    ended_auctions = advanced_form.querySelector("#ended-auctions").checked
-
-    colour = advanced_form.querySelector("#select-colour").value
-    brand = advanced_form.querySelector("#select-brand").value
-    scale = advanced_form.querySelector("#select-scale").value
-    seller = advanced_form.querySelector("#select-seller").value
-
-    min_bid = advanced_form.querySelector("#min-bid").value
-    max_bid = advanced_form.querySelector("#max-bid").value
-    min_buy_now = advanced_form.querySelector("#min-buy-now").value
-    max_buy_now = advanced_form.querySelector("#max-buy-now").value
-
     data = {
-        'full-text' : full_text,
-        'sort-by' : sort_by,
-        'order-by' : order_by,
-        'buy-now' : buy_now,
-        'ended-auctions' : ended_auctions,
-        'colour' : colour,
-        'brand' : brand,
-        'scale' : scale,
-        'seller' : seller,
-        'min-bid' : min_bid,
-        'max-bid' : max_bid,
-        'min-buy-now' : min_buy_now,
-        'max-buy-now' : max_buy_now,
+        'full-text' : full_text.value,
+        'sort-by' : sort_by.value,
+        'order-by' : order_by.value,
+        'buy-now' : buy_now.checked,
+        'ended-auctions' : ended_auctions.checked,
+        'colour' : colour.value,
+        'brand' : brand.value,
+        'scale' : scale.value,
+        'seller' : seller.value,
+        'min-bid' : min_bid.value,
+        'max-bid' : max_bid.value,
+        'min-buy-now' : min_buy_now.value,
+        'max-buy-now' : max_buy_now.value,
     }
 
-    sendAjaxRequest('GET','/api/auctions/search', data, refresh_search)
+    sendAjaxRequest('GET','/api/auctions/search', data, refresh_search, ['Accept', 'text/html'])
 }
 
 function refresh_search() {
-    console.log(JSON.parse(this.response))
+
+    div_auctions = document.querySelector("#auctions")
+
+    div_auctions.innerHTML = this.response;
+
+    count = (this.response.match(/id="auction-\d/g) || []).length
+
+    total_search = document.querySelector("#total-search")
+
+    total_search.innerHTML = count + " Auctions found"
+}
+
+reset_button = document.querySelector("#reset-button")
+
+reset_button.addEventListener('click', reset_search)
+
+function reset_search() {
+    div_auctions = document.querySelector("#advanced-form")
+
+    full_text.value = ""
+    sort_by.value = "0"
+    order_by.value = "0"
+    buy_now.checked = true
+    ended_auctions.checked = false
+    colour.value = -1
+    brand.value = -1
+    scale.value = -1
+    seller.value = -1
+    min_bid.value = ""
+    max_bid.value = ""
+    min_buy_now.value = ""
+    max_buy_now.value = ""
+
+    data = {
+        'full-text' : full_text.value,
+        'sort-by' : sort_by.value,
+        'order-by' : order_by.value,
+        'buy-now' : buy_now.checked,
+        'ended-auctions' : ended_auctions.checked,
+        'colour' : colour.value,
+        'brand' : brand.value,
+        'scale' : scale.value,
+        'seller' : seller.value,
+        'min-bid' : min_bid.value,
+        'max-bid' : max_bid.value,
+        'min-buy-now' : min_buy_now.value,
+        'max-buy-now' : max_buy_now.value,
+    }
+
+    sendAjaxRequest('GET','/api/auctions/search', data, refresh_search, ['Accept', 'text/html'])
 }

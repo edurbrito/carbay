@@ -11,7 +11,7 @@
         <div class="collapse navbar-collapse" id="navbarToggler">
             <ul class="navbar-nav d-flex justify-content-end align-items-center w-100">
                 <li class="nav-item mr-0 mr-lg-4 navbar-brand scale-objects">
-                    <a href="/search" class="text-decoration-none text-reset"><i class="fas fa-search"></i><span class="d-lg-none .d-xl-block"> Search</span></a>
+                    <a href="/auctions/search" class="text-decoration-none text-reset"><i class="fas fa-search"></i><span class="d-lg-none .d-xl-block"> Search</span></a>
                 </li>
                 @if(Auth::check())
                 <li class="nav-item navbar-brand mr-0 mr-lg-4 scale-objects"><a href="/auctions/create" class="text-decoration-none text-reset"><i class="fas fa-plus"></i><span class="d-lg-none .d-xl-block"> Create Auction</span></li>
