@@ -100,7 +100,7 @@ paths:
               examples:
                 302Success:
                   description: 'Successful authentication. Redirect to search page.'
-                  value: '/search'
+                  value: '/auctions/search'
                 302Failure:
                   description: 'Failed authentication. Redirect to login form.'
                   value: '/login'
@@ -173,7 +173,7 @@ paths:
               examples:
                 302Success:
                   description: 'Successful authentication. Redirect to search page.'
-                  value: '/search'
+                  value: '/auctions/search'
                 302Failure:
                   description: 'Failed authentication. Redirect to signup form.'
                   value: '/signup'

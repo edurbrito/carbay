@@ -36,8 +36,13 @@ Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('sign
 Route::post('signup', 'Auth\RegisterController@register');
 
 // Search
-Route::get('search', 'AuctionController@index');
+Route::get('/auctions/search', 'AuctionController@index');
 Route::get('api/auctions/search', 'AuctionController@search');
+
+Route::get('api/colours', 'ColourController@index');
+Route::get('api/brands', 'BrandController@index');
+Route::get('api/scales', 'AuctionController@scales');
+Route::get('api/sellers', 'UserController@sellers');
 
 // Auction
 Route::get('auctions/create', 'AuctionController@create_page');

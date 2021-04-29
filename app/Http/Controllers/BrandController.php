@@ -14,7 +14,7 @@ class BrandController extends Controller
      */
     public function index()
     {
-        //
+        return Brand::orderBy('name')->get()->toJson();
     }
 
     /**
