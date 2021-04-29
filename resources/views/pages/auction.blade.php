@@ -50,7 +50,7 @@
     <p class="fs-2">
       <span title="Time Remaining" id="time-remaining" data-time="{{$auction->finaldate}}"><i class="far fa-clock"></i> <span id="time-remaining-value">{{$auction->time_remaining()}}</span></span>
     </p>
-    <p class="fs-4">
+    <p class="fs-4" id="last-bid-value">
       <i class="far fa-money-bill-alt"></i>
       Last Bid: {{ $auction->highest_bid_value() }}
     </p>
@@ -74,10 +74,17 @@
       $seller_name=$auction->seller_name()
       @endphp
       <strong>Seller:</strong><a href="{{ $seller_name }}/profile.php" class="ml-2">{{ $seller_name }}</a>
-    </p>
+    </p>    
+    @if(!is_null($auction->buynow))
     <button class="btn btn-dark text-light text-center btn" data-bs-toggle="modal" data-bs-target="#buy-now" role="button">Buy Now</button>
+    @endif
     <button class="btn btn-success text-light text-center btn" data-bs-toggle="modal" data-bs-target="#place-bid" role="button">Place Bid</button>
 
+    @if ($errors->has('value'))
+    <div class="input-group mt-3 text-danger">
+      {{ $errors->first('value') }}
+    </div>
+    @endif
   </div>
 
   <p class="text-center text-primary mt-4">
@@ -155,12 +162,16 @@
       </div>
         <form method="POST" action="/auctions/{{$auction->id}}/bids" class="modal-body text-primary">
           {{ csrf_field() }}
-          <input type="number" hidden name="id" value={{$auction->id}}>
+          <input type="number" hidden name="id" id="bid-form-auction-id" value={{$auction->id}}>
           <label class="form-check-label mt-2 text-primary" for="flexCheckChecked">
               Bid Value:
           </label>
-            <input type="number" min="10" max="10000" placeholder="100" name="value">
-            <div class="d-flex justify-content-end">
+            <?php 
+              $highest_bid = $auction->highest_bid();
+              $value = !is_null($highest_bid) ? $highest_bid->value + 0.01 : $auction->startingprice;
+            ?>
+            <input type="number" min="{{ $value }}" placeholder="100" name="value" id="bid-form-value" required value="{{ $value }}">
+            <div class="d-flex justify-content-end mt-3">
               <button type="button" class="btn btn-primary mr-2" data-bs-dismiss="modal" aria-label="Dismiss">Dismiss</button>
               <button type="submit" class="btn btn-success">Place Bid</button>
             </div>

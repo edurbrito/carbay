@@ -1,5 +1,9 @@
 @extends('layouts.content')
 
+@push('scripts')
+<script src="{{ asset('js/search.js') }}" defer></script>
+@endpush
+
 @section('div_content')
 
 <form id="full-text-form" class="row align-items-end">

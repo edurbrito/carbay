@@ -28,6 +28,12 @@ class AuctionController extends Controller
         return view('pages.search', ['total' => sizeof($auctions), 'auctions' => $auctions]);
     }
 
+    public function create_page()
+    {
+        // $this->authorize('create');
+        return view('pages.create');
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -35,6 +41,20 @@ class AuctionController extends Controller
      */
     public function create(Request $request)
     {
+        // $this->authorize('create');
+
+        $validated = Validator::validate($request->all(), [
+            'title' => 'required|string|max:255',
+            'description' => 'required|string|max:1023',
+            'startingPrice' => 'required|numeric|min:1',
+            'startDate' => 'required|date',
+            'duration' => 'required|numeric|min:1|max:7',
+            'buyNow' => 'nullable|numeric|min:0',
+            'scaleType' => 'string',
+            'brandID' => 'required|numeric|min:0',
+            'colourID' => 'required|numeric|min:0' 
+        ]);
+
         $auction = new Auction();
         $auction->title = $request->input('title');
         $auction->description = $request->input('description');
@@ -50,28 +70,8 @@ class AuctionController extends Controller
         $auction->colourid = $request->input('colourID');
         $auction->sellerid = Auth::user()->id;
         $auction->save();
-        return redirect()->to('auctions/'.$auction->id);
-    }
 
-     /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'title' => 'required|string|max:255',
-            'description' => 'required|string|max:1023',
-            'startingPrice' => 'required|number|min:1|max:100000',
-            'startDate' => 'required|date',
-            'duration' => 'required|int|min:1|max:7',
-            'buyNow' => 'required|number|min:0|max:1000000',
-            'scaleType' => 'string',
-            'brandID' => 'required|int|min:0',
-            'coulourID' => 'required|int|min:0' 
-        ]);
+        return redirect()->to('auctions/'.$auction->id);
     }
 
     /**
@@ -283,10 +283,5 @@ class AuctionController extends Controller
         }
 
         return json_encode(["auctions" => $auctions, "count" => count($auctions), "errors" => []]);
-    }
-
-    public function create_page()
-    {
-        return view('pages.create');
     }
 }

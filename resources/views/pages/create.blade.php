@@ -1,7 +1,10 @@
 @extends('layouts.content')
 
-@section('div_content')
+@push('scripts')
+<script src="{{ asset('js/create.js') }}" defer></script>
+@endpush
 
+@section('div_content')
 
 <h1 class="text-center">New Auction</h1>
 
@@ -140,6 +143,12 @@
             <div class="btn-group ml-auto mt-auto" role="group" aria-label="Create Auction Buttons">
                 <a role="button" class="btn btn-dark mr-1" href="/search">Discard</a>
                 <button type="submit" class="btn btn-success">Publish</button>
+                @if ($errors->any())
+                <br>
+                <div class="input-group mt-3 text-danger">
+                {{ $errors->first() }}
+                </div>
+                @endif
             </div>
         </form>
     </div>
