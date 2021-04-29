@@ -38,6 +38,7 @@
     <script src="{{ asset('js/all.min.js') }}" defer></script>
     <script src="{{ asset('js/search.js') }}" defer></script>
     <script src="{{ asset('js/create.js') }}" defer></script>
+    <script src="{{ asset('js/profile.js') }}" defer></script>
     <title>CarBay</title>
 
     <!-- CSRF Token -->

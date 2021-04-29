@@ -44,12 +44,16 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\User  $user
+     * @param  String  $username
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show($username)
     {
-        //
+        $user = User::where("username", "=", $username)->first();
+
+        $view = !is_null($user) ? view('pages.profile', ['user' => $user]) : view('errors.404');
+
+        return $view;
     }
 
     /**
@@ -96,5 +100,34 @@ class UserController extends Controller
                     'all' => User::whereIn('id', Auction::all(['sellerid']))->whereNotIn('id', $favourites->get('id'))->get()];
                     
         return json_encode($sellers);
+    }
+
+    public function bids($username)
+    {
+        $result = "";
+
+        $user = User::where("username", "=", $username)->first();
+
+        $bids = $user->bids;
+        foreach($bids as $bid) {
+            $result .= view("partials.profile.bid", ["bid" => $bid])->render() . "\n";
+        }
+
+        return $result;
+    }
+
+    public function auctions($username)
+    {
+        $result = "";
+
+        $user = User::where("username", "=", $username)->first();
+
+        $auctions = $user->auctions;
+
+        foreach($auctions as $auction) {
+            $result .= view("partials.profile.auction", ["auction" => $auction])->render() . "\n";
+        }
+
+        return $result;
     }
 }

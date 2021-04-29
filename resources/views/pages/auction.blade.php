@@ -2,7 +2,6 @@
 
 @section('div_content')
 
-
 <h1 class="fs-2 text-primary text-center">
   <i class="far fa-star"></i>
   {{ $auction->title }}
@@ -168,6 +167,5 @@
     </div>
   </div>
 </div>
-
 
 @endsection

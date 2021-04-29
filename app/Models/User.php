@@ -67,4 +67,16 @@ class User extends Authenticatable
         else 
             return 0;
     }
+
+    public function num_ratings()
+    {
+        $count = 0;
+        foreach ($this->auctions as $auction) { 
+            $rating = $auction->rating();
+            if($rating > 0) {
+                $count += 1;
+            }
+        }
+        return $count;
+    }
 }

@@ -1,9 +1,9 @@
-<?php
-include_once(__DIR__ . "/templates/header-logged-in.php");
-breadcrum();
-?>
+@extends('layouts.content')
+
+@section('div_content')
 
 <!-- Section: Nav tabs -->
+<input type="text" hidden id="username" name="username" value={{ $user->username }}>
 <div class="d-flex align-items-start flex-vertical mt-sm-5" id="#colNav">
   <div class="nav flex-column nav-pills me-3 border-right p-3 flex-horizontal-profile d-sm-flex" id="v-pills-tab" role="tablist" aria-orientation="vertical">
     <button class="nav-link active text-primary btn-profile" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="true">Profile</button>
@@ -16,29 +16,27 @@ breadcrum();
   </div>
   <div class="tab-content w-100" id="v-pills-tabContent">
     <div class="tab-pane fade show active" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-      <?php include_once(__DIR__ . "/profile/profile-info.php"); ?>
+      @include('pages.profile.profile-info')
     </div>
     <div class="tab-pane fade" id="v-pills-bid-history" role="tabpanel" aria-labelledby="v-pills-bid-history-tab">
-      <?php include_once(__DIR__ . "/profile/bid-history.php"); ?>
+      @include('pages.profile.bid-history')
     </div>
     <div class="tab-pane fade" id="v-pills-created-auctions" role="tabpanel" aria-labelledby="v-pills-created-auctions-tab">
-      <?php include_once(__DIR__ . "/profile/created-auctions.php"); ?>
+      @include('pages.profile.created-auctions')
     </div>
     <div class="tab-pane fade" id="v-pills-favourite-auctions" role="tabpanel" aria-labelledby="v-pills-favourite-auctions-tab">
-      <?php include_once(__DIR__ . "/profile/favourite-auctions.php"); ?>
+      @include('pages.profile.profile-info')
     </div>
     <div class="tab-pane fade" id="v-pills-favourite-sellers" role="tabpanel" aria-labelledby="v-pills-favourite-sellers-tab">
-      <?php include_once(__DIR__ . "/profile/favourite-sellers.php"); ?>
+      @include('pages.profile.profile-info')
     </div>
     <div class="tab-pane fade" id="v-pills-users-ratings" role="tabpanel" aria-labelledby="v-pills-users-ratings-tab">
-      <?php include_once(__DIR__ . "/profile/users-ratings.php"); ?>
+      @include('pages.profile.profile-info')
     </div>
     <div class="tab-pane fade" id="v-pills-users-rated" role="tabpanel" aria-labelledby="v-pills-users-rated-tab">
-      <?php include_once(__DIR__ . "/profile/users-rated.php"); ?>
+      @include('pages.profile.profile-info')
     </div>
   </div>
 </div>
 
-<?php
-include_once(__DIR__ . "/templates/footer-logged-in.php");
-?>
+@endsection
