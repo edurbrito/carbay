@@ -19,7 +19,7 @@ class Bid extends Model
      * @var array
      */
     protected $fillable = [
-        'value', 'dateHour', 'authorID', 'auctionID'
+        'value', 'datehour', 'authorid', 'auctionid'
     ];
 
     public function bidAuction()

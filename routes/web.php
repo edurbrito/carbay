@@ -48,3 +48,4 @@ Route::get('api/sellers', 'UserController@sellers');
 Route::get('auctions/create', 'AuctionController@create_page');
 Route::post('auctions/create', 'AuctionController@create');
 Route::get('auctions/{id}', 'AuctionController@show');
+Route::post('auctions/{id}/bids', 'BidController@create');

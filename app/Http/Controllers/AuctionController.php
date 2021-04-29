@@ -6,6 +6,7 @@ use App\Models\Auction;
 use App\Models\Colour;
 use App\Models\Brand;
 use App\Models\User;
+use App\Models\Bid;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
@@ -284,7 +285,8 @@ class AuctionController extends Controller
         return json_encode(["auctions" => $auctions, "count" => count($auctions), "errors" => []]);
     }
 
-    public function create_page() {
+    public function create_page()
+    {
         return view('pages.create');
     }
 }
