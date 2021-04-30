@@ -54,3 +54,5 @@ Route::post('auctions/{id}/bids', 'BidController@create');
 Route::get('users/{username}', 'UserController@show');
 Route::get('api/users/{username}/bids', 'UserController@bids');
 Route::get('api/users/{username}/auctions', 'UserController@auctions');
+Route::get('api/users/{username}/fav_auctions', 'UserController@fav_auctions');
+Route::get('api/users/{username}/fav_sellers', 'UserController@sellers');

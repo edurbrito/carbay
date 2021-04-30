@@ -3,7 +3,7 @@
 <!-- Section: Info -->
 <section class="row text-center">
     <div class="col-0 col-sm-6 align-self-center text-sm-right">
-      <img src="https://www.droege-group.com/fileadmin/_processed_/4/0/csm_joerg.kieborz_67255b87b6.jpg" class="rounded z-depth-1-half img-fluid" alt="Sample avatar" style="min-height:200px;height:200px;min-width:200px;width:200">
+      <img src="{{ $user->image }}" class="rounded z-depth-1-half img-fluid" alt="Sample avatar" style="min-height:200px;height:200px;min-width:200px;width:200">
     </div>
     <div class="col-0 col-sm-6 text-sm-left">
       <h3 class="font-weight-bold dark-grey-text my-4 text-primary">{{ $user->name }}</h3>

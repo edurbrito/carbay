@@ -25,10 +25,10 @@
       @include('pages.profile.created-auctions')
     </div>
     <div class="tab-pane fade" id="v-pills-favourite-auctions" role="tabpanel" aria-labelledby="v-pills-favourite-auctions-tab">
-      @include('pages.profile.profile-info')
+      @include('pages.profile.favourite-auctions')
     </div>
     <div class="tab-pane fade" id="v-pills-favourite-sellers" role="tabpanel" aria-labelledby="v-pills-favourite-sellers-tab">
-      @include('pages.profile.profile-info')
+      @include('pages.profile.favourite-sellers')
     </div>
     <div class="tab-pane fade" id="v-pills-users-ratings" role="tabpanel" aria-labelledby="v-pills-users-ratings-tab">
       @include('pages.profile.profile-info')

@@ -43,7 +43,7 @@ class User extends Authenticatable
 
     public function favouriteAuctions()
     {
-        return $this->belongsToMany('App\Models\FavouriteAuction', 'userid');
+        return $this->hasMany('App\Models\FavouriteAuction', 'userid');
     }
     
     public function comments()

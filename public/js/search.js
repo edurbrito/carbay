@@ -117,7 +117,7 @@ function getScales() {
 }
 
 function getSellers() {
-    sendAjaxRequest('GET','/api/sellers', {}, setSellers)
+    sendAjaxRequest('GET','/api/sellers', {}, setSellers, [{name: 'Accept', value: 'application/json'}])
 }
 
 function getAllSelectData() {
@@ -172,7 +172,7 @@ function search(e) {
         'max-buy-now' : max_buy_now.value,
     }
 
-    sendAjaxRequest('GET','/api/auctions/search', data, refresh_search, ['Accept', 'text/html'])
+    sendAjaxRequest('GET','/api/auctions/search', data, refresh_search, [{name: 'Accept', value: 'text/html'}])
 }
 
 function refresh_search() {
@@ -225,5 +225,5 @@ function reset_search() {
         'max-buy-now' : max_buy_now.value,
     }
 
-    sendAjaxRequest('GET','/api/auctions/search', data, refresh_search, ['Accept', 'text/html'])
+    sendAjaxRequest('GET','/api/auctions/search', data, refresh_search, [{name: 'Accept', value: 'text/html'}])
 }

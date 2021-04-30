@@ -11,7 +11,7 @@ class FavouriteAuction extends Model
 
     // Don't add create and update timestamps in database.
     public $timestamps  = false;
-    protected $table = 'FavouriteAuction';
+    protected $table = 'favouriteauction';
 
     /**
      * The attributes that are mass assignable.
@@ -19,11 +19,16 @@ class FavouriteAuction extends Model
      * @var array
      */
     protected $fillable = [
-        'user1ID', 'user2ID'
+        'userid', 'auctionid'
     ];
 
     public function owner()
     {
-        return $this->belongsToMany('App\Models\User', 'userID');
+        return $this->belongsToMany('App\Models\User', 'userid');
+    }
+
+    public function auction()
+    {
+        return $this->belongsTo('App\Models\Auction', 'auctionid');
     }
 }

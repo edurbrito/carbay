@@ -90,44 +90,79 @@ class UserController extends Controller
         //
     }
 
-    public function sellers() 
+    public function fav_auctions(Request $request, $username)
+    {
+        $user = User::where("username", "=", $username)->first();
+        $fav_auctions = $user->favouriteAuctions;
+
+        if($request->acceptsHtml()) {
+            $result = "";
+
+            foreach($fav_auctions as $fav_auction) {
+                $result .= view("partials.profile.fav-auction", ["auction" => $fav_auction->auction])->render() . "\n";
+            }
+
+            return $result;
+        }
+
+        return json_encode($fav_auctions);
+    }
+
+    public function sellers(Request $request)
     {
         $id = Auth::check() ? Auth::user()->id : -1;
-        
-        $favourites = User::whereIn('id', FavouriteSeller::where('user1id','=',$id)->get('user2id'));
 
-        $sellers = ['favourites' => $favourites->get(),
-                    'all' => User::whereIn('id', Auction::all(['sellerid']))->whereNotIn('id', $favourites->get('id'))->get()];
-                    
+        $fav_sellers = User::whereIn('id', FavouriteSeller::where('user1id','=',$id)->get('user2id'));
+
+        if($request->acceptsHtml()) {
+            $result = "";
+
+            foreach($fav_sellers->get() as $fav_seller) {
+                $result .= view("partials.profile.fav-seller", ["seller" => $fav_seller])->render() . "\n";
+            }
+
+            return $result;
+        }
+
+        $sellers = ['favourites' => $fav_sellers->get(),
+                    'all' => User::whereIn('id', Auction::all(['sellerid']))->whereNotIn('id', $fav_sellers->get('id'))->get()];
+
         return json_encode($sellers);
     }
 
-    public function bids($username)
+    public function bids(Request $request, $username)
     {
-        $result = "";
-
         $user = User::where("username", "=", $username)->first();
-
         $bids = $user->bids;
-        foreach($bids as $bid) {
-            $result .= view("partials.profile.bid", ["bid" => $bid])->render() . "\n";
+
+        if($request->acceptsHtml()) {
+            $result = "";
+
+            foreach($bids as $bid) {
+                $result .= view("partials.profile.bid", ["bid" => $bid])->render() . "\n";
+            }
+
+            return $result;
         }
 
-        return $result;
+        return json_encode($bids);
     }
 
-    public function auctions($username)
+    public function auctions(Request $request, $username)
     {
-        $result = "";
-
         $user = User::where("username", "=", $username)->first();
-
         $auctions = $user->auctions;
 
-        foreach($auctions as $auction) {
-            $result .= view("partials.profile.auction", ["auction" => $auction])->render() . "\n";
+        if($request->acceptsHtml()) {
+            $result = "";
+
+            foreach($auctions as $auction) {
+                $result .= view("partials.profile.auction", ["auction" => $auction])->render() . "\n";
+            }
+
+            return $result;
         }
 
-        return $result;
+        return json_encode($auctions);
     }
 }
