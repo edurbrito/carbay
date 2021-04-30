@@ -8,28 +8,14 @@
 
 <h1 class="text-center">New Auction</h1>
 
-<div class="row mt-5">
+<form class="row mt-5" method="POST" action="/auctions/create" enctype="multipart/form-data">
+    {{ csrf_field() }}
     <div class="col-12 col-sm-6">
         <div id="carouselIndicators" class="carousel slide carousel-fade" data-bs-ride="carousel">
             <div class="carousel-indicators" id="carousel-indicators">
-                {{-- <button type="button" data-bs-target="#carouselIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#carouselIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#carouselIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                <button type="button" data-bs-target="#carouselIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button> --}}
             </div>
             <div class="carousel-inner" id="carousel-inner">
-                {{-- <div class="carousel-item active">
-                    <img src="https://mrcollection.com/wp-content/uploads/2017/09/ferrari-812-superfast-rosso-scuderia_01.jpg" class="d-block w-100" alt="...">
-                </div>
-                <div class="carousel-item">
-                    <img src="https://mrcollection.com/wp-content/uploads/2017/09/ferrari-812-superfast-rosso-scuderia_07.jpg" class="d-block w-100" alt="...">
-                </div>
-                <div class="carousel-item">
-                    <img src="https://mrcollection.com/wp-content/uploads/2017/09/ferrari-812-superfast-rosso-scuderia_02.jpg" class="d-block w-100" alt="...">
-                </div>
-                <div class="carousel-item">
-                    <img src="https://mrcollection.com/wp-content/uploads/2017/09/ferrari-812-superfast-rosso-scuderia_05.jpg" class="d-block w-100" alt="...">
-                </div> --}}
+            <div class="carousel-item active"><img src="/images/default.png" class="d-block w-100"></div>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselIndicators" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -42,7 +28,7 @@
         </div>
         <div class="input-group mb-3 mt-3">
             <div class="custom-file">
-                <input type="file" class="custom-file-input" id="images" name="images[]" onchange="preview_images(this);" value="Upload Image" style="cursor: pointer;">
+                <input type="file" accept="image/*" class="custom-file-input" id="auction-images" name="images[]" value="Upload Image" style="cursor: pointer;" multiple required>
                 <label class="custom-file-label" for="images" style="cursor: pointer;">Upload Image</label>
             </div>
         </div>
@@ -56,8 +42,7 @@
                 <button class="nav-link btn-auction" id="pills-description-tab" data-bs-toggle="pill" data-bs-target="#pills-description" type="button" role="tab" aria-controls="pills-description" aria-selected="false">Description</button>
             </li>
         </ul>
-        <form class="tab-content text-primary d-flex flex-column" id="pills-tabContent" method="POST" action="create">
-            {{ csrf_field() }}
+        <div class="tab-content text-primary d-flex flex-column" id="pills-tabContent">
             <div class="tab-pane show active" id="pills-general-info" role="tabpanel" aria-labelledby="pills-general-info-tab">
 
                 <div class="input-group mb-3">
@@ -72,22 +57,12 @@
                             <div class="input-group-prepend rounded-0">
                                 <span class="input-group-text rounded-0" id="start-bid">Starting Bid</span>
                             </div>
-                            <input type="number" name="startingPrice" min="1" max="100000" class="form-control" aria-label="Small" aria-describedby="start-bid" value="1" required>
+                            <input type="number" name="starting-price" min="1" max="100000" class="form-control" aria-label="Small" aria-describedby="start-bid" value="1" required>
                             <div class="input-group-append rounded-0">
                                 <span class="input-group-text rounded-0">€</span>
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 col-sm-6">
-                        <div class="input-group input-group-sm mb-3">
-                            <div class="input-group-prepend rounded-0">
-                                <span class="input-group-text rounded-0" id="start-date">Starting Date</span>
-                            </div>
-                            <input type="date" name="startDate" class="form-control rounded-0" aria-label="Small" aria-describedby="start-date" width="fit-content" value="09/03/2021" required>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
                     <div class="col-12 col-sm-6">
                         <div class="input-group input-group-sm mb-3">
                             <div class="input-group-prepend">
@@ -99,6 +74,27 @@
                             </div>
                         </div>
                     </div>
+                    <!-- <div class="col-12 col-sm-6">
+                        <div class="input-group input-group-sm mb-3">
+                            <div class="input-group-prepend rounded-0">
+                                <span class="input-group-text rounded-0" id="start-date">Starting Date</span>
+                            </div>
+                            <input type="datetime-local" step="1" name="startDate" class="form-control rounded-0" aria-label="Small" aria-describedby="start-date" width="fit-content" min="<?php echo strftime('%Y-%m-%dT%H:%M:%S', strtotime(now())); ?>" value="<?php echo strftime('%Y-%m-%dT%H:%M:%S', strtotime(now()));  ?>" required>
+                        </div>
+                    </div> -->
+                </div>
+                <div class="row">
+                    <!-- <div class="col-12 col-sm-6">
+                        <div class="input-group input-group-sm mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text rounded-0" id="duration">Duration</span>
+                            </div>
+                            <input type="number" name="duration" min="1" max="15" class="form-control" aria-label="Small" aria-describedby="duration" value="1" required>
+                            <div class="input-group-prepend">
+                                <span class="input-group-text rounded-0" id="inputGroup-sizing-sm">Days</span>
+                            </div>
+                        </div>
+                    </div> -->
                     <div class="col-12 col-sm-6 row flex-row mb-3 pr-0">
                         <div class="col-6">
                         <input type="checkbox" id="buy-now" onchange="document.getElementById('buy-now-input-group').hidden = !this.checked;">
@@ -107,7 +103,7 @@
                         </label>
                         </div>
                         <div class="input-group input-group-sm col-6 p-0" id="buy-now-input-group" hidden>
-                            <input type="number" name="buyNow" min="1" max="1000000" class="form-control rounded-0" aria-label="Small" aria-describedby="buy-now" id="buy-now-value">
+                            <input type="number" name="buy-now" min="1" max="1000000" class="form-control rounded-0" aria-label="Small" aria-describedby="buy-now" id="buy-now-value">
                             <div class="input-group-append">
                                 <span class="input-group-text rounded-0" id="inputGroup-sizing-sm">€</span>
                             </div>
@@ -117,42 +113,48 @@
             </div>
             <div class="tab-pane" id="pills-description" role="tabpanel" aria-labelledby="pills-description-tab">
 
-                <select class="form-select rounded-0" name="colourID" aria-label="color" required>
-                    <option selected>Color</option>
-                    <option value="1">Yellow</option>
-                    <option value="2">Red</option>
-                    <option value="3">Green</option>
-                </select>
-                <select class="form-select mt-2 rounded-0" name="brandID" aria-label="brand" required>
-                    <option selected>Brand</option>
-                    <option value="1">Ferrari</option>
-                    <option value="2">Lamborghini</option>
-                    <option value="3">Citroen</option>
-                </select>
-                <select class="form-select mt-2 rounded-0" name="scaleType" aria-label="scale" required>
-                    <option selected>Scale</option>
-                    <option value="1:18">1:18</option>
-                    <option value="1:64">1:64</option>
-                    <option value="1:125">1:125</option>
-                </select>
-
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text rounded-0" id="inputGroup-sizing-default">Colour</span>
+                    </div>
+                    <input type="text" name="colour" list="select-colour" class="form-select rounded-0" required>
+                    <datalist id="select-colour">
+                    </datalist>
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text rounded-0" id="inputGroup-sizing-default">Brand</span>
+                    </div>
+                    <input type="text" name="brand" list="select-brand" class="form-select rounded-0" required>
+                    <datalist id="select-brand">
+                    </datalist>
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text rounded-0" id="inputGroup-sizing-default">Scale</span>
+                    </div>
+                    <input type="text" name="scale" list="select-scale" class="form-select rounded-0" required>
+                    <datalist id="select-scale">
+                    </datalist>
+                </div>
+                
                 <div class="form-group mt-3">
                     <textarea class="form-control" name="description" id="description" rows="3" placeholder="Write here the product description..." required></textarea>
                 </div>
             </div>
             <div class="btn-group ml-auto mt-auto" role="group" aria-label="Create Auction Buttons">
-                <a role="button" class="btn btn-dark mr-1" href="/search">Discard</a>
+                <a role="button" class="btn btn-dark mr-1" href="/auctions/search">Discard</a>
                 <button type="submit" class="btn btn-success">Publish</button>
-                @if ($errors->any())
-                <br>
-                <div class="input-group mt-3 text-danger">
-                {{ $errors->first() }}
-                </div>
-                @endif
             </div>
+            @if ($errors->any())
+            <br>
+            <div class="input-group text-danger w-100" style="justify-content: flex-end">
+            {{ $errors->first() }}
+            </div>
+            @endif
         </form>
     </div>
-</div>
+</form>
 
 
 @endsection
