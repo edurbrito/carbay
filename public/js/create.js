@@ -1,42 +1,141 @@
-let carousel_indicators = document.getElementById("carousel-indicators");
-let carousel_inner = document.getElementById("carousel-inner");
+window.onload = function () {
 
+    if (window.File && window.FileList && window.FileReader) {
 
-function createImageIndicator(num) {
-    if(num == 0) {
-        carousel_indicators.insertAdjacentHTML('beforeend', "<button type=\"button\" data-bs-target=\"#carouselIndicators\" data-bs-slide-to=\"" + num + "\" class=\"active\" aria-current=\"true\" aria-label=\"Slide " + num + "></button>");
-    }
-    else {
-        carousel_indicators.insertAdjacentHTML('beforeend', "<button type=\"button\" data-bs-target=\"#carouselIndicators\" data-bs-slide-to=\"" + num + "\" aria-current=\"true\" aria-label=\"Slide " + num + "></button>");
-    }
-}
+        let filesInput = document.querySelector("#auction-images");
 
-function createImageInner(src, num) {
-    if(num == 0) {
-        carousel_inner.insertAdjacentHTML('beforeend', "<div class=\"carousel-item active\"> <img src=" + src + "class=\"d-block w-100\" alt=\"...\"></div>");
-    }
-    else {
-        carousel_inner.insertAdjacentHTML('beforeend', "<div class=\"carousel-item\"> <img src=" + src + "class=\"d-block w-100\" alt=\"...\"></div>");
-    }
-}
+        filesInput.addEventListener("change", function (event) {
 
-function preview_images(input) {
-    carousel_indicators.innerHTML = "";
-    carousel_inner.innerHTML = "";
-    if(input.files && input.files[0]) {
-        for(let i = 0; i < input.files.length; i++) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                if(i == 0) {
-                    createImageIndicator(i);
-                    createImageInner(e.target.result, i);
-                }
-                else {
-                    createImageIndicator(i);
-                    createImageInner(e.target.result, i);
-                }
+            let files = event.target.files;
+
+            let carousel = document.querySelector("#carousel-inner");
+            carousel.innerHTML = ""
+
+            let carousel_buttons = document.querySelector("#carousel-indicators");
+            carousel_buttons.innerHTML = ""
+
+            for (let i = 0; i < files.length; i++) {
+
+                let file = files[i];
+
+                if (!file.type.match('image'))
+                    continue;
+
+                let picReader = new FileReader();
+
+                picReader.addEventListener("load", function (event) {
+
+                    let picFile = event.target;
+
+                    let div = document.createElement("div");
+
+                    div.innerHTML = "<img class='thumbnail' src='" + picFile.result + "'" +
+                        "title='" + picFile.name + "'/>";
+
+                    carousel.innerHTML += `<div class="carousel-item ${i == 0 ? "active" : ""}"><img src="${picFile.result}" class="d-block w-100"></div>`
+
+                    carousel_buttons.innerHTML += `<button type="button" data-bs-target="#carouselIndicators" data-bs-slide-to="${i}" ${i == 0 ? "class=\"active\" aria-current=\"true\"" : ""} aria-label="Slide ${i+1}"></button>`
+                });
+
+                //Read the image
+                picReader.readAsDataURL(file);
             }
-            reader.readAsDataURL(input.files[i]);
-        }
+        });
+    } else {
+        console.log("Your browser does not support File API");
     }
 }
+
+
+function encodeForAjax(data) {
+    if (data == null) return null;
+    return Object.keys(data).map(function (k) {
+        return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
+    }).join('&');
+}
+
+function sendAjaxRequest(method, url, data, handler, headers = []) {
+    let request = new XMLHttpRequest();
+
+    if(method == "GET")
+        url = url + `?${encodeForAjax(data)}`
+
+    request.open(method, url, true);
+    request.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').content);
+    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    for (const header of headers) {
+        request.setRequestHeader(header.name, header.value);
+    }
+    request.addEventListener('load', handler);
+    if(method == "GET")
+        request.send()
+    else
+        request.send(encodeForAjax(data));
+}
+
+function setSelect(response, attribute = "name") {
+    let objects = JSON.parse(response)
+
+    let new_objects = []
+
+    for (const object of objects) {
+        let new_object = {'id': object.id, [attribute]: object[attribute]}
+        new_objects.push(new_object);
+    }
+
+    return new_objects
+}
+
+function setColours() {
+    let colours = setSelect(this.responseText)
+    
+    let select = document.querySelector("#select-colour")
+
+    for (const colour of colours) {
+        select.insertAdjacentHTML('beforeend', `<option>${colour.name}</option>`)
+    }
+}
+
+function setBrands() {
+    let brands = setSelect(this.responseText)
+    
+    let select = document.querySelector("#select-brand")
+
+    for (const brand of brands) {
+        select.insertAdjacentHTML('beforeend', `<option>${brand.name}</option>`)
+    }
+}
+
+function setScales() {
+    let scales = setSelect(this.responseText)
+    
+    let select = document.querySelector("#select-scale")
+
+    for (const scale of scales) {
+        select.insertAdjacentHTML('beforeend', `<option>${scale.name}</option>`)
+    }
+}
+
+function getColours() {
+    sendAjaxRequest('GET','/api/colours', {}, setColours)
+}
+
+function getBrands() {
+    sendAjaxRequest('GET','/api/brands', {}, setBrands)
+}
+
+function getScales() {
+    sendAjaxRequest('GET','/api/scales', {}, setScales)
+}
+
+function getSellers() {
+    sendAjaxRequest('GET','/api/sellers', {}, setSellers)
+}
+
+function getAllSelectData() {
+    getColours()
+    getBrands()
+    getScales()
+}
+
+getAllSelectData()

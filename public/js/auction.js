@@ -33,7 +33,12 @@ function update_bids() {
 
     div_bids.innerHTML = this.response;
 
-    last_bid_value.innerHTML = div_bids.querySelector("li > p:last-child").innerHTML
+    try {
+        last_bid_value.innerHTML = div_bids.querySelector("li > p:last-child").innerHTML
+    } catch (error) {
+        
+    }
+
 }
 
 function update_comments() {

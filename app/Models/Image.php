@@ -18,7 +18,7 @@ class Image extends Model
      * @var array
      */
     protected $fillable = [
-        'url', 'auctionID'
+        'url', 'auctionid'
     ];
 
     public function images()
