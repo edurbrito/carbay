@@ -153,7 +153,8 @@ class AuctionController extends Controller
     }
 
     public function get_scale($id) {
-        return AuctionController::$scales[$id]["name"];
+        if(!is_null($id) && $id >= 0 && $id <= 3)
+            return AuctionController::$scales[$id]["name"];
     }
 
     public function search(Request $request)
@@ -268,15 +269,16 @@ class AuctionController extends Controller
         $auctions = $auctions->sortBy(function ($a) use($sortBy) {
             switch (strcmp($sortBy,"1")) {
                 case -1:
-                    return $a["finaldate"];
+                    return $a->finaldate;
                 case 0:
-                    return $a->highest_bid();
+                    $highest_bid = $a->highest_bid();
+                    return !is_null($highest_bid) ? $highest_bid->value : 0;
                 case 1:
-                    return $a["buynow"];
+                    return $a->buynow;
                 default:
                     break;
             }
-            return $a["finaldate"];
+            return $a->finaldate;
         }, SORT_REGULAR, $order_ad);
 
         if($request->acceptsHtml()) {

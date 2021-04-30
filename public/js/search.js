@@ -139,7 +139,7 @@ advanced_form.addEventListener('submit', search)
 
 full_text = full_text_form.querySelector("#full-text")
 sort_by = advanced_form.querySelector("#sort-by")
-order_by = advanced_form.querySelector('input[name="order"]:checked')
+order_by = advanced_form.querySelector('input[name="order-by"]:checked')
 buy_now = advanced_form.querySelector("#buy-now")
 ended_auctions = advanced_form.querySelector("#ended-auctions")
 
@@ -159,7 +159,7 @@ function search(e) {
     data = {
         'full-text' : full_text.value,
         'sort-by' : sort_by.value,
-        'order-by' : order_by.value,
+        'order-by' : order_by.checked ? 1 : 0,
         'buy-now' : buy_now.checked,
         'ended-auctions' : ended_auctions.checked,
         'colour' : colour.value,

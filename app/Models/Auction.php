@@ -20,7 +20,7 @@ class Auction extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 'title', 'description', 'startingPrice', 'startDate', 'finalDate', 'suspend', 'buyNow', 'scaleType', 'brandID', 'colourID', 'sellerID', 'search'
+        'id', 'title', 'description', 'startingprice', 'startdate', 'finaldate', 'suspend', 'buynow', 'scaletype', 'brandid', 'colourid', 'sellerid', 'search'
     ];
 
     public function brand()
