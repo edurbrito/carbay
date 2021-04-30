@@ -1,9 +1,12 @@
 @extends('layouts.content')
 
+@push('scripts')
+<script src="{{ asset('js/auction.js') }}" defer></script>
+@endpush
+
 @section('div_content')
 
-
-<h1 class="fs-2 text-primary text-center">
+<h1 class="fs-2 text-primary text-center" data-id="{{$auction->id}}" id="auction-head">
   <i class="far fa-star"></i>
   {{ $auction->title }}
 </h1>
@@ -50,9 +53,9 @@
     <p class="fs-2">
       <span title="Time Remaining" id="time-remaining" data-time="{{$auction->finaldate}}"><i class="far fa-clock"></i> <span id="time-remaining-value">{{$auction->time_remaining()}}</span></span>
     </p>
-    <p class="fs-4" id="last-bid-value">
+    <p class="fs-4">
       <i class="far fa-money-bill-alt"></i>
-      Last Bid: {{ $auction->highest_bid_value() }}
+      Last Bid: <span id="last-bid-value">{{ $auction->highest_bid_value() }}</span>
     </p>
     @if(!is_null($auction->buynow))
     <p class="fs-4 mt-4">
@@ -102,32 +105,19 @@
 </ul>
 <div class="tab-content" id="pills-tabContent">
   <div class="tab-pane" id="pills-bid-history" role="tabpanel" aria-labelledby="pills-bid-history-tab">
-    <ol class="list-group rounded-0 hide-scroll" style="overflow-y: scroll; max-height: 40vh;">
-      @for ($i = count($auction->bids)-1; $i >= 0 ; $i--)
-        <li class="list-group-item d-flex align-items-center justify-content-start rounded-0 flex-vertical">
-          <p class="text-primary fs-6 mb-0">{{substr($auction->bids[$i]->datehour, 0, -6)}}</p>
-          <p class="text-primary fs-5 mb-0 ml-sm-auto">{{$auction->bids[$i]->value}}$</p>
-        </li>
-      @endfor
+    <ol id="bids-list" class="list-group rounded-0 hide-scroll" style="overflow-y: scroll; max-height: 40vh;">
     </ol>
   </div>
   <div class="tab-pane show active" id="pills-chat" role="tabpanel" aria-labelledby="pills-chat-tab">
-    <ol class="list-group rounded-0 hide-scroll" style="overflow-y: scroll; max-height: 40vh;">
-      @for ($i = count($auction->comments)-1; $i >= 0 ; $i--)
-      <li class="list-group-item d-flex align-items-center justify-content-start rounded-0 flex-column">
-        <div class="d-flex w-100 mb-1">
-          <p class="text-primary fs-5 mb-0 mr-auto float-left">{{$auction->comments[$i]->author->username}}</p>
-          <p class="text-primary fs-6 mb-0 text-right float-right">{{substr($auction->comments[$i]->datehour, 0, -6)}}</p>
-        </div>
-        <p class="w-100 text-primary mb-0">{{$auction->comments[$i]->text}}</p>
-      </li>
-      @endfor
+    <ol id="comments-list" class="list-group rounded-0 hide-scroll" style="overflow-y: scroll; max-height: 40vh;">
     </ol>
     <div class="d-flex bg-white align-content-center mt-1">
-      <form class="w-100" action="/auction.php">
-        <label for="send-question" class="form-label text-primary">Message:</label>
-        <textarea class="form-control" id="send-question" rows="1" required=""></textarea>
+      <form class="w-100" id="send-comment-form">
+        <label for="send-comment" class="form-label text-primary">Message:</label>
+        <textarea class="form-control" id="send-comment" name="comment" rows="1" minlength="1" maxlength="300" required></textarea>
         <button type="submit" class="btn btn-primary mt-3 float-right">Send</button>
+        <div class="input-group text-danger mt-2" style="justify-content:flex-end;" hidden id="comment-errors">
+        </div>
       </form>
     </div>
   </div>

@@ -37,6 +37,7 @@ Route::post('signup', 'Auth\RegisterController@register');
 
 // Search
 Route::get('auctions/search', 'AuctionController@index');
+
 Route::get('api/auctions/search', 'AuctionController@search');
 
 Route::get('api/colours', 'ColourController@index');
@@ -49,3 +50,7 @@ Route::get('auctions/create', 'AuctionController@create_page');
 Route::post('auctions/create', 'AuctionController@create');
 Route::get('auctions/{id}', 'AuctionController@show');
 Route::post('auctions/{id}/bids', 'BidController@create');
+
+Route::get('api/auctions/{id}/bids', 'AuctionController@bids');
+Route::get('api/auctions/{id}/comments', 'AuctionController@comments');
+Route::post('api/auctions/{id}/comments', 'CommentController@create');

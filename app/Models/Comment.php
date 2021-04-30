@@ -18,7 +18,7 @@ class Comment extends Model
      * @var array
      */
     protected $fillable = [
-        'text', 'dateHour', 'authorID', 'auctionID'
+        'text', 'datehour', 'authorid', 'auctionid'
     ];
 
     public function comments()

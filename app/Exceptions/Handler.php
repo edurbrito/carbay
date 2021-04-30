@@ -38,9 +38,6 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        $this->renderable(function (Exception $e, $request) {
-            if(is_a($e, "Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException") || is_a($e, "Illuminate\Auth\Access\AuthorizationException"))
-                return redirect("login");
-        });
+
     }
 }

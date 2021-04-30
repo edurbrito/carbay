@@ -30,7 +30,10 @@ class AuctionController extends Controller
 
     public function create_page()
     {
-        // $this->authorize('create');
+        if (!Auth::check()) 
+            return redirect('/login');
+        $this->authorize('create');
+        
         return view('pages.create');
     }
 
@@ -41,7 +44,9 @@ class AuctionController extends Controller
      */
     public function create(Request $request)
     {
-        // $this->authorize('create');
+        if (!Auth::check()) 
+            return redirect('/login');
+        $this->authorize('create');
 
         $validated = Validator::validate($request->all(), [
             'title' => 'required|string|max:255',
@@ -151,7 +156,8 @@ class AuctionController extends Controller
         return AuctionController::$scales[$id]["name"];
     }
 
-    public function search(Request $request) {
+    public function search(Request $request)
+    {
 
         $colourLastID = Colour::max("id");
         $brandLastID = Brand::max("id");
@@ -283,5 +289,49 @@ class AuctionController extends Controller
         }
 
         return json_encode(["auctions" => $auctions, "count" => count($auctions), "errors" => []]);
+    }
+
+    public function bids(Request $request, $id)
+    {
+        if(!is_numeric($id)){
+            return;
+        }
+
+        $auction = Auction::find($id);
+
+        $bids = !is_null($auction) ? $auction->bids : [];
+
+        if($request->acceptsHtml()) {
+            $result = "";
+            foreach ($bids as $bid) {
+                $result = view("partials.auction.bid", ["bid" => $bid])->render() . "\n" . $result;
+            }
+
+            return $result;
+        }
+
+        return json_encode($bids);
+    }
+
+    public function comments(Request $request, $id)
+    {
+        if(!is_numeric($id)){
+            return;
+        }
+
+        $auction = Auction::find($id);
+
+        $comments = !is_null($auction) ? $auction->comments : [];
+
+        if($request->acceptsHtml()) {
+            $result = "";
+            foreach ($comments as $comment) {
+                $result = view("partials.auction.comment", ["comment" => $comment])->render() . "\n" . $result;
+            }
+
+            return $result;
+        }
+
+        return json_encode($comments);
     }
 }

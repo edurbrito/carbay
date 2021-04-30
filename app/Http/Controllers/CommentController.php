@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Auction;
 use App\Models\Comment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Error;
+use Illuminate\Support\Facades\Auth;
 
-class ComentController extends Controller
+class CommentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,9 +26,28 @@ class ComentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
+    public function create(Request $request, $id)
+    {        
+        $validator = Validator::make($request->all(), [
+            'comment' => 'required|string|min:5|max:300',
+        ]);
+
+        try {
+
+            if(!Auth::check() || !is_numeric($id) || $validator->fails() || is_null(Auction::find($id)))
+                throw new Error();
+
+            $comment = new Comment();
+            $comment->datehour = now();
+            $comment->text = $request->input("comment");
+            $comment->authorid = Auth::user()->id;
+            $comment->auctionid = $id;
+            $comment->save();
+        } catch (\Throwable $th) {
+            return json_encode(["result" => $validator->errors()]);
+        }
+
+        return json_encode(["result" => "success"]);
     }
 
     /**

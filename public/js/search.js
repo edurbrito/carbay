@@ -172,7 +172,7 @@ function search(e) {
         'max-buy-now' : max_buy_now.value,
     }
 
-    sendAjaxRequest('GET','/api/auctions/search', data, refresh_search, ['Accept', 'text/html'])
+    sendAjaxRequest('GET','/api/auctions/search', data, refresh_search, [{name: 'Accept', value: 'text/html'}])
 }
 
 function refresh_search() {
@@ -225,5 +225,5 @@ function reset_search() {
         'max-buy-now' : max_buy_now.value,
     }
 
-    sendAjaxRequest('GET','/api/auctions/search', data, refresh_search, ['Accept', 'text/html'])
+    sendAjaxRequest('GET','/api/auctions/search', data, refresh_search, [{name: 'Accept', value: 'text/html'}])
 }

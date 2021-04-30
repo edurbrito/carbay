@@ -26,33 +26,26 @@ class BidController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create(Request $request, $id)
     {
-        $auctionLastId = Auction::max("id");
-        
-        Validator::validate($request->all(), [
-            'id' => 'required|numeric|between:1,' . $auctionLastId,
-        ]);
-
-        $auction = Auction::find($request->input('id'));
+        $auction = Auction::find($id);
         $auctionHighestBid = $auction->highest_bid();
         $auctionLastBid = !is_null($auctionHighestBid) ? $auctionHighestBid->value + 0.01 : 0.01;
 
         Validator::validate($request->all(), [
             'value' => 'required|numeric|min:' . $auctionLastBid,
         ]);
-
-        $this->authorize('create', [$auction]);
         
         try {
-            
-            if(!(Auth::check() && Auth::user()->id != $auction->sellerid && $auction->highest_bid()->authorid != Auth::user()->id && $auction->finaldate > now()))
+            $this->authorize('create', [$auction]);
+                        
+            if(is_null($auction) || !(Auth::check() && Auth::user()->id != $auction->sellerid && $auctionHighestBid->authorid != Auth::user()->id && $auction->finaldate > now()))
                 throw new Error();
 
             $bid = new Bid();
             $bid->datehour = now();
             $bid->value = $request->input('value');
-            $bid->auctionid = $request->input('id');
+            $bid->auctionid = $id;
             $bid->authorid = Auth::user()->id;
             $bid->save();
         } catch (\Throwable $th) {
