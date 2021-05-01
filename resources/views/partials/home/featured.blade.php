@@ -12,7 +12,7 @@
         @if(!is_null($auction->buynow))
         <div class="text-light">
             <i class="fas fa-wallet"></i>
-            Buy Now: {{ $auction->lat_bid() }}
+            Buy Now: {{ $auction->highest_bid_value() }}
         </div>
         @endif
     </a>

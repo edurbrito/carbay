@@ -62,10 +62,10 @@ class Auction extends Model
     {
         date_default_timezone_set("Europe/Lisbon");
 
-        $now = new DateTime();
-        $date = new DateTime($this->finaldate);
+        $now = date('Y-m-d H:i:s');
+        $date = date('Y-m-d H:i:s', strtotime($this->finaldate) - 60*60);
 
-        return $date->diff($now)->format("%ad %hh %im %ss");
+        return date_diff(new DateTime($now), new DateTime($date))->format("%ad %hh %im %ss");
     }
 
     public function highest_bid()

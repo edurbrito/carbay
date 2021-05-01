@@ -87,7 +87,10 @@ class AuctionController extends Controller
         $auction->startingprice = $request->input('starting-price');
 
         $duration = $request->input('duration');
-        $date = now();
+        
+        date_default_timezone_set("Europe/Lisbon");
+
+        $date = date('Y-m-d H:i:s');
 
         $auction->startdate = $date;
         $auction->finaldate = date('Y-m-d H:i:s', strtotime($date . ' + ' .  $duration . ' days'));
