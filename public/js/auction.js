@@ -77,7 +77,6 @@ comment_form = document.querySelector("#send-comment-form")
 
 comment_form.addEventListener('submit', comment)
 text = comment_form.querySelector("#send-comment")
-errors = comment_form.querySelector("#comment-errors")
 
 function comment(e){
     e.preventDefault()
@@ -88,8 +87,10 @@ function comment(e){
 function handle_comment(){
     text.value = ""
     result = JSON.parse(this.response).result
+    
+    errors = comment_form.querySelector("#comment-errors")
 
-    if(result.length == 0){
+    if(result == "error"){
         window.location.replace("/login");
     }
     else if(result != "success")

@@ -8,6 +8,7 @@ use App\Models\Colour;
 use App\Models\Brand;
 use App\Models\User;
 use App\Models\Bid;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
@@ -349,14 +350,12 @@ class AuctionController extends Controller
             return;
         }
 
-        $auction = Auction::find($id);
-
-        $bids = !is_null($auction) ? $auction->bids : [];
+        $bids = Bid::where("auctionid", "=", $id)->orderBy("value", "desc")->get();
 
         if ($request->acceptsHtml()) {
             $result = "";
             foreach ($bids as $bid) {
-                $result = view("partials.auction.bid", ["bid" => $bid])->render() . "\n" . $result;
+                $result .= view("partials.auction.bid", ["bid" => $bid])->render() . "\n";
             }
 
             return $result;
@@ -371,9 +370,7 @@ class AuctionController extends Controller
             return;
         }
 
-        $auction = Auction::find($id);
-
-        $comments = !is_null($auction) ? $auction->comments : [];
+        $comments = Comment::where("auctionid", "=", $id)->orderBy("datehour", "desc")->get();
 
         if ($request->acceptsHtml()) {
             $result = "";

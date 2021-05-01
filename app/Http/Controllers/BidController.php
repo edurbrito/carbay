@@ -30,7 +30,7 @@ class BidController extends Controller
     {
         $auction = Auction::find($id);
         $auctionHighestBid = $auction->highest_bid();
-        $auctionLastBid = !is_null($auctionHighestBid) ? $auctionHighestBid->value + 0.01 : 0.01;
+        $auctionLastBid = !is_null($auctionHighestBid) ? $auctionHighestBid->value + 0.01 : $auction->startingprice;
 
         Validator::validate($request->all(), [
             'value' => 'required|numeric|min:' . $auctionLastBid,
@@ -43,7 +43,7 @@ class BidController extends Controller
         
         try {
 
-            if(is_null($auction) || !(Auth::user()->id != $auction->sellerid && $auctionHighestBid->authorid != Auth::user()->id && $auction->finaldate > now()))
+            if(is_null($auction) || Auth::user()->id == $auction->sellerid || $auction->finaldate < now() || (!is_null($auctionHighestBid) && $auctionHighestBid->authorid == Auth::user()->id))
                 throw new Error();
 
             $bid = new Bid();

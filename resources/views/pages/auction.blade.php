@@ -105,17 +105,20 @@
 <div class="tab-content" id="pills-tabContent">
   <div class="tab-pane" id="pills-bid-history" role="tabpanel" aria-labelledby="pills-bid-history-tab">
     <ol id="bids-list" class="list-group rounded-0 hide-scroll" style="overflow-y: scroll; max-height: 40vh;">
+    @each('partials.auction.bid', $auction->bids->reverse() ,'bid')
     </ol>
   </div>
   <div class="tab-pane show active" id="pills-chat" role="tabpanel" aria-labelledby="pills-chat-tab">
     <ol id="comments-list" class="list-group rounded-0 hide-scroll" style="overflow-y: scroll; max-height: 40vh;">
-      @each('partials.auction.comment', $auction->comments ,'comment')
+      @each('partials.auction.comment', $auction->comments->reverse() ,'comment')
     </ol>
     <div class="d-flex bg-white align-content-center mt-1">
       <form class="w-100" id="send-comment-form">
         <label for="send-comment" class="form-label text-primary">Message:</label>
         <textarea class="form-control" id="send-comment" name="comment" rows="1" minlength="1" maxlength="300" required></textarea>
         <button type="submit" class="btn btn-primary mt-3 float-right">Send</button>
+        <div id="comment-errors" onclick="this.hidden = !this.hidden" class="alert alert-danger alert-dismissible fade show my-3 p-1 px-2 mr-2 float-left" role="alert" hidden>
+        </div>
       </form>
     </div>
   </div>

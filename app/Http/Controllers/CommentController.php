@@ -29,11 +29,11 @@ class CommentController extends Controller
     public function create(Request $request, $id)
     {        
         $validator = Validator::make($request->all(), [
-            'comment' => 'required|string|min:5|max:300',
+            'comment' => 'required|string|min:1|max:300',
         ]);
 
         if(!Auth::check())
-            return redirect('/login');
+            return json_encode(["result" => "error"]);
 
         $this->authorize('create', Comment::class);
 
