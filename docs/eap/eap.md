@@ -2617,8 +2617,8 @@ The prototype developed in this artefact includes the implementation of some use
 | [R201: Login Form](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/eap#a7-high-level-architecture-privileges-web-resources-specification) | [/login](http://lbaw2155.lbaw-prod.fe.up.pt/login) |
 | [R202: Login Action](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/eap#a7-high-level-architecture-privileges-web-resources-specification) | POST /login |
 | [R203: Logout Action](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/eap#a7-high-level-architecture-privileges-web-resources-specification) | POST /logout |
-| [R204: Signup Form](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/eap#a7-high-level-architecture-privileges-web-resources-specification) | [/register](http://lbaw2155.lbaw-prod.fe.up.pt/signup) |
-| [R205: Signup Action](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/eap#a7-high-level-architecture-privileges-web-resources-specification) | POST /register |
+| [R204: Signup Form](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/eap#a7-high-level-architecture-privileges-web-resources-specification) | [/signup](http://lbaw2155.lbaw-prod.fe.up.pt/signup) |
+| [R205: Signup Action](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/wikis/eap#a7-high-level-architecture-privileges-web-resources-specification) | POST /signup |
 
 **Module M03: Auctions**
 
