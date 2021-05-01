@@ -36,6 +36,7 @@
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/all.css') }}" rel="stylesheet">
     <script src="{{ asset('js/all.min.js') }}" defer></script>
+    <script src="{{ asset('js/common.js') }}" defer></script>
     @stack('scripts')
     <title>CarBay</title>
 

@@ -44,12 +44,16 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\User  $user
+     * @param  String  $username
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show($username)
     {
-        //
+        $user = User::where("username", "=", $username)->first();
+
+        $view = !is_null($user) ? view('pages.profile', ['user' => $user]) : view('errors.404');
+
+        return $view;
     }
 
     /**
@@ -86,15 +90,117 @@ class UserController extends Controller
         //
     }
 
-    public function sellers() 
+    public function fav_auctions(Request $request, $username)
+    {
+        $user = User::where("username", "=", $username)->first();
+        $fav_auctions = $user->favouriteAuctions;
+
+        if($request->acceptsHtml()) {
+            $result = "";
+
+            foreach($fav_auctions as $fav_auction) {
+                $result .= view("partials.profile.fav-auction", ["auction" => $fav_auction->auction])->render() . "\n";
+            }
+
+            return $result;
+        }
+
+        return json_encode($fav_auctions);
+    }
+
+    public function sellers(Request $request)
     {
         $id = Auth::check() ? Auth::user()->id : -1;
-        
-        $favourites = User::whereIn('id', FavouriteSeller::where('user1id','=',$id)->get('user2id'));
 
-        $sellers = ['favourites' => $favourites->get(),
-                    'all' => User::whereIn('id', Auction::all(['sellerid']))->whereNotIn('id', $favourites->get('id'))->get()];
-                    
+        $fav_sellers = User::whereIn('id', FavouriteSeller::where('user1id','=',$id)->get('user2id'));
+
+        if($request->acceptsHtml()) {
+            $result = "";
+
+            foreach($fav_sellers->get() as $fav_seller) {
+                $result .= view("partials.profile.fav-seller", ["seller" => $fav_seller])->render() . "\n";
+            }
+
+            return $result;
+        }
+
+        $sellers = ['favourites' => $fav_sellers->get(),
+                    'all' => User::whereIn('id', Auction::all(['sellerid']))->whereNotIn('id', $fav_sellers->get('id'))->get()];
+
         return json_encode($sellers);
+    }
+
+    public function bids(Request $request, $username)
+    {
+        $user = User::where("username", "=", $username)->first();
+        $bids = $user->bids;
+
+        if($request->acceptsHtml()) {
+            $result = "";
+
+            foreach($bids as $bid) {
+                $result .= view("partials.profile.bid", ["bid" => $bid])->render() . "\n";
+            }
+
+            return $result;
+        }
+
+        return json_encode($bids);
+    }
+
+    public function auctions(Request $request, $username)
+    {
+        $user = User::where("username", "=", $username)->first();
+        $auctions = $user->auctions;
+
+        if($request->acceptsHtml()) {
+            $result = "";
+
+            foreach($auctions as $auction) {
+                $result .= view("partials.profile.auction", ["auction" => $auction])->render() . "\n";
+            }
+
+            return $result;
+        }
+
+        return json_encode($auctions);
+    }
+
+    public function ratings(Request $request, $username)
+    {
+        $user = User::where("username", "=", $username)->first();
+        $ratings = $user->ratings();
+
+        if($request->acceptsHtml()) {
+            $result = "";
+
+            foreach($ratings as $rating) {
+                $user_rating = User::where('id','=',$rating->winnerid)->first();
+                $result .= view("partials.profile.rating", ["rating" => $rating, "user" => $user_rating])->render() . "\n";
+            }
+
+            return $result;
+        }
+
+        return json_encode($ratings);
+    }
+
+    public function rated(Request $request, $username)
+    {
+        $user = User::where("username", "=", $username)->first();
+        $rated = $user->rated;
+
+        if($request->acceptsHtml()) {
+            $result = "";
+
+            foreach($rated as $rate) {
+                $auction = Auction::where('id','=',$rate->auctionid)->first();
+                $result .= view("partials.profile.rated", ["rated" => $rate, "seller" => $auction->seller])->render() . "\n";
+            }
+
+            return $result;
+        }
+
+        return json_encode($rated);
     }
 }

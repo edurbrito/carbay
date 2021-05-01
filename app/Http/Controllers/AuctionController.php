@@ -158,6 +158,7 @@ class AuctionController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param  Integer  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)

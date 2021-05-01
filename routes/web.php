@@ -54,3 +54,12 @@ Route::get('api/auctions/featured', 'AuctionController@featured');
 Route::get('api/auctions/{id}/bids', 'AuctionController@bids');
 Route::get('api/auctions/{id}/comments', 'AuctionController@comments');
 Route::post('api/auctions/{id}/comments', 'CommentController@create');
+
+// Profile
+Route::get('users/{username}', 'UserController@show');
+Route::get('api/users/{username}/bids', 'UserController@bids');
+Route::get('api/users/{username}/auctions', 'UserController@auctions');
+Route::get('api/users/{username}/fav_auctions', 'UserController@fav_auctions');
+Route::get('api/users/{username}/fav_sellers', 'UserController@sellers');
+Route::get('api/users/{username}/ratings', 'UserController@ratings');
+Route::get('api/users/{username}/rated', 'UserController@rated');

@@ -76,7 +76,7 @@
       @php
       $seller_name=$auction->seller_name()
       @endphp
-      <strong>Seller:</strong><a href="{{ $seller_name }}/profile.php" class="ml-2">{{ $seller_name }}</a>
+      <strong>Seller:</strong><a href="/users/{{ $seller_name }}" class="ml-2">{{ $seller_name }}</a>
     </p>    
     @if(!is_null($auction->buynow))
     <button class="btn btn-dark text-light text-center btn" data-bs-toggle="modal" data-bs-target="#buy-now" role="button">Buy Now</button>
@@ -170,6 +170,5 @@
     </div>
   </div>
 </div>
-
 
 @endsection

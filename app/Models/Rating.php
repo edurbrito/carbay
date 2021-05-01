@@ -18,7 +18,7 @@ class Rating extends Model
      * @var array
      */
     protected $fillable = [
-        'auctionID', 'winnerID', 'value', 'dateHour', 'comment'
+        'auctionid', 'winnerid', 'value', 'datehour', 'comment'
     ];
 
     public function seller()

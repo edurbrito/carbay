@@ -43,22 +43,39 @@ class User extends Authenticatable
 
     public function favouriteAuctions()
     {
-        return $this->belongsToMany('App\Models\FavouriteAuction', 'userid');
+        return $this->hasMany('App\Models\FavouriteAuction', 'userid');
     }
     
     public function comments()
     {
-        return $this->hasMany('App\Models\Comment', 'authorID');
+        return $this->hasMany('App\Models\Comment', 'authorid');
     }
 
-    public function rating()
+    public function ratings()
+    {
+        $ratings = [];
+        foreach ($this->auctions as $auction) { 
+            $rating_value = $auction->rating_value();
+            if ($rating_value > 0) {
+                array_push($ratings, $auction->rating());
+            }
+        }
+        return $ratings;
+    }
+
+    public function rated()
+    {
+        return $this->hasMany('App\Models\Rating', 'winnerid');
+    }
+
+    public function rating_value()
     {
         $value = 0;
         $count = 0;
         foreach ($this->auctions as $auction) { 
-            $rating = $auction->rating();
+            $rating = $auction->rating_value();
             if($rating > 0) {
-                $value += $auction->rating();
+                $value += $rating;
                 $count += 1;
             }
         }
@@ -66,5 +83,17 @@ class User extends Authenticatable
             return $value / $count;
         else 
             return 0;
+    }
+
+    public function num_ratings()
+    {
+        $count = 0;
+        foreach ($this->auctions as $auction) { 
+            $rating = $auction->rating_value();
+            if($rating > 0) {
+                $count += 1;
+            }
+        }
+        return $count;
     }
 }
