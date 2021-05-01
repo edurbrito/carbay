@@ -7,6 +7,7 @@ use App\Models\Comment;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Response;
 
 class CommentPolicy
 {
@@ -41,9 +42,9 @@ class CommentPolicy
      * @param  \App\Models\User  $user
      * @return mixed
      */
-    public function create(User $user, $validator ,$auction)
+    public function create(User $user)
     {
-        return !Auth::check() || !is_numeric($auction) || $validator->fails() || is_null(Auction::find($auction));
+        return Auth::check();
     }
 
     /**

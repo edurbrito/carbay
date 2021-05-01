@@ -32,9 +32,14 @@ class CommentController extends Controller
             'comment' => 'required|string|min:5|max:300',
         ]);
 
+        if(!Auth::check())
+            return redirect('/login');
+
+        $this->authorize('create', Comment::class);
+
         try {
 
-            if(!Auth::check() || !is_numeric($id) || $validator->fails() || is_null(Auction::find($id)))
+            if(!is_numeric($id) || $validator->fails() || is_null(Auction::find($id)))
                 throw new Error();
 
             $comment = new Comment();

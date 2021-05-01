@@ -35,11 +35,15 @@ class BidController extends Controller
         Validator::validate($request->all(), [
             'value' => 'required|numeric|min:' . $auctionLastBid,
         ]);
+
+        if (!Auth::check())
+            return redirect('/login');
+            
+        $this->authorize('create', Bid::class);
         
         try {
-            $this->authorize('create', [$auction]);
-                        
-            if(is_null($auction) || !(Auth::check() && Auth::user()->id != $auction->sellerid && $auctionHighestBid->authorid != Auth::user()->id && $auction->finaldate > now()))
+
+            if(is_null($auction) || !(Auth::user()->id != $auction->sellerid && $auctionHighestBid->authorid != Auth::user()->id && $auction->finaldate > now()))
                 throw new Error();
 
             $bid = new Bid();

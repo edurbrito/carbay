@@ -34,6 +34,8 @@ class AuctionController extends Controller
         if (!Auth::check())
             return redirect('/login');
 
+        $this->authorize('create', Auction::class);
+
         return view('pages.create');
     }
 
@@ -46,6 +48,8 @@ class AuctionController extends Controller
     {
         if (!Auth::check())
             return redirect('/login');
+        
+        $this->authorize('create', Auction::class);
 
         $validated = Validator::validate($request->all(), [
             'title' => 'required|string|max:255',

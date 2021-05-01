@@ -41,9 +41,9 @@ class BidPolicy
      * @param  \App\Models\User  $user
      * @return mixed
      */
-    public function create(User $user, Auction $auction)
+    public function create(User $user)
     {
-        return Auth::check() && $user->id != $auction->sellerid && $auction->highest_bid()->authorid != $user->id && $auction->finaldate > now();
+        return Auth::check();
     }
 
     /**
