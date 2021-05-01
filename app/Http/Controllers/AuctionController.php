@@ -30,6 +30,23 @@ class AuctionController extends Controller
         return view('pages.search', ['total' => sizeof($auctions), 'auctions' => $auctions]);
     }
 
+    public static function featured()
+    {
+        $featured = Auction::whereRaw('finaldate > NOW()')->orderBy('finaldate')->limit(5)->get()->sortBy(function ($auction, $key) {
+            return count($auction->bids);
+        });
+
+        $result = "";
+        $active = true;
+
+        foreach ($featured->reverse() as $auction){
+            $result .= view("partials.home.featured", ["auction" => $auction, "active" => $active])->render() . "\n";
+            $active = false;
+        }
+
+        return $result;
+    }
+
     public function create_page()
     {
         if (!Auth::check())
