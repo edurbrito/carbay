@@ -82,10 +82,9 @@
     <button class="btn btn-dark text-light text-center btn" data-bs-toggle="modal" data-bs-target="#buy-now" role="button">Buy Now</button>
     @endif
     <button class="btn btn-success text-light text-center btn" data-bs-toggle="modal" data-bs-target="#place-bid" role="button">Place Bid</button>
-
     @if ($errors->has('value'))
-    <div class="input-group mt-3 text-danger">
-      {{ $errors->first('value') }}
+    <div onclick="this.hidden = true" class="alert alert-danger alert-dismissible fade show my-3 p-1 px-2" role="alert">
+    {{ $errors->first('value') }}
     </div>
     @endif
   </div>
@@ -110,14 +109,13 @@
   </div>
   <div class="tab-pane show active" id="pills-chat" role="tabpanel" aria-labelledby="pills-chat-tab">
     <ol id="comments-list" class="list-group rounded-0 hide-scroll" style="overflow-y: scroll; max-height: 40vh;">
+      @each('partials.auction.comment', $auction->comments ,'comment')
     </ol>
     <div class="d-flex bg-white align-content-center mt-1">
       <form class="w-100" id="send-comment-form">
         <label for="send-comment" class="form-label text-primary">Message:</label>
         <textarea class="form-control" id="send-comment" name="comment" rows="1" minlength="1" maxlength="300" required></textarea>
         <button type="submit" class="btn btn-primary mt-3 float-right">Send</button>
-        <div class="input-group text-danger mt-2" style="justify-content:flex-end;" hidden id="comment-errors">
-        </div>
       </form>
     </div>
   </div>
@@ -160,7 +158,7 @@
               $highest_bid = $auction->highest_bid();
               $value = !is_null($highest_bid) ? $highest_bid->value + 0.01 : $auction->startingprice;
             ?>
-            <input type="number" min="{{ $value }}" placeholder="100" name="value" id="bid-form-value" required value="{{ $value }}">
+            <input type="number" min="{{ $value }}" placeholder="100" step="0.01" name="value" id="bid-form-value" required value="{{ $value }}">
             <div class="d-flex justify-content-end mt-3">
               <button type="button" class="btn btn-primary mr-2" data-bs-dismiss="modal" aria-label="Dismiss">Dismiss</button>
               <button type="submit" class="btn btn-success">Place Bid</button>

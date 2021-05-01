@@ -374,7 +374,7 @@ class AuctionController extends Controller
         if ($request->acceptsHtml()) {
             $result = "";
             foreach ($comments as $comment) {
-                $result = view("partials.auction.comment", ["comment" => $comment])->render() . "\n" . $result;
+                $result .= view("partials.auction.comment", ["comment" => $comment])->render() . "\n";
             }
 
             return $result;

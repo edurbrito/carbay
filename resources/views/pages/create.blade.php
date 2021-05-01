@@ -145,10 +145,9 @@
             <div class="btn-group ml-auto mt-auto" role="group" aria-label="Create Auction Buttons">
                 <a role="button" class="btn btn-dark mr-1" href="/auctions/search">Discard</a>
                 <button type="submit" class="btn btn-success">Publish</button>
-            </div>
+            </div>            
             @if ($errors->any())
-            <br>
-            <div class="input-group text-danger w-100" style="justify-content: flex-end">
+            <div onclick="this.hidden = true" class="alert alert-danger alert-dismissible fade show my-3 p-1 px-2" role="alert">
             {{ $errors->first() }}
             </div>
             @endif

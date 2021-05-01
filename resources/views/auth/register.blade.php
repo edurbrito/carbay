@@ -13,11 +13,10 @@
             <input id="name" type="text" name="name" class="form-control" value="{{ old('name') }}" placeholder="Name" required autofocus>
         </div>
         @if ($errors->has('name'))
-            <div class="input-group mb-3 text-danger">
-                {{ $errors->first('name') }}
+            <div onclick="this.hidden = true" class="alert alert-danger alert-dismissible fade show mb-3 p-1 px-2" role="alert">
+            {{ $errors->first('name') }}
             </div>
         @endif
-
         <div class="input-group mb-3">
             <div class="input-group-append rounded-0">
                 <span class="input-group-text rounded-0"><i class="fas fa-user"></i></span>
@@ -25,8 +24,8 @@
             <input id="username" type="text" name="username" class="form-control" value="{{ old('username') }}" placeholder="Username" required>
         </div>
         @if ($errors->has('username'))
-            <div class="input-group mb-3 text-danger">
-                {{ $errors->first('username') }}
+        <div onclick="this.hidden = true" class="alert alert-danger alert-dismissible fade show mb-3 p-1 px-2" role="alert">
+            {{ $errors->first('username') }}
             </div>
         @endif
 
@@ -37,7 +36,7 @@
             <input id="email" type="email" name="email" class="form-control" value="{{ old('email') }}" placeholder="example@email.com" required>
         </div>
         @if ($errors->has('email'))
-            <div class="input-group mb-3 text-danger">
+        <div onclick="this.hidden = true" class="alert alert-danger alert-dismissible fade show mb-3 p-1 px-2" role="alert">
             {{ $errors->first('email') }}
             </div>
         @endif
@@ -49,8 +48,8 @@
             <input id="password" type="password" name="password" class="form-control" value="" placeholder="Password" required>
         </div>
         @if ($errors->has('password'))
-            <div class="input-group mb-3 text-danger">
-                {{ $errors->first('password') }}
+        <div onclick="this.hidden = true" class="alert alert-danger alert-dismissible fade show mb-3 p-1 px-2" role="alert">
+            {{ $errors->first('password') }}
             </div>
         @endif
 
@@ -61,8 +60,8 @@
             <input id="password_confirmation" type="password" name="password_confirmation" class="form-control" value="" placeholder="Repeat Password" required>
         </div>
         @if ($errors->has('password_confirmation'))
-            <div class="input-group mb-3 text-danger">
-                {{ $errors->first('password_confirmation') }}
+        <div onclick="this.hidden = true" class="alert alert-danger alert-dismissible fade show mb-3 p-1 px-2" role="alert">
+            {{ $errors->first('password_confirmation') }}
             </div>
         @endif
 
