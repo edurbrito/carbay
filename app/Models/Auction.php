@@ -1,0 +1,126 @@
+<?php
+
+namespace App\Models;
+
+use DateTime;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Auction extends Model
+{
+    use HasFactory;
+
+    // Don't add create and update timestamps in database.
+    public $timestamps  = false;
+    protected $table = 'auction';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'id', 'title', 'description', 'startingprice', 'startdate', 'finaldate', 'suspend', 'buynow', 'scaletype', 'brandid', 'colourid', 'sellerid', 'search'
+    ];
+
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class, 'brandid');
+    }
+
+    public function colour()
+    {
+        return $this->belongsTo(Colour::class, 'colourid');
+    }
+
+    public function images()
+    {
+        return $this->hasMany(Image::class, 'auctionid');
+    }
+
+    public function seller()
+    {
+        return $this->belongsTo(User::class, 'sellerid');
+    }
+
+    public function bids()
+    {
+        return $this->hasMany(Bid::class, 'auctionid');
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'auctionid');
+    }
+
+    public function first_image()
+    {
+        return $this->images->first();
+    }
+
+    public function time_remaining()
+    {
+        date_default_timezone_set("Europe/Lisbon");
+
+        $now = date('Y-m-d H:i:s');
+        $date = date('Y-m-d H:i:s', strtotime($this->finaldate) - 60*60);
+
+        return date_diff(new DateTime($now), new DateTime($date))->format("%ad %hh %im %ss");
+    }
+
+    public function highest_bid()
+    {
+        return $this->bids->last();
+    }
+
+    public function rating_value()
+    {
+        $rating = $this->hasOne(Rating::class, 'auctionid')->first();
+        if (isset($rating))
+            return $rating->value;
+        else
+            return 0;
+    }
+
+    public function rating()
+    {
+        return $this->hasOne(Rating::class, 'auctionid')->first();
+    }
+
+    public function brand_name()
+    {
+        return $this->brand->name;
+    }
+
+    public function colour_name()
+    {
+        return $this->colour->name;
+    }
+
+    public function seller_name()
+    {
+        return $this->seller->username;
+    }
+
+    public function highest_bid_value()
+    {
+        $bid = $this->highest_bid();
+        $value = !is_null($bid) ? $bid->value . "$" : "None";
+        return $value;
+    }
+
+    public function buy_now()
+    {
+        return $this->buynow . "$";
+    }
+
+    public function description()
+    {
+        return $this->description;
+    }
+
+    public function display_images()
+    {
+        return $this->images;
+    }
+}

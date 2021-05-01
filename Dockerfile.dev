@@ -1,0 +1,15 @@
+FROM ubuntu:latest
+
+ENV DEBIAN_FRONTEND=nonintercative
+
+COPY . /root/
+
+RUN apt-get update --fix-missing
+
+RUN apt-get install composer php7.4 php7.4-mbstring php7.4-xml php7.4-pgsql --yes
+
+WORKDIR /root/
+
+RUN composer install
+
+CMD php artisan db:seed && php artisan serve

@@ -1,39 +1,76 @@
-@extends('layouts.app')
+@extends('layouts.content')
 
-@section('content')
-<form method="POST" action="{{ route('register') }}">
-    {{ csrf_field() }}
+@section('div_content')
+<h1 class="text-center text-primary mb-5">Sign Up</h1>
 
-    <label for="name">Name</label>
-    <input id="name" type="text" name="name" value="{{ old('name') }}" required autofocus>
-    @if ($errors->has('name'))
-      <span class="error">
-          {{ $errors->first('name') }}
-      </span>
-    @endif
+<div class="container">
+    <form class="d-flex justify-content-center flex-column w-100 responsive-form m-auto" method="POST" action="{{ route('signup') }}">
+        {{ csrf_field() }}
+        <div class="input-group mb-3">
+            <div class="input-group-append rounded-0">
+                <span class="input-group-text rounded-0"><i class="fas fa-id-card"></i></span>
+            </div>
+            <input id="name" type="text" name="name" class="form-control" value="{{ old('name') }}" placeholder="Name" required autofocus>
+        </div>
+        @if ($errors->has('name'))
+            <div onclick="this.hidden = true" class="alert alert-danger alert-dismissible fade show mb-3 p-1 px-2" role="alert">
+            {{ $errors->first('name') }}
+            </div>
+        @endif
+        <div class="input-group mb-3">
+            <div class="input-group-append rounded-0">
+                <span class="input-group-text rounded-0"><i class="fas fa-user"></i></span>
+            </div>
+            <input id="username" type="text" name="username" class="form-control" value="{{ old('username') }}" placeholder="Username" required>
+        </div>
+        @if ($errors->has('username'))
+        <div onclick="this.hidden = true" class="alert alert-danger alert-dismissible fade show mb-3 p-1 px-2" role="alert">
+            {{ $errors->first('username') }}
+            </div>
+        @endif
 
-    <label for="email">E-Mail Address</label>
-    <input id="email" type="email" name="email" value="{{ old('email') }}" required>
-    @if ($errors->has('email'))
-      <span class="error">
-          {{ $errors->first('email') }}
-      </span>
-    @endif
+        <div class="input-group mb-3">
+            <div class="input-group-append rounded-0">
+                <span class="input-group-text rounded-0"><i class="fas fa-at"></i></span>
+            </div>
+            <input id="email" type="email" name="email" class="form-control" value="{{ old('email') }}" placeholder="example@email.com" required>
+        </div>
+        @if ($errors->has('email'))
+        <div onclick="this.hidden = true" class="alert alert-danger alert-dismissible fade show mb-3 p-1 px-2" role="alert">
+            {{ $errors->first('email') }}
+            </div>
+        @endif
 
-    <label for="password">Password</label>
-    <input id="password" type="password" name="password" required>
-    @if ($errors->has('password'))
-      <span class="error">
-          {{ $errors->first('password') }}
-      </span>
-    @endif
+        <div class="input-group mb-3">
+            <div class="input-group-append rounded-0">
+                <span class="input-group-text rounded-0"><i class="fas fa-key"></i></span>
+            </div>
+            <input id="password" type="password" name="password" class="form-control" value="" placeholder="Password" required>
+        </div>
+        @if ($errors->has('password'))
+        <div onclick="this.hidden = true" class="alert alert-danger alert-dismissible fade show mb-3 p-1 px-2" role="alert">
+            {{ $errors->first('password') }}
+            </div>
+        @endif
 
-    <label for="password-confirm">Confirm Password</label>
-    <input id="password-confirm" type="password" name="password_confirmation" required>
+        <div class="input-group mb-3">
+            <div class="input-group-append rounded-0">
+                <span class="input-group-text rounded-0"><i class="fas fa-key"></i></span>
+            </div>
+            <input id="password_confirmation" type="password" name="password_confirmation" class="form-control" value="" placeholder="Repeat Password" required>
+        </div>
+        @if ($errors->has('password_confirmation'))
+        <div onclick="this.hidden = true" class="alert alert-danger alert-dismissible fade show mb-3 p-1 px-2" role="alert">
+            {{ $errors->first('password_confirmation') }}
+            </div>
+        @endif
 
-    <button type="submit">
-      Register
-    </button>
-    <a class="button button-outline" href="{{ route('login') }}">Login</a>
-</form>
+        <button class="btn btn-primary align-self-center w-75" type="submit" name="button" class="btn">Sign Up</button>
+        <span class="text-center mt-2">or Sign Up with </span>
+        <button class="btn btn-dark align-self-center mt-2 w-75" type="button" name="button" class="btn">Google</button>
+
+        <span class="text-center mt-3">Already have an account? <a href="{{ route('login') }}" class="ml-2 text-danger">Log In</a></span>
+        <!-- <a href="#" class="text-light text-center">Forgot your password?</a> -->
+    </form>
+</div>
 @endsection

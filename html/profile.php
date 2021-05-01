@@ -8,7 +8,7 @@ breadcrum();
   <div class="nav flex-column nav-pills me-3 border-right p-3 flex-horizontal-profile d-sm-flex" id="v-pills-tab" role="tablist" aria-orientation="vertical">
     <button class="nav-link active text-primary btn-profile" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="true">Profile</button>
     <button class="nav-link text-primary btn-profile" id="v-pills-bid-history-tab" data-bs-toggle="pill" data-bs-target="#v-pills-bid-history" type="button" role="tab" aria-controls="v-pills-bid-history" aria-selected="false">Bid History</button>
-    <button class="nav-link text-primary btn-profile" id="v-pills-my-auctions-tab" data-bs-toggle="pill" data-bs-target="#v-pills-my-auctions" type="button" role="tab" aria-controls="v-pills-auctions-created" aria-selected="false">Auctions Created</button>
+    <button class="nav-link text-primary btn-profile" id="v-pills-created-auctions-tab" data-bs-toggle="pill" data-bs-target="#v-pills-created-auctions" type="button" role="tab" aria-controls="v-pills-auctions-created" aria-selected="false">Auctions Created</button>
     <button class="nav-link text-primary btn-profile" id="v-pills-favourite-auctions-tab" data-bs-toggle="pill" data-bs-target="#v-pills-favourite-auctions" type="button" role="tab" aria-controls="v-pills-favourite-auctions" aria-selected="false">Favourite Auctions</button>
     <button class="nav-link text-primary btn-profile" id="v-pills-favourite-sellers-tab" data-bs-toggle="pill" data-bs-target="#v-pills-favourite-sellers" type="button" role="tab" aria-controls="v-pills-favourite-sellers" aria-selected="false">Favourite Sellers</button>
     <button class="nav-link text-primary btn-profile" id="v-pills-users-ratings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-users-ratings" type="button" role="tab" aria-controls="v-pills-users-ratings" aria-selected="false">Users Ratings</button>
@@ -21,8 +21,8 @@ breadcrum();
     <div class="tab-pane fade" id="v-pills-bid-history" role="tabpanel" aria-labelledby="v-pills-bid-history-tab">
       <?php include_once(__DIR__ . "/profile/bid-history.php"); ?>
     </div>
-    <div class="tab-pane fade" id="v-pills-my-auctions" role="tabpanel" aria-labelledby="v-pills-my-auctions-tab">
-      <?php include_once(__DIR__ . "/profile/my-auctions.php"); ?>
+    <div class="tab-pane fade" id="v-pills-created-auctions" role="tabpanel" aria-labelledby="v-pills-created-auctions-tab">
+      <?php include_once(__DIR__ . "/profile/created-auctions.php"); ?>
     </div>
     <div class="tab-pane fade" id="v-pills-favourite-auctions" role="tabpanel" aria-labelledby="v-pills-favourite-auctions-tab">
       <?php include_once(__DIR__ . "/profile/favourite-auctions.php"); ?>
