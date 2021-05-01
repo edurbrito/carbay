@@ -10,13 +10,12 @@
       <h5 class="text-lowercase grey-text mb-3 text-muted"><strong>{{ $user->email }}</strong></h5>
       <div class="dark-grey-text my-4 text-primary">
         <h5 class="font-weight-bold dark-grey-text my-4 text-primary">Rating:
-
         @for ($i = 1; $i <= 5; $i++)
-            @if ($i <= round($user->rating()))
-                <i class="fas fa-star"></i>
-            @else
-                <i class="far fa-star"></i>
-            @endif
+          @if ($i <= round($user->rating_value()))
+            <i class="fas fa-star"></i>
+          @else
+            <i class="far fa-star"></i>
+          @endif
         @endfor
         ({{ $user->num_ratings() }} votes)</h5>
       </div>

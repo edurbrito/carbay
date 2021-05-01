@@ -20,7 +20,7 @@ class Auction extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 'title', 'description', 'startingPrice', 'startDate', 'finalDate', 'suspend', 'buyNow', 'scaleType', 'brandID', 'colourID', 'sellerID', 'search'
+        'id', 'title', 'description', 'startingprice', 'startdate', 'finaldate', 'suspend', 'buynow', 'scaletype', 'brandid', 'colourid', 'sellerid', 'search'
     ];
 
     public function brand()
@@ -73,13 +73,18 @@ class Auction extends Model
         return $this->bids->last();
     }
 
-    public function rating()
+    public function rating_value()
     {
         $rating = $this->hasOne(Rating::class, 'auctionid')->first();
         if (isset($rating))
             return $rating->value;
         else
             return 0;
+    }
+
+    public function rating()
+    {
+        return $this->hasOne(Rating::class, 'auctionid')->first();
     }
 
     public function brand_name()

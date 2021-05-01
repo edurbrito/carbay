@@ -32,8 +32,6 @@ function auctions(e) {
 function auction_list() {
     created_auctions = document.querySelector("#created-auctions-list")
 
-    console.log(this.response)
-
     created_auctions.innerHTML = this.response;
 }
 
@@ -51,8 +49,6 @@ function fav_auctions(e) {
 
 function fav_auction_list() {
     favourite_auctions = document.querySelector("#favourite-auctions-list")
-
-    console.log(this.response)
 
     favourite_auctions.innerHTML = this.response;
 }
@@ -72,7 +68,41 @@ function fav_sellers(e) {
 function fav_seller_list() {
     favourite_sellers = document.querySelector("#favourite-sellers-list")
 
-    console.log(this.response)
-
     favourite_sellers.innerHTML = this.response;
+}
+
+// ----- Users Ratings -----
+
+users_ratings_tab = document.querySelector("#v-pills-users-ratings-tab")
+
+users_ratings_tab.addEventListener('click', ratings)
+
+function ratings(e) {
+    e.preventDefault()
+
+    sendAjaxRequest('GET',`/api/users/${username.value}/ratings`, {}, rating_list, [{name: 'Accept', value: 'text/html'}])
+}
+
+function rating_list() {
+    users_ratings = document.querySelector("#users-ratings-list")
+
+    users_ratings.innerHTML = this.response;
+}
+
+// ----- Users Rated -----
+
+users_rated_tab = document.querySelector("#v-pills-users-rated-tab")
+
+users_rated_tab.addEventListener('click', rated)
+
+function rated(e) {
+    e.preventDefault()
+
+    sendAjaxRequest('GET',`/api/users/${username.value}/rated`, {}, rated_list, [{name: 'Accept', value: 'text/html'}])
+}
+
+function rated_list() {
+    users_rated = document.querySelector("#users-rated-list")
+
+    users_rated.innerHTML = this.response;
 }

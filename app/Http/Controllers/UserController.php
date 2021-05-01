@@ -165,4 +165,42 @@ class UserController extends Controller
 
         return json_encode($auctions);
     }
+
+    public function ratings(Request $request, $username)
+    {
+        $user = User::where("username", "=", $username)->first();
+        $ratings = $user->ratings();
+
+        if($request->acceptsHtml()) {
+            $result = "";
+
+            foreach($ratings as $rating) {
+                $user_rating = User::where('id','=',$rating->winnerid)->first();
+                $result .= view("partials.profile.rating", ["rating" => $rating, "user" => $user_rating])->render() . "\n";
+            }
+
+            return $result;
+        }
+
+        return json_encode($ratings);
+    }
+
+    public function rated(Request $request, $username)
+    {
+        $user = User::where("username", "=", $username)->first();
+        $rated = $user->rated;
+
+        if($request->acceptsHtml()) {
+            $result = "";
+
+            foreach($rated as $rate) {
+                $auction = Auction::where('id','=',$rate->auctionid)->first();
+                $result .= view("partials.profile.rated", ["rated" => $rate, "seller" => $auction->seller])->render() . "\n";
+            }
+
+            return $result;
+        }
+
+        return json_encode($rated);
+    }
 }

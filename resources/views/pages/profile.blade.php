@@ -31,10 +31,10 @@
       @include('pages.profile.favourite-sellers')
     </div>
     <div class="tab-pane fade" id="v-pills-users-ratings" role="tabpanel" aria-labelledby="v-pills-users-ratings-tab">
-      @include('pages.profile.profile-info')
+      @include('pages.profile.users-ratings')
     </div>
     <div class="tab-pane fade" id="v-pills-users-rated" role="tabpanel" aria-labelledby="v-pills-users-rated-tab">
-      @include('pages.profile.profile-info')
+      @include('pages.profile.users-rated')
     </div>
   </div>
 </div>
