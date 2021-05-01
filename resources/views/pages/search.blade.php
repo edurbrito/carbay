@@ -29,13 +29,13 @@
                 <option value="2">Buy Now</option>
             </select>
             <div class="form-check mt-4 text-primary">
-                <input class="form-check-input" type="radio" name="order-by" id="ascending" value="0">
+                <input class="form-check-input" type="radio" name="order-by" id="ascending" checked value="0">
                 <label class="form-check-label" for="ascending">
                     Ascending
                 </label>
             </div>
             <div class="form-check text-primary">
-                <input class="form-check-input" type="radio" name="order-by" id="descending" checked value="1">
+                <input class="form-check-input" type="radio" name="order-by" id="descending" value="1">
                 <label class="form-check-label" for="descending">
                     Descending
                 </label>

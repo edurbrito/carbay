@@ -59,7 +59,7 @@
                             </div>
                             <input type="number" name="starting-price" min="1" max="100000" class="form-control" aria-label="Small" aria-describedby="start-bid" value="1" required>
                             <div class="input-group-append rounded-0">
-                                <span class="input-group-text rounded-0">€</span>
+                                <span class="input-group-text rounded-0">$</span>
                             </div>
                         </div>
                     </div>
@@ -105,7 +105,7 @@
                         <div class="input-group input-group-sm col-6 p-0" id="buy-now-input-group" hidden>
                             <input type="number" name="buy-now" min="1" max="1000000" class="form-control rounded-0" aria-label="Small" aria-describedby="buy-now" id="buy-now-value">
                             <div class="input-group-append">
-                                <span class="input-group-text rounded-0" id="inputGroup-sizing-sm">€</span>
+                                <span class="input-group-text rounded-0" id="inputGroup-sizing-sm">$</span>
                             </div>
                         </div>
                     </div>
@@ -133,9 +133,8 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text rounded-0" id="inputGroup-sizing-default">Scale</span>
                     </div>
-                    <input type="text" name="scale" list="select-scale" class="form-select rounded-0" required>
-                    <datalist id="select-scale">
-                    </datalist>
+                    <select class="form-select rounded-0" aria-label="Available Scales" id="select-scale" name="scale">
+                    </select>
                 </div>
                 
                 <div class="form-group mt-3">

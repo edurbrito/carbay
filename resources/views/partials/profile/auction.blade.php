@@ -4,6 +4,6 @@
         <span class="text-primary ml-3 fs-4">{{ $auction->title }}</span>
     </a>
     <div class="btn-group ml-sm-auto" role="group" aria-label="User Management Buttons">
-        <p class="text-primary fs-4 mb-0">Highest Bid: {{ $auction->highest_bid()->value }}$</p>
+        <p class="text-primary fs-4 mb-0">Highest Bid: {{$auction->highest_bid_value()}}</p>
     </div>
 </li>

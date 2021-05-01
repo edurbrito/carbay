@@ -133,7 +133,7 @@ function search(e) {
     data = {
         'full-text' : full_text.value,
         'sort-by' : sort_by.value,
-        'order-by' : order_by.checked ? 1 : 0,
+        'order-by' : order_by.checked ? 0 : 1,
         'buy-now' : buy_now.checked,
         'ended-auctions' : ended_auctions.checked,
         'colour' : colour.value,
