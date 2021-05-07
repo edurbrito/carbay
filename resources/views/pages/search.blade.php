@@ -86,18 +86,13 @@
     </div>
     <div class="col container-fluid mb-4">
         <h6 class="w-100 text-primary text-center p-4" id="total-search">
-        Showing {{$auctions->perpage() * ($auctions->currentpage()-1) + 1}} 
-            to {{$auctions->perpage() * ($auctions->currentpage()-1) + $auctions->count()}} 
-            of {{$auctions->total()}} Auctions
         </h6>
 
         <div class="row row-cols-1 row-cols-md-3 g-4" id="auctions">
-            @each('partials.auction', $auctions ?? '', 'auction')
         </div>
     </div>
 </div>
-<div class="pagination-links">
-{{ $auctions->links() }}
-</div>
 
+<div id="pagination" data-page="1">
+</div>
 @endsection

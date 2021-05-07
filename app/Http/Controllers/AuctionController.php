@@ -23,27 +23,27 @@ class AuctionController extends Controller
      */
     public function index()
     {
-        date_default_timezone_set("Europe/Lisbon");
-
-        $auctions = Auction::whereRaw('finaldate > NOW()')->orderBy('finaldate')->paginate(12);
-        return view('pages.search', ['total' => sizeof($auctions), 'auctions' => $auctions]);
+        return view('pages.search');
     }
 
-    public static function featured()
+    public static function featured(Request $request)
     {
         $featured = Auction::whereRaw('finaldate > NOW()')->orderBy('finaldate')->limit(5)->get()->sortBy(function ($auction, $key) {
             return count($auction->bids);
         });
 
-        $result = "";
-        $active = true;
+        if ($request->acceptsHtml()) {
+            $result = "";
+            $active = true;
 
-        foreach ($featured->reverse() as $auction){
-            $result .= view("partials.home.featured", ["auction" => $auction, "active" => $active])->render() . "\n";
-            $active = false;
+            foreach ($featured->reverse() as $auction){
+                $result .= view("partials.home.featured", ["auction" => $auction, "active" => $active])->render() . "\n";
+                $active = false;
+            }
+            return json_encode(["result" => "success", "content" => $result]);
         }
 
-        return $result;
+        return json_encode(["result" => "success", "content" => $featured]);
     }
 
     public function create_page()
@@ -254,7 +254,7 @@ class AuctionController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return json_encode(["auctions" => [], "errors" => $validator->errors()]);
+            return json_encode(["result" => "error", "content" => $validator->errors()]);
         }
 
         $fullText = $request->input('full-text');
@@ -273,8 +273,10 @@ class AuctionController extends Controller
 
         $auctions = [];
 
+        date_default_timezone_set("Europe/Lisbon");
+
         if (is_null($fullText))
-            $auctions = Auction::all();
+            $auctions = Auction::where("id",">","-1");
         else
             $auctions = Auction::whereRaw('auction.search @@ plainto_tsquery(\'english\', ?)', array(strtolower($fullText)));
 
@@ -334,8 +336,26 @@ class AuctionController extends Controller
         if (strcmp($endedAuctions, "false") == 0) {
             $auctions = $auctions->where('finaldate', '>', now());
         }
+        
+        $html_auctions = "";
+        $html_total = "No Auction found";
+        $html_links = "";
+
+        if($auctions->count() == 0){
+            
+            if ($request->acceptsHtml()) {
+                return json_encode(["result" => "success", "content" => ["auctions" => $html_auctions, "total" => $html_total, "links" => $html_links]]);       
+            }
+
+            return json_encode(["result" => "success", "content" => ""]);
+        }
 
         $auctions = $auctions->paginate(12);
+
+        if ($request->acceptsHtml()) {
+            $html_total = view("partials.search.total", ["auctions" => $auctions])->render();
+            $html_links = view("partials.search.links", ["auctions" => $auctions])->render();
+        }
 
         $order_ad = strcmp($order, "0") == 0 ? false : true;
 
@@ -355,15 +375,15 @@ class AuctionController extends Controller
         }, SORT_REGULAR, $order_ad);
 
         if ($request->acceptsHtml()) {
-            $result = "";
+            $html_auctions = "";
             foreach ($auctions as $a) {
-                $result .= view("partials.auction", ["auction" => $a])->render() . "\n";
+                $html_auctions .= view("partials.search.auction", ["auction" => $a])->render() . "\n";
             }
 
-            return $result;
+            return json_encode(["result" => "success", "content" => ["auctions" => $html_auctions, "total" => $html_total, "links" => $html_links]]);
         }
 
-        return json_encode(["auctions" => $auctions, "count" => count($auctions), "errors" => []]);
+        return json_encode(["result" => "success", "content" => $auctions]);
     }
 
     public function bids(Request $request, $id)
@@ -380,10 +400,10 @@ class AuctionController extends Controller
                 $result .= view("partials.auction.bid", ["bid" => $bid])->render() . "\n";
             }
 
-            return $result;
+            return json_encode(["result" => "success", "content" => $result]);
         }
 
-        return json_encode($bids);
+        return json_encode(["result" => "success", "content" => $bids]);
     }
 
     public function comments(Request $request, $id)
@@ -400,9 +420,9 @@ class AuctionController extends Controller
                 $result .= view("partials.auction.comment", ["comment" => $comment])->render() . "\n";
             }
 
-            return $result;
+            return json_encode(["result" => "success", "content" => $result]);
         }
 
-        return json_encode($comments);
+        return json_encode(["result" => "success", "content" => $comments]);
     }
 }

@@ -1,10 +1,8 @@
 function update_bids() {
 
     div_bids = document.querySelector("#bids-list")
-
     last_bid_value = document.querySelector("#last-bid-value")
-
-    div_bids.innerHTML = this.response;
+    div_bids.innerHTML = JSON.parse(this.response).content;
 
     try {
         last_bid_value.innerHTML = div_bids.querySelector("li > p:last-child").innerHTML
@@ -15,12 +13,8 @@ function update_bids() {
 }
 
 function update_comments() {
-
     div_comments = document.querySelector("#comments-list")
-
-
-    div_comments.innerHTML = this.response;
-
+    div_comments.innerHTML = JSON.parse(this.response).content;
 }
 
 auction_id = document.querySelector("#auction-head").getAttribute("data-id")
@@ -59,17 +53,18 @@ function comment(e){
 
 function handle_comment(){
     text.value = ""
-    result = JSON.parse(this.response).result
-    
+    response = JSON.parse(this.response)
+    result = response.result
+
     errors = comment_form.querySelector("#comment-errors")
 
-    if(result == "error"){
+    if(result == "login"){
         window.location.replace("/login");
     }
     else if(result != "success")
     {
         errors.hidden = false
-        errors.innerHTML = Object.values(result)[0]
+        errors.innerHTML = Object.values(response.content)[0]
     }
     else{
         errors.hidden = true

@@ -29,7 +29,7 @@ class CommentController extends Controller
     public function create(Request $request, $id)
     {        
         if(!Auth::check())
-            return json_encode(["result" => "error"]);
+            return json_encode(["result" => "login"]);
 
         $this->authorize('create', Comment::class);
         
@@ -49,7 +49,7 @@ class CommentController extends Controller
             $comment->auctionid = $id;
             $comment->save();
         } catch (\Throwable $th) {
-            return json_encode(["result" => $validator->errors()]);
+            return json_encode(["result" => "error", "content" => $validator->errors()]);
         }
 
         return json_encode(["result" => "success"]);

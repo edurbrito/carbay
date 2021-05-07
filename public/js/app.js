@@ -18,9 +18,15 @@ setInterval(update_content, 1000)
 
 function update_featured(){
     featured = document.querySelector("#featured-auctions")
-    featured.innerHTML = this.response
+    featured.innerHTML = JSON.parse(this.response).content
+}
+
+function getFeatured(){
+    sendAjaxRequest('GET', `/api/auctions/featured`, {}, update_featured, [{name: 'Accept', value: 'text/html'}])
 }
 
 setInterval(() => {
-    sendAjaxRequest('GET', `/api/auctions/featured`, {}, update_featured, [{name: 'Accept', value: 'text/html'}])
+   getFeatured()
 }, 26000)
+
+getFeatured()
