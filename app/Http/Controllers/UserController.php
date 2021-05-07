@@ -7,6 +7,7 @@ use App\Models\Auction;
 use App\Models\FavouriteSeller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -59,12 +60,79 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\User  $user
+     * @param  String  $username
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit_profile($username)
     {
-        //
+        if (!Auth::check() || Auth::user()->username != $username)
+            return redirect('users/' . $username);
+
+        $user = User::where("username", "=", $username)->first();
+
+        // $this->authorize('create', Auction::class);
+
+        $view = !is_null($user) ? view('pages.edit-profile', ['user' => $user]) : view('errors.404');
+
+        return $view;
+    }
+
+    /**
+     * Get the data from the form for editing the specified resource.
+     *
+     * @param  String  $username
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Request $request, $username)
+    {
+        if (!Auth::check() || Auth::user()->username != $username)
+            return redirect('/login');
+
+        $user = User::where("username", "=", $username)->first();
+
+        // $this->authorize('create', Auction::class);
+
+        $validated = Validator::validate($request->all(), [
+            'name' => 'string|max:255',
+            'email' => 'unique:user,email,' . $user->id,
+            'current_password' => 'required|string|min:6',
+            'new_password' => 'nullable|string|min:6|same:confirm_password',
+            'confirm_password' => 'nullable|string|min:6|same:new_password',
+        ]);
+        
+        // $encrypted_password = bcrypt($request->input('current_password'));
+
+        if (!password_verify($request->input('current_password'), $user->password)) {
+            return back()->withErrors(['match' => 'Wrong Password']);
+        }
+
+        User::where('id', $user->id)->update([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+        ]);
+
+        if($request->input('new_password') != null) {
+            User::where('id', $user->id)->update([
+                'password' => bcrypt($request->input('new_password')),
+            ]);
+        }
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            if ($image->isValid()) {
+                $image_name = date('mdYHis') . "-" . uniqid() . "-" . Auth::user()->id . ".png";
+                $path = base_path() . '/public/images/users';
+                $image->move($path, $image_name);
+
+                User::where('id', $user->id)->update([
+                    'image' => '/images/users/' . $image_name,
+                ]);
+            } else {
+                return redirect()->back()->with('error', 'Image not valid: ' . $image);
+            }
+        }
+
+        return redirect()->to('users/' . $username);
     }
 
     /**
