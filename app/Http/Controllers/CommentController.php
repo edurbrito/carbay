@@ -28,14 +28,14 @@ class CommentController extends Controller
      */
     public function create(Request $request, $id)
     {        
-        $validator = Validator::make($request->all(), [
-            'comment' => 'required|string|min:1|max:300',
-        ]);
-
         if(!Auth::check())
             return json_encode(["result" => "error"]);
 
         $this->authorize('create', Comment::class);
+        
+        $validator = Validator::make($request->all(), [
+            'comment' => 'required|string|min:1|max:300',
+        ]);
 
         try {
 

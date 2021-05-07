@@ -51,7 +51,7 @@ class UserController extends Controller
     {
         $user = User::where("username", "=", $username)->first();
 
-        $view = !is_null($user) ? view('pages.profile', ['user' => $user]) : view('errors.404');
+        $view = !is_null($user) ? view('pages.profile', ['user' => $user]) : abort(404);
 
         return $view;
     }

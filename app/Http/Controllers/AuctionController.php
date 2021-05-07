@@ -10,7 +10,6 @@ use App\Models\User;
 use App\Models\Bid;
 use App\Models\Comment;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
@@ -26,7 +25,7 @@ class AuctionController extends Controller
     {
         date_default_timezone_set("Europe/Lisbon");
 
-        $auctions = Auction::whereRaw('finaldate > NOW()')->orderBy('finaldate')->get();
+        $auctions = Auction::whereRaw('finaldate > NOW()')->orderBy('finaldate')->paginate(12);
         return view('pages.search', ['total' => sizeof($auctions), 'auctions' => $auctions]);
     }
 
@@ -167,12 +166,12 @@ class AuctionController extends Controller
     public function show($id)
     {
         if (!is_numeric($id)) {
-            return view('errors.404');
+            return abort(404);
         }
 
         $auction = Auction::find($id);
 
-        $view = !is_null($auction) ? view('pages.auction', ['auction' => $auction]) : view('errors.404');
+        $view = !is_null($auction) ? view('pages.auction', ['auction' => $auction]) : abort(404);
 
         return $view;
     }
@@ -277,7 +276,7 @@ class AuctionController extends Controller
         if (is_null($fullText))
             $auctions = Auction::all();
         else
-            $auctions = Auction::whereRaw('auction.search @@ plainto_tsquery(\'english\', ?)', array(strtolower($fullText)))->get();
+            $auctions = Auction::whereRaw('auction.search @@ plainto_tsquery(\'english\', ?)', array(strtolower($fullText)));
 
 
         if ($seller != "-1") {
@@ -335,6 +334,8 @@ class AuctionController extends Controller
         if (strcmp($endedAuctions, "false") == 0) {
             $auctions = $auctions->where('finaldate', '>', now());
         }
+
+        $auctions = $auctions->paginate(12);
 
         $order_ad = strcmp($order, "0") == 0 ? false : true;
 

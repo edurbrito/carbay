@@ -20,7 +20,7 @@
     <div class="col-md-auto">
         <h6 class="w-100 text-center p-4 d-none d-lg-block">Advanced Search</h6>
         <button class="btn btn-dark w-100 text-center p-4 d-lg-none .d-xl-block" data-bs-toggle="collapse" href="#advanced-form" role="button" aria-expanded="true" aria-controls="advanced-form">Advanced Search</button>
-        <form  id="advanced-form" class="collapse hide d-md-block mt-4">
+        <form id="advanced-form" class="collapse hide d-md-block mt-4">
             <button class="btn-md btn-secondary w-100 mb-4" type="button" id="reset-button">Reset</button>
             <label for="sort-by" class="form-label text-primary">Sort By</label>
             <select name="sort-by" class="form-select rounded-0" id="sort-by" aria-label="Search By">
@@ -84,12 +84,20 @@
             <button class="btn btn-primary w-100 mt-4" type="submit">Apply</button>
         </form>
     </div>
-    <div class="col container-fluid">
-        <h6 class="w-100 text-primary text-center p-4" id="total-search">{{ $total }} Auctions found</h6>
+    <div class="col container-fluid mb-4">
+        <h6 class="w-100 text-primary text-center p-4" id="total-search">
+        Showing {{$auctions->perpage() * ($auctions->currentpage()-1) + 1}} 
+            to {{$auctions->perpage() * ($auctions->currentpage()-1) + $auctions->count()}} 
+            of {{$auctions->total()}} Auctions
+        </h6>
+
         <div class="row row-cols-1 row-cols-md-3 g-4" id="auctions">
             @each('partials.auction', $auctions ?? '', 'auction')
         </div>
     </div>
+</div>
+<div class="pagination-links">
+{{ $auctions->links() }}
 </div>
 
 @endsection

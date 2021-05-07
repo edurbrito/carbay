@@ -28,6 +28,11 @@ class BidController extends Controller
      */
     public function create(Request $request, $id)
     {
+        if (!Auth::check())
+            return redirect('/login');
+            
+        $this->authorize('create', Bid::class);
+        
         $auction = Auction::find($id);
         $auctionHighestBid = $auction->highest_bid();
         $auctionLastBid = !is_null($auctionHighestBid) ? $auctionHighestBid->value + 0.01 : $auction->startingprice;
@@ -35,11 +40,6 @@ class BidController extends Controller
         Validator::validate($request->all(), [
             'value' => 'required|numeric|min:' . $auctionLastBid,
         ]);
-
-        if (!Auth::check())
-            return redirect('/login');
-            
-        $this->authorize('create', Bid::class);
         
         try {
 

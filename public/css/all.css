@@ -71,6 +71,12 @@ body {
   .scale-objects-xs:hover {
     transform: scale(0.95);
   }
+
+  .pagination-links {
+    position: absolute; 
+    left: 55%;
+    transform: translate(-55%, 0);
+  }
 }
 
 @media (max-width: 567px) {
@@ -131,5 +137,11 @@ body {
     text-align: center;
     padding: 14px;
     text-decoration: none;
+  }
+
+  .pagination-links {
+    position: absolute; 
+    left: 50%;
+    transform: translate(-50%, 0);
   }
 }
