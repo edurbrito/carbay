@@ -203,4 +203,14 @@ class UserController extends Controller
 
         return json_encode($rated);
     }
+
+    public function admin($username)
+    {
+        $user = User::where("username", "=", $username)->first();
+
+        if (!is_null($user))
+            $view = $user->admin() ? view('pages.admin', ['user' => $user]) : abort(404);
+
+        return $view;
+    }
 }

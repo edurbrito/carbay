@@ -2663,3 +2663,23 @@ Credentials:
 * regular user: fbrauned@cam.ac.uk/fbrauned
 
 The code is available at https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155
+
+## Revision History
+
+Changes made to the first submission:
+
+## Team
+* Eduardo Brito
+    * [up201806271@edu.fe.up.pt](mailto:up201806271@edu.fe.up.pt)
+    * [up201806271@up.pt](mailto:up201806271@up.pt)
+* Paulo Ribeiro
+    * [up201806505@edu.fe.up.pt](mailto:up201806505@edu.fe.up.pt)
+    * [up201806505@up.pt](mailto:up201806505@up.pt)
+* Pedro Ferreira (Editor)
+    * [up201806506@edu.fe.up.pt](mailto:up201806506@edu.fe.up.pt)
+    * [up201806506@up.pt](mailto:up201806506@up.pt)
+* Pedro Ponte
+    * [up201809694@edu.fe.up.pt](mailto:up201809694@edu.fe.up.pt)
+    * [up201809694@up.pt](mailto:up201809694@up.pt)
+----
+GROUP 2155, 01/05/2021

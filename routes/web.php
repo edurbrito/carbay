@@ -52,3 +52,6 @@ Route::get('api/users/{username}/fav_auctions', 'UserController@fav_auctions');
 Route::get('api/users/{username}/fav_sellers', 'UserController@sellers');
 Route::get('api/users/{username}/ratings', 'UserController@ratings');
 Route::get('api/users/{username}/rated', 'UserController@rated');
+
+// Admin
+Route::get('admin/{username}','UserController@admin');
