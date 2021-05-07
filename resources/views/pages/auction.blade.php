@@ -78,10 +78,12 @@
       @endphp
       <strong>Seller:</strong><a href="/users/{{ $seller_name }}" class="ml-2">{{ $seller_name }}</a>
     </p>    
-    @if(!is_null($auction->buynow))
+    @if(!is_null($auction->buynow) && !Auth::user()->admin())
     <button class="btn btn-dark text-light text-center btn" data-bs-toggle="modal" data-bs-target="#buy-now" role="button">Buy Now</button>
     @endif
+    @if(!Auth::user()->admin())
     <button class="btn btn-success text-light text-center btn" data-bs-toggle="modal" data-bs-target="#place-bid" role="button">Place Bid</button>
+    @endif
     @if ($errors->has('value'))
     <div onclick="this.hidden = true" class="alert alert-danger alert-dismissible fade show my-3 p-1 px-2" role="alert">
     {{ $errors->first('value') }}
