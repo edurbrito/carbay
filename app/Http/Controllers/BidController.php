@@ -30,7 +30,9 @@ class BidController extends Controller
     {
         if (!Auth::check())
             return redirect('/login');
-            
+        else if(Auth::user()->banned)
+            return back()->withErrors(['value' => 'This action is not available for banned users.']);
+
         $this->authorize('create', Bid::class);
         
         $auction = Auction::find($id);

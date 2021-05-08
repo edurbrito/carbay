@@ -50,6 +50,8 @@ class AuctionController extends Controller
     {
         if (!Auth::check())
             return redirect('/login');
+        else if(Auth::user()->banned)
+            return redirect('/users/' . Auth::user()->username);
 
         $this->authorize('create', Auction::class);
 
@@ -65,6 +67,8 @@ class AuctionController extends Controller
     {
         if (!Auth::check())
             return redirect('/login');
+        else if(Auth::user()->banned)
+            return redirect('/users/' . Auth::user()->username);
         
         $this->authorize('create', Auction::class);
 

@@ -1,5 +1,16 @@
-<h1 class="w-100 text-primary pb-4 text-center">My Profile</h1>
-
+@php
+$myProfile = Auth::user()->username == $user->username;
+@endphp
+<h1 class="w-100 text-primary pb-4 text-center">
+@if($myProfile) My
+@else User
+@endif
+ Profile</h1>
+@if($myProfile && Auth::user()->banned)
+<div class="alert alert-danger alert-dismissible fade show mb-5 mx-auto p-1 px-2" style="width: fit-content;" role="alert">
+  This account is banned. For more information contact the website administration.
+</div>
+@endif
 <!-- Section: Info -->
 <section class="row text-center">
     <div class="col-0 col-sm-6 align-self-center text-sm-right">
@@ -22,7 +33,6 @@
       <a href="/users/{{$user->username}}/edit" class="mr-sm-5"><button class="btn btn-dark">Edit Profile</button></a>
     </div>
 </section>
-
 <!-- Section: Statistics -->
 <section class="container mt-5">
   <h2 class="w-100 text-primary mb-4 text-center">Statistics</h2>

@@ -54,4 +54,7 @@ Route::get('api/users/{username}/ratings', 'UserController@ratings');
 Route::get('api/users/{username}/rated', 'UserController@rated');
 
 // Admin
-Route::get('admin/{username}','UserController@admin');
+Route::get('admin','UserController@admin');
+Route::get('api/users','UserController@users');
+Route::post('admin/make/{username}','UserController@make_admin');
+Route::post('admin/ban/{username}','UserController@ban');

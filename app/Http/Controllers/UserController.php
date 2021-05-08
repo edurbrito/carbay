@@ -204,17 +204,70 @@ class UserController extends Controller
         return json_encode($rated);
     }
 
-    public function admin($username)
+    public function admin()
     {
-        $user = User::where("username", "=", $username)->first();
-        $view = null;
+        if(!Auth::check())
+            return redirect('login');
 
-        if (!is_null($user))
-            $view = $user->admin() ? view('pages.admin', ['user' => $user]) : abort(404);
+        $this->authorize('admin', User::class);
 
-        if ($view==null)
-            abort(404);
+        return Auth::user()->admin ? view('pages.admin') : abort(404);
+    }
 
-        return $view;
+    public function users(Request $request)
+    {
+        if(!Auth::check())
+            return json_encode(["result" => "login"]);
+
+        $this->authorize('admin', User::class);
+
+        $users = User::where('admin', false)->orderBy('name')->paginate(12);
+
+        if($request->acceptsHtml()){
+            $html_users = "";
+
+            foreach($users as $user) {
+                $html_users .= view("partials.admin.user-management", ["user" => $user])->render() . "\n";
+            }
+
+            $html_links = view("partials.admin.links", ['objects' => $users])->render();
+
+            return json_encode(["result" => "success", "content" => ["users" => $html_users, "links" => $html_links]]);
+        }
+
+        return json_encode(["result" => "success", "content" => $users]);
+    }
+
+    public function make_admin($username)
+    {
+        if(!Auth::check())
+            return redirect('login');
+
+        $this->authorize('admin', User::class);
+
+        $user = User::where('username',"=",$username)->first();
+
+        if (!$user->admin)
+        {
+            $user->admin = true;
+            $user->save();
+        }
+
+        return redirect('/admin');
+    }
+
+    public function ban($username){
+        
+        if(!Auth::check())
+            return redirect('login');
+
+        $this->authorize('admin', User::class);
+
+        $user = User::where('username',"=",$username)->first();
+
+        $user->banned = !$user->banned;
+        $user->save();
+
+        return redirect('/admin');
     }
 }

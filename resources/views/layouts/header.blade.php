@@ -14,8 +14,8 @@
                     <a href="/auctions/search" class="text-decoration-none text-reset"><i class="fas fa-search"></i><span class="d-lg-none .d-xl-block"> Search</span></a>
                 </li>
                 @if(Auth::check())
-                    @if(Auth::user()->admin())
-                        <li class="nav-item navbar-brand mr-0 mr-lg-4 scale-objects"><a href="/admin/{{ Auth::user()->username }}" class="text-decoration-none text-reset"><i class="fas fa-user-shield"></i><span class="d-lg-none .d-xl-block"> Admin Panel</span></a></li>
+                    @if(Auth::user()->admin)
+                        <li class="nav-item navbar-brand mr-0 mr-lg-4 scale-objects"><a href="/admin" class="text-decoration-none text-reset"><i class="fas fa-user-shield"></i><span class="d-lg-none .d-xl-block"> Admin Panel</span></a></li>
                     @else
                         <li class="nav-item navbar-brand mr-0 mr-lg-4 scale-objects"><a href="/auctions/create" class="text-decoration-none text-reset"><i class="fas fa-plus"></i><span class="d-lg-none .d-xl-block"> Create Auction</span></li>
                     @endif

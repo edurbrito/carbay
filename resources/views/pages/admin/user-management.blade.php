@@ -2,104 +2,10 @@
 <input type="text" class="form-control w-100" id="search" placeholder="Type Something">
 
 <div class="container-fluid px-0 my-3">
-    <ol class="list-group rounded-0">
-        <li class="list-group-item d-flex align-items-center justify-content-start rounded-0 flex-vertical">
-            <a class="d-flex align-items-center justify-content-start mb-3 mb-sm-0" href="/profile.php">
-                <img src="https://images.theconversation.com/files/304864/original/file-20191203-67028-qfiw3k.jpeg?ixlib=rb-1.1.0&rect=638%2C2%2C795%2C745&q=45&auto=format&w=496&fit=clip" width="36px">
-                <span class="text-primary ml-3">John Doe</span>
-            </a>
-            <div class="btn-group ml-sm-auto" role="group" aria-label="User Management Buttons">
-                <button type="button" class="btn btn-danger mr-1" data-bs-toggle="modal" data-bs-target="#ban-user" role="button" data-bs-toggle="modal" data-bs-target="#ban-user" role="button">Ban</button>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#make-admin" role="button">Make Admin</button>
-            </div>
-        </li>
-
-        <li class="list-group-item d-flex align-items-center justify-content-start rounded-0 flex-vertical">
-            <a class="d-flex align-items-center justify-content-start mb-3 mb-sm-0" href="/profile.php">
-                <img src="https://static.wikia.nocookie.net/mrbean/images/4/4b/Mr_beans_holiday_ver2.jpg" width="36px">
-                <span class="text-primary ml-3" data-bs-toggle="modal" data-bs-target="#make-admin" role="button">Mary Rose</span>
-            </a>
-            <div class="btn-group ml-sm-auto" role="group" aria-label="User Management Buttons">
-                <button type="button" class="btn btn-danger mr-1" data-bs-toggle="modal" data-bs-target="#ban-user" role="button">Ban</button>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#make-admin" role="button">Make Admin</button>
-            </div>
-        </li>
-
-        <li class="list-group-item d-flex align-items-center justify-content-start rounded-0 flex-vertical">
-            <a class="d-flex align-items-center justify-content-start mb-3 mb-sm-0" href="/profile.php">
-                <img src="https://downloadwap.com/thumbs4/ringtones/covers/s/mrbean5.jpg" width="36px">
-                <span class="text-primary ml-3">Anthony Taylor</span>
-            </a>
-            <div class="btn-group ml-sm-auto" role="group" aria-label="User Management Buttons">
-                <button type="button" class="btn btn-danger mr-1" data-bs-toggle="modal" data-bs-target="#ban-user" role="button">Ban</button>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#make-admin" role="button">Make Admin</button>
-            </div>
-        </li>
-        <li class="list-group-item d-flex align-items-center justify-content-start rounded-0 flex-vertical">
-            <a class="d-flex align-items-center justify-content-start mb-3 mb-sm-0" href="/profile.php">
-                <img src="https://images.theconversation.com/files/304864/original/file-20191203-67028-qfiw3k.jpeg?ixlib=rb-1.1.0&rect=638%2C2%2C795%2C745&q=45&auto=format&w=496&fit=clip" width="36px">
-                <span class="text-primary ml-3">John Doe</span>
-            </a>
-            <div class="btn-group ml-sm-auto" role="group" aria-label="User Management Buttons">
-                <button type="button" class="btn btn-danger mr-1" data-bs-toggle="modal" data-bs-target="#ban-user" role="button">Ban</button>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#make-admin" role="button">Make Admin</button>
-            </div>
-        </li>
-
-        <li class="list-group-item d-flex align-items-center justify-content-start rounded-0 flex-vertical">
-            <a class="d-flex align-items-center justify-content-start mb-3 mb-sm-0" href="/profile.php">
-                <img src="https://static.wikia.nocookie.net/mrbean/images/4/4b/Mr_beans_holiday_ver2.jpg" width="36px">
-                <span class="text-primary ml-3" data-bs-toggle="modal" data-bs-target="#make-admin" role="button">Mary Rose</span>
-            </a>
-            <div class="btn-group ml-sm-auto" role="group" aria-label="User Management Buttons">
-                <button type="button" class="btn btn-danger mr-1" data-bs-toggle="modal" data-bs-target="#ban-user" role="button">Ban</button>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#make-admin" role="button">Make Admin</button>
-            </div>
-        </li>
-
-        <li class="list-group-item d-flex align-items-center justify-content-start rounded-0 flex-vertical">
-            <a class="d-flex align-items-center justify-content-start mb-3 mb-sm-0" href="/profile.php">
-                <img src="https://downloadwap.com/thumbs4/ringtones/covers/s/mrbean5.jpg" width="36px">
-                <span class="text-primary ml-3">Anthony Taylor</span>
-            </a>
-            <div class="btn-group ml-sm-auto" role="group" aria-label="User Management Buttons">
-                <button type="button" class="btn btn-danger mr-1" data-bs-toggle="modal" data-bs-target="#ban-user" role="button" data-bs-toggle="modal" data-bs-target="#ban-user" role="button">Ban</button>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#make-admin" role="button">Make Admin</button>
-            </div>
-        </li>
-        <li class="list-group-item d-flex align-items-center justify-content-start rounded-0 flex-vertical">
-            <a class="d-flex align-items-center justify-content-start mb-3 mb-sm-0" href="/profile.php">
-                <img src="https://images.theconversation.com/files/304864/original/file-20191203-67028-qfiw3k.jpeg?ixlib=rb-1.1.0&rect=638%2C2%2C795%2C745&q=45&auto=format&w=496&fit=clip" width="36px">
-                <span class="text-primary ml-3">John Doe</span>
-            </a>
-            <div class="btn-group ml-sm-auto" role="group" aria-label="User Management Buttons">
-                <button type="button" class="btn btn-danger mr-1" data-bs-toggle="modal" data-bs-target="#ban-user" role="button">Ban</button>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#make-admin" role="button">Make Admin</button>
-            </div>
-        </li>
-
-        <li class="list-group-item d-flex align-items-center justify-content-start rounded-0 flex-vertical">
-            <a class="d-flex align-items-center justify-content-start mb-3 mb-sm-0" href="/profile.php">
-                <img src="https://static.wikia.nocookie.net/mrbean/images/4/4b/Mr_beans_holiday_ver2.jpg" width="36px">
-                <span class="text-primary ml-3" data-bs-toggle="modal" data-bs-target="#make-admin" role="button">Mary Rose</span>
-            </a>
-            <div class="btn-group ml-sm-auto" role="group" aria-label="User Management Buttons">
-                <button type="button" class="btn btn-danger mr-1" data-bs-toggle="modal" data-bs-target="#ban-user" role="button">Ban</button>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#make-admin" role="button">Make Admin</button>
-            </div>
-        </li>
-
-        <li class="list-group-item d-flex align-items-center justify-content-start rounded-0 flex-vertical">
-            <a class="d-flex align-items-center justify-content-start mb-3 mb-sm-0" href="/profile.php">
-                <img src="https://downloadwap.com/thumbs4/ringtones/covers/s/mrbean5.jpg" width="36px">
-                <span class="text-primary ml-3">Anthony Taylor</span>
-            </a>
-            <div class="btn-group ml-sm-auto" role="group" aria-label="User Management Buttons">
-                <button type="button" class="btn btn-danger mr-1" data-bs-toggle="modal" data-bs-target="#ban-user" role="button">Ban</button>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#make-admin" role="button" data-bs-toggle="modal" data-bs-target="#make-admin" role="button">Make Admin</button>
-            </div>
-        </li>
+    <ol class="list-group rounded-0" id="user-management-list">
     </ol>
+    <div class="my-3" id="user-management-pagination" data-page="1">
+    </div>
 </div>
 
 <!-- Modal -->
@@ -111,10 +17,12 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body text-primary">
-        <div class="d-flex justify-content-end">
+          <span id="ban-text">You are going to ban X.</span>
+        <form id="ban-form"  class="d-flex justify-content-end" method="post" action="/admin/ban/">
+          {{ csrf_field() }}
           <button type="button" class="btn btn-primary mr-2" data-bs-dismiss="modal" aria-label="Dismiss">Dismiss</button>
-          <button type="button" class="btn btn-danger" data-bs-dismiss="modal" aria-label="Dismiss" data-bs-toggle="modal" data-bs-target="#ban-user" role="button">Ban</button>
-        </div>
+          <button type="submit" class="btn btn-danger" data-bs-dismiss="modal" aria-label="Dismiss" data-bs-toggle="modal" data-bs-target="#ban-user" role="button">Ban</button>
+        </form>
       </div>
     </div>
   </div>
@@ -129,10 +37,12 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body text-primary">
-        <div class="d-flex justify-content-end">
+          <span id="make-admin-text">You are going to promote X to admin.</span>
+        <form id="make-admin-form" class="d-flex justify-content-end mt-4" method="post" action="/admin/make/">
+          {{ csrf_field() }}
           <button type="button" class="btn btn-primary mr-2" data-bs-dismiss="modal" aria-label="Dismiss">Dismiss</button>
-          <button type="button" class="btn btn-success" data-bs-dismiss="modal" aria-label="Make Admin" data-bs-toggle="modal" data-bs-target="#make-admin" role="button" data-bs-toggle="modal" data-bs-target="#make-admin" role="button">Make Admin</button>
-        </div>
+          <button class="btn btn-success" data-bs-dismiss="modal" aria-label="Make Admin" data-bs-toggle="modal" data-bs-target="#make-admin" role="button" data-bs-toggle="modal" data-bs-target="#make-admin" type="submit">Make Admin</button>
+        </form>
       </div>
     </div>
   </div>

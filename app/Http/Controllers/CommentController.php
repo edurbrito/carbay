@@ -30,6 +30,8 @@ class CommentController extends Controller
     {        
         if(!Auth::check())
             return json_encode(["result" => "login"]);
+        else if(Auth::user()->banned)
+            return json_encode(["result" => "error", "content" => ['This action is not available for banned users.']]);
 
         $this->authorize('create', Comment::class);
         

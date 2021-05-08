@@ -1,6 +1,7 @@
 @extends('layouts.content')
 
 @push('scripts')
+<script src="{{ asset('js/admin.js') }}" defer></script>
 @endpush
 
 @section('div_content')

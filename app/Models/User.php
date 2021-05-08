@@ -96,12 +96,4 @@ class User extends Authenticatable
         }
         return $count;
     }
-
-    public function admin()
-    {
-        if($this->admin==true)
-            return true;
-        else
-            return false;
-    }
 }
