@@ -17,7 +17,6 @@
     <div id="carousel" class="carousel slide p-3 p-sm-5" style="width: fit-content !important;" data-bs-ride="carousel" data-bs-interval="5000">
         <h4 class="text-light">Featured Auctions</h4>
         <div class="carousel-inner" id="featured-auctions">
-        {!! $featured !!}
         </div>
     </div>
     @endsection
