@@ -392,7 +392,7 @@ class AuctionController extends Controller
             return;
         }
 
-        $bids = Bid::where("auctionid", "=", $id)->orderBy("value", "desc")->get();
+        $bids = Bid::where("auctionid", "=", $id)->orderBy("value", "desc")->limit(10)->get();
 
         if ($request->acceptsHtml()) {
             $result = "";
@@ -412,7 +412,7 @@ class AuctionController extends Controller
             return;
         }
 
-        $comments = Comment::where("auctionid", "=", $id)->orderBy("datehour", "desc")->get();
+        $comments = Comment::where("auctionid", "=", $id)->orderBy("datehour", "desc")->limit(10)->get();
 
         if ($request->acceptsHtml()) {
             $result = "";

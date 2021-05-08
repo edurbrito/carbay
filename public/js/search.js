@@ -288,6 +288,10 @@ function reset_search() {
         'page': "1"
     }
 
+    purl = window.location.href.match(/.+?\?/)
+    url = purl == null ? window.location.href + "?" : purl[0]
+    history.replaceState({}, null, url + encodeForAjax(data));
+
     sendAjaxRequest('GET','/api/auctions/search', data, refresh_search, [{name: 'Accept', value: 'text/html'}])
 }
 
