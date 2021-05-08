@@ -207,9 +207,13 @@ class UserController extends Controller
     public function admin($username)
     {
         $user = User::where("username", "=", $username)->first();
+        $view = null;
 
         if (!is_null($user))
             $view = $user->admin() ? view('pages.admin', ['user' => $user]) : abort(404);
+
+        if ($view==null)
+            abort(404);
 
         return $view;
     }
