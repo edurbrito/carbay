@@ -115,11 +115,8 @@ class UserController extends Controller
         }
 
         if ($request->hasFile('image-input')) {
-            return "HELLO";
             $image = $request->file('image-input');
-            return "VALID1";
             if ($image->isValid()) {
-                return "VALID";
                 $image_name = date('mdYHis') . "-" . uniqid() . "-" . Auth::user()->id . ".png";
                 $path = base_path() . '/public/images/users';
                 $image->move($path, $image_name);
