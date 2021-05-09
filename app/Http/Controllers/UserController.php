@@ -8,6 +8,7 @@ use App\Models\FavouriteSeller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Database\QueryException;
 
 class UserController extends Controller
 {
@@ -267,5 +268,18 @@ class UserController extends Controller
         }
 
         return json_encode($rated);
+    }
+
+    public function delete() {
+        $user = Auth::user(); // isto não dá o user
+
+        try {
+            Auth::logout();
+            $user->delete();
+        } catch(QueryException $qe) {
+            return back()->withErrors(['error' => "You can't delete your account if you still have active auctions or any highest bid!"]);
+        }
+
+        return redirect('/');
     }
 }

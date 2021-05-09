@@ -2,25 +2,33 @@
 
 <!-- Section: Info -->
 <section class="row text-center">
-    <div class="col-0 col-sm-6 align-self-center text-sm-right">
-      <img src="{{ $user->image }}" class="rounded z-depth-1-half img-fluid" alt="Sample avatar" style="min-height:200px;height:200px;min-width:200px;width:200">
-    </div>
-    <div class="col-0 col-sm-6 text-sm-left">
-      <h3 class="font-weight-bold dark-grey-text my-4 text-primary">{{ $user->name }}</h3>
-      <h5 class="text-lowercase grey-text mb-3 text-muted"><strong>{{ $user->email }}</strong></h5>
-      <div class="dark-grey-text my-4 text-primary">
-        <h5 class="font-weight-bold dark-grey-text my-4 text-primary">Rating:
-        @for ($i = 1; $i <= 5; $i++)
-          @if ($i <= round($user->rating_value()))
-            <i class="fas fa-star"></i>
+  <div class="col-0 col-sm-6 align-self-center text-sm-right">
+    <img src="{{ $user->image }}" class="rounded z-depth-1-half img-fluid" alt="Sample avatar" style="min-height:200px;height:200px;min-width:200px;width:200">
+  </div>
+  <div class="col-0 col-sm-6 text-sm-left">
+    <h3 class="font-weight-bold dark-grey-text my-4 text-primary">{{ $user->name }}</h3>
+    <h5 class="text-lowercase grey-text mb-3 text-muted"><strong>{{ $user->email }}</strong></h5>
+    <div class="dark-grey-text my-4 text-primary">
+      <h5 class="font-weight-bold dark-grey-text my-4 text-primary">Rating:
+        @for ($i = 1; $i <= 5; $i++) @if ($i <=round($user->rating_value()))
+          <i class="fas fa-star"></i>
           @else
-            <i class="far fa-star"></i>
+          <i class="far fa-star"></i>
           @endif
-        @endfor
-        ({{ $user->num_ratings() }} votes)</h5>
-      </div>
-      <a href="/users/{{$user->username}}/edit" class="mr-sm-5"><button class="btn btn-dark">Edit Profile</button></a>
+          @endfor
+          ({{ $user->num_ratings() }} votes)</h5>
     </div>
+
+    <div class="btn-group ml-auto mt-auto" role="group" aria-label="Edit and Delete Profile Buttons">
+      <a href="/users/{{$user->username}}/edit" class="mr-2"><button class="btn btn-dark">Edit Profile</button></a>
+      <form action="/users/delete" method="POST"><button class="btn btn-dark" type="submit">Delete Profile</button></form>
+    </div>
+    @if ($errors->has('error'))
+    <div onclick="this.hidden = true" class="alert alert-danger alert-dismissible fade show my-3 p-1 px-2" role="alert">
+      {{ $errors->first('error') }}
+    </div>
+    @endif
+  </div>
 </section>
 
 <!-- Section: Statistics -->
