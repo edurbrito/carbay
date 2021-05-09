@@ -4,6 +4,6 @@
         <span class="text-primary ml-3 fs-4">{{ $seller->name }}</span>
     </a>
     <div class="btn-group ml-sm-auto" role="group" aria-label="User Management Buttons">
-        <button class="btn btn-primary text-center" type="button" name="button">Remove</button>
+        <button class="btn btn-primary text-center remove-seller" type="button" name="button" data-seller="{{ $seller->username }}">Remove</button>
     </div>
 </li>

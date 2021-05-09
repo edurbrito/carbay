@@ -42,7 +42,8 @@ favourite_auctions_tab = document.querySelector("#v-pills-favourite-auctions-tab
 favourite_auctions_tab.addEventListener('click', fav_auctions)
 
 function fav_auctions(e) {
-    e.preventDefault()
+    if(e != null)
+        e.preventDefault()
 
     sendAjaxRequest('GET',`/api/users/${username.value}/fav_auctions`, {}, fav_auction_list, [{name: 'Accept', value: 'text/html'}])
 }
@@ -51,6 +52,11 @@ function fav_auction_list() {
     favourite_auctions = document.querySelector("#favourite-auctions-list")
 
     favourite_auctions.innerHTML = this.response;
+
+    remove_auction_buttons = document.querySelectorAll(".remove-auction")
+    for (let button of remove_auction_buttons) {
+        button.addEventListener('click', remove_favourite_auction)
+    }
 }
 
 // ----- Favourite Sellers -----
@@ -60,7 +66,8 @@ favourite_sellers_tab = document.querySelector("#v-pills-favourite-sellers-tab")
 favourite_sellers_tab.addEventListener('click', fav_sellers)
 
 function fav_sellers(e) {
-    e.preventDefault()
+    if(e != null)
+        e.preventDefault()
 
     sendAjaxRequest('GET',`/api/users/${username.value}/fav_sellers`, {}, fav_seller_list, [{name: 'Accept', value: 'text/html'}])
 }
@@ -69,6 +76,11 @@ function fav_seller_list() {
     favourite_sellers = document.querySelector("#favourite-sellers-list")
 
     favourite_sellers.innerHTML = this.response;
+
+    remove_seller_buttons = document.querySelectorAll(".remove-seller")
+    for (let button of remove_seller_buttons) {
+        button.addEventListener('click', remove_favourite_seller)
+    }
 }
 
 // ----- Users Ratings -----
@@ -105,4 +117,61 @@ function rated_list() {
     users_rated = document.querySelector("#users-rated-list")
 
     users_rated.innerHTML = this.response;
+}
+
+// ----- Add/Remove Favourite -----
+
+favourite_seller = document.querySelector("#favourite-seller")
+
+if(favourite_seller){
+    favourite_seller.addEventListener('click', () => {
+        username = favourite_seller.getAttribute('data-seller')
+        icon = favourite_seller.querySelector("svg")
+        action = icon.getAttribute('data-prefix') == "fas" ? 'remove' : 'add'
+    
+        sendAjaxRequest('POST',`/api/users/fav_sellers/${action}`, {'seller': username}, fav_seller, [])
+    })
+}
+
+
+function fav_seller() {
+
+    response = JSON.parse(this.response)
+    result = response.result
+    icon = favourite_seller.querySelector("svg")
+    action = icon.getAttribute('data-prefix') == "fas" ? 'remove' : 'add'
+    
+    if(result == "success")
+    {
+        if(action == 'remove')
+        {
+            icon.setAttribute('data-prefix', "far")
+        }
+        else if(action == 'add')
+        {
+            icon.setAttribute('data-prefix', "fas")
+        }
+    }
+    else if(result == "login")
+    {
+        window.location.replace("/login")
+    }
+    else
+    {
+        console.log(response.content);
+    }
+}
+
+function remove_favourite_seller(){
+    seller = this.getAttribute("data-seller")
+    sendAjaxRequest('POST',`/api/users/fav_sellers/remove`, {'seller': seller}, () => {
+        sendAjaxRequest('GET',`/api/users/${username.value}/fav_sellers`, {}, fav_seller_list, [{name: 'Accept', value: 'text/html'}])
+    }, [])
+}
+
+function remove_favourite_auction(){
+    auction = this.getAttribute("data-auction")
+    sendAjaxRequest('POST',`/api/users/fav_auctions/remove`, {'auction': auction}, () => {
+        sendAjaxRequest('GET',`/api/users/${username.value}/fav_auctions`, {}, fav_auction_list, [{name: 'Accept', value: 'text/html'}])
+    }, [])
 }

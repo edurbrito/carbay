@@ -41,6 +41,11 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Bid', 'authorid');
     }
 
+    public function favouriteSellers()
+    {
+        return $this->hasMany('App\Models\FavouriteSeller', 'user1id');
+    }
+    
     public function favouriteAuctions()
     {
         return $this->hasMany('App\Models\FavouriteAuction', 'userid');
@@ -95,5 +100,17 @@ class User extends Authenticatable
             }
         }
         return $count;
+    }
+
+    public function hasFavouriteSeller($user2id)
+    {
+        $seller = FavouriteSeller::where('user1id', '=', $this->id)->where('user2id', '=', $user2id)->exists();
+        return $seller;
+    }
+
+    public function hasFavouriteAuction($auctionid)
+    {
+        $auction = FavouriteAuction::where('userid', '=', $this->id)->where('auctionid', '=', $auctionid)->exists();
+        return $auction;
     }
 }

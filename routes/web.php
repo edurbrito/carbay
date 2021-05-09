@@ -53,6 +53,12 @@ Route::get('api/users/{username}/fav_sellers', 'UserController@sellers');
 Route::get('api/users/{username}/ratings', 'UserController@ratings');
 Route::get('api/users/{username}/rated', 'UserController@rated');
 
+// User
+Route::post('api/users/fav_sellers/add', 'FavouriteSellerController@store');
+Route::post('api/users/fav_sellers/remove', 'FavouriteSellerController@destroy');
+Route::post('api/users/fav_auctions/add', 'FavouriteAuctionController@store');
+Route::post('api/users/fav_auctions/remove', 'FavouriteAuctionController@destroy');
+
 // Admin
 Route::get('admin','UserController@admin');
 Route::get('api/users','UserController@users');

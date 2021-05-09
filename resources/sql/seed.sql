@@ -121,20 +121,24 @@ CREATE TABLE Image (
 
 
 CREATE TABLE FavouriteSeller (
+    id                      SERIAL, 
     user1ID                 SERIAL,
     user2ID                 SERIAL,
 
-    CONSTRAINT FavouriteSellerPK PRIMARY KEY (user1ID, user2ID),
+    CONSTRAINT FavouriteSellerPK PRIMARY KEY (id),
+    CONSTRAINT FavouriteSellerUK UNIQUE (user1ID, user2ID),
     CONSTRAINT FavouriteSellerUser1FK FOREIGN KEY (user1ID) REFERENCES "user" ON UPDATE CASCADE ON DELETE CASCADE,
     CONSTRAINT FavouriteSellerUser2FK FOREIGN KEY (user2ID) REFERENCES "user" ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 
 CREATE TABLE FavouriteAuction (
+    id                     SERIAL,
     userID                 SERIAL,
     auctionID              SERIAL,
 
-    CONSTRAINT FavouriteAuctionPK PRIMARY KEY (userID,auctionID),
+    CONSTRAINT FavouriteAuctionPK PRIMARY KEY (id),
+    CONSTRAINT FavouriteAuctionUK UNIQUE (userID, auctionID),
     CONSTRAINT FavouriteAuctionUserFK FOREIGN KEY (userID) REFERENCES "user" ON UPDATE CASCADE ON DELETE CASCADE,
     CONSTRAINT FavouriteAutionAuctionFK FOREIGN KEY (auctionID) REFERENCES Auction ON UPDATE CASCADE ON DELETE CASCADE
 );

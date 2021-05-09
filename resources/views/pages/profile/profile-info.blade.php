@@ -1,5 +1,5 @@
 @php
-$myProfile = Auth::user()->username == $user->username;
+$myProfile = Auth::check() && (Auth::user()->username == $user->username);
 @endphp
 <h1 class="w-100 text-primary pb-4 text-center">
 @if($myProfile) My
@@ -17,7 +17,7 @@ $myProfile = Auth::user()->username == $user->username;
       <img src="{{ $user->image }}" class="rounded z-depth-1-half img-fluid" alt="Sample avatar" style="min-height:200px;height:200px;min-width:200px;width:200">
     </div>
     <div class="col-0 col-sm-6 text-sm-left">
-      <h3 class="font-weight-bold dark-grey-text my-4 text-primary">{{ $user->name }}</h3>
+      <h3 class="font-weight-bold dark-grey-text my-4 text-primary">@if(!$myProfile)<span id="favourite-seller" style="cursor: pointer;" data-seller="{{ $user->username }}"><i class="@if(Auth::check() && Auth::user()->hasFavouriteSeller($user->id)) fas @else far @endif fa-star"></i></span>@endif {{ $user->name }}</h3>
       <h5 class="text-lowercase grey-text mb-3 text-muted"><strong>{{ $user->email }}</strong></h5>
       <div class="dark-grey-text my-4 text-primary">
         <h5 class="font-weight-bold dark-grey-text my-4 text-primary">Rating:

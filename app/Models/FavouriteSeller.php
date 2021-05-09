@@ -18,6 +18,6 @@ class FavouriteSeller extends Model
      * @var array
      */
     protected $fillable = [
-        'user1id', 'user2id'
+        'id', 'user1id', 'user2id'
     ];
 }

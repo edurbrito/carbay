@@ -71,3 +71,46 @@ function handle_comment(){
         errors.innerHTML = ""
     }
 }
+
+// ----- Add/Remove Favourite -----
+
+favourite_auction = document.querySelector("#favourite-auction")
+
+if(favourite_auction){
+    favourite_auction.addEventListener('click', () => {
+        auction_id = favourite_auction.getAttribute('data-auction')
+        icon = favourite_auction.querySelector("svg")
+        action = icon.getAttribute('data-prefix') == "fas" ? 'remove' : 'add'
+    
+        sendAjaxRequest('POST',`/api/users/fav_auctions/${action}`, {'auction': auction_id}, fav_auction, [])
+    })
+}
+
+
+function fav_auction() {
+
+    response = JSON.parse(this.response)
+    result = response.result
+    icon = favourite_auction.querySelector("svg")
+    action = icon.getAttribute('data-prefix') == "fas" ? 'remove' : 'add'
+    
+    if(result == "success")
+    {
+        if(action == 'remove')
+        {
+            icon.setAttribute('data-prefix', "far")
+        }
+        else if(action == 'add')
+        {
+            icon.setAttribute('data-prefix', "fas")
+        }
+    }
+    else if(result == "login")
+    {
+        window.location.replace("/login")
+    }
+    else
+    {
+        console.log(response.content);
+    }
+}
