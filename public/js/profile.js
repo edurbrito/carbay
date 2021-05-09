@@ -8,7 +8,7 @@ bid_history_tab.addEventListener('click', bids)
 function bids(e) {
     e.preventDefault()
 
-    sendAjaxRequest('GET',`/api/users/${username.value}/bids`, {}, bid_list, [{name: 'Accept', value: 'text/html'}])
+    sendAjaxRequest('GET', `/api/users/${username.value}/bids`, {}, bid_list, [{ name: 'Accept', value: 'text/html' }])
 }
 
 function bid_list() {
@@ -26,7 +26,7 @@ created_auctions_tab.addEventListener('click', auctions)
 function auctions(e) {
     e.preventDefault()
 
-    sendAjaxRequest('GET',`/api/users/${username.value}/auctions`, {}, auction_list, [{name: 'Accept', value: 'text/html'}])
+    sendAjaxRequest('GET', `/api/users/${username.value}/auctions`, {}, auction_list, [{ name: 'Accept', value: 'text/html' }])
 }
 
 function auction_list() {
@@ -45,7 +45,7 @@ function fav_auctions(e) {
     if(e != null)
         e.preventDefault()
 
-    sendAjaxRequest('GET',`/api/users/${username.value}/fav_auctions`, {}, fav_auction_list, [{name: 'Accept', value: 'text/html'}])
+    sendAjaxRequest('GET', `/api/users/${username.value}/fav_auctions`, {}, fav_auction_list, [{ name: 'Accept', value: 'text/html' }])
 }
 
 function fav_auction_list() {
@@ -69,7 +69,7 @@ function fav_sellers(e) {
     if(e != null)
         e.preventDefault()
 
-    sendAjaxRequest('GET',`/api/users/${username.value}/fav_sellers`, {}, fav_seller_list, [{name: 'Accept', value: 'text/html'}])
+    sendAjaxRequest('GET', `/api/users/${username.value}/fav_sellers`, {}, fav_seller_list, [{ name: 'Accept', value: 'text/html' }])
 }
 
 function fav_seller_list() {
@@ -92,7 +92,7 @@ users_ratings_tab.addEventListener('click', ratings)
 function ratings(e) {
     e.preventDefault()
 
-    sendAjaxRequest('GET',`/api/users/${username.value}/ratings`, {}, rating_list, [{name: 'Accept', value: 'text/html'}])
+    sendAjaxRequest('GET', `/api/users/${username.value}/ratings`, {}, rating_list, [{ name: 'Accept', value: 'text/html' }])
 }
 
 function rating_list() {
@@ -110,7 +110,7 @@ users_rated_tab.addEventListener('click', rated)
 function rated(e) {
     e.preventDefault()
 
-    sendAjaxRequest('GET',`/api/users/${username.value}/rated`, {}, rated_list, [{name: 'Accept', value: 'text/html'}])
+    sendAjaxRequest('GET', `/api/users/${username.value}/rated`, {}, rated_list, [{ name: 'Accept', value: 'text/html' }])
 }
 
 function rated_list() {

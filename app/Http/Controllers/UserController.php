@@ -7,6 +7,8 @@ use App\Models\Auction;
 use App\Models\FavouriteSeller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Database\QueryException;
 
 class UserController extends Controller
 {
@@ -59,12 +61,76 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\User  $user
+     * @param  String  $username
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit_profile($username)
     {
-        //
+        if (!Auth::check() || Auth::user()->username != $username)
+            return redirect('users/' . $username);
+
+        $user = User::where("username", "=", $username)->first();
+
+        // $this->authorize('create', Auction::class);
+
+        $view = !is_null($user) ? view('pages.edit-profile', ['user' => $user]) : view('errors.404');
+
+        return $view;
+    }
+
+    /**
+     * Get the data from the form for editing the specified resource.
+     *
+     * @param  String  $username
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Request $request, $username)
+    {
+        if (!Auth::check() || Auth::user()->username != $username)
+            return redirect('/login');
+
+        $user = User::where("username", "=", $username)->first();
+
+        $validated = Validator::validate($request->all(), [
+            'name' => 'string|max:255',
+            'email' => 'unique:user,email,' . $user->id,
+            'current_password' => 'required|string|min:6',
+            'new_password' => 'nullable|string|min:6|same:confirm_password',
+            'confirm_password' => 'nullable|string|min:6|same:new_password',
+            'image-input' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        if (!password_verify($request->input('current_password'), $user->password)) {
+            return back()->withErrors(['match' => 'Wrong Password'])->withInput();
+        }
+
+        User::where('id', $user->id)->update([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+        ]);
+
+        if($request->input('new_password') != null) {
+            User::where('id', $user->id)->update([
+                'password' => bcrypt($request->input('new_password')),
+            ]);
+        }
+
+        if ($request->hasFile('image-input')) {
+            $image = $request->file('image-input');
+            if ($image->isValid()) {
+                $image_name = date('mdYHis') . "-" . uniqid() . "-" . Auth::user()->id . ".png";
+                $path = base_path() . '/public/images/users';
+                $image->move($path, $image_name);
+
+                User::where('id', $user->id)->update([
+                    'image' => '/images/users/' . $image_name,
+                ]);
+            } else {
+                return redirect()->back()->with('error', 'Image not valid: ' . $image);
+            }
+        }
+
+        return redirect()->to('users/' . $username);
     }
 
     /**
@@ -269,5 +335,18 @@ class UserController extends Controller
         $user->save();
 
         return redirect('/admin');
+    }
+
+    public function delete() {
+        $user = Auth::user(); // isto não dá o user
+
+        try {
+            Auth::logout();
+            $user->delete();
+        } catch(QueryException $qe) {
+            return back()->withErrors(['error' => "You can't delete your account if you still have active auctions or any highest bid!"]);
+        }
+
+        return redirect('/');
     }
 }

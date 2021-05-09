@@ -25,13 +25,22 @@ $myProfile = Auth::check() && (Auth::user()->username == $user->username);
           @if ($i <= round($user->rating_value()))
             <i class="fas fa-star"></i>
           @else
-            <i class="far fa-star"></i>
+          <i class="far fa-star"></i>
           @endif
-        @endfor
-        ({{ $user->num_ratings() }} votes)</h5>
-      </div>
-      <a href="/users/{{$user->username}}/edit" class="mr-sm-5"><button class="btn btn-dark">Edit Profile</button></a>
+          @endfor
+          ({{ $user->num_ratings() }} votes)</h5>
     </div>
+
+    <div class="btn-group ml-auto mt-auto" role="group" aria-label="Edit and Delete Profile Buttons">
+      <a href="/users/{{$user->username}}/edit" class="mr-2"><button class="btn btn-dark">Edit Profile</button></a>
+      <form action="/users/delete" method="POST"><button class="btn btn-dark" type="submit">Delete Profile</button></form>
+    </div>
+    @if ($errors->has('error'))
+    <div onclick="this.hidden = true" class="alert alert-danger alert-dismissible fade show my-3 p-1 px-2" role="alert">
+      {{ $errors->first('error') }}
+    </div>
+    @endif
+  </div>
 </section>
 <!-- Section: Statistics -->
 <section class="container mt-5">
