@@ -17,11 +17,17 @@
     <!-- Section: Photo and Username -->
     <section class="container text-center">
         <h3 class="font-weight-bold dark-grey-text my-4">{{ $user->username }}</h3>
-        <div id="profile-photo" class="avatar mx-auto col-md-12 position-relative mb-4 p-0">
-          <img src="{{ $user->image }}" class="rounded z-depth-1-half img-fluid" alt="Sample avatar" style="min-height:300px;height:300px;min-width:300px;width:300">
+        <div class="avatar mx-auto col-md-12 position-relative mb-4 p-0">
+          <img id="profile-photo" src="{{ $user->image }}" class="rounded z-depth-1-half img-fluid" alt="Sample avatar" style="min-height:300px;height:300px;min-width:300px;width:300">
         </div>
         <!--<a href="/../profile.php"><button class="btn btn-secondary"></button></a>-->
-        <input type="file" accept="image/*" class="btn btn-secondary" id="photo-input" name="image" value="Upload Photo" style="cursor: pointer;">
+        <!--<input type="file" accept="image/*" class="custom-file-input" id="photo-input" name="image" value="Upload Photo" style="cursor: pointer;">-->
+        <div class="input-group">
+          <div class="custom-file">
+            <input type="file" accept="image/*" class="custom-file-input" id="photo-input" name="image-input" value="Upload Photo" style="cursor: pointer;">
+            <label class="custom-file-label" for="image-input" style="cursor: pointer;">Upload Image</label>
+          </div>
+        </div>
     </section>
   </div>
   <!-- Grid column -->

@@ -90,17 +90,14 @@ class UserController extends Controller
 
         $user = User::where("username", "=", $username)->first();
 
-        // $this->authorize('create', Auction::class);
-
         $validated = Validator::validate($request->all(), [
             'name' => 'string|max:255',
             'email' => 'unique:user,email,' . $user->id,
             'current_password' => 'required|string|min:6',
             'new_password' => 'nullable|string|min:6|same:confirm_password',
             'confirm_password' => 'nullable|string|min:6|same:new_password',
+            'image-input' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-        
-        // $encrypted_password = bcrypt($request->input('current_password'));
 
         if (!password_verify($request->input('current_password'), $user->password)) {
             return back()->withErrors(['match' => 'Wrong Password']);
@@ -117,9 +114,12 @@ class UserController extends Controller
             ]);
         }
 
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
+        if ($request->hasFile('image-input')) {
+            return "HELLO";
+            $image = $request->file('image-input');
+            return "VALID1";
             if ($image->isValid()) {
+                return "VALID";
                 $image_name = date('mdYHis') . "-" . uniqid() . "-" . Auth::user()->id . ".png";
                 $path = base_path() . '/public/images/users';
                 $image->move($path, $image_name);
