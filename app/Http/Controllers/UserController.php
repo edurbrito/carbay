@@ -100,7 +100,7 @@ class UserController extends Controller
         ]);
 
         if (!password_verify($request->input('current_password'), $user->password)) {
-            return back()->withErrors(['match' => 'Wrong Password']);
+            return back()->withErrors(['match' => 'Wrong Password'])->withInput();
         }
 
         User::where('id', $user->id)->update([

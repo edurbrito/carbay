@@ -25,7 +25,7 @@
         <div class="input-group">
           <div class="custom-file">
             <input type="file" accept="image/*" class="custom-file-input" id="photo-input" name="image-input" value="Upload Photo" style="cursor: pointer;">
-            <label class="custom-file-label text-left" for="image-input" style="cursor: pointer;">Upload Image</label>
+            <label class="custom-file-label text-left" for="image-input" style="cursor: pointer;">Upload Photo</label>
           </div>
         </div>
       </section>
@@ -41,7 +41,7 @@
                 <div class="input-group-append">
                   <span class="input-group-text rounded-0"><i class="fas fa-id-card"></i></span>
                 </div>
-                <input type="text" name="name" class="form-control" value="{{ $user->name }}" placeholder="Name" required>
+                <input type="text" name="name" class="form-control" value="{{ old('name') != null ? old('name') : $user->name }}" placeholder="Name" required>
                 @if ($errors->has('name'))
                 <div onclick="this.hidden = true" class="alert alert-danger alert-dismissible fade show mb-3 p-1 px-2" role="alert">
                   {{ $errors->first('name') }}
@@ -52,7 +52,7 @@
                 <div class="input-group-append">
                   <span class="input-group-text rounded-0"><i class="fas fa-at"></i></span>
                 </div>
-                <input type="email" name="email" class="form-control" value="{{ $user->email }}" placeholder="Email" required>
+                <input type="email" name="email" class="form-control" value="{{ old('email') != null ? old('email') : $user->email }}" placeholder="Email" required>
                 @if ($errors->has('email'))
                 <div onclick="this.hidden = true" class="alert alert-danger alert-dismissible fade show mb-3 p-1 px-2" role="alert">
                   {{ $errors->first('email') }}
