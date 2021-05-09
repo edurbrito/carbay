@@ -14,11 +14,27 @@ class BidController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request, $id)
     {
-        //
+        if (!is_numeric($id)) {
+            return;
+        }
+
+        $bids = Bid::where("auctionid", "=", $id)->orderBy("value", "desc")->limit(10)->get();
+
+        if ($request->acceptsHtml()) {
+            $result = "";
+            foreach ($bids as $bid) {
+                $result .= view("partials.auction.bid", ["bid" => $bid])->render() . "\n";
+            }
+
+            return json_encode(["result" => "success", "content" => $result]);
+        }
+
+        return json_encode(["result" => "success", "content" => $bids]);
     }
 
     /**
@@ -26,7 +42,18 @@ class BidController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request, $id)
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request, $id)
     {
         if (!Auth::check())
             return redirect('/login');
@@ -59,17 +86,6 @@ class BidController extends Controller
         }
 
         return redirect()->to('auctions/'.$request->input('id'));
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
     }
 
     /**

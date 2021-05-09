@@ -14,7 +14,7 @@ function bids(e) {
 function bid_list() {
     bid_history = document.querySelector("#bid-history-list")
 
-    bid_history.innerHTML = this.response;
+    bid_history.innerHTML = JSON.parse(this.response).content;
 }
 
 // ----- Created Auctions -----
@@ -32,7 +32,7 @@ function auctions(e) {
 function auction_list() {
     created_auctions = document.querySelector("#created-auctions-list")
 
-    created_auctions.innerHTML = this.response;
+    created_auctions.innerHTML = JSON.parse(this.response).content;
 }
 
 // ----- Favourite Auctions -----
@@ -51,7 +51,7 @@ function fav_auctions(e) {
 function fav_auction_list() {
     favourite_auctions = document.querySelector("#favourite-auctions-list")
 
-    favourite_auctions.innerHTML = this.response;
+    favourite_auctions.innerHTML = JSON.parse(this.response).content;
 
     remove_auction_buttons = document.querySelectorAll(".remove-auction")
     for (let button of remove_auction_buttons) {
@@ -75,7 +75,7 @@ function fav_sellers(e) {
 function fav_seller_list() {
     favourite_sellers = document.querySelector("#favourite-sellers-list")
 
-    favourite_sellers.innerHTML = this.response;
+    favourite_sellers.innerHTML = JSON.parse(this.response).content;
 
     remove_seller_buttons = document.querySelectorAll(".remove-seller")
     for (let button of remove_seller_buttons) {
@@ -98,7 +98,7 @@ function ratings(e) {
 function rating_list() {
     users_ratings = document.querySelector("#users-ratings-list")
 
-    users_ratings.innerHTML = this.response;
+    users_ratings.innerHTML = JSON.parse(this.response).content;
 }
 
 // ----- Users Rated -----
@@ -116,7 +116,7 @@ function rated(e) {
 function rated_list() {
     users_rated = document.querySelector("#users-rated-list")
 
-    users_rated.innerHTML = this.response;
+    users_rated.innerHTML = JSON.parse(this.response).content;
 }
 
 // ----- Add/Remove Favourite -----

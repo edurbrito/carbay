@@ -14,7 +14,7 @@ class ColourController extends Controller
      */
     public function index()
     {
-        return Colour::orderBy('name')->get()->toJson();
+        return json_encode(["result" => "success", "content" => Colour::orderBy('name')->get()]);
     }
 
     /**

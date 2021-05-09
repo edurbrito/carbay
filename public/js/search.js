@@ -114,7 +114,7 @@ function update_time_remaining() {
 }
 
 function setSelect(response, attribute = "name") {
-    let objects = JSON.parse(response)
+    let objects = JSON.parse(response).content
 
     let new_objects = []
 
@@ -157,7 +157,7 @@ function setScales() {
 }
 
 function setSellers() {
-    let sellers = JSON.parse(this.responseText)
+    let sellers = JSON.parse(this.responseText).content
     
     let select = document.querySelector("#select-seller")
 

@@ -47,7 +47,7 @@ window.onload = function () {
 }
 
 function setSelect(response, attribute = "name") {
-    let objects = JSON.parse(response)
+    let objects = JSON.parse(response).content
 
     let new_objects = []
 

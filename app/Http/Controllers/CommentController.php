@@ -14,11 +14,27 @@ class CommentController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request, $id)
     {
-        //
+        if (!is_numeric($id)) {
+            return;
+        }
+
+        $comments = Comment::where("auctionid", "=", $id)->orderBy("datehour", "desc")->limit(10)->get();
+
+        if ($request->acceptsHtml()) {
+            $result = "";
+            foreach ($comments as $comment) {
+                $result .= view("partials.auction.comment", ["comment" => $comment])->render() . "\n";
+            }
+
+            return json_encode(["result" => "success", "content" => $result]);
+        }
+
+        return json_encode(["result" => "success", "content" => $comments]);
     }
 
     /**
@@ -26,8 +42,19 @@ class CommentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request, $id)
+    public function create()
     {        
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request, $id)
+    {
         if(!Auth::check())
             return json_encode(["result" => "login"]);
         else if(Auth::user()->banned)
@@ -55,17 +82,6 @@ class CommentController extends Controller
         }
 
         return json_encode(["result" => "success"]);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
     }
 
     /**

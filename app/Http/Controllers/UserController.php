@@ -17,9 +17,28 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        if(!Auth::check())
+            return json_encode(["result" => "login"]);
+
+        $this->authorize('admin', User::class);
+
+        $users = User::where('admin', false)->orderBy('name')->paginate(12);
+
+        if($request->acceptsHtml()){
+            $html_users = "";
+
+            foreach($users as $user) {
+                $html_users .= view("partials.admin.user-management", ["user" => $user])->render() . "\n";
+            }
+
+            $html_links = view("partials.admin.links", ['objects' => $users])->render();
+
+            return json_encode(["result" => "success", "content" => ["users" => $html_users, "links" => $html_links]]);
+        }
+
+        return json_encode(["result" => "success", "content" => $users]);
     }
 
     /**
@@ -64,32 +83,32 @@ class UserController extends Controller
      * @param  String  $username
      * @return \Illuminate\Http\Response
      */
-    public function edit_profile($username)
+    public function edit($username)
     {
-        if (!Auth::check() || Auth::user()->username != $username)
-            return redirect('users/' . $username);
+        if (!Auth::check())
+            return redirect('login');
 
-        $user = User::where("username", "=", $username)->first();
+        $this->authorize('update', User::class);
 
-        // $this->authorize('create', Auction::class);
+        $user = Auth::user();
 
-        $view = !is_null($user) ? view('pages.edit-profile', ['user' => $user]) : view('errors.404');
-
-        return $view;
+        return view('pages.edit-profile', ['user' => $user]);
     }
 
     /**
-     * Get the data from the form for editing the specified resource.
+     * Update the specified resource in storage.
      *
-     * @param  String  $username
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, $username)
+    public function update(Request $request, $username)
     {
-        if (!Auth::check() || Auth::user()->username != $username)
+        if (!Auth::check())
             return redirect('/login');
 
-        $user = User::where("username", "=", $username)->first();
+        $this->authorize('update', User::class);
+
+        $user = Auth::user();
 
         $validated = Validator::validate($request->all(), [
             'name' => 'string|max:255',
@@ -130,19 +149,7 @@ class UserController extends Controller
             }
         }
 
-        return redirect()->to('users/' . $username);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, User $user)
-    {
-        //
+        return redirect()->to('users/' . $user->username);
     }
 
     /**
@@ -151,9 +158,23 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy($username)
     {
-        //
+        if(!Auth::check())
+            return redirect('login');
+
+        $this->authorize('delete', User::class);
+
+        $user = Auth::user();
+
+        try {
+            Auth::logout();
+            $user->delete();
+        } catch(QueryException $qe) {
+            return back()->withErrors(['error' => "You can't delete your account if you still have active auctions or any highest bid!"]);
+        }
+
+        return redirect('/');
     }
 
     public function fav_auctions(Request $request, $username)
@@ -168,12 +189,13 @@ class UserController extends Controller
                 $result .= view("partials.profile.fav-auction", ["auction" => $fav_auction->auction])->render() . "\n";
             }
 
-            return $result;
+            return json_encode(["result" => "success", "content" => $result]);
         }
 
-        return json_encode($fav_auctions);
+        return json_encode(["result" => "success", "content" => $fav_auctions]);
     }
 
+    // TODO: Review this maybe separate into two: 1 for the search api and other for the profile
     public function sellers(Request $request)
     {
         $id = Auth::check() ? Auth::user()->id : -1;
@@ -187,13 +209,13 @@ class UserController extends Controller
                 $result .= view("partials.profile.fav-seller", ["seller" => $fav_seller])->render() . "\n";
             }
 
-            return $result;
+            return json_encode(["result" => "success", "content" => $result]);
         }
 
         $sellers = ['favourites' => $fav_sellers->get(),
                     'all' => User::whereIn('id', Auction::all(['sellerid']))->whereNotIn('id', $fav_sellers->get('id'))->get()];
 
-        return json_encode($sellers);
+        return json_encode(["result" => "success", "content" => $sellers]);
     }
 
     public function bids(Request $request, $username)
@@ -208,10 +230,10 @@ class UserController extends Controller
                 $result .= view("partials.profile.bid", ["bid" => $bid])->render() . "\n";
             }
 
-            return $result;
+            return json_encode(["result" => "success", "content" => $result]);
         }
 
-        return json_encode($bids);
+        return json_encode(["result" => "success", "content" => $bids]);
     }
 
     public function auctions(Request $request, $username)
@@ -226,10 +248,10 @@ class UserController extends Controller
                 $result .= view("partials.profile.auction", ["auction" => $auction])->render() . "\n";
             }
 
-            return $result;
+            return json_encode(["result" => "success", "content" => $result]);
         }
 
-        return json_encode($auctions);
+        return json_encode(["result" => "success", "content" => $auctions]);
     }
 
     public function ratings(Request $request, $username)
@@ -245,10 +267,10 @@ class UserController extends Controller
                 $result .= view("partials.profile.rating", ["rating" => $rating, "user" => $user_rating])->render() . "\n";
             }
 
-            return $result;
+            return json_encode(["result" => "success", "content" => $result]);
         }
 
-        return json_encode($ratings);
+        return json_encode(["result" => "success", "content" => $ratings]);
     }
 
     public function rated(Request $request, $username)
@@ -264,10 +286,10 @@ class UserController extends Controller
                 $result .= view("partials.profile.rated", ["rated" => $rate, "seller" => $auction->seller])->render() . "\n";
             }
 
-            return $result;
+            return json_encode(["result" => "success", "content" => $result]);
         }
 
-        return json_encode($rated);
+        return json_encode(["result" => "success", "content" => $rated]);
     }
 
     public function admin()
@@ -278,30 +300,6 @@ class UserController extends Controller
         $this->authorize('admin', User::class);
 
         return Auth::user()->admin ? view('pages.admin') : abort(404);
-    }
-
-    public function users(Request $request)
-    {
-        if(!Auth::check())
-            return json_encode(["result" => "login"]);
-
-        $this->authorize('admin', User::class);
-
-        $users = User::where('admin', false)->orderBy('name')->paginate(12);
-
-        if($request->acceptsHtml()){
-            $html_users = "";
-
-            foreach($users as $user) {
-                $html_users .= view("partials.admin.user-management", ["user" => $user])->render() . "\n";
-            }
-
-            $html_links = view("partials.admin.links", ['objects' => $users])->render();
-
-            return json_encode(["result" => "success", "content" => ["users" => $html_users, "links" => $html_links]]);
-        }
-
-        return json_encode(["result" => "success", "content" => $users]);
     }
 
     public function make_admin($username)
@@ -337,16 +335,4 @@ class UserController extends Controller
         return redirect('/admin');
     }
 
-    public function delete() {
-        $user = Auth::user(); // isto não dá o user
-
-        try {
-            Auth::logout();
-            $user->delete();
-        } catch(QueryException $qe) {
-            return back()->withErrors(['error' => "You can't delete your account if you still have active auctions or any highest bid!"]);
-        }
-
-        return redirect('/');
-    }
 }

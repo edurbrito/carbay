@@ -26,6 +26,12 @@ class AuctionController extends Controller
         return view('pages.search');
     }
 
+    /**
+     * Display a listing of the featured resources.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public static function featured(Request $request)
     {
         $featured = Auction::whereRaw('finaldate > NOW()')->orderBy('finaldate')->limit(5)->get()->sortBy(function ($auction, $key) {
@@ -46,7 +52,12 @@ class AuctionController extends Controller
         return json_encode(["result" => "success", "content" => $featured]);
     }
 
-    public function create_page()
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
     {
         if (!Auth::check())
             return redirect('/login');
@@ -59,11 +70,12 @@ class AuctionController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Store a newly created resource in storage.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function store(Request $request)
     {
         if (!Auth::check())
             return redirect('/login');
@@ -151,17 +163,6 @@ class AuctionController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  Integer  $id
@@ -223,7 +224,7 @@ class AuctionController extends Controller
 
     public function scales()
     {
-        return json_encode(AuctionController::$scales);
+        return json_encode(["result" => "success", "content" => AuctionController::$scales]);
     }
 
     public function get_scale($id)
@@ -388,45 +389,5 @@ class AuctionController extends Controller
         }
 
         return json_encode(["result" => "success", "content" => $auctions]);
-    }
-
-    public function bids(Request $request, $id)
-    {
-        if (!is_numeric($id)) {
-            return;
-        }
-
-        $bids = Bid::where("auctionid", "=", $id)->orderBy("value", "desc")->limit(10)->get();
-
-        if ($request->acceptsHtml()) {
-            $result = "";
-            foreach ($bids as $bid) {
-                $result .= view("partials.auction.bid", ["bid" => $bid])->render() . "\n";
-            }
-
-            return json_encode(["result" => "success", "content" => $result]);
-        }
-
-        return json_encode(["result" => "success", "content" => $bids]);
-    }
-
-    public function comments(Request $request, $id)
-    {
-        if (!is_numeric($id)) {
-            return;
-        }
-
-        $comments = Comment::where("auctionid", "=", $id)->orderBy("datehour", "desc")->limit(10)->get();
-
-        if ($request->acceptsHtml()) {
-            $result = "";
-            foreach ($comments as $comment) {
-                $result .= view("partials.auction.comment", ["comment" => $comment])->render() . "\n";
-            }
-
-            return json_encode(["result" => "success", "content" => $result]);
-        }
-
-        return json_encode(["result" => "success", "content" => $comments]);
     }
 }

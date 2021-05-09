@@ -32,8 +32,8 @@ $myProfile = Auth::check() && (Auth::user()->username == $user->username);
     </div>
 
     <div class="btn-group ml-auto mt-auto" role="group" aria-label="Edit and Delete Profile Buttons">
-      <a href="/users/{{$user->username}}/edit" class="mr-2"><button class="btn btn-dark">Edit Profile</button></a>
-      <form action="/users/delete" method="POST"><button class="btn btn-dark" type="submit">Delete Profile</button></form>
+      <a href="/users/{{ $user->username }}/edit" class="mr-2"><button class="btn btn-dark">Edit Profile</button></a>
+      <form action="/users/{{ $user->username }}/delete" method="POST"><button class="btn btn-dark" type="submit">Delete Profile</button></form>
     </div>
     @if ($errors->has('error'))
     <div onclick="this.hidden = true" class="alert alert-danger alert-dismissible fade show my-3 p-1 px-2" role="alert">

@@ -34,15 +34,15 @@ Route::get('api/scales', 'AuctionController@scales');
 Route::get('api/sellers', 'UserController@sellers');
 
 // Auction
-Route::get('auctions/create', 'AuctionController@create_page');
-Route::post('auctions/create', 'AuctionController@create');
+Route::get('auctions/create', 'AuctionController@create');
+Route::post('auctions/create', 'AuctionController@store');
 Route::get('auctions/{id}', 'AuctionController@show');
-Route::post('auctions/{id}/bids', 'BidController@create');
+Route::post('auctions/{id}/bids', 'BidController@store');
 
 Route::get('api/auctions/featured', 'AuctionController@featured');
-Route::get('api/auctions/{id}/bids', 'AuctionController@bids');
-Route::get('api/auctions/{id}/comments', 'AuctionController@comments');
-Route::post('api/auctions/{id}/comments', 'CommentController@create');
+Route::get('api/auctions/{id}/bids', 'BidController@index');
+Route::get('api/auctions/{id}/comments', 'CommentController@index');
+Route::post('api/auctions/{id}/comments', 'CommentController@store');
 
 // Profile
 Route::get('users/{username}', 'UserController@show');
@@ -52,11 +52,12 @@ Route::get('api/users/{username}/fav_auctions', 'UserController@fav_auctions');
 Route::get('api/users/{username}/fav_sellers', 'UserController@sellers');
 Route::get('api/users/{username}/ratings', 'UserController@ratings');
 Route::get('api/users/{username}/rated', 'UserController@rated');
-Route::get('users/{username}/edit', 'UserController@edit_profile'); // Remover username
-Route::post('users/{username}/edit', 'UserController@edit'); // Remover username
-Route::post('users/delete', 'UserController@delete');
+Route::get('users/{username}/edit', 'UserController@edit'); // TODO: username
+Route::post('users/{username}/edit', 'UserController@update');
+Route::post('users/{username}/delete', 'UserController@destroy');
 
 // User
+Route::get('api/users','UserController@index');
 Route::post('api/users/fav_sellers/add', 'FavouriteSellerController@store');
 Route::post('api/users/fav_sellers/remove', 'FavouriteSellerController@destroy');
 Route::post('api/users/fav_auctions/add', 'FavouriteAuctionController@store');
@@ -64,6 +65,5 @@ Route::post('api/users/fav_auctions/remove', 'FavouriteAuctionController@destroy
 
 // Admin
 Route::get('admin','UserController@admin');
-Route::get('api/users','UserController@users');
 Route::post('admin/make/{username}','UserController@make_admin');
 Route::post('admin/ban/{username}','UserController@ban');
