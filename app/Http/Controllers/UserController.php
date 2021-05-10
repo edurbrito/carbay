@@ -8,7 +8,6 @@ use App\Models\FavouriteSeller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Database\QueryException;
 
 class UserController extends Controller
 {
@@ -165,12 +164,12 @@ class UserController extends Controller
 
         $this->authorize('delete', User::class);
 
-        $user = Auth::user();
+        $userid = Auth::user()->id;
 
         try {
+            User::destroy($userid);
             Auth::logout();
-            $user->delete();
-        } catch(QueryException $qe) {
+        } catch(\Throwable $qe) {
             return back()->withErrors(['error' => "You can't delete your account if you still have active auctions or any highest bid!"]);
         }
 

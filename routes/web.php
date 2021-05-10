@@ -54,7 +54,7 @@ Route::get('api/users/{username}/ratings', 'UserController@ratings');
 Route::get('api/users/{username}/rated', 'UserController@rated');
 Route::get('users/{username}/edit', 'UserController@edit'); // TODO: username
 Route::post('users/{username}/edit', 'UserController@update');
-Route::post('users/{username}/delete', 'UserController@destroy');
+Route::delete('users/{username}/delete', 'UserController@destroy');
 
 // User
 Route::get('api/users','UserController@index');
