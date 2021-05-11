@@ -92,7 +92,7 @@ function enable_pagination() {
                 page_number = parseInt(current_page) - 1
 
             page.setAttribute("data-page", page_number)
-            search(null)
+            search(null, page_number)
         })
     }
 }
@@ -198,7 +198,7 @@ function getAllSelectData() {
     getSellers()
 }
 
-function search(e) {
+function search(e, page_number = 1) {
     if(e != null)
         e.preventDefault()
 
@@ -216,7 +216,7 @@ function search(e) {
         'max-bid' : max_bid.value,
         'min-buy-now' : min_buy_now.value,
         'max-buy-now' : max_buy_now.value,
-        'page' : page.getAttribute("data-page")
+        'page' : page_number
     }
 
     purl = window.location.href.match(/.+?\?/)
