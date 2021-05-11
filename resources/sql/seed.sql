@@ -383,7 +383,7 @@ BEGIN
     THEN 
     RAISE EXCEPTION 'A user can only delete its account if he is not the author of any highest bid.';
     END IF;
-    RETURN NEW;
+    RETURN OLD;
 END
 $BODY$
 LANGUAGE plpgsql;

@@ -23,7 +23,7 @@ class UserController extends Controller
 
         $this->authorize('admin', User::class);
 
-        $users = User::where('admin', false)->orderBy('name')->paginate(12);
+        $users = User::whereRaw('admin = FALSE')->orderBy('name')->paginate(12);
 
         if($request->acceptsHtml()){
             $html_users = "";
@@ -154,7 +154,6 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
     public function destroy($username)
