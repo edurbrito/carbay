@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Auction;
 use App\Models\FavouriteSeller;
+use App\Models\Report;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -301,8 +302,7 @@ class UserController extends Controller
         return Auth::user()->admin ? view('pages.admin') : abort(404);
     }
 
-    public function make_admin($username)
-    {
+    public function make_admin($username) {
         if(!Auth::check())
             return redirect('login');
 
@@ -319,7 +319,7 @@ class UserController extends Controller
         return redirect('/admin');
     }
 
-    public function ban($username){
+    public function ban($username) {
         
         if(!Auth::check())
             return redirect('login');
@@ -334,4 +334,26 @@ class UserController extends Controller
         return redirect('/admin');
     }
 
+    public function report($username, $request) {
+        
+        if(!Auth::check())
+            return redirect('login');
+
+        $user = User::where('username',"=",$username)->first();
+
+        Validator::validate($request->all(), [
+            'reason' => 'required|text|min:1',
+        ]);
+
+        $report = new Report();
+        $report->reason = $
+        $report->datehour = now();
+        $report->reporterid = Auth::user()->id;
+        $report->locationauctionid = null;
+        $report->locationcommentid = null;
+        $report->locationregisteredid = $user->id;
+        $report->save();
+
+        return redirect('/users/' . $username);
+    }
 }

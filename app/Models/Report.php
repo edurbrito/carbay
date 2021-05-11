@@ -10,7 +10,7 @@ class Report extends Model
     use Notifiable;
 
     public $timestamps  = false;
-    protected $table = 'Report';
+    protected $table = 'report';
 
     /**
      * The attributes that are mass assignable.
@@ -18,6 +18,6 @@ class Report extends Model
      * @var array
      */
     protected $fillable = [
-        'reason', 'dateHour', 'reporterID', 'locationAuctionID', 'locationCommentID', 'locationRegisteredID', 'stateType'
+        'reason', 'datehour', 'reporterid', 'locationauctionid', 'locationcommentid', 'locationregisteredid', 'statetype'
     ];
 }

@@ -62,6 +62,7 @@ Route::post('api/users/fav_sellers/add', 'FavouriteSellerController@store');
 Route::post('api/users/fav_sellers/remove', 'FavouriteSellerController@destroy');
 Route::post('api/users/fav_auctions/add', 'FavouriteAuctionController@store');
 Route::post('api/users/fav_auctions/remove', 'FavouriteAuctionController@destroy');
+Route::post('users/{username}/report', 'UserController@report');
 
 // Admin
 Route::get('admin','UserController@admin');

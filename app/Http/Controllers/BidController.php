@@ -71,7 +71,6 @@ class BidController extends Controller
         ]);
         
         try {
-
             if(is_null($auction) || Auth::user()->id == $auction->sellerid || $auction->finaldate < now() || (!is_null($auctionHighestBid) && $auctionHighestBid->authorid == Auth::user()->id))
                 throw new Error();
 
