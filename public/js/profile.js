@@ -2,8 +2,8 @@
 
 username = document.querySelector("#username")
 bid_history_tab = document.querySelector("#v-pills-bid-history-tab")
-
-bid_history_tab.addEventListener('click', bids)
+if(bid_history_tab)
+    bid_history_tab.addEventListener('click', bids)
 
 function bids(e) {
     e.preventDefault()
@@ -38,8 +38,8 @@ function auction_list() {
 // ----- Favourite Auctions -----
 
 favourite_auctions_tab = document.querySelector("#v-pills-favourite-auctions-tab")
-
-favourite_auctions_tab.addEventListener('click', fav_auctions)
+if(favourite_auctions_tab)
+    favourite_auctions_tab.addEventListener('click', fav_auctions)
 
 function fav_auctions(e) {
     if(e != null)
@@ -62,8 +62,8 @@ function fav_auction_list() {
 // ----- Favourite Sellers -----
 
 favourite_sellers_tab = document.querySelector("#v-pills-favourite-sellers-tab")
-
-favourite_sellers_tab.addEventListener('click', fav_sellers)
+if(favourite_sellers_tab)
+    favourite_sellers_tab.addEventListener('click', fav_sellers)
 
 function fav_sellers(e) {
     if(e != null)

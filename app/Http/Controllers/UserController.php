@@ -191,6 +191,9 @@ class UserController extends Controller
 
     public function fav_auctions(Request $request, $username)
     {
+        if(Auth::user()->username != $username)
+            return json_encode(["result" => "error", "content" => "Not your favourite auctions, not your money!"]);
+
         $user = User::where("username", "=", $username)->first();
         $fav_auctions = $user->favouriteAuctions;
 
@@ -207,7 +210,28 @@ class UserController extends Controller
         return json_encode(["result" => "success", "content" => $fav_auctions]);
     }
 
-    // TODO: Review this maybe separate into two: 1 for the search api and other for the profile
+    public function fav_sellers(Request $request, $username)
+    {
+        if(Auth::user()->username != $username)
+            return json_encode(["result" => "error", "content" => "Not your favourite sellers, not your money!"]);
+
+        $user = User::where("username", "=", $username)->first();
+        
+        $fav_sellers = User::whereIn('id', FavouriteSeller::where('user1id','=',$user->id)->get('user2id'));
+
+        if($request->acceptsHtml()) {
+            $result = "";
+
+            foreach($fav_sellers->get() as $fav_seller) {
+                $result .= view("partials.profile.fav-seller", ["seller" => $fav_seller])->render() . "\n";
+            }
+
+            return json_encode(["result" => "success", "content" => $result]);
+        }
+
+        return json_encode(["result" => "success", "content" => $fav_sellers]);
+    }
+
     public function sellers(Request $request)
     {
         $id = Auth::check() ? Auth::user()->id : -1;
@@ -232,6 +256,9 @@ class UserController extends Controller
 
     public function bids(Request $request, $username)
     {
+        if(Auth::user()->username != $username)
+            return json_encode(["result" => "error", "content" => "Not your bids, not your money!"]);
+
         $user = User::where("username", "=", $username)->first();
         $bids = $user->bids;
 
