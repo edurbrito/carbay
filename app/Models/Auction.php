@@ -20,7 +20,7 @@ class Auction extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 'title', 'description', 'startingprice', 'startdate', 'finaldate', 'suspend', 'buynow', 'scaletype', 'brandid', 'colourid', 'sellerid', 'search'
+        'id', 'title', 'description', 'startingprice', 'highestbid', 'startdate', 'finaldate', 'suspend', 'buynow', 'scaletype', 'brandid', 'colourid', 'sellerid', 'search'
     ];
 
     public function brand()
@@ -104,8 +104,8 @@ class Auction extends Model
 
     public function highest_bid_value()
     {
-        $bid = $this->highest_bid();
-        $value = !is_null($bid) ? $bid->value . "$" : "None";
+        $bid = $this->highestbid;
+        $value = !is_null($bid) ? $bid . "$" : "None";
         return $value;
     }
 

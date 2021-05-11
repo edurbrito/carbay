@@ -303,35 +303,19 @@ class AuctionController extends Controller
         }
 
         if (!is_null($minBid)) {
-            $auctions = $auctions->filter(function ($auction) use ($minBid) {
-                $bid = $auction->highest_bid();
-                $value = !is_null($bid) ? $bid->value : -1;
-                return $value >= intval($minBid);
-            });
+            $auctions = $auctions->whereNotNull("highestbid")->where("highestbid", ">=", $minBid);
         }
 
         if (!is_null($maxBid)) {
-            $auctions = $auctions->filter(function ($auction) use ($maxBid) {
-                $bid = $auction->highest_bid();
-                $value = !is_null($bid) ? $bid->value : -1;
-                return $value <= intval($maxBid);
-            });
+            $auctions = $auctions->whereNotNull("highestbid")->where("highestbid", "<=", $maxBid);
         }
 
         if (!is_null($minBuyNow)) {
-            $auctions = $auctions->filter(function ($auction) use ($minBuyNow) {
-                $buyNow = $auction->buynow;
-                $buyNow = !is_null($buyNow) ? $buyNow : -1;
-                return $buyNow >= intval($minBuyNow);
-            });
+            $auctions = $auctions->whereNotNull("buynow")->where("buynow", ">=", $minBuyNow);
         }
 
         if (!is_null($maxBuyNow)) {
-            $auctions = $auctions->filter(function ($auction) use ($maxBuyNow) {
-                $buyNow = $auction->buynow;
-                $buyNow = !is_null($buyNow) ? $buyNow : -1;
-                return $buyNow <= intval($maxBuyNow);
-            });
+            $auctions = $auctions->whereNotNull("buynow")->where("buynow", "<=", $maxBuyNow);
         }
 
         if (strcmp($buyNow, "false") == 0) {
@@ -355,32 +339,33 @@ class AuctionController extends Controller
             return json_encode(["result" => "success", "content" => ""]);
         }
 
+        $order = strcmp($order, "0") == 0 ? "asc" : "desc";
+
+        $sort = "finaldate";
+
+        switch (strcmp($sortBy, "1")){
+                case -1:
+                    $sort = "finaldate";
+                    break;
+                case 0:
+                    $sort = "highestbid";
+                    $auctions = $auctions->whereNotNull("highestbid");
+                    break;
+                case 1:
+                    $sort = "buynow";
+                    $auctions = $auctions->whereNotNull("buynow");
+                    break;
+                default:
+                    break;
+        }
+        $auctions = $auctions->orderBy($sort, $order);
+
         $auctions = $auctions->paginate(12);
 
         if ($request->acceptsHtml()) {
+            $html_auctions = "";
             $html_total = view("partials.search.total", ["auctions" => $auctions])->render();
             $html_links = view("partials.search.links", ["auctions" => $auctions])->render();
-        }
-
-        $order_ad = strcmp($order, "0") == 0 ? false : true;
-
-        $auctions = $auctions->sortBy(function ($a) use ($sortBy) {
-            switch (strcmp($sortBy, "1")) {
-                case -1:
-                    return $a->finaldate;
-                case 0:
-                    $highest_bid = $a->highest_bid();
-                    return !is_null($highest_bid) ? $highest_bid->value : 0;
-                case 1:
-                    return $a->buynow;
-                default:
-                    break;
-            }
-            return $a->finaldate;
-        }, SORT_REGULAR, $order_ad);
-
-        if ($request->acceptsHtml()) {
-            $html_auctions = "";
             foreach ($auctions as $a) {
                 $html_auctions .= view("partials.search.auction", ["auction" => $a])->render() . "\n";
             }

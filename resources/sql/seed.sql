@@ -16,6 +16,7 @@ DROP TYPE IF EXISTS Scale CASCADE;
 DROP TYPE IF EXISTS State CASCADE;
 
 DROP TRIGGER IF EXISTS bid_rules ON Bid;
+DROP TRIGGER IF EXISTS update_auction ON Bid;
 DROP TRIGGER IF EXISTS help_message_types ON HelpMessage;
 DROP TRIGGER IF EXISTS rating_rules ON Rating;
 DROP TRIGGER IF EXISTS delete_rules ON "user";
@@ -27,6 +28,7 @@ DROP TRIGGER IF EXISTS fts_auction_insert ON Auction;
 DROP TRIGGER IF EXISTS fts_auction_update ON Auction;
 
 DROP FUNCTION IF EXISTS bid_rules() CASCADE;
+DROP FUNCTION IF EXISTS update_auction() CASCADE;
 DROP FUNCTION IF EXISTS help_message_types() CASCADE;
 DROP FUNCTION IF EXISTS rating_rules() CASCADE;
 DROP FUNCTION IF EXISTS delete_rules() CASCADE;
@@ -88,6 +90,7 @@ CREATE TABLE Auction (
     title                    VARCHAR(300) NOT NULL,
     description              VARCHAR(300) NOT NULL,
     startingPrice            DECIMAL NOT NULL,
+    highestbid               DECIMAL DEFAULT NULL,
     startDate                TIMESTAMP WITH TIME zone DEFAULT now() NOT NULL,
     finalDate                TIMESTAMP WITH TIME zone NOT NULL,
     suspend                  BOOLEAN DEFAULT FALSE NOT NULL,
@@ -314,6 +317,14 @@ END
 $BODY$
 LANGUAGE plpgsql;
  
+CREATE FUNCTION update_auction() RETURNS TRIGGER AS
+$BODY$
+BEGIN
+    UPDATE auction SET highestbid = NEW.value WHERE auction.id = NEW.auctionID;
+    RETURN NEW;
+END
+$BODY$
+LANGUAGE plpgsql;
 
 CREATE FUNCTION help_message_types() RETURNS TRIGGER AS
 $BODY$
@@ -471,6 +482,10 @@ CREATE TRIGGER bid_rules
     FOR EACH ROW
     EXECUTE PROCEDURE bid_rules();
 
+CREATE TRIGGER update_auction
+    AFTER INSERT ON bid
+    FOR EACH ROW
+    EXECUTE PROCEDURE update_auction();
 
 CREATE TRIGGER help_message_types
     BEFORE INSERT ON helpMessage
