@@ -29,15 +29,15 @@
             {{ $errors->first('password') }}
             </div>
         @endif
-        <label>
-            <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
+        <label class="d-flex w-100 align-items-center">
+            <input type="checkbox" class="mr-1" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
+            <a href="{{ route('password.forgot') }}" class="text-center ml-auto">Forgot your password?</a>
         </label>
         <button class="btn btn-primary align-self-center w-75" type="submit" name="button" class="btn">Log In</button>
         <span class="text-center mt-2">or Log In with </span>
         <button class="btn btn-dark align-self-center mt-2 w-75" type="button" name="button" class="btn">Google</button>
 
         <span class="text-center mt-3">Don't have an account? <a href="{{ route('signup') }}" class="ml-2 text-danger">Sign Up</a></span>
-        <!-- <a href="#" class="text-light text-center">Forgot your password?</a> -->
     </form>
 </div>
 @endsection
