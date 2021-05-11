@@ -34,13 +34,14 @@ Route::get('api/scales', 'AuctionController@scales');
 Route::get('api/sellers', 'UserController@sellers');
 
 // Auction
+Route::get('api/auctions','AuctionController@index');
 Route::get('auctions/create', 'AuctionController@create');
 Route::post('auctions/create', 'AuctionController@store');
 Route::get('auctions/{id}', 'AuctionController@show');
 Route::post('auctions/{id}/bids', 'BidController@store');
 
 Route::get('api/auctions/featured', 'AuctionController@featured');
-Route::get('api/auctions/{id}/bids', 'BidController@index');
+Route::get('api/auctions/{id}/bids', 'BidController@pages_search');
 Route::get('api/auctions/{id}/comments', 'CommentController@index');
 Route::post('api/auctions/{id}/comments', 'CommentController@store');
 

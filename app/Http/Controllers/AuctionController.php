@@ -21,7 +21,31 @@ class AuctionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
+    {
+        if(!Auth::check())
+            return json_encode(["result" => "login"]);
+
+        $this->authorize('admin', User::class);
+        
+        $auctions = Auction::whereRaw('finaldate > NOW()');
+
+        if($request->acceptsHtml()){
+            $html_auctions = "";
+
+            foreach($auctions as $auction) {
+                $html_auctions .= view("partials.admin.auction-management", ["auction" => $auction])->render() . "\n";
+            }
+
+            $html_links = view("partials.admin.links", ['objects' => $auctions])->render();
+
+            return json_encode(["result" => "success", "content" => ["users" => $html_auctions, "links" => $html_links]]);
+        }
+
+        return json_encode(["result" => "success", "content" => $auctions]);
+    }
+
+    public function pages_search()
     {
         return view('pages.search');
     }

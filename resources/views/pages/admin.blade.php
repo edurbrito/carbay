@@ -18,7 +18,7 @@
         <div class="tab-pane fade show active" id="v-pills-users" role="tabpanel" aria-labelledby="v-pills-users-tab">
             @include('pages.admin.user-management')
         </div>
-        <div class="tab-pane fade" id="v-pills-auctions" role="tabpanel" aria-labelledby="v-pills-auctions-tab">
+        <div class="tab-pane fade show active" id="v-pills-auctions" role="tabpanel" aria-labelledby="v-pills-auctions-tab">
             @include('pages.admin.auction-management')
         </div>
         <div class="tab-pane fade" id="v-pills-reports" role="tabpanel" aria-labelledby="v-pills-reports-tab">

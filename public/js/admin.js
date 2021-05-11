@@ -1,11 +1,14 @@
 user_list = document.querySelector("#user-management-list")
 user_links = document.querySelector("#user-management-pagination")
+auction_list = document.querySelector("#auction-management-list")
+auction_links = document.querySelector("#auction-management-pagination")
 make_admin_text = document.querySelector("#make-admin-text")
 make_admin_form = document.querySelector("#make-admin-form")
 ban_text = document.querySelector("#ban-text")
 ban_form = document.querySelector("#ban-form")
 
 sendAjaxRequest('GET','/api/users', {}, setUsers, [{name: 'Accept', value: 'text/html'}])
+sendAjaxRequest('GET','/api/auctions', {}, setAuctions, [{name: 'Accept', value: 'text/html'}])
 
 function setUsers(){
     let users = JSON.parse(this.response)
@@ -25,6 +28,16 @@ function setUsers(){
         for (const button of ban_buttons) {
             button.addEventListener('click', update_ban_modal)
         }
+    }
+}
+
+function setAuctions(){
+    let auctions = JSON.parse(this.response)
+    
+    if(auctions.result == "success"){
+        auction_list.innerHTML = auctions.content.auctions
+        auction_links.innerHTML = auctions.content.links
+        enable_pagination()
     }
 }
 
