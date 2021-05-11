@@ -26,4 +26,9 @@ class StaticController extends Controller
     public function faqs() {
         return view('pages.faqs');
     }
+
+    public function search()
+    {
+        return view('pages.search');
+    }
 }

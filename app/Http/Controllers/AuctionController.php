@@ -45,11 +45,6 @@ class AuctionController extends Controller
         return json_encode(["result" => "success", "content" => $auctions]);
     }
 
-    public function pages_search()
-    {
-        return view('pages.search');
-    }
-
     /**
      * Display a listing of the featured resources.
      *
