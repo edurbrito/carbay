@@ -1,5 +1,5 @@
 <label for="search" class="form-label text-primary">Search:</label>
-<input type="text" class="form-control w-100" id="search" placeholder="Type Something">
+<input type="text" class="form-control w-100" id="user-management-search-input" placeholder="Type Something">
 
 <div class="container-fluid px-0 my-3">
     <ol class="list-group rounded-0" id="user-management-list">

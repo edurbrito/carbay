@@ -1,14 +1,26 @@
 user_list = document.querySelector("#user-management-list")
 user_links = document.querySelector("#user-management-pagination")
+user_search_input = document.querySelector("#user-management-search-input")
 auction_list = document.querySelector("#auction-management-list")
 auction_links = document.querySelector("#auction-management-pagination")
+auction_search_input = document.querySelector("#auction-management-search-input")
 make_admin_text = document.querySelector("#make-admin-text")
 make_admin_form = document.querySelector("#make-admin-form")
 ban_text = document.querySelector("#ban-text")
 ban_form = document.querySelector("#ban-form")
+suspend_text = document.querySelector("#suspend-text")
+suspend_form = document.querySelector("#suspend-form")
 
 sendAjaxRequest('GET','/api/users', {}, setUsers, [{name: 'Accept', value: 'text/html'}])
 sendAjaxRequest('GET','/api/auctions', {}, setAuctions, [{name: 'Accept', value: 'text/html'}])
+
+user_search_input.addEventListener('input', () => {
+    sendAjaxRequest('GET','/api/users', {'page' : 1, 'search': user_search_input.value}, setUsers, [{name: 'Accept', value: 'text/html'}])
+})
+
+auction_search_input.addEventListener('input', () => {
+    sendAjaxRequest('GET','/api/auctions', {'page' : 1, 'search': auction_search_input.value}, setAuctions, [{name: 'Accept', value: 'text/html'}])
+})
 
 function setUsers(){
     let users = JSON.parse(this.response)
@@ -16,7 +28,7 @@ function setUsers(){
     if(users.result == "success"){
         user_list.innerHTML = users.content.users
         user_links.innerHTML = users.content.links
-        enable_pagination()
+        enable_pagination(user_links, "/api/users", user_search_input, setUsers)
 
         make_admin_buttons = document.querySelectorAll(".make-admin-button")
         ban_buttons = document.querySelectorAll(".ban-button")
@@ -37,7 +49,13 @@ function setAuctions(){
     if(auctions.result == "success"){
         auction_list.innerHTML = auctions.content.auctions
         auction_links.innerHTML = auctions.content.links
-        enable_pagination()
+        enable_pagination(auction_links, "/api/auctions", auction_search_input, setAuctions)
+
+        suspend_buttons = document.querySelectorAll(".suspend-button")
+
+        for (const button of suspend_buttons) {
+            button.addEventListener('click', update_suspend_modal)
+        }
     }
 }
 
@@ -57,8 +75,8 @@ function replace_child(original, replacement_tag){
     return replacement
 }
 
-function enable_pagination() {
-    plinks = document.querySelectorAll(".pagination > .page-item > a.page-link")
+function enable_pagination(parent, api, search, callback) {
+    plinks = parent.querySelectorAll(`.pagination > .page-item > a.page-link`)
 
     for (let plink of plinks) {
         plink.removeAttribute("href")
@@ -68,15 +86,15 @@ function enable_pagination() {
         new_child.addEventListener("click", function(){
             
             page_number = this.innerHTML
-            current_page = user_links.getAttribute("data-page")
+            current_page = parent.getAttribute("data-page")
 
             if(this.getAttribute("rel") == "next")
                 page_number = parseInt(current_page) + 1
             else if(this.getAttribute("rel") == "prev")
                 page_number = parseInt(current_page) - 1
 
-            user_links.setAttribute("data-page", page_number)
-            sendAjaxRequest('GET','/api/users', {'page': page_number}, setUsers, [{name: 'Accept', value: 'text/html'}])
+            parent.setAttribute("data-page", page_number)
+            sendAjaxRequest('GET',api, {'page': page_number, 'search' : search.value }, callback, [{name: 'Accept', value: 'text/html'}])
         })
     }
 }
@@ -92,8 +110,6 @@ function update_ban_modal(){
 
     banned = this.innerHTML == "Unban"
 
-    console.log(banned);
-
     ban_text.innerHTML = `You are going to ban ${username}.`
     ban_form.setAttribute('action', `/admin/ban/${username}`)
 
@@ -106,4 +122,11 @@ function update_ban_modal(){
     else{
         button.classList.replace("btn-success", "btn-danger")
     }
+}
+
+function update_suspend_modal(){
+    id = this.getAttribute("data-id")
+    title = this.getAttribute("data-auction")
+    suspend_text.innerHTML = `You are going to suspend auction ${id} (${title}).`
+    suspend_form.setAttribute('action', `/admin/suspend/${id}`)
 }

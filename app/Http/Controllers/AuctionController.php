@@ -28,7 +28,21 @@ class AuctionController extends Controller
 
         $this->authorize('admin', User::class);
         
+        $validated = Validator::make($request->all(), [
+            'search' => 'nullable|string|max:255'
+        ]);
+
+        if($validated->fails())
+            return json_encode(["result" => "error", "content" => $validated->errors()]);
+
         $auctions = Auction::whereRaw('finaldate > NOW()');
+
+        $search = $request->input('search');
+        if(!is_null($search) && !empty($search)){
+            $auctions = $auctions->whereRaw('(auction.search @@ plainto_tsquery(\'english\', ?) OR auction.title LIKE ?)', array(strtolower($search), '%' . $search . '%'));
+        }
+
+        $auctions = $auctions->paginate(12);
 
         if($request->acceptsHtml()){
             $html_auctions = "";
@@ -39,7 +53,7 @@ class AuctionController extends Controller
 
             $html_links = view("partials.admin.links", ['objects' => $auctions])->render();
 
-            return json_encode(["result" => "success", "content" => ["users" => $html_auctions, "links" => $html_links]]);
+            return json_encode(["result" => "success", "content" => ["auctions" => $html_auctions, "links" => $html_links]]);
         }
 
         return json_encode(["result" => "success", "content" => $auctions]);

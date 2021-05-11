@@ -7,7 +7,7 @@
 @section('div_content')
 
 <h1 class="fs-2 text-primary text-center" data-id="{{$auction->id}}" id="auction-head">
-  <span id="favourite-auction" style="cursor: pointer;" data-auction="{{ $auction->id }}"><i class="@if(Auth::check() && Auth::user()->hasFavouriteAuction($auction->id)) fas @else far @endif fa-star"></i></span>
+  <span id="favourite-auction" style="cursor: pointer;" data-auction="{{ $auction->id }}"><i class="@if(Auth::check() && Auth::user()->hasFavouriteAuction($auction->id)) fas @else far @endif fa-star scale-objects-sm"></i></span>
   {{ $auction->title }}
 </h1>
 

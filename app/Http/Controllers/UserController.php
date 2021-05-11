@@ -23,7 +23,21 @@ class UserController extends Controller
 
         $this->authorize('admin', User::class);
 
-        $users = User::whereRaw('admin = FALSE')->orderBy('name')->paginate(12);
+        $validated = Validator::make($request->all(), [
+            'search' => 'nullable|string|max:255'
+        ]);
+
+        if($validated->fails())
+            return json_encode(["result" => "error", "content" => $validated->errors()]);
+
+        $users = User::whereRaw('admin = FALSE');
+
+        $search = $request->input('search');
+        if(!is_null($search) && !empty($search)){
+            $users = $users->where('name', 'like', '%' . $search . '%');
+        }
+
+        $users = $users->orderBy('name')->paginate(12);
 
         if($request->acceptsHtml()){
             $html_users = "";
