@@ -142,7 +142,6 @@ class AuctionController extends Controller
 
         $auction->startdate = $date;
         $auction->finaldate = date('Y-m-d H:i:s', strtotime($date . ' + ' .  $duration . ' days'));
-        $auction->suspend = false;
 
         $auction->buynow = $request->input('buy-now');
         $auction->scaletype = $request->input('scale');
@@ -174,11 +173,11 @@ class AuctionController extends Controller
             foreach ($request->file('images') as $image) {
                 if ($image->isValid()) {
                     $image_name = date('mdYHis') . "-" . uniqid() . "-" . Auth::user()->id . ".png";
-                    $path = base_path() . '/public/images/auctions';
+                    $path = base_path() . '/storage/app/public/images/auctions';
                     $image->move($path, $image_name);
 
                     $img = new Image();
-                    $img->url = '/images/auctions/' . $image_name;
+                    $img->url = '/storage/images/auctions/' . $image_name;
                     $img->auctionid = $auction->id;
                     $img->save();
                 } else {

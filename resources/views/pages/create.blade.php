@@ -117,7 +117,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text rounded-0" id="inputGroup-sizing-default">Colour</span>
                     </div>
-                    <input type="text" name="colour" list="select-colour" class="form-select rounded-0" required>
+                    <input type="text" name="colour" id="select-colour-input" list="select-colour" class="form-select rounded-0" required>
                     <datalist id="select-colour">
                     </datalist>
                 </div>
@@ -125,7 +125,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text rounded-0" id="inputGroup-sizing-default">Brand</span>
                     </div>
-                    <input type="text" name="brand" list="select-brand" class="form-select rounded-0" required>
+                    <input type="text" name="brand" id="select-brand-input" list="select-brand" class="form-select rounded-0" required>
                     <datalist id="select-brand">
                     </datalist>
                 </div>

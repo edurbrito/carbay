@@ -53,18 +53,22 @@
                 </label>
             </div>
             <label for="sort-by" class="form-label mt-4 text-primary">Filter By</label>
-            <select class="form-select rounded-0" aria-label="Available Colours" id="select-colour" name="colour">
-                <option selected value="-1">Colour</option>
-            </select>
-            <select class="form-select mt-2 rounded-0" aria-label="Available Brands" id="select-brand" name="brand">
-                <option selected value="-1">Brand</option>
-            </select>
+            
             <select class="form-select mt-2 rounded-0" aria-label="Available Scales" id="select-scale" name="scale">
                 <option selected value="-1">Scale</option>
             </select>
-            <select class="form-select mt-2 rounded-0" aria-label="Available Sellers" id="select-seller" name="seller">
-                <option selected value="-1">Seller</option>
-            </select>
+
+            <input type="text" name="colour" list="select-colour" class="form-select rounded-0 mt-2" id="select-colour-input" placeholder="Colour">
+            <datalist id="select-colour">
+            </datalist>
+
+            <input type="text" name="brand" list="select-brand" class="form-select rounded-0 mt-2" id="select-brand-input" placeholder="Brand">
+            <datalist id="select-brand">
+            </datalist>
+
+            <input type="text" name="seller" list="select-seller" class="form-select rounded-0 mt-2" id="select-seller-input" placeholder="Seller">
+            <datalist id="select-seller">
+            </datalist>
 
             <label class="form-check-label mt-4 text-primary">
                 Last Bid between

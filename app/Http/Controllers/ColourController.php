@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Colour;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ColourController extends Controller
 {
@@ -12,9 +13,20 @@ class ColourController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return json_encode(["result" => "success", "content" => Colour::orderBy('name')->get()]);
+
+        $validated = Validator::make($request->all(), [
+            'search' => 'nullable|string|min:3|max:255'
+        ]);
+        
+        if($validated->fails())
+            return json_encode(["error" => "success", "content" => $validated->errors()]);
+
+        $search = $request->input('search');
+        $colours = Colour::where('name', 'like', '%' . $search . '%')->orderBy('name')->limit(5)->get();
+
+        return json_encode(["result" => "success", "content" => $colours]);
     }
 
     /**

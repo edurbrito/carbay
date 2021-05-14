@@ -17,10 +17,10 @@ order_by = advanced_form.querySelector('input[name="order-by"]:checked')
 buy_now = advanced_form.querySelector("#buy-now")
 ended_auctions = advanced_form.querySelector("#ended-auctions")
 
-colour = advanced_form.querySelector("#select-colour")
-brand = advanced_form.querySelector("#select-brand")
 scale = advanced_form.querySelector("#select-scale")
-seller = advanced_form.querySelector("#select-seller")
+colour_input = advanced_form.querySelector("#select-colour-input")
+brand_input = advanced_form.querySelector("#select-brand-input")
+seller_input = advanced_form.querySelector("#select-seller-input")
 
 min_bid = advanced_form.querySelector("#min-bid")
 max_bid = advanced_form.querySelector("#max-bid")
@@ -28,6 +28,10 @@ min_buy_now = advanced_form.querySelector("#min-buy-now")
 max_buy_now = advanced_form.querySelector("#max-buy-now")
 
 page = document.querySelector("#pagination")
+
+g_colours = {}
+g_brands = {}
+g_sellers = {}
 
 function query_on_url(){
     query = ""
@@ -113,90 +117,110 @@ function update_time_remaining() {
     }
 }
 
-function setSelect(response, attribute = "name") {
-    let objects = JSON.parse(response).content
+function setScales() {    
+    let response = JSON.parse(this.responseText)
+    
+    if(response.result == "success"){
 
-    let new_objects = []
+        let scales = response.content
 
-    for (const object of objects) {
-        let new_object = {'id': object.id, [attribute]: object[attribute]}
-        new_objects.push(new_object);
+        let select = document.querySelector("#select-scale")
+
+        for (const scale of scales) {
+            select.insertAdjacentHTML('beforeend', `<option value="${scale.id}">${scale.name}</option>`)
+        }
     }
 
-    return new_objects
 }
 
 function setColours() {
-    let colours = setSelect(this.responseText)
+    let response = JSON.parse(this.responseText)
     
-    let select = document.querySelector("#select-colour")
+    if(response.result == "success"){
+        let select = document.querySelector("#select-colour")
+        let colours = response.content
+        let result = ""
 
-    for (const colour of colours) {
-        select.insertAdjacentHTML('beforeend', `<option value="${colour.id}">${colour.name}</option>`)
+        for(let colour of colours){
+            g_colours[colour.name] = colour.id
+            result += `<option>${colour.name}</option>`
+        }
+
+        select.innerHTML = result
     }
 }
 
 function setBrands() {
-    let brands = setSelect(this.responseText)
+    let response = JSON.parse(this.responseText)
     
-    let select = document.querySelector("#select-brand")
+    if(response.result == "success"){
+        let select = document.querySelector("#select-brand")
+        let brands = response.content
+        let result = ""
 
-    for (const brand of brands) {
-        select.insertAdjacentHTML('beforeend', `<option value="${brand.id}">${brand.name}</option>`)
-    }
-}
-
-function setScales() {
-    let scales = setSelect(this.responseText)
-    
-    let select = document.querySelector("#select-scale")
-
-    for (const scale of scales) {
-        select.insertAdjacentHTML('beforeend', `<option value="${scale.id}">${scale.name}</option>`)
+        for(let brand of brands){
+            g_brands[brand.name] = brand.id
+            result += `<option>${brand.name}</option>`
+        }
+        
+        select.innerHTML = result
     }
 }
 
 function setSellers() {
-    let sellers = JSON.parse(this.responseText).content
+    let response = JSON.parse(this.responseText)
     
-    let select = document.querySelector("#select-seller")
+    if(response.result == "success"){
+        let select = document.querySelector("#select-seller")
+        let sellers = response.content
+        let favourites = sellers.favourites
+        let all = sellers.all
 
-    select.insertAdjacentHTML('beforeend', '<optgroup label="Favourites">')
+        let result = ""
 
-    for (const seller of sellers.favourites) {
-        select.insertAdjacentHTML('beforeend', `<option value="${seller.id}">${seller.username}</option>`)
+        for(let seller of favourites){
+            g_sellers[seller.username] = seller.id
+            result += `<option>${seller.username}</option>`
+        }
+
+        for(let seller of all){
+            g_sellers[seller.username] = seller.id
+            result += `<option>${seller.username}</option>`
+        }
+
+        select.innerHTML = result
     }
 
-    select.insertAdjacentHTML('beforeend', '</optgroup><optgroup label="All">')
 
-    for (const seller of sellers.all) {
-        select.insertAdjacentHTML('beforeend', `<option value="${seller.id}">${seller.username}</option>`)
-    }
-    select.insertAdjacentHTML('beforeend', '</optgroup>')
-}
-
-function getColours() {
-    sendAjaxRequest('GET','/api/colours', {}, setColours)
-}
-
-function getBrands() {
-    sendAjaxRequest('GET','/api/brands', {}, setBrands)
 }
 
 function getScales() {
     sendAjaxRequest('GET','/api/scales', {}, setScales)
 }
 
-function getSellers() {
-    sendAjaxRequest('GET','/api/sellers', {}, setSellers, [{name: 'Accept', value: 'application/json'}])
-}
+colour_input.addEventListener('input', () => {
+    value = colour_input.value
 
-function getAllSelectData() {
-    getColours()
-    getBrands()
-    getScales()
-    getSellers()
-}
+    if(value.length > 1){
+        sendAjaxRequest('GET','/api/colours', {'search' : value}, setColours, [{name: 'Accept', value: 'application/json'}])
+    }
+})
+
+brand_input.addEventListener('input', () => {
+    value = brand_input.value
+
+    if(value.length > 1){
+        sendAjaxRequest('GET','/api/brands', {'search' : value}, setBrands, [{name: 'Accept', value: 'application/json'}])
+    }
+})
+
+seller_input.addEventListener('input', () => {
+    value = seller_input.value
+
+    if(value.length > 1){
+        sendAjaxRequest('GET','/api/sellers', {'search' : value}, setSellers, [{name: 'Accept', value: 'application/json'}])
+    }
+})
 
 function search(e, page_number = 1) {
     if(e != null)
@@ -208,10 +232,10 @@ function search(e, page_number = 1) {
         'order-by' : order_by.checked ? 0 : 1,
         'buy-now' : buy_now.checked,
         'ended-auctions' : ended_auctions.checked,
-        'colour' : colour.value,
-        'brand' : brand.value,
         'scale' : scale.value,
-        'seller' : seller.value,
+        'colour' : g_colours[colour_input.value] ? g_colours[colour_input.value] : -1,
+        'brand' : g_brands[brand_input.value] ? g_brands[brand_input.value] : -1,
+        'seller' : g_sellers[seller_input.value] ? g_sellers[seller_input.value] : -1,
         'min-bid' : min_bid.value,
         'max-bid' : max_bid.value,
         'min-buy-now' : min_buy_now.value,
@@ -261,10 +285,10 @@ function reset_search() {
     order_by.value = "0"
     buy_now.checked = true
     ended_auctions.checked = false
-    colour.value = -1
-    brand.value = -1
     scale.value = -1
-    seller.value = -1
+    colour_input.value = ""
+    brand_input.value = ""
+    seller_input.value = ""
     min_bid.value = ""
     max_bid.value = ""
     min_buy_now.value = ""
@@ -277,10 +301,10 @@ function reset_search() {
         'order-by' : order_by.value,
         'buy-now' : buy_now.checked,
         'ended-auctions' : ended_auctions.checked,
-        'colour' : colour.value,
-        'brand' : brand.value,
-        'scale' : scale.value,
-        'seller' : seller.value,
+        'scale' : -1,
+        'colour' : -1,
+        'brand' : -1,
+        'seller' : -1,
         'min-bid' : min_bid.value,
         'max-bid' : max_bid.value,
         'min-buy-now' : min_buy_now.value,
@@ -296,5 +320,5 @@ function reset_search() {
 }
 
 query_on_url()
-getAllSelectData()
+getScales()
 setInterval(update_time_remaining, 1000)

@@ -151,11 +151,11 @@ class UserController extends Controller
             $image = $request->file('image-input');
             if ($image->isValid()) {
                 $image_name = date('mdYHis') . "-" . uniqid() . "-" . Auth::user()->id . ".png";
-                $path = base_path() . '/public/images/users';
+                $path = base_path() . '/storage/app/public/images/users';
                 $image->move($path, $image_name);
 
                 User::where('id', $user->id)->update([
-                    'image' => '/images/users/' . $image_name,
+                    'image' => '/storage/images/users/' . $image_name,
                 ]);
             } else {
                 return redirect()->back()->with('error', 'Image not valid: ' . $image);
@@ -236,20 +236,19 @@ class UserController extends Controller
     {
         $id = Auth::check() ? Auth::user()->id : -1;
 
-        $fav_sellers = User::whereIn('id', FavouriteSeller::where('user1id','=',$id)->get('user2id'));
+        $validated = Validator::make($request->all(), [
+            'search' => 'nullable|string|min:3|max:255'
+        ]);
+        
+        if($validated->fails())
+            return json_encode(["error" => "success", "content" => $validated->errors()]);
 
-        if($request->acceptsHtml()) {
-            $result = "";
+        $search = $request->input('search');
+        $fav_sellers = User::whereIn('id', FavouriteSeller::where('user1id','=',$id)->get('user2id'))->where('username', 'like', '%' . $search . '%');
+        $all = User::whereIn('id', Auction::all(['sellerid']))->whereNotIn('id', $fav_sellers->get('id'))->where('username', 'like', '%' . $search . '%');
 
-            foreach($fav_sellers->get() as $fav_seller) {
-                $result .= view("partials.profile.fav-seller", ["seller" => $fav_seller])->render() . "\n";
-            }
-
-            return json_encode(["result" => "success", "content" => $result]);
-        }
-
-        $sellers = ['favourites' => $fav_sellers->get(),
-                    'all' => User::whereIn('id', Auction::all(['sellerid']))->whereNotIn('id', $fav_sellers->get('id'))->get()];
+        $sellers = ['favourites' => $fav_sellers->limit(5)->get(),
+                    'all' => $all->limit(5)->get()];
 
         return json_encode(["result" => "success", "content" => $sellers]);
     }
