@@ -24,6 +24,12 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register');
 
+// Forgot Password
+Route::get('forgot-password', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.forgot');
+Route::post('forgot-password', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+Route::get('reset-password', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+Route::post('reset-password', 'Auth\ResetPasswordController@reset')->name('password.update');
+
 // Search
 Route::get('auctions/search', 'StaticController@search');
 
