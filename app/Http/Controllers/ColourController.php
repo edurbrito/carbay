@@ -23,8 +23,8 @@ class ColourController extends Controller
         if($validated->fails())
             return json_encode(["error" => "success", "content" => $validated->errors()]);
 
-        $search = $request->input('search');
-        $colours = Colour::where('name', 'like', '%' . $search . '%')->orderBy('name')->limit(5)->get();
+        $search = strtolower($request->input('search'));
+        $colours = Colour::whereRaw('LOWER(name) LIKE ?',["%{$search}%"])->orderBy('name')->limit(5)->get();
 
         return json_encode(["result" => "success", "content" => $colours]);
     }

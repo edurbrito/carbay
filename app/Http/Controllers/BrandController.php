@@ -23,8 +23,8 @@ class BrandController extends Controller
         if($validated->fails())
             return json_encode(["error" => "success", "content" => $validated->errors()]);
 
-        $search = $request->input('search');
-        $brands = Brand::where('name', 'like', '%' . $search . '%')->orderBy('name')->limit(5)->get();
+        $search = strtolower($request->input('search'));
+        $brands = Brand::whereRaw('LOWER(name) LIKE ?',["%{$search}%"])->orderBy('name')->limit(5)->get();
 
         return json_encode(["result" => "success", "content" => $brands]);
     }

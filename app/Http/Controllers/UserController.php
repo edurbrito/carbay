@@ -234,8 +234,6 @@ class UserController extends Controller
 
     public function sellers(Request $request)
     {
-        $id = Auth::check() ? Auth::user()->id : -1;
-
         $validated = Validator::make($request->all(), [
             'search' => 'nullable|string|min:3|max:255'
         ]);
@@ -243,12 +241,21 @@ class UserController extends Controller
         if($validated->fails())
             return json_encode(["error" => "success", "content" => $validated->errors()]);
 
-        $search = $request->input('search');
-        $fav_sellers = User::whereIn('id', FavouriteSeller::where('user1id','=',$id)->get('user2id'))->where('username', 'like', '%' . $search . '%');
-        $all = User::whereIn('id', Auction::all(['sellerid']))->whereNotIn('id', $fav_sellers->get('id'))->where('username', 'like', '%' . $search . '%');
+        $search = strtolower($request->input('search'));
+        $fav_sellers = [];
+        $all = [];
 
-        $sellers = ['favourites' => $fav_sellers->limit(5)->get(),
-                    'all' => $all->limit(5)->get()];
+        if(Auth::check()){
+            $fav_sellers = User::whereIn('id', FavouriteSeller::where('user1id','=',Auth::user()->id)->get('user2id'))->whereRaw('LOWER(username) LIKE ?',["%{$search}%"]);
+            $all = User::whereIn('id', Auction::all(['sellerid']))->whereNotIn('id', $fav_sellers->get('id'))->whereRaw('LOWER(username) LIKE ?',["%{$search}%"])->limit(5)->get();
+            $fav_sellers = $fav_sellers->limit(5)->get();
+        }
+        else{
+            $all = User::whereIn('id', Auction::all(['sellerid']))->whereRaw('LOWER(username) LIKE ?',["%{$search}%"])->limit(5)->get();
+        }
+
+        $sellers = ['favourites' => $fav_sellers,
+                    'all' => $all];
 
         return json_encode(["result" => "success", "content" => $sellers]);
     }
