@@ -92,4 +92,9 @@ class AuctionPolicy
     {
         //
     }
+
+    public function admin()
+    {
+        return Auth::check() && Auth::user()->admin;
+    }
 }

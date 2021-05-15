@@ -20,7 +20,7 @@ class CommentController extends Controller
     public function index(Request $request, $id)
     {
         if (!is_numeric($id)) {
-            return;
+            return json_encode(["result" => "error", "content" => "Non numeric id provided"]);
         }
 
         $comments = Comment::where("auctionid", "=", $id)->orderBy("datehour", "desc")->limit(10)->get();
@@ -61,6 +61,13 @@ class CommentController extends Controller
             return json_encode(["result" => "error", "content" => ['This action is not available for banned users.']]);
 
         $this->authorize('create', Comment::class);
+                
+        $auction = Auction::find($id);
+
+        if($auction->suspend)
+        {
+            return json_encode(["result" => "error", "content" => ['This auction is suspended.']]);
+        }
         
         $validator = Validator::make($request->all(), [
             'comment' => 'required|string|min:1|max:300',

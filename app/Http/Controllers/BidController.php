@@ -20,7 +20,7 @@ class BidController extends Controller
     public function index(Request $request, $id)
     {
         if (!is_numeric($id)) {
-            return;
+            return json_encode(["result" => "error", "content" => "Non numeric id provided"]);
         }
 
         $bids = Bid::where("auctionid", "=", $id)->orderBy("value", "desc")->limit(10)->get();
@@ -63,6 +63,12 @@ class BidController extends Controller
         $this->authorize('create', Bid::class);
         
         $auction = Auction::find($id);
+
+        if($auction->suspend)
+        {
+            return back()->withErrors(['value' => 'This auction is suspended.']);
+        }
+
         $auctionHighestBid = $auction->highest_bid();
         $auctionLastBid = !is_null($auctionHighestBid) ? $auctionHighestBid->value + 0.01 : $auction->startingprice;
 

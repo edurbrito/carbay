@@ -4,7 +4,11 @@
         <span class="text-primary ml-3">{{ $auction->title }}</span>
     </a>
     <div class="btn-group ml-sm-auto" role="group" aria-label="Auction Management Buttons">
-        <button type="button" data-id="{{ $auction->id }}" data-auction="{{ $auction->title }}" class="btn btn-danger mr-1 suspend-button" data-bs-toggle="modal" data-bs-target="#suspend" role="button">Suspend</button>
+        @if(!$auction->suspend) 
+        <button type="button" data-id="{{ $auction->id }}" data-auction="{{ $auction->title }}" class="btn btn-danger mr-1 suspend-button" style="min-width: 130px;" data-bs-toggle="modal" data-bs-target="#suspend" role="button">Suspend</button>
+        @else
+        <button type="button" data-id="{{ $auction->id }}" data-auction="{{ $auction->title }}" class="btn btn-success mr-1 suspend-button" style="min-width: 130px;" data-bs-toggle="modal" data-bs-target="#suspend" role="button">Unsuspend</button>
+        @endif
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reschedule" role="button" data-bs-toggle="modal" data-bs-target="#reschedule" role="button">Reschedule</button>
     </div>
 </li>

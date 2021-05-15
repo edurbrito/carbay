@@ -74,3 +74,4 @@ Route::post('api/users/fav_auctions/remove', 'FavouriteAuctionController@destroy
 Route::get('admin','UserController@admin');
 Route::post('admin/make/{username}','UserController@make_admin');
 Route::post('admin/ban/{username}','UserController@ban');
+Route::post('admin/suspend/{auction}','AuctionController@suspend');

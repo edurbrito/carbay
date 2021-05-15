@@ -15,11 +15,19 @@ sendAjaxRequest('GET','/api/users', {}, setUsers, [{name: 'Accept', value: 'text
 sendAjaxRequest('GET','/api/auctions', {}, setAuctions, [{name: 'Accept', value: 'text/html'}])
 
 user_search_input.addEventListener('input', () => {
-    sendAjaxRequest('GET','/api/users', {'page' : 1, 'search': user_search_input.value}, setUsers, [{name: 'Accept', value: 'text/html'}])
+    if(user_search_input.value.length > 1)
+        sendAjaxRequest('GET','/api/users', {'page' : 1, 'search': user_search_input.value}, setUsers, [{name: 'Accept', value: 'text/html'}])
+    else if(user_search_input.value.length == 0){
+        sendAjaxRequest('GET','/api/users', {}, setUsers, [{name: 'Accept', value: 'text/html'}])
+    }
 })
 
 auction_search_input.addEventListener('input', () => {
-    sendAjaxRequest('GET','/api/auctions', {'page' : 1, 'search': auction_search_input.value}, setAuctions, [{name: 'Accept', value: 'text/html'}])
+    if(auction_search_input.value.length > 1)
+        sendAjaxRequest('GET','/api/auctions', {'page' : 1, 'search': auction_search_input.value}, setAuctions, [{name: 'Accept', value: 'text/html'}])
+    else if(auction_search_input.value.length == 0){
+        sendAjaxRequest('GET','/api/auctions', {}, setAuctions, [{name: 'Accept', value: 'text/html'}])
+    }
 })
 
 function setUsers(){
@@ -126,7 +134,20 @@ function update_ban_modal(){
 
 function update_suspend_modal(){
     id = this.getAttribute("data-id")
+
+    suspended = this.innerHTML == "Unsuspend"
+
     title = this.getAttribute("data-auction")
     suspend_text.innerHTML = `You are going to suspend auction ${id} (${title}).`
     suspend_form.setAttribute('action', `/admin/suspend/${id}`)
+
+    button = suspend_form.querySelector("button[type=submit]")
+    button.innerHTML = suspended ? "Unsuspend" : "Suspend"
+    
+    if(suspended){
+        button.classList.replace("btn-danger", "btn-success")
+    }
+    else{
+        button.classList.replace("btn-success", "btn-danger")
+    }
 }

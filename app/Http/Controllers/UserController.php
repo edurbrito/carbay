@@ -34,7 +34,8 @@ class UserController extends Controller
 
         $search = $request->input('search');
         if(!is_null($search) && !empty($search)){
-            $users = $users->where('name', 'like', '%' . $search . '%');
+            $search = strtolower($search);
+            $users = $users->whereRaw('LOWER(name) LIKE ?',["%{$search}%"]);
         }
 
         $users = $users->orderBy('name')->paginate(12);
@@ -290,7 +291,8 @@ class UserController extends Controller
             $result = "";
 
             foreach($auctions as $auction) {
-                $result .= view("partials.profile.auction", ["auction" => $auction])->render() . "\n";
+                if(Auth::user()->username == $username || !$auction->suspend)
+                    $result .= view("partials.profile.auction", ["auction" => $auction])->render() . "\n";
             }
 
             return json_encode(["result" => "success", "content" => $result]);
@@ -358,7 +360,7 @@ class UserController extends Controller
 
         if (!$user->admin)
         {
-            $user->admin = true;
+            $user->admin = "TRUE";
             $user->save();
         }
 
@@ -374,7 +376,7 @@ class UserController extends Controller
 
         $user = User::where('username',"=",$username)->first();
 
-        $user->banned = !$user->banned;
+        $user->banned = !$user->banned ? "TRUE" : "FALSE";
         $user->save();
 
         return redirect('/admin');

@@ -39,10 +39,11 @@ class AuctionController extends Controller
 
         $search = $request->input('search');
         if(!is_null($search) && !empty($search)){
-            $auctions = $auctions->whereRaw('(auction.search @@ plainto_tsquery(\'english\', ?) OR auction.title LIKE ?)', array(strtolower($search), '%' . $search . '%'));
+            $search = strtolower($search);
+            $auctions = $auctions->whereRaw('(auction.search @@ plainto_tsquery(\'english\', ?) OR LOWER(auction.title) LIKE ?)', array($search, '%' . $search . '%'));
         }
 
-        $auctions = $auctions->paginate(12);
+        $auctions = $auctions->orderBy('title')->paginate(12);
 
         if($request->acceptsHtml()){
             $html_auctions = "";
@@ -67,7 +68,7 @@ class AuctionController extends Controller
      */
     public static function featured(Request $request)
     {
-        $featured = Auction::whereRaw('finaldate > NOW()')->orderBy('finaldate')->limit(5)->get()->sortBy(function ($auction, $key) {
+        $featured = Auction::whereRaw('finaldate > NOW()')->where('suspend', 'FALSE')->orderBy('finaldate')->limit(5)->get()->sortBy(function ($auction, $key) {
             return count($auction->bids);
         });
 
@@ -208,7 +209,7 @@ class AuctionController extends Controller
 
         $auction = Auction::find($id);
 
-        $view = !is_null($auction) ? view('pages.auction', ['auction' => $auction]) : abort(404);
+        $view = !is_null($auction) && ((Auth::check() && (Auth::user()->id == $auction->seller->id || Auth::user()->admin)) || !$auction->suspend) ? view('pages.auction', ['auction' => $auction]) : abort(404);
 
         return $view;
     }
@@ -313,9 +314,9 @@ class AuctionController extends Controller
         date_default_timezone_set("Europe/Lisbon");
 
         if (is_null($fullText))
-            $auctions = Auction::where("id",">","-1");
+            $auctions = Auction::where("suspend","FALSE");
         else
-            $auctions = Auction::whereRaw('auction.search @@ plainto_tsquery(\'english\', ?)', array(strtolower($fullText)));
+            $auctions = Auction::whereRaw('auction.search @@ plainto_tsquery(\'english\', ?)', array(strtolower($fullText)))->where("suspend","FALSE");
 
 
         if ($seller != "-1") {
@@ -406,5 +407,23 @@ class AuctionController extends Controller
         }
 
         return json_encode(["result" => "success", "content" => $auctions]);
+    }
+
+
+    public function suspend($auctionid)
+    {
+        if(!Auth::check())
+            return redirect('login');
+
+        $this->authorize('admin', Auction::class);
+
+        $auction = Auction::find($auctionid);
+
+        if(!is_null($auction)){
+            $auction->suspend = !$auction->suspend ? "TRUE" : "FALSE";
+            $auction->save();
+        }
+
+        return redirect('/admin');
     }
 }

@@ -51,7 +51,12 @@
   </div>
   <div class="col-12 col-sm-6 mt-4 mt-sm-0 text-primary text-center text-sm-left">
     <p class="fs-2">
+      @if($auction->suspend)
+        <i class="fas fa-ban align-self-center mr-2" style="color: red;"></i>
+        <span style="color: red !important;">Suspended</span>
+      @else
       <span title="Time Remaining" id="time-remaining" data-time="{{$auction->finaldate}}"><i class="far fa-clock"></i> <span id="time-remaining-value">{{$auction->time_remaining()}}</span></span>
+      @endif
     </p>
     <p class="fs-4">
       <i class="far fa-money-bill-alt"></i>
