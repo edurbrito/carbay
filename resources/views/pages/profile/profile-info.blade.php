@@ -17,7 +17,15 @@ $myProfile = Auth::check() && (Auth::user()->username == $user->username);
     <img src="{{ $user->image }}" class="rounded z-depth-1-half img-fluid" alt="Sample avatar" style="min-height:200px;height:200px;min-width:200px;width:200">
   </div>
   <div class="col-0 col-sm-6 text-sm-left">
-    <h3 class="font-weight-bold dark-grey-text my-4 text-primary">@if(!$myProfile)<span id="favourite-seller" style="cursor: pointer;" data-seller="{{ $user->username }}"><i class="@if(Auth::check() && Auth::user()->hasFavouriteSeller($user->id)) fas @else far @endif fa-star"></i></span> {{ $user->name }} <i class="@if(Auth::check()) far fa-flag @endif" data-bs-toggle="modal" data-bs-target="#report-user" role="button"></i>@endif</h3>
+    <h3 class="font-weight-bold dark-grey-text my-4 text-primary">
+    @if(!$myProfile)
+    <span id="favourite-seller" style="cursor: pointer;" data-seller="{{ $user->username }}">
+    <i class="@if(Auth::check() && Auth::user()->hasFavouriteSeller($user->id)) fas @else far @endif fa-star"></i></span>
+     {{ $user->name }} 
+     @if(Auth::check())
+     <i style="font-size: 0.8rem; color: red;" class="far fa-flag ml-2" data-bs-toggle="modal" data-bs-target="#report-user" role="button"></i>
+     @endif
+     @endif</h3>
     <h5 class="text-lowercase grey-text mb-3 text-muted"><strong>{{ $user->email }}</strong></h5>
     <div class="dark-grey-text my-4 text-primary">
       <h5 class="font-weight-bold dark-grey-text my-4 text-primary">Rating:
@@ -38,6 +46,10 @@ $myProfile = Auth::check() && (Auth::user()->username == $user->username);
     @if ($errors->has('error'))
     <div onclick="this.hidden = true" class="alert alert-danger alert-dismissible fade show my-3 p-1 px-2" role="alert">
       {{ $errors->first('error') }}
+    </div>
+    @elseif(session('success'))
+    <div onclick="this.hidden = true" class="alert alert-success alert-dismissible fade show my-3 p-1 px-2" role="alert">
+      {{ session('success')[0] }}
     </div>
     @endif
   </div>
@@ -106,12 +118,13 @@ $myProfile = Auth::check() && (Auth::user()->username == $user->username);
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="notifications">Why do you want to report this user?</h5>
+        <h5 class="modal-title" id="notifications">What is the issue?</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <form method="POST" action="/users/{{$user->username}}/report" class="modal-body text-primary">
         {{ csrf_field() }}
-        <input type="number" hidden id="location-type" name="location-type" required value="1"></input>
+        <input type="number" hidden name="id" required value="1"></input>
+        <input type="number" hidden name="location" required value="1"></input>
         <label class="form-check-label mt-2 text-primary" for="flexCheckChecked">
           Message:
         </label>

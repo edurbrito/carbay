@@ -20,4 +20,24 @@ class Report extends Model
     protected $fillable = [
         'reason', 'datehour', 'reporterid', 'locationauctionid', 'locationcommentid', 'locationregisteredid', 'statetype'
     ];
+
+    public function location()
+    {
+        if (!is_null($this->locationauctionid))
+            return ["location" => "Auction", "url" => "/auctions/" . $this->locationauctionid];
+        else if (!is_null($this->locationcommentid))
+            return ["location" => "Comment", "url" => "/auctions/" . Comment::find($this->locationcommentid)->auction->id];
+        else if (!is_null($this->locationregisteredid))
+            return ["location" => "Profile", "url" => "/users/" . User::find($this->locationregisteredid)->username];
+    }
+
+    public function reported()
+    {
+        if (!is_null($this->locationauctionid))
+            return Auction::find($this->locationauctionid)->seller;
+        else if (!is_null($this->locationcommentid))
+            return Comment::find($this->locationcommentid)->author;
+        else if (!is_null($this->locationregisteredid))
+            return User::find($this->locationregisteredid);
+    }
 }

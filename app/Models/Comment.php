@@ -21,7 +21,7 @@ class Comment extends Model
         'text', 'datehour', 'authorid', 'auctionid'
     ];
 
-    public function comments()
+    public function auction()
     {
         return $this->belongsTo('App\Models\Auction', 'auctionid');
     }

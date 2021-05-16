@@ -69,7 +69,7 @@ Route::post('api/users/fav_sellers/add', 'FavouriteSellerController@store');
 Route::post('api/users/fav_sellers/remove', 'FavouriteSellerController@destroy');
 Route::post('api/users/fav_auctions/add', 'FavouriteAuctionController@store');
 Route::post('api/users/fav_auctions/remove', 'FavouriteAuctionController@destroy');
-Route::post('users/{username}/report', 'UserController@report');
+Route::post('users/{username}/report', 'ReportController@store');
 
 // Admin
 Route::get('admin','UserController@admin');
@@ -77,3 +77,4 @@ Route::post('admin/make/{username}','UserController@make_admin');
 Route::post('admin/ban/{username}','UserController@ban');
 Route::post('admin/suspend/{auction}','AuctionController@suspend');
 Route::post('admin/reschedule/{auction}','AuctionController@reschedule');
+Route::get('api/reports','ReportController@index');

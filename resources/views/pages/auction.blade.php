@@ -79,9 +79,14 @@
       1:18
       <br>
       @php
-      $seller_name=$auction->seller_name()
+      $seller_username=$auction->seller_username()
       @endphp
-      <strong>Seller:</strong><a href="/users/{{ $seller_name }}" class="ml-2">{{ $seller_name }}</a><i class="@if(Auth::check()) far fa-flag ml-2 @endif" data-bs-toggle="modal" data-bs-target="#report-user" role="button"></i>
+      <strong>Seller:</strong><a href="/users/{{ $seller_username }}" class="ml-2">{{ $seller_username }}</a>
+      @if(Auth::check() && Auth::user()->id != $auction->seller->id)
+        <span class="report-button ml-2" data-id="{{$auction->id}}" data-location="2" data-username="{{ $auction->seller_username() }}" data-bs-toggle="modal" data-bs-target="#report-user" role="button">
+          <i style="font-size: 0.8rem; color: red;" class="far fa-flag"></i>
+        </span>
+      @endif
     </p>   
     @if (Auth::check() && !Auth::user()->admin)
       @if(!is_null($auction->buynow))
@@ -93,6 +98,10 @@
       <div onclick="this.hidden = true" class="alert alert-danger alert-dismissible fade show my-3 p-1 px-2" style="width: fit-content;" role="alert">
       {{ $errors->first('value') }}
       </div>
+    @elseif(session('success'))
+    <div onclick="this.hidden = true" class="alert alert-success alert-dismissible fade show my-3 p-1 px-2" style="width: fit-content;" role="alert">
+      {{ session('success')[0] }}
+    </div>
     @endif
   </div>
 
@@ -112,12 +121,12 @@
 <div class="tab-content" id="pills-tabContent">
   <div class="tab-pane" id="pills-bid-history" role="tabpanel" aria-labelledby="pills-bid-history-tab">
     <ol id="bids-list" class="list-group rounded-0 hide-scroll" style="overflow-y: scroll; max-height: 40vh;">
-    @each('partials.auction.bid', $auction->bids->reverse() ,'bid')
+    @each('partials.auction.bid', $auction->bids ,'bid')
     </ol>
   </div>
   <div class="tab-pane show active" id="pills-chat" role="tabpanel" aria-labelledby="pills-chat-tab">
     <ol id="comments-list" class="list-group rounded-0 hide-scroll" style="overflow-y: scroll; max-height: 40vh;">
-      @each('partials.auction.comment', $auction->comments->reverse() ,'comment')
+      @each('partials.auction.comment', $auction->comments ,'comment')
     </ol>
     <div class="d-flex bg-white align-content-center mt-1">
       <form class="w-100" id="send-comment-form">
@@ -183,13 +192,13 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="notifications">Why do you want to report this user?</h5>
+        <h5 class="modal-title" id="notifications">What is the issue?</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <form id="modal-form" method="POST" action="/users/{{ $auction->seller_name() }}/report" class="modal-body text-primary">
+      <form id="modal-form" method="POST" action="/users/{{ $auction->seller_username() }}/report" class="modal-body text-primary">
         {{ csrf_field() }}
-        <input type="number" hidden id="location-type" name="location-type" required value="2"></input>
-        <input type="number" hidden id="auction-id" name="auction-id" required value="{{ $auction->id }}"></input>
+        <input type="number" hidden id="location-input" name="location" required value="2"></input>
+        <input type="number" hidden id="id-input" name="id" required value="{{ $auction->id }}"></input>
         <label class="form-check-label mt-2 text-primary" for="flexCheckChecked">
           Message:
         </label>

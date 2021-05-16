@@ -8,11 +8,15 @@ catch(e){
 }
 tab_users = document.querySelector("#v-pills-users-tab")
 tab_auctions = document.querySelector("#v-pills-auctions-tab")
+tab_reports = document.querySelector("#v-pills-reports-tab")
 tab_users.addEventListener("click", () => {
     document.location.hash = 'users'
 })
 tab_auctions.addEventListener("click", () => {
     document.location.hash = 'auctions'
+})
+tab_reports.addEventListener("click", () => {
+    document.location.hash = 'reports'
 })
 
 switch (separator) {
@@ -21,6 +25,9 @@ switch (separator) {
         break;
     case "auctions":
         tab_auctions.click()
+        break;
+    case "reports":
+        tab_reports.click()
         break;
     default:
         break;
@@ -34,6 +41,9 @@ user_search_input = document.querySelector("#user-management-search-input")
 auction_list = document.querySelector("#auction-management-list")
 auction_links = document.querySelector("#auction-management-pagination")
 auction_search_input = document.querySelector("#auction-management-search-input")
+report_list = document.querySelector("#report-list")
+report_links = document.querySelector("#report-pagination")
+report_search_input = document.querySelector("#report-search-input")
 make_admin_text = document.querySelector("#make-admin-text")
 make_admin_form = document.querySelector("#make-admin-form")
 ban_text = document.querySelector("#ban-text")
@@ -45,6 +55,7 @@ reschedule_form = document.querySelector("#reschedule-form")
 
 sendAjaxRequest('GET','/api/users', {}, setUsers, [{name: 'Accept', value: 'text/html'}])
 sendAjaxRequest('GET','/api/auctions', {}, setAuctions, [{name: 'Accept', value: 'text/html'}])
+sendAjaxRequest('GET','/api/reports', {}, setReports, [{name: 'Accept', value: 'text/html'}])
 
 user_search_input.addEventListener('input', () => {
     if(user_search_input.value.length > 1)
@@ -59,6 +70,14 @@ auction_search_input.addEventListener('input', () => {
         sendAjaxRequest('GET','/api/auctions', {'page' : 1, 'search': auction_search_input.value}, setAuctions, [{name: 'Accept', value: 'text/html'}])
     else if(auction_search_input.value.length == 0){
         sendAjaxRequest('GET','/api/auctions', {}, setAuctions, [{name: 'Accept', value: 'text/html'}])
+    }
+})
+
+report_search_input.addEventListener('input', () => {
+    if(report_search_input.value.length > 1)
+        sendAjaxRequest('GET','/api/reports', {'page' : 1, 'search': report_search_input.value}, setReports, [{name: 'Accept', value: 'text/html'}])
+    else if(report_search_input.value.length == 0){
+        sendAjaxRequest('GET','/api/reports', {}, setReports, [{name: 'Accept', value: 'text/html'}])
     }
 })
 
@@ -101,6 +120,27 @@ function setAuctions(){
         for (const button of reschedule_buttons) {
             button.addEventListener('click', update_reschedule_modal)
         }
+    }
+}
+
+function setReports(){
+    let reports = JSON.parse(this.response)
+    
+    if(reports.result == "success"){
+        report_list.innerHTML = reports.content.reports
+        report_links.innerHTML = reports.content.links
+        enable_pagination(report_links, "/api/reports", report_search_input, setReports)
+
+        // suspend_buttons = document.querySelectorAll(".suspend-button")
+        // reschedule_buttons = document.querySelectorAll(".reschedule-button")
+
+        // for (const button of suspend_buttons) {
+        //     button.addEventListener('click', update_suspend_modal)
+        // }
+
+        // for (const button of reschedule_buttons) {
+        //     button.addEventListener('click', update_reschedule_modal)
+        // }
     }
 }
 

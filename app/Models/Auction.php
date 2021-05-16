@@ -97,7 +97,7 @@ class Auction extends Model
         return $this->colour->name;
     }
 
-    public function seller_name()
+    public function seller_username()
     {
         return $this->seller->username;
     }

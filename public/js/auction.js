@@ -14,6 +14,7 @@ function update_bids() {
 function update_comments() {
     div_comments = document.querySelector("#comments-list")
     div_comments.innerHTML = JSON.parse(this.response).content;
+    
     report_buttons = document.querySelectorAll(".report-button")
     for (let button of report_buttons) {
         button.addEventListener('click', report)
@@ -44,7 +45,6 @@ function update_content() {
 setInterval(update_content, 1000)
 
 comment_form = document.querySelector("#send-comment-form")
-
 comment_form.addEventListener('submit', comment)
 text = comment_form.querySelector("#send-comment")
 
@@ -52,21 +52,6 @@ function comment(e) {
     e.preventDefault()
 
     sendAjaxRequest('POST', `/api/auctions/${auction_id}/comments`, {"comment" : text.value }, handle_comment, [])
-}
-
-function report() {
-    modal_form = document.querySelector("#modal-form")
-    locationType = modal_form.querySelector("#location-type")
-
-    id = this.getAttribute("data-id")
-
-    console.log("ID: " + id)
-
-    modal_form.setAttribute('comment-id', `${id}`) // criar input com comment-id e resolver problema de enviar a 2 o value em vez de 3
-
-    locationType.value = 3
-
-    console.log(locationType)
 }
 
 function handle_comment() {
@@ -130,4 +115,21 @@ function fav_auction() {
     {
         console.log(response.content);
     }
+}
+
+// ----- Report User -----
+
+modal_form = document.querySelector("#modal-form")
+
+function report(){
+    id = this.getAttribute("data-id")
+    loc = this.getAttribute("data-location")
+    username = this.getAttribute("data-username")
+
+    modal_form.action = `/users/${username}/report`
+    id_input = modal_form.querySelector("#id-input")
+    location_input = modal_form.querySelector("#location-input")
+
+    id_input.setAttribute("value", id)
+    location_input.setAttribute("value", loc)
 }
