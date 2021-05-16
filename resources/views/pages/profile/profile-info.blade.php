@@ -2,10 +2,10 @@
 $myProfile = Auth::check() && (Auth::user()->username == $user->username);
 @endphp
 <h1 class="w-100 text-primary pb-4 text-center">
-@if($myProfile) My
-@else User
-@endif
- Profile</h1>
+  @if($myProfile) My
+  @else User
+  @endif
+  Profile</h1>
 @if($myProfile && Auth::user()->banned)
 <div class="alert alert-danger alert-dismissible fade show mb-5 mx-auto p-1 px-2" style="width: fit-content;" role="alert">
   This account is banned. For more information contact the website administration.
@@ -13,17 +13,16 @@ $myProfile = Auth::check() && (Auth::user()->username == $user->username);
 @endif
 <!-- Section: Info -->
 <section class="row text-center">
-    <div class="col-0 col-sm-6 align-self-center text-sm-right">
-      <img src="{{ $user->image }}" class="rounded z-depth-1-half img-fluid" alt="Sample avatar" style="min-height:200px;height:200px;min-width:200px;width:200">
-    </div>
-    <div class="col-0 col-sm-6 text-sm-left">
-      <h3 class="font-weight-bold dark-grey-text my-4 text-primary">@if(!$myProfile)<span id="favourite-seller" style="cursor: pointer;" data-seller="{{ $user->username }}"><i class="@if(Auth::check() && Auth::user()->hasFavouriteSeller($user->id)) fas @else far @endif fa-star scale-objects-sm"></i></span>@endif {{ $user->name }}</h3>
-      <h5 class="text-lowercase grey-text mb-3 text-muted"><strong>{{ $user->email }}</strong></h5>
-      <div class="dark-grey-text my-4 text-primary">
-        <h5 class="font-weight-bold dark-grey-text my-4 text-primary">Rating:
-        @for ($i = 1; $i <= 5; $i++)
-          @if ($i <= round($user->rating_value()))
-            <i class="fas fa-star"></i>
+  <div class="col-0 col-sm-6 align-self-center text-sm-right">
+    <img src="{{ $user->image }}" class="rounded z-depth-1-half img-fluid" alt="Sample avatar" style="min-height:200px;height:200px;min-width:200px;width:200">
+  </div>
+  <div class="col-0 col-sm-6 text-sm-left">
+    <h3 class="font-weight-bold dark-grey-text my-4 text-primary">@if(!$myProfile)<span id="favourite-seller" style="cursor: pointer;" data-seller="{{ $user->username }}"><i class="@if(Auth::check() && Auth::user()->hasFavouriteSeller($user->id)) fas @else far @endif fa-star"></i></span> {{ $user->name }} <i class="@if(Auth::check()) far fa-flag @endif" data-bs-toggle="modal" data-bs-target="#report-user" role="button"></i>@endif</h3>
+    <h5 class="text-lowercase grey-text mb-3 text-muted"><strong>{{ $user->email }}</strong></h5>
+    <div class="dark-grey-text my-4 text-primary">
+      <h5 class="font-weight-bold dark-grey-text my-4 text-primary">Rating:
+        @for ($i = 1; $i <= 5; $i++) @if ($i <=round($user->rating_value()))
+          <i class="fas fa-star"></i>
           @else
           <i class="far fa-star"></i>
           @endif
@@ -43,6 +42,7 @@ $myProfile = Auth::check() && (Auth::user()->username == $user->username);
     @endif
   </div>
 </section>
+
 <!-- Section: Statistics -->
 <section class="container mt-5">
   <h2 class="w-100 text-primary mb-4 text-center">Statistics</h2>
@@ -100,3 +100,27 @@ $myProfile = Auth::check() && (Auth::user()->username == $user->username);
     </div>
   </div>
 </section>
+
+<!-- Modal -->
+<div class="modal fade" id="report-user" tabindex="-1" aria-labelledby="report-user" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="notifications">Why do you want to report this user?</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form method="POST" action="/users/{{$user->username}}/report" class="modal-body text-primary">
+        {{ csrf_field() }}
+        <input type="number" hidden id="location-type" name="location-type" required value="1"></input>
+        <label class="form-check-label mt-2 text-primary" for="flexCheckChecked">
+          Message:
+        </label>
+        <textarea class="form-control" name="reason" id="reason" rows="3" placeholder="Write here your reasons..." required></textarea>
+        <div class="d-flex justify-content-end mt-3">
+          <button type="button" class="btn btn-primary mr-2" data-bs-dismiss="modal" aria-label="Dismiss">Dismiss</button>
+          <button type="submit" class="btn btn-success">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

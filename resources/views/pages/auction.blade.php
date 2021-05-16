@@ -81,7 +81,7 @@
       @php
       $seller_name=$auction->seller_name()
       @endphp
-      <strong>Seller:</strong><a href="/users/{{ $seller_name }}" class="ml-2">{{ $seller_name }}</a>
+      <strong>Seller:</strong><a href="/users/{{ $seller_name }}" class="ml-2">{{ $seller_name }}</a><i class="@if(Auth::check()) far fa-flag ml-2 @endif" data-bs-toggle="modal" data-bs-target="#report-user" role="button"></i>
     </p>   
     @if (Auth::check() && !Auth::user()->admin)
       @if(!is_null($auction->buynow))
@@ -173,6 +173,31 @@
               <button type="button" class="btn btn-primary mr-2" data-bs-dismiss="modal" aria-label="Dismiss">Dismiss</button>
               <button type="submit" class="btn btn-success">Place Bid</button>
             </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="report-user" tabindex="-1" aria-labelledby="report-user" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="notifications">Why do you want to report this user?</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form id="modal-form" method="POST" action="/users/{{ $auction->seller_name() }}/report" class="modal-body text-primary">
+        {{ csrf_field() }}
+        <input type="number" hidden id="location-type" name="location-type" required value="2"></input>
+        <input type="number" hidden id="auction-id" name="auction-id" required value="{{ $auction->id }}"></input>
+        <label class="form-check-label mt-2 text-primary" for="flexCheckChecked">
+          Message:
+        </label>
+        <textarea class="form-control" name="reason" id="reason" rows="3" placeholder="Write here your reasons..." required></textarea>
+        <div class="d-flex justify-content-end mt-3">
+          <button type="button" class="btn btn-primary mr-2" data-bs-dismiss="modal" aria-label="Dismiss">Dismiss</button>
+          <button type="submit" class="btn btn-success">Submit</button>
+        </div>
       </form>
     </div>
   </div>
