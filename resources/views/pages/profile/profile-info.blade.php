@@ -109,14 +109,12 @@ $myProfile = Auth::check() && (Auth::user()->username == $user->username);
         <h5 class="modal-title" id="notifications">Why do you want to report this user?</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <form method="POST" action="/auctions/{{$user->username}}/report" class="modal-body text-primary">
+      <form method="POST" action="/users/{{$user->username}}/report" class="modal-body text-primary">
         {{ csrf_field() }}
-        <!--<input type="number" hidden name="id" id="bid-form-auction-id" value= $auction->id> -->
-        <textarea hidden class="form-control" name="reason" id="reason" rows="3" placeholder="Write here your reasons..." required></textarea>
+        <input type="number" hidden id="location-type" name="location-type" required value="1"></input>
         <label class="form-check-label mt-2 text-primary" for="flexCheckChecked">
           Message:
         </label>
-        <!-- <input type="number" min=" $value " placeholder="100" step="0.01" name="value" id="bid-form-value" required value=" $value "> -->
         <textarea class="form-control" name="reason" id="reason" rows="3" placeholder="Write here your reasons..." required></textarea>
         <div class="d-flex justify-content-end mt-3">
           <button type="button" class="btn btn-primary mr-2" data-bs-dismiss="modal" aria-label="Dismiss">Dismiss</button>

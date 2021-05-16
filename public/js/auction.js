@@ -9,12 +9,15 @@ function update_bids() {
     } catch (error) {
         
     }
-
 }
 
 function update_comments() {
     div_comments = document.querySelector("#comments-list")
     div_comments.innerHTML = JSON.parse(this.response).content;
+    report_buttons = document.querySelectorAll(".report-button")
+    for (let button of report_buttons) {
+        button.addEventListener('click', report)
+    }
 }
 
 auction_id = document.querySelector("#auction-head").getAttribute("data-id")
@@ -45,20 +48,35 @@ comment_form = document.querySelector("#send-comment-form")
 comment_form.addEventListener('submit', comment)
 text = comment_form.querySelector("#send-comment")
 
-function comment(e){
+function comment(e) {
     e.preventDefault()
 
     sendAjaxRequest('POST', `/api/auctions/${auction_id}/comments`, {"comment" : text.value }, handle_comment, [])
 }
 
-function handle_comment(){
+function report() {
+    modal_form = document.querySelector("#modal-form")
+    locationType = modal_form.querySelector("#location-type")
+
+    id = this.getAttribute("data-id")
+
+    console.log("ID: " + id)
+
+    modal_form.setAttribute('comment-id', `${id}`) // criar input com comment-id e resolver problema de enviar a 2 o value em vez de 3
+
+    locationType.value = 3
+
+    console.log(locationType)
+}
+
+function handle_comment() {
     text.value = ""
     response = JSON.parse(this.response)
     result = response.result
 
     errors = comment_form.querySelector("#comment-errors")
 
-    if(result == "login"){
+    if(result == "login") {
         window.location.replace("/login");
     }
     else if(result != "success")
@@ -76,7 +94,7 @@ function handle_comment(){
 
 favourite_auction = document.querySelector("#favourite-auction")
 
-if(favourite_auction){
+if(favourite_auction) {
     favourite_auction.addEventListener('click', () => {
         auction_id = favourite_auction.getAttribute('data-auction')
         icon = favourite_auction.querySelector("svg")
@@ -85,7 +103,6 @@ if(favourite_auction){
         sendAjaxRequest('POST',`/api/users/fav_auctions/${action}`, {'auction': auction_id}, fav_auction, [])
     })
 }
-
 
 function fav_auction() {
 

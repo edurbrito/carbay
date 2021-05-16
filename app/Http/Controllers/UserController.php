@@ -334,7 +334,7 @@ class UserController extends Controller
         return redirect('/admin');
     }
 
-    public function report($username, $request) {
+    public function report(Request $request, $username) {
         
         if(!Auth::check())
             return redirect('login');
@@ -342,18 +342,23 @@ class UserController extends Controller
         $user = User::where('username',"=",$username)->first();
 
         Validator::validate($request->all(), [
-            'reason' => 'required|text|min:1',
+            'reason' => 'required|string|min:1',
         ]);
 
         $report = new Report();
-        $report->reason = $
+        $report->reason = $request->input('reason');
         $report->datehour = now();
         $report->reporterid = Auth::user()->id;
-        $report->locationauctionid = null;
-        $report->locationcommentid = null;
-        $report->locationregisteredid = $user->id;
+
+        if ($request->input('location-type') == 1)
+            $report->locationregisteredid = $user->id;
+        else if ($request->input('location-type') == 2)
+            $report->locationauctionid = $request->input('auction-id');
+        else if ($request->input('location-type') == 3)
+            $report->locationcommentid = $request->input('comment-id');
+        
         $report->save();
 
-        return redirect('/users/' . $username);
+        return back();
     }
 }
