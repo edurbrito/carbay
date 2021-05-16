@@ -1,6 +1,14 @@
 <label for="search" class="form-label text-primary">Search:</label>
 <input type="text" class="form-control w-100" id="user-management-search-input" placeholder="Type Something">
-
+@if ($errors->has('user'))
+<div onclick="this.hidden = true" class="alert alert-danger alert-dismissible fade show my-3 p-1 px-2" style="width: fit-content;" role="alert">
+{{ $errors->first('user') }}
+</div>
+@elseif(session('success'))
+<div onclick="this.hidden = true" class="alert alert-success alert-dismissible fade show my-3 p-1 px-2" style="width: fit-content;" role="alert">
+{{ session('success')[0] }}
+</div>
+@endif
 <div class="container-fluid px-0 my-3">
     <ol class="list-group rounded-0" id="user-management-list">
     </ol>
@@ -37,7 +45,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body text-primary">
-          <span id="make-admin-text">You are going to promote X to admin.</span>
+        <span id="make-admin-text">You are going to promote X to admin.</span>
         <form id="make-admin-form" class="d-flex justify-content-end mt-4" method="post" action="/admin/make/">
           {{ csrf_field() }}
           <button type="button" class="btn btn-primary mr-2" data-bs-dismiss="modal" aria-label="Dismiss">Dismiss</button>

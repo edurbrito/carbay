@@ -75,3 +75,4 @@ Route::get('admin','UserController@admin');
 Route::post('admin/make/{username}','UserController@make_admin');
 Route::post('admin/ban/{username}','UserController@ban');
 Route::post('admin/suspend/{auction}','AuctionController@suspend');
+Route::post('admin/reschedule/{auction}','AuctionController@reschedule');

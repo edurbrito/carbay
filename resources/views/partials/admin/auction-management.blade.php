@@ -9,6 +9,6 @@
         @else
         <button type="button" data-id="{{ $auction->id }}" data-auction="{{ $auction->title }}" class="btn btn-success mr-1 suspend-button" style="min-width: 130px;" data-bs-toggle="modal" data-bs-target="#suspend" role="button">Unsuspend</button>
         @endif
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reschedule" role="button" data-bs-toggle="modal" data-bs-target="#reschedule" role="button">Reschedule</button>
+        <button type="button" data-id="{{ $auction->id }}" data-auction="{{ $auction->title }}" data-finaldate="{{ $auction->finaldate }}" class="btn btn-primary reschedule-button" data-bs-toggle="modal" data-bs-target="#reschedule" role="button" >Reschedule</button>
     </div>
 </li>

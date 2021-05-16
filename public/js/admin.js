@@ -1,3 +1,33 @@
+
+separator = ""
+try{
+    separator = window.location.href.match(/#.+/)[0].replace("#", "")
+}
+catch(e){
+    separator = ""
+}
+tab_users = document.querySelector("#v-pills-users-tab")
+tab_auctions = document.querySelector("#v-pills-auctions-tab")
+tab_users.addEventListener("click", () => {
+    document.location.hash = 'users'
+})
+tab_auctions.addEventListener("click", () => {
+    document.location.hash = 'auctions'
+})
+
+switch (separator) {
+    case "users":
+        tab_users.click()
+        break;
+    case "auctions":
+        tab_auctions.click()
+        break;
+    default:
+        break;
+}
+
+////////////////////////////////////////////////////////////////
+
 user_list = document.querySelector("#user-management-list")
 user_links = document.querySelector("#user-management-pagination")
 user_search_input = document.querySelector("#user-management-search-input")
@@ -10,6 +40,8 @@ ban_text = document.querySelector("#ban-text")
 ban_form = document.querySelector("#ban-form")
 suspend_text = document.querySelector("#suspend-text")
 suspend_form = document.querySelector("#suspend-form")
+reschedule_text = document.querySelector("#reschedule-text")
+reschedule_form = document.querySelector("#reschedule-form")
 
 sendAjaxRequest('GET','/api/users', {}, setUsers, [{name: 'Accept', value: 'text/html'}])
 sendAjaxRequest('GET','/api/auctions', {}, setAuctions, [{name: 'Accept', value: 'text/html'}])
@@ -60,9 +92,14 @@ function setAuctions(){
         enable_pagination(auction_links, "/api/auctions", auction_search_input, setAuctions)
 
         suspend_buttons = document.querySelectorAll(".suspend-button")
+        reschedule_buttons = document.querySelectorAll(".reschedule-button")
 
         for (const button of suspend_buttons) {
             button.addEventListener('click', update_suspend_modal)
+        }
+
+        for (const button of reschedule_buttons) {
+            button.addEventListener('click', update_reschedule_modal)
         }
     }
 }
@@ -150,4 +187,13 @@ function update_suspend_modal(){
     else{
         button.classList.replace("btn-success", "btn-danger")
     }
+}
+
+function update_reschedule_modal(){
+    id = this.getAttribute("data-id")
+    title = this.getAttribute("data-auction")
+    final_date = this.getAttribute("data-finaldate")
+
+    reschedule_text.innerHTML = `The auction ${id} (${title}) is planned to end at <br> ${final_date}.`
+    reschedule_form.setAttribute('action', `/admin/reschedule/${id}`)
 }

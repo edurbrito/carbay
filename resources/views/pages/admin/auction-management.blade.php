@@ -1,6 +1,14 @@
 <label for="search" class="form-label text-primary">Search:</label>
 <input type="text" class="form-control w-100" id="auction-management-search-input" placeholder="Type Something">
-
+@if ($errors->has('auction'))
+<div onclick="this.hidden = true" class="alert alert-danger alert-dismissible fade show my-3 p-1 px-2" style="width: fit-content;" role="alert">
+{{ $errors->first('auction') }}
+</div>
+@elseif(session('success'))
+<div onclick="this.hidden = true" class="alert alert-success alert-dismissible fade show my-3 p-1 px-2" style="width: fit-content;" role="alert">
+{{ session('success')[0] }}
+</div>
+@endif
 <div class="container-fluid px-0 my-3">
     <ol class="list-group rounded-0" id="auction-management-list">
     </ol>
@@ -37,10 +45,24 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body text-primary">
-        <div class="d-flex justify-content-end">
+        <form id="reschedule-form" method="post" action="/admin/reschedule/">
+            {{ csrf_field() }}
+            <span id="reschedule-text">This auction is planned to end at ....</span>
+            <div class="input-group input-group-sm pt-2">
+                <div class="input-group-prepend">
+                    <span class="input-group-text rounded-0" id="duration">Postpone it by:</span>
+                </div>
+                <input type="number" name="duration" min="1" max="15" class="form-control" aria-label="Small" aria-describedby="duration" value="1" required>
+                <div class="input-group-prepend">
+                    <span class="input-group-text rounded-0" id="inputGroup-sizing-sm">Days</span>
+                </div>
+            </div>
+            <span class="text-danger mb-3" style="font-size: 0.75rem">* Maximum duration counting from initial date can only be set to 15 days.</span>
+            <div class="d-flex justify-content-end pt-2">
           <button type="button" class="btn btn-primary mr-2" data-bs-dismiss="modal" aria-label="Dismiss">Dismiss</button>
-          <button type="button" class="btn btn-danger" data-bs-dismiss="modal" aria-label="Dismiss" data-bs-toggle="modal" data-bs-target="#suspend" role="button" data-bs-toggle="modal" data-bs-target="#reschedule" role="button">Reschedule</button>
-        </div>
+          <button type="submit" class="btn btn-danger" role="button">Reschedule</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>

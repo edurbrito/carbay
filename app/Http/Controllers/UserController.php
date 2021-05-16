@@ -358,13 +358,16 @@ class UserController extends Controller
 
         $user = User::where('username',"=",$username)->first();
 
-        if (!$user->admin)
+        if (!$user->admin && !is_null($user))
         {
             $user->admin = "TRUE";
             $user->save();
         }
+        else{
+            return redirect('/admin#users')->withErrors(["auction" => "Could not make this user admin!"]);
+        }
 
-        return redirect('/admin');
+        return redirect('/admin#users')->withSuccess(['User ' . $user->username . " is now an admin!"]);
     }
 
     public function ban($username){
@@ -376,10 +379,18 @@ class UserController extends Controller
 
         $user = User::where('username',"=",$username)->first();
 
-        $user->banned = !$user->banned ? "TRUE" : "FALSE";
-        $user->save();
+        if(!is_null($user)){
+            $user->banned = !$user->banned ? "TRUE" : "FALSE";
+            $user->save();
+    
+            $action = $user->banned == "TRUE" ? "banned" : "unbanned";
 
-        return redirect('/admin');
+        }
+        else{
+            return redirect('/admin#users')->withErrors(["auction" => "Could not ban this user!"]);
+        }
+
+        return redirect('/admin#users')->withSuccess(['User ' . $user->username . " was " . $action ."!"]);
     }
 
 }

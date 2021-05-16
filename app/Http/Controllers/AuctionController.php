@@ -423,7 +423,49 @@ class AuctionController extends Controller
             $auction->suspend = !$auction->suspend ? "TRUE" : "FALSE";
             $auction->save();
         }
+        else{
+            return redirect('/admin#auctions')->withErrors(["auction" => "Could not suspend this auction!"]);
+        }
 
-        return redirect('/admin');
+        $action = $auction->suspend == "TRUE" ? "suspended" : "unsuspended";
+
+        return redirect('/admin#auctions')->withSuccess(['Auction ' . $auction->id . " was " . $action . "!"]);
+    }
+
+    public function reschedule(Request $request, $auctionid)
+    {
+        if(!Auth::check())
+            return redirect('login');
+
+        $this->authorize('admin', Auction::class);
+
+        $validated = Validator::make($request->all(),[
+            'duration' => 'required|numeric|min:1|max:15']);
+
+        if($validated->fails())
+            return redirect('/admin#auctions')->withErrors(["auction" => "Could not reschedule this auction!"]);
+
+        $auction = Auction::find($auctionid);
+
+        if(!is_null($auction)){
+        
+            date_default_timezone_set("Europe/Lisbon");
+
+            $finaldate = $auction->finaldate;
+            $duration = intval($request->input('duration'));
+            $newfinaldate = date('Y-m-d H:i:s', strtotime($finaldate . ' + ' .  $duration . ' days'));
+
+            $initialdate = $auction->initialdate;
+            $maxfinaldate = date('Y-m-d H:i:s', strtotime($initialdate . ' + ' .  15 . ' days'));
+
+            $auction->finaldate = $maxfinaldate > $newfinaldate ? $newfinaldate : $maxfinaldate;
+
+            $auction->save();
+        }
+        else{
+            return redirect('/admin#auctions')->withErrors(["auction" => "Could not reschedule this auction!"]);
+        }
+
+        return redirect('/admin#auctions')->withSuccess(['Auction ' . $auction->id . " was rescheduled!"]);
     }
 }
