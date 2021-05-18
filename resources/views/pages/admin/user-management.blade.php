@@ -10,10 +10,11 @@
 </div>
 @endif
 <div class="container-fluid px-0 my-3">
-  <ol class="list-group rounded-0" id="user-management-list">
-  </ol>
-  <div class="my-3" id="user-management-pagination" data-page="1">
-  </div>
+    <ol class="list-group rounded-0" id="user-management-list">
+    <div class="spinner-border align-self-center" role="status"><span class="sr-only">Loading...</span></div>
+    </ol>
+    <div class="my-3" id="user-management-pagination" data-page="1">
+    </div>
 </div>
 
 <!-- Modal -->

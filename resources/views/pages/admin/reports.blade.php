@@ -11,6 +11,7 @@
 @endif
 <div class="container-fluid px-0 my-3">
     <ol class="list-group rounded-0" id="report-list">
+    <div class="spinner-border align-self-center" role="status"><span class="sr-only">Loading...</span></div>
     </ol>
     <div class="my-3" id="report-pagination" data-page="1">
     </div>

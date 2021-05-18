@@ -92,7 +92,8 @@
         <h6 class="w-100 text-primary text-center p-4" id="total-search">
         </h6>
 
-        <div class="row row-cols-1 row-cols-md-3 g-4" id="auctions">
+        <div class="row" id="auctions">
+            <div class="spinner-border align-self-center m-auto" role="status"><span class="sr-only">Loading...</span></div>
         </div>
     </div>
 </div>
