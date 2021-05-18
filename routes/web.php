@@ -59,7 +59,7 @@ Route::get('api/users/{username}/fav_auctions', 'UserController@fav_auctions');
 Route::get('api/users/{username}/fav_sellers', 'UserController@fav_sellers');
 Route::get('api/users/{username}/ratings', 'UserController@ratings');
 Route::get('api/users/{username}/rated', 'UserController@rated');
-Route::get('users/{username}/edit', 'UserController@edit'); // TODO: username
+Route::get('users/{username}/edit', 'UserController@edit');
 Route::post('users/{username}/edit', 'UserController@update');
 Route::delete('users/{username}/delete', 'UserController@destroy');
 
@@ -75,6 +75,8 @@ Route::post('users/{username}/report', 'ReportController@store');
 Route::get('admin','UserController@admin');
 Route::post('admin/make/{username}','UserController@make_admin');
 Route::post('admin/ban/{username}','UserController@ban');
+Route::post('admin/reports/ban/{username}','UserController@ban_report');
+Route::post('admin/reports/discard/{username}','UserController@discard_report');
 Route::post('admin/suspend/{auction}','AuctionController@suspend');
 Route::post('admin/reschedule/{auction}','AuctionController@reschedule');
 Route::get('api/reports','ReportController@index');

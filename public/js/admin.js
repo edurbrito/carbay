@@ -46,12 +46,16 @@ report_links = document.querySelector("#report-pagination")
 report_search_input = document.querySelector("#report-search-input")
 make_admin_text = document.querySelector("#make-admin-text")
 make_admin_form = document.querySelector("#make-admin-form")
+discard_text = document.querySelector("#discard-text")
+discard_form = document.querySelector("#user-report-discard-form")
 ban_text = document.querySelector("#ban-text")
 ban_form = document.querySelector("#ban-form")
 suspend_text = document.querySelector("#suspend-text")
 suspend_form = document.querySelector("#suspend-form")
 reschedule_text = document.querySelector("#reschedule-text")
 reschedule_form = document.querySelector("#reschedule-form")
+reports_ban_form = document.querySelector("#user-report-ban-form")
+report_ban_text = document.querySelector("#report-ban-text")
 
 sendAjaxRequest('GET','/api/users', {}, setUsers, [{name: 'Accept', value: 'text/html'}])
 sendAjaxRequest('GET','/api/auctions', {}, setAuctions, [{name: 'Accept', value: 'text/html'}])
@@ -81,10 +85,10 @@ report_search_input.addEventListener('input', () => {
     }
 })
 
-function setUsers(){
+function setUsers() {
     let users = JSON.parse(this.response)
     
-    if(users.result == "success"){
+    if(users.result == "success") {
         user_list.innerHTML = users.content.users
         user_links.innerHTML = users.content.links
         enable_pagination(user_links, "/api/users", user_search_input, setUsers)
@@ -102,10 +106,10 @@ function setUsers(){
     }
 }
 
-function setAuctions(){
+function setAuctions() {
     let auctions = JSON.parse(this.response)
     
-    if(auctions.result == "success"){
+    if(auctions.result == "success") {
         auction_list.innerHTML = auctions.content.auctions
         auction_links.innerHTML = auctions.content.links
         enable_pagination(auction_links, "/api/auctions", auction_search_input, setAuctions)
@@ -123,31 +127,31 @@ function setAuctions(){
     }
 }
 
-function setReports(){
+function setReports() {
     let reports = JSON.parse(this.response)
     
-    if(reports.result == "success"){
+    if(reports.result == "success") {
         report_list.innerHTML = reports.content.reports
         report_links.innerHTML = reports.content.links
         enable_pagination(report_links, "/api/reports", report_search_input, setReports)
 
-        // suspend_buttons = document.querySelectorAll(".suspend-button")
-        // reschedule_buttons = document.querySelectorAll(".reschedule-button")
+        ban_buttons = document.querySelectorAll(".user-report-ban-button")
+        discard_buttons = document.querySelectorAll(".user-report-discard-button")
 
-        // for (const button of suspend_buttons) {
-        //     button.addEventListener('click', update_suspend_modal)
-        // }
+        for (const button of ban_buttons) {
+            button.addEventListener('click', update_report_ban_modal)
+        }
 
-        // for (const button of reschedule_buttons) {
-        //     button.addEventListener('click', update_reschedule_modal)
-        // }
+        for (const button of discard_buttons) {
+            button.addEventListener('click', update_discard_modal)
+        }
     }
 }
 
-function replace_child(original, replacement_tag){
+function replace_child(original, replacement_tag) {
     var replacement = document.createElement(replacement_tag);
 
-    for(var i = 0, l = original.attributes.length; i < l; ++i){
+    for(var i = 0, l = original.attributes.length; i < l; ++i) {
         var nodeName  = original.attributes.item(i).nodeName;
         var nodeValue = original.attributes.item(i).nodeValue;
 
@@ -168,7 +172,7 @@ function enable_pagination(parent, api, search, callback) {
         new_child = replace_child(plink, "span")
         new_child.style.cursor = "pointer"
 
-        new_child.addEventListener("click", function(){
+        new_child.addEventListener("click", function() {
             
             page_number = this.innerHTML
             current_page = parent.getAttribute("data-page")
@@ -184,13 +188,13 @@ function enable_pagination(parent, api, search, callback) {
     }
 }
 
-function update_ma_modal(){
+function update_ma_modal() {
     username = this.getAttribute("data-username")
     make_admin_text.innerHTML = `You are going to promote ${username} to admin.`
     make_admin_form.setAttribute('action', `/admin/make/${username}`)
 }
 
-function update_ban_modal(){
+function update_ban_modal() {
     username = this.getAttribute("data-username")
 
     banned = this.innerHTML == "Unban"
@@ -201,15 +205,15 @@ function update_ban_modal(){
     button = ban_form.querySelector("button[type=submit]")
     button.innerHTML = banned ? "Unban" : "Ban"
     
-    if(banned){
+    if(banned) {
         button.classList.replace("btn-danger", "btn-success")
     }
-    else{
+    else {
         button.classList.replace("btn-success", "btn-danger")
     }
 }
 
-function update_suspend_modal(){
+function update_suspend_modal() {
     id = this.getAttribute("data-id")
 
     suspended = this.innerHTML == "Unsuspend"
@@ -221,7 +225,7 @@ function update_suspend_modal(){
     button = suspend_form.querySelector("button[type=submit]")
     button.innerHTML = suspended ? "Unsuspend" : "Suspend"
     
-    if(suspended){
+    if(suspended) {
         button.classList.replace("btn-danger", "btn-success")
     }
     else{
@@ -229,11 +233,49 @@ function update_suspend_modal(){
     }
 }
 
-function update_reschedule_modal(){
+function update_reschedule_modal() {
     id = this.getAttribute("data-id")
     title = this.getAttribute("data-auction")
     final_date = this.getAttribute("data-finaldate")
 
     reschedule_text.innerHTML = `The auction ${id} (${title}) is planned to end at <br> ${final_date}.`
     reschedule_form.setAttribute('action', `/admin/reschedule/${id}`)
+}
+
+function update_report_ban_modal() {
+    username = this.getAttribute("data-username");
+
+    report_ban_text.innerHTML = `You are going to ban ${username}.`
+    reports_ban_form.setAttribute('action', `/admin/reports/ban/${username}`)
+
+    report_id = this.getAttribute("data-id");
+    
+    var input = document.createElement("input");
+
+    input.setAttribute("type", "hidden");
+
+    input.setAttribute("name", "report-id");
+
+    input.setAttribute("value", report_id);
+
+    reports_ban_form.appendChild(input);
+}
+
+function update_discard_modal() {
+    username = this.getAttribute("data-username");
+
+    report_ban_text.innerHTML = `You are going to ban ${username}.`
+    discard_form.setAttribute('action', `/admin/reports/discard/${username}`)
+
+    report_id = this.getAttribute("data-id");
+    
+    var input = document.createElement("input");
+
+    input.setAttribute("type", "hidden");
+
+    input.setAttribute("name", "report-id");
+
+    input.setAttribute("value", report_id);
+
+    discard_form.appendChild(input);
 }

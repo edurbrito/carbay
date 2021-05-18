@@ -2,11 +2,11 @@
 <input type="text" class="form-control w-100" id="report-search-input" placeholder="Type Something">
 @if ($errors->has('report'))
 <div onclick="this.hidden = true" class="alert alert-danger alert-dismissible fade show my-3 p-1 px-2" style="width: fit-content;" role="alert">
-{{ $errors->first('report') }}
+    {{ $errors->first('report') }}
 </div>
 @elseif(session('success'))
 <div onclick="this.hidden = true" class="alert alert-success alert-dismissible fade show my-3 p-1 px-2" style="width: fit-content;" role="alert">
-{{ session('success')[0] }}
+    {{ session('success')[0] }}
 </div>
 @endif
 <div class="container-fluid px-0 my-3">
@@ -25,10 +25,12 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body text-primary">
-                <div class="d-flex justify-content-end">
+                <span id="report-ban-text">You are going to ban X.</span>
+                <form id="user-report-ban-form" class="d-flex justify-content-end mt-4" method="post" action="/admin/reports/ban">
+                    {{ csrf_field() }}
                     <button type="button" class="btn btn-primary mr-2" data-bs-dismiss="modal" aria-label="Dismiss">Dismiss</button>
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" aria-label="Ban" data-bs-toggle="modal" data-bs-target="#report-ban-user" role="button">Ban</button>
-                </div>
+                    <button type="submit" class="btn btn-danger" data-bs-dismiss="modal" aria-label="Ban" data-bs-toggle="modal" data-bs-target="#report-ban-user" role="button">Ban</button>
+                </form>
             </div>
         </div>
     </div>
@@ -44,8 +46,12 @@
             </div>
             <div class="modal-body text-primary">
                 <div class="d-flex justify-content-end">
-                    <button type="button" class="btn btn-primary mr-2" data-bs-dismiss="modal" aria-label="Dismiss">Dismiss</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Discard" data-bs-toggle="modal" data-bs-target="#discard" role="button" data-bs-toggle="modal" data-bs-target="#discard" role="button">Discard</button>
+                    <span id="discard-text">You are going discard this report.</span>
+                    <form id="user-report-discard-form" class="d-flex justify-content-end mt-4" method="post" action="/admin/reports/discard/">
+                        {{ csrf_field() }}
+                        <button type="button" class="btn btn-primary mr-2" data-bs-dismiss="modal" aria-label="Dismiss">Dismiss</button>
+                        <button type="btn btn-success" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Discard" data-bs-toggle="modal" data-bs-target="#discard" role="button" data-bs-toggle="modal" data-bs-target="#discard" role="button">Discard</button>
+                    </form>
                 </div>
             </div>
         </div>

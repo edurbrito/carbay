@@ -393,4 +393,48 @@ class UserController extends Controller
 
         return redirect('/admin#users')->withSuccess(['User ' . $user->username . " was " . $action ."!"]);
     }
+
+    public function ban_report(Request $request, $username) {
+        
+        if(!Auth::check())
+            return redirect('login');
+
+        $this->authorize('admin', User::class);
+
+        $user = User::where('username',"=",$username)->first();
+
+        if(!is_null($user)) {
+            $user->banned = "TRUE";
+            $user->save();
+        }
+        else {
+            return redirect('/admin#reports')->withErrors(["auction" => "Could not ban this user!"]);
+        }
+
+        $report_id = $request->input('report-id');
+
+        Report::where('id', $report_id)->update([
+            'statetype' => 'Banned',
+        ]);
+        
+        return redirect('/admin#reports')->withSuccess(['User ' . $user->username . " was banned!"]);
+    }
+
+    public function discard_report(Request $request, $username) {
+        
+        if(!Auth::check())
+            return redirect('login');
+
+        $this->authorize('admin', User::class);
+
+        $user = User::where('username',"=",$username)->first();
+
+        $report_id = $request->input('report-id');
+
+        Report::where('id', $report_id)->update([
+            'statetype' => 'Discarded',
+        ]);
+        
+        return redirect('/admin#reports')->withSuccess(['Report of user ' . $user->username . " was discarded!"]);
+    }
 }
