@@ -57,28 +57,50 @@ sendAjaxRequest('GET','/api/users', {}, setUsers, [{name: 'Accept', value: 'text
 sendAjaxRequest('GET','/api/auctions', {}, setAuctions, [{name: 'Accept', value: 'text/html'}])
 sendAjaxRequest('GET','/api/reports', {}, setReports, [{name: 'Accept', value: 'text/html'}])
 
+let timeout
+let spinner = '<div class="spinner-border align-self-center" role="status"><span class="sr-only">Loading...</span></div>'
+
 user_search_input.addEventListener('input', () => {
-    if(user_search_input.value.length > 1)
-        sendAjaxRequest('GET','/api/users', {'page' : 1, 'search': user_search_input.value}, setUsers, [{name: 'Accept', value: 'text/html'}])
-    else if(user_search_input.value.length == 0){
-        sendAjaxRequest('GET','/api/users', {}, setUsers, [{name: 'Accept', value: 'text/html'}])
-    }
+
+    if(timeout)
+        clearTimeout(timeout)
+    timeout = setTimeout(() => {
+        user_list.innerHTML = spinner
+        if(user_search_input.value.length > 2)
+            sendAjaxRequest('GET','/api/users', {'page' : 1, 'search': user_search_input.value}, setUsers, [{name: 'Accept', value: 'text/html'}])
+        else if(user_search_input.value.length == 0){
+            sendAjaxRequest('GET','/api/users', {}, setUsers, [{name: 'Accept', value: 'text/html'}])
+        }
+    }, 3000)
+
 })
 
 auction_search_input.addEventListener('input', () => {
-    if(auction_search_input.value.length > 1)
-        sendAjaxRequest('GET','/api/auctions', {'page' : 1, 'search': auction_search_input.value}, setAuctions, [{name: 'Accept', value: 'text/html'}])
-    else if(auction_search_input.value.length == 0){
-        sendAjaxRequest('GET','/api/auctions', {}, setAuctions, [{name: 'Accept', value: 'text/html'}])
-    }
+
+    if(timeout)
+        clearTimeout(timeout)
+    timeout = setTimeout(() => {
+        auction_list.innerHTML = spinner
+        if(auction_search_input.value.length > 2)
+            sendAjaxRequest('GET','/api/auctions', {'page' : 1, 'search': auction_search_input.value}, setAuctions, [{name: 'Accept', value: 'text/html'}])
+        else if(auction_search_input.value.length == 0){
+            sendAjaxRequest('GET','/api/auctions', {}, setAuctions, [{name: 'Accept', value: 'text/html'}])
+        }
+    }, 3000)
 })
 
 report_search_input.addEventListener('input', () => {
-    if(report_search_input.value.length > 1)
-        sendAjaxRequest('GET','/api/reports', {'page' : 1, 'search': report_search_input.value}, setReports, [{name: 'Accept', value: 'text/html'}])
-    else if(report_search_input.value.length == 0){
-        sendAjaxRequest('GET','/api/reports', {}, setReports, [{name: 'Accept', value: 'text/html'}])
-    }
+        
+    if(timeout)
+        clearTimeout(timeout)
+    timeout = setTimeout(() => {
+        report_list.innerHTML = spinner
+        if(report_search_input.value.length > 2)
+            sendAjaxRequest('GET','/api/reports', {'page' : 1, 'search': report_search_input.value}, setReports, [{name: 'Accept', value: 'text/html'}])
+        else if(report_search_input.value.length == 0){
+            sendAjaxRequest('GET','/api/reports', {}, setReports, [{name: 'Accept', value: 'text/html'}])
+        }
+    }, 3000)
 })
 
 function setUsers(){
@@ -195,7 +217,8 @@ function update_ban_modal(){
 
     banned = this.innerHTML == "Unban"
 
-    ban_text.innerHTML = `You are going to ban ${username}.`
+    action = banned ? "unban" : "ban"
+    ban_text.innerHTML = `You are going to ${action} ${username}.`
     ban_form.setAttribute('action', `/admin/ban/${username}`)
 
     button = ban_form.querySelector("button[type=submit]")

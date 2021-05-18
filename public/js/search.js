@@ -28,6 +28,7 @@ min_buy_now = advanced_form.querySelector("#min-buy-now")
 max_buy_now = advanced_form.querySelector("#max-buy-now")
 
 page = document.querySelector("#pagination")
+spinner = '<div class="spinner-border align-self-center m-auto" role="status"><span class="sr-only">Loading...</span></div>'
 
 g_colours = {}
 g_brands = {}
@@ -246,7 +247,9 @@ function search(e, page_number = 1) {
     purl = window.location.href.match(/.+?\?/)
     url = purl == null ? window.location.href + "?" : purl[0]
     history.replaceState({}, null, url + encodeForAjax(data));
-
+    
+    remove_div_auctions_class()
+    div_auctions.innerHTML = spinner
     sendAjaxRequest('GET','/api/auctions/search', data, refresh_search, [{name: 'Accept', value: 'text/html'}])
 }
 
@@ -258,7 +261,8 @@ function refresh_search() {
     pagination = document.querySelector("#pagination")
 
     if(response.result == "success"){
-
+          
+        add_div_auctions_class()
         div_auctions.innerHTML = response.content.auctions
 
         total_search.innerHTML = response.content.total
@@ -277,8 +281,6 @@ function refresh_search() {
 }
 
 function reset_search() {
-
-    div_auctions = document.querySelector("#advanced-form")
 
     full_text.value = ""
     sort_by.value = "0"
@@ -315,8 +317,22 @@ function reset_search() {
     purl = window.location.href.match(/.+?\?/)
     url = purl == null ? window.location.href + "?" : purl[0]
     history.replaceState({}, null, url + encodeForAjax(data));
-
+    
+    remove_div_auctions_class()
+    div_auctions.innerHTML = spinner
     sendAjaxRequest('GET','/api/auctions/search', data, refresh_search, [{name: 'Accept', value: 'text/html'}])
+}
+
+function add_div_auctions_class(){
+    div_auctions.classList.add("row-cols-1")
+    div_auctions.classList.add("row-cols-md-3")
+    div_auctions.classList.add("g-4")
+}
+
+function remove_div_auctions_class(){
+    div_auctions.classList.remove("row-cols-1")
+    div_auctions.classList.remove("row-cols-md-3")
+    div_auctions.classList.remove("g-4")
 }
 
 query_on_url()

@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS "password_resets" CASCADE;
 DROP TABLE IF EXISTS Rating CASCADE;
 DROP TABLE IF EXISTS Report CASCADE;
 DROP TABLE IF EXISTS Comment CASCADE;
@@ -38,6 +39,14 @@ DROP FUNCTION IF EXISTS notify_favorite_sellers() CASCADE;
 DROP FUNCTION IF EXISTS notify_highest_bid() CASCADE;
 DROP FUNCTION IF EXISTS auction_search_update() CASCADE;
 
+
+CREATE TABLE "password_resets" (
+    email               character varying(255) NOT NULL,
+    token               character varying(255) NOT NULL,
+    created_at          timestamp(0) without time zone NOT NULL
+);
+
+CREATE INDEX password_resets_email_index ON "password_resets" USING btree (email);
 
 
 CREATE TABLE "user" (

@@ -11,6 +11,7 @@
 @endif
 <div class="container-fluid px-0 my-3">
     <ol class="list-group rounded-0" id="auction-management-list">
+      <div class="spinner-border align-self-center" role="status"><span class="sr-only">Loading...</span></div>
     </ol>
     <div class="my-3" id="auction-management-pagination" data-page="1">
     </div>
@@ -60,7 +61,7 @@
             <span class="text-danger mb-3" style="font-size: 0.75rem">* Maximum duration counting from initial date can only be set to 15 days.</span>
             <div class="d-flex justify-content-end pt-2">
           <button type="button" class="btn btn-primary mr-2" data-bs-dismiss="modal" aria-label="Dismiss">Dismiss</button>
-          <button type="submit" class="btn btn-danger" role="button">Reschedule</button>
+          <button type="submit" class="btn btn-danger" role="button">Postpone</button>
           </div>
         </form>
       </div>

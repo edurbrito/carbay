@@ -13,6 +13,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\DB;
+use Exception;
 
 class AuctionController extends Controller
 {
@@ -118,80 +120,92 @@ class AuctionController extends Controller
         
         $this->authorize('create', Auction::class);
 
-        $validated = Validator::validate($request->all(), [
+        $validated = Validator::make($request->all(), [
             'title' => 'required|string|max:255',
             'description' => 'required|string|max:1023',
             'starting-price' => 'required|numeric|min:1',
-            // 'startDate' => 'required|date',
             'duration' => 'required|numeric|min:1|max:7',
             'buy-now' => 'nullable|numeric|gt:starting-price',
             'scale' => Rule::in(['1:8','1:18','1:43','1:64']),
             'brand' => 'required|string|min:1',
-            'colour' => 'required|string|min:1'
-        ]);
+            'colour' => 'required|string|min:1',
+            'images.*' => 'required|image|max:2000'
+        ], ['images.*.max' => 'Images may not be greater than 2Mb',
+            'images.*.image' => 'Files uploaded must be images (jpg, jpeg, png, bmp, gif, svg, or webp)']);
 
-        $auction = new Auction();
-        $auction->title = $request->input('title');
-        $auction->description = $request->input('description');
-        $auction->startingprice = $request->input('starting-price');
-
-        $duration = $request->input('duration');
-        
-        date_default_timezone_set("Europe/Lisbon");
-
-        $date = date('Y-m-d H:i:s');
-
-        $auction->startdate = $date;
-        $auction->finaldate = date('Y-m-d H:i:s', strtotime($date . ' + ' .  $duration . ' days'));
-
-        $auction->buynow = $request->input('buy-now');
-        $auction->scaletype = $request->input('scale');
-
-        $brand = Brand::where("name", "=", $request->input("brand"))->first();
-
-        if(is_null($brand)){
-            $brand = new Brand();
-            $brand->name = $request->input("brand");
-            $brand->save();
+        if($validated->fails()){
+            return redirect()->back()->withInput($request->input())->withErrors($validated->errors()->first());
         }
-
-        $colour = Colour::where("name", "=", $request->input("colour"))->first();
-
-        if(is_null($colour)){
-            $colour = new Colour();
-            $colour->name = $request->input("colour");
-            $colour->save();
-        }
-
-        $auction->brandid = $brand->id;
-        $auction->colourid = $colour->id;
         
-        $auction->sellerid = Auth::user()->id;
-        $auction->save();
+        DB::beginTransaction();
+                
+        try{
+            $auction = new Auction();
+            $auction->title = $request->input('title');
+            $auction->description = $request->input('description');
+            $auction->startingprice = $request->input('starting-price');
 
-        if ($request->hasFile('images')) {
+            $duration = $request->input('duration');
+            
+            date_default_timezone_set("Europe/Lisbon");
 
-            foreach ($request->file('images') as $image) {
-                if ($image->isValid()) {
-                    $image_name = date('mdYHis') . "-" . uniqid() . "-" . Auth::user()->id . ".png";
-                    $path = base_path() . '/storage/app/public/images/auctions';
-                    $image->move($path, $image_name);
+            $date = date('Y-m-d H:i:s');
 
-                    $img = new Image();
-                    $img->url = '/storage/images/auctions/' . $image_name;
-                    $img->auctionid = $auction->id;
-                    $img->save();
-                } else {
-                    $auction->delete();
-                    return redirect()->back()->with('error', 'Image not valid: ' . $image);
+            $auction->startdate = $date;
+            $auction->finaldate = date('Y-m-d H:i:s', strtotime($date . ' + ' .  $duration . ' days'));
+
+            $auction->buynow = $request->input('buy-now');
+            $auction->scaletype = $request->input('scale');
+
+            $brand = Brand::where("name", "=", $request->input("brand"))->first();
+
+            if(is_null($brand)){
+                $brand = new Brand();
+                $brand->name = $request->input("brand");
+                $brand->save();
+            }
+
+            $colour = Colour::where("name", "=", $request->input("colour"))->first();
+
+            if(is_null($colour)){
+                $colour = new Colour();
+                $colour->name = $request->input("colour");
+                $colour->save();
+            }
+
+            $auction->brandid = $brand->id;
+            $auction->colourid = $colour->id;
+            
+            $auction->sellerid = Auth::user()->id;
+            $auction->save();
+
+            if ($request->hasFile('images')) {
+
+                foreach ($request->file('images') as $image) {
+                    if ($image->isValid()) {
+                        $image_name = date('mdYHis') . "-" . uniqid() . "-" . Auth::user()->id . ".png";
+                        $path = base_path() . '/storage/app/public/images/auctions';
+                        $image->move($path, $image_name);
+
+                        $img = new Image();
+                        $img->url = '/storage/images/auctions/' . $image_name;
+                        $img->auctionid = $auction->id;
+                        $img->save();
+                    } else {
+                        throw new Exception("Image not valid: " . $image);
+                    }
                 }
             }
+            else{
+                throw new Exception("Images are required");
+            }
         }
-        else{
-            $auction->delete();
-            return redirect()->back()->with('error', 'Images are required');
+        catch(\Throwable $e){
+            DB::rollBack();
+            return redirect()->back()->withInput($request->input())->withErrors($e->getMessage());
         }
 
+        DB::commit();
         return redirect()->to('auctions/' . $auction->id);
     }
 
@@ -358,19 +372,6 @@ class AuctionController extends Controller
         if (strcmp($endedAuctions, "false") == 0) {
             $auctions = $auctions->where('finaldate', '>', now());
         }
-        
-        $html_auctions = "";
-        $html_total = "No Auction found";
-        $html_links = "";
-
-        if($auctions->count() == 0){
-            
-            if ($request->acceptsHtml()) {
-                return json_encode(["result" => "success", "content" => ["auctions" => $html_auctions, "total" => $html_total, "links" => $html_links]]);       
-            }
-
-            return json_encode(["result" => "success", "content" => ""]);
-        }
 
         $order = strcmp($order, "0") == 0 ? "asc" : "desc";
 
@@ -391,6 +392,21 @@ class AuctionController extends Controller
                 default:
                     break;
         }
+
+        $html_auctions = "";
+        $html_total = "No Auction found";
+        $html_links = "";
+
+        // Return "No Auctions found" before sorting and paginate
+        if($auctions->count() == 0){
+            
+            if ($request->acceptsHtml()) {
+                return json_encode(["result" => "success", "content" => ["auctions" => $html_auctions, "total" => $html_total, "links" => $html_links]]);       
+            }
+
+            return json_encode(["result" => "success", "content" => ""]);
+        }
+
         $auctions = $auctions->orderBy($sort, $order);
 
         $auctions = $auctions->paginate(12);

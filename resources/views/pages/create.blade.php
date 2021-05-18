@@ -49,7 +49,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text rounded-0" id="inputGroup-sizing-default">Title</span>
                     </div>
-                    <input type="text" name="title" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="Car Model A" required>
+                    <input value="{{ old('title') }}" type="text" name="title" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="Car Model A" required>
                 </div>
                 <div class="row">
                     <div class="col-12 col-sm-6">
@@ -57,7 +57,7 @@
                             <div class="input-group-prepend rounded-0">
                                 <span class="input-group-text rounded-0" id="start-bid">Starting Bid</span>
                             </div>
-                            <input type="number" name="starting-price" min="1" max="100000" class="form-control" aria-label="Small" aria-describedby="start-bid" value="1" required>
+                            <input value=@if(!is_null(old('starting-price'))){{ old('starting-price') }}@else 1 @endif type="number" name="starting-price" min="1" max="100000" class="form-control" aria-label="Small" aria-describedby="start-bid" required>
                             <div class="input-group-append rounded-0">
                                 <span class="input-group-text rounded-0">$</span>
                             </div>
@@ -68,7 +68,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text rounded-0" id="duration">Duration</span>
                             </div>
-                            <input type="number" name="duration" min="1" max="15" class="form-control" aria-label="Small" aria-describedby="duration" value="1" required>
+                            <input value=@if(!is_null(old('duration'))){{ old('duration') }}@else 1 @endif type="number" name="duration" min="1" max="15" class="form-control" aria-label="Small" aria-describedby="duration" required>
                             <div class="input-group-prepend">
                                 <span class="input-group-text rounded-0" id="inputGroup-sizing-sm">Days</span>
                             </div>
@@ -97,13 +97,13 @@
                     </div> -->
                     <div class="col-12 col-sm-6 row flex-row mb-3 pr-0">
                         <div class="col-6">
-                        <input type="checkbox" id="buy-now" onchange="document.getElementById('buy-now-input-group').hidden = !this.checked;">
+                        <input @if(!is_null(old('buy-now-value'))) checked @endif type="checkbox" id="buy-now" onchange="document.getElementById('buy-now-input-group').hidden = !this.checked;">
                         <label for="buy-now">
                             Buy Now
                         </label>
                         </div>
-                        <div class="input-group input-group-sm col-6 p-0" id="buy-now-input-group" hidden>
-                            <input type="number" name="buy-now" min="1" max="1000000" class="form-control rounded-0" aria-label="Small" aria-describedby="buy-now" id="buy-now-value">
+                        <div class="input-group input-group-sm col-6 p-0" id="buy-now-input-group" @if(is_null(old('buy-now-value'))) hidden @endif>
+                            <input value="{{ old('buy-now-value') }}" type="number" name="buy-now-value" min="1" max="1000000" class="form-control rounded-0" aria-label="Small" aria-describedby="buy-now" id="buy-now-value">
                             <div class="input-group-append">
                                 <span class="input-group-text rounded-0" id="inputGroup-sizing-sm">$</span>
                             </div>
@@ -117,7 +117,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text rounded-0" id="inputGroup-sizing-default">Colour</span>
                     </div>
-                    <input type="text" name="colour" id="select-colour-input" list="select-colour" class="form-select rounded-0" required>
+                    <input value="{{ old('colour') }}" type="text" name="colour" id="select-colour-input" list="select-colour" class="form-select rounded-0" required>
                     <datalist id="select-colour">
                     </datalist>
                 </div>
@@ -125,7 +125,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text rounded-0" id="inputGroup-sizing-default">Brand</span>
                     </div>
-                    <input type="text" name="brand" id="select-brand-input" list="select-brand" class="form-select rounded-0" required>
+                    <input value="{{ old('brand') }}" type="text" name="brand" id="select-brand-input" list="select-brand" class="form-select rounded-0" required>
                     <datalist id="select-brand">
                     </datalist>
                 </div>
@@ -138,7 +138,7 @@
                 </div>
                 
                 <div class="form-group mt-3">
-                    <textarea class="form-control" name="description" id="description" rows="3" placeholder="Write here the product description..." required></textarea>
+                    <textarea class="form-control" name="description" id="description" rows="3" placeholder="Write here the product description..." required>{{ old('description') }}</textarea>
                 </div>
             </div>
             <div class="btn-group ml-auto mt-auto" role="group" aria-label="Create Auction Buttons">
