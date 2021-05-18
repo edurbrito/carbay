@@ -50,7 +50,7 @@
                     <form id="user-report-discard-form" class="d-flex justify-content-end mt-4" method="post" action="/admin/reports/discard/">
                         {{ csrf_field() }}
                         <button type="button" class="btn btn-primary mr-2" data-bs-dismiss="modal" aria-label="Dismiss">Dismiss</button>
-                        <button type="btn btn-success" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Discard" data-bs-toggle="modal" data-bs-target="#discard" role="button" data-bs-toggle="modal" data-bs-target="#discard" role="button">Discard</button>
+                        <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Discard" data-bs-toggle="modal" data-bs-target="#discard" role="button" data-bs-toggle="modal" data-bs-target="#discard" role="button">Discard</button>
                     </form>
                 </div>
             </div>
