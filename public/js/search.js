@@ -28,6 +28,9 @@ min_buy_now = advanced_form.querySelector("#min-buy-now")
 max_buy_now = advanced_form.querySelector("#max-buy-now")
 
 page = document.querySelector("#pagination")
+div_auctions = document.querySelector("#auctions")
+total_search = document.querySelector("#total-search")
+pagination = document.querySelector("#pagination")
 spinner = '<div class="spinner-border align-self-center m-auto" role="status"><span class="sr-only">Loading...</span></div>'
 
 g_colours = {}
@@ -256,9 +259,6 @@ function search(e, page_number = 1) {
 function refresh_search() {
 
     response = JSON.parse(this.response)
-    div_auctions = document.querySelector("#auctions")
-    total_search = document.querySelector("#total-search")
-    pagination = document.querySelector("#pagination")
 
     if(response.result == "success"){
           

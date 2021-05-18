@@ -172,17 +172,29 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy($username)
+    public function destroy($username, Request $request)
     {
         if(!Auth::check())
             return redirect('login');
 
         $this->authorize('delete', User::class);
 
-        $userid = Auth::user()->id;
+        $validated = Validator::make($request->all(), [
+            "password" => 'required|string|min:6'
+        ]);
+
+        if($validated->fails()){
+            return back()->withErrors(['error' => $validated->errors()->first()])->withInput();
+        }
+
+        $user = Auth::user();
+
+        if (!password_verify($request->input('password'), $user->password)) {
+            return back()->withErrors(['error' => 'Wrong Password'])->withInput();
+        }
 
         try {
-            User::destroy($userid);
+            User::destroy($user->id);
             Auth::logout();
         } catch(\Throwable $qe) {
             return back()->withErrors(['error' => "You can't delete your account if you still have active auctions or any highest bid!"]);

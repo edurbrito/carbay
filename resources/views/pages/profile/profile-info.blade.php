@@ -40,15 +40,15 @@ $myProfile = Auth::check() && (Auth::user()->username == $user->username);
     @if($myProfile)
     <div class="btn-group ml-auto mt-auto" role="group" aria-label="Edit and Delete Profile Buttons">
       <a href="/users/{{ $user->username }}/edit" class="mr-2"><button class="btn btn-dark">Edit Profile</button></a>
-      <form action="/users/{{ $user->username }}/delete" method="POST">{{ csrf_field() }}{{ method_field('DELETE') }}<button class="btn btn-dark" type="submit">Delete Profile</button></form>
+      <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#delete" role="button">Delete Profile</button>
     </div>
     @endif
     @if ($errors->has('error'))
-    <div onclick="this.hidden = true" class="alert alert-danger alert-dismissible fade show my-3 p-1 px-2" role="alert">
+    <div onclick="this.hidden = true" style="width: fit-content;" class="alert alert-danger alert-dismissible fade show my-3 p-1 px-2" role="alert">
       {{ $errors->first('error') }}
     </div>
     @elseif(session('success'))
-    <div onclick="this.hidden = true" class="alert alert-success alert-dismissible fade show my-3 p-1 px-2" role="alert">
+    <div onclick="this.hidden = true" style="width: fit-content;" class="alert alert-success alert-dismissible fade show my-3 p-1 px-2" role="alert">
       {{ session('success')[0] }}
     </div>
     @endif

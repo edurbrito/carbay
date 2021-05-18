@@ -49,4 +49,31 @@ $myProfile = Auth::check() && (Auth::user()->username == $user->username);
   </div>
 </div>
 
+<div class="modal fade" id="delete" tabindex="-1" aria-labelledby="delete" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="notifications">Are you sure?</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-primary">
+        <span>This action cannot be reversed.</span>
+        <br>
+        <br>
+        <span>Insert your password to complete action:</span>
+
+        <form action="/users/{{ $user->username }}/delete" method="POST">
+          {{ csrf_field() }}
+          {{ method_field('DELETE') }}
+          <input id="password" type="password" name="password" class="form-control input_pass w-100 mb-2" placeholder="password" required>
+          <div class="d-flex justify-content-end pt-2">
+            <button type="button" class="btn btn-primary mr-2" data-bs-dismiss="modal" aria-label="Dismiss">Dismiss</button>
+            <button class="btn btn-danger" type="submit" data-bs-dismiss="modal" aria-label="Dismiss" data-bs-toggle="modal" data-bs-target="#delete" role="button">Confirm</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
 @endsection
