@@ -37,6 +37,8 @@ g_colours = {}
 g_brands = {}
 g_sellers = {}
 
+let timeout
+
 function query_on_url(){
     query = ""
     try{
@@ -203,27 +205,40 @@ function getScales() {
 }
 
 colour_input.addEventListener('input', () => {
-    value = colour_input.value
 
-    if(value.length > 1){
-        sendAjaxRequest('GET','/api/colours', {'search' : value}, setColours, [{name: 'Accept', value: 'application/json'}])
-    }
+    if (timeout)
+        clearTimeout(timeout)
+    timeout = setTimeout(() => {
+        value = colour_input.value
+
+        if (value.length > 1) {
+            sendAjaxRequest('GET', '/api/colours', { 'search': value }, setColours, [{ name: 'Accept', value: 'application/json' }])
+        }
+    }, 1000)
 })
 
 brand_input.addEventListener('input', () => {
-    value = brand_input.value
+    if (timeout)
+        clearTimeout(timeout)
+    timeout = setTimeout(() => {
+        value = brand_input.value
 
-    if(value.length > 1){
-        sendAjaxRequest('GET','/api/brands', {'search' : value}, setBrands, [{name: 'Accept', value: 'application/json'}])
-    }
+        if (value.length > 1) {
+            sendAjaxRequest('GET', '/api/brands', { 'search': value }, setBrands, [{ name: 'Accept', value: 'application/json' }])
+        }
+    }, 1000)
 })
 
 seller_input.addEventListener('input', () => {
-    value = seller_input.value
+    if (timeout)
+        clearTimeout(timeout)
+    timeout = setTimeout(() => {
+        value = seller_input.value
 
-    if(value.length > 1){
-        sendAjaxRequest('GET','/api/sellers', {'search' : value}, setSellers, [{name: 'Accept', value: 'application/json'}])
-    }
+        if (value.length > 1) {
+            sendAjaxRequest('GET', '/api/sellers', { 'search': value }, setSellers, [{ name: 'Accept', value: 'application/json' }])
+        }
+    }, 1000)
 })
 
 function search(e, page_number = 1) {

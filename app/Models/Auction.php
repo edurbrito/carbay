@@ -64,8 +64,11 @@ class Auction extends Model
 
         $now = date('Y-m-d H:i:s');
         $date = date('Y-m-d H:i:s', strtotime($this->finaldate) - 60*60);
-
-        return date_diff(new DateTime($now), new DateTime($date))->format("%ad %hh %im %ss");
+        $now = new DateTime($now);
+        $date = new DateTime($date);
+        if($now > $date)
+            return "Ended";
+        return date_diff($now,$date)->format("%ad %hh %im %ss");
     }
 
     public function highest_bid()

@@ -19,7 +19,7 @@
                     @else
                         <li class="nav-item navbar-brand mr-0 mr-lg-4 scale-objects"><a href="/auctions/create" class="text-decoration-none text-reset"><i class="fas fa-plus"></i><span class="d-lg-none .d-xl-block"> Create Auction</span></li>
                     @endif
-                <li class="nav-item navbar-brand mr-0 mr-lg-4 scale-objects"><a data-bs-toggle="modal" data-bs-target="#notifications" class="text-decoration-none text-reset" style="cursor: pointer;"><i class="fas fa-bell"></i><span class="d-lg-none .d-xl-block"> Notifications</span></a></li>
+                <li class="nav-item navbar-brand mr-0 mr-lg-4 scale-objects"><a data-bs-toggle="modal" data-bs-target="#notifications" class="text-decoration-none text-reset notify-wrapper" style="cursor: pointer;"><i class="fas fa-bell"></i><span class="notify-badge" hidden>0</span><span class="d-lg-none .d-xl-block"> Notifications</span></a></li>
                 <li class="nav-item navbar-brand mr-0 mr-lg-4 scale-objects-sm"><a href="/users/{{ Auth::user()->username }}" class="text-decoration-none text-reset"><i class="fas fa-user-circle"></i> {{ Auth::user()->username }}</a></li>
                 <li class="nav-item navbar-brand mr-0 mr-lg-4 scale-objects"><a href="/logout" class="text-decoration-none text-reset"><i class="fas fa-sign-out-alt"></i><span class="d-lg-none .d-xl-block"> Log Out</span></a></li>
                 @else
@@ -48,17 +48,9 @@
                 <h5 class="modal-title" id="notifications">Notifications</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <ol class="list-group rounded-0 pr-sm-3 border-0">
-                    <li class="list-group-item d-flex align-items-center justify-content-start rounded-0 flex-vertical border-0 border-bottom">
-                        <p class="text-primary fs-6 mb-0">Auction Ferrari 802 is almost at the end</p>
-                    </li>
-                    <li class="list-group-item d-flex align-items-center justify-content-start rounded-0 flex-vertical border-0 border-bottom">
-                        <p class="text-primary fs-6 mb-0">Your bid in Auction Ferrari 802 was surpassed</p>
-                    </li>
-                    <li class="list-group-item d-flex align-items-center justify-content-start rounded-0 flex-vertical border-0 border-bottom">
-                        <p class="text-primary fs-6 mb-0">anthonyman created a new Auction</p>
-                    </li>
+            <div class="modal-body p-1">
+                <ol class="list-group rounded-0 border-0" id="notifications-list">
+                    <span class="text-center">Nothing here for you...</span>
                 </ol>
             </div>
         </div>

@@ -38,6 +38,7 @@ switch (separator) {
 user_list = document.querySelector("#user-management-list")
 user_links = document.querySelector("#user-management-pagination")
 user_search_input = document.querySelector("#user-management-search-input")
+user_select = document.querySelector("#select-users")
 auction_list = document.querySelector("#auction-management-list")
 auction_links = document.querySelector("#auction-management-pagination")
 auction_search_input = document.querySelector("#auction-management-search-input")
@@ -71,11 +72,26 @@ user_search_input.addEventListener('input', () => {
     timeout = setTimeout(() => {
         user_list.innerHTML = spinner
         if(user_search_input.value.length > 2)
-            sendAjaxRequest('GET','/api/users', {'page' : 1, 'search': user_search_input.value}, setUsers, [{name: 'Accept', value: 'text/html'}])
+            sendAjaxRequest('GET','/api/users', {'page' : 1, 'search': user_search_input.value, 'users' : user_select.value}, setUsers, [{name: 'Accept', value: 'text/html'}])
         else if(user_search_input.value.length == 0){
             sendAjaxRequest('GET','/api/users', {}, setUsers, [{name: 'Accept', value: 'text/html'}])
         }
-    }, 3000)
+    }, 2000)
+
+})
+
+user_select.addEventListener('change', () => {
+
+    if(timeout)
+        clearTimeout(timeout)
+    timeout = setTimeout(() => {
+        user_list.innerHTML = spinner
+        if(user_search_input.value.length > 2)
+            sendAjaxRequest('GET','/api/users', {'page' : 1, 'search': user_search_input.value, 'users' : user_select.value}, setUsers, [{name: 'Accept', value: 'text/html'}])
+        else if(user_search_input.value.length == 0){
+            sendAjaxRequest('GET','/api/users', {'page' : 1, 'users' : user_select.value}, setUsers, [{name: 'Accept', value: 'text/html'}])
+        }
+    }, 1000)
 
 })
 
@@ -90,7 +106,7 @@ auction_search_input.addEventListener('input', () => {
         else if(auction_search_input.value.length == 0){
             sendAjaxRequest('GET','/api/auctions', {}, setAuctions, [{name: 'Accept', value: 'text/html'}])
         }
-    }, 3000)
+    }, 2000)
 })
 
 report_search_input.addEventListener('input', () => {
@@ -212,8 +228,21 @@ function enable_pagination(parent, api, search, callback) {
 
 function update_ma_modal() {
     username = this.getAttribute("data-username")
-    make_admin_text.innerHTML = `You are going to promote ${username} to admin.`
+    admin = this.innerHTML == "Make Admin"
+
+    action = admin ? `promote ${username} to admin` : `revoke admin role of ${username}`
+    make_admin_text.innerHTML = `You are going to ${action}.`
     make_admin_form.setAttribute('action', `/admin/make/${username}`)
+
+    button = make_admin_form.querySelector("button[type=submit]")
+    button.innerHTML = admin ? "Make Admin" : "Revoke Admin"
+    
+    if(admin) {
+        button.classList.replace("btn-danger", "btn-secondary")
+    }
+    else {
+        button.classList.replace("btn-secondary", "btn-danger")
+    }
 }
 
 function update_ban_modal() {

@@ -1,12 +1,12 @@
 <label for="search" class="form-label text-primary">Search:</label>
 <input type="text" class="form-control w-100" id="report-search-input" placeholder="Type Something">
-@if ($errors->has('report'))
+@if ($errors->has('reports'))
 <div onclick="this.hidden = true" class="alert alert-danger alert-dismissible fade show my-3 p-1 px-2" style="width: fit-content;" role="alert">
-    {{ $errors->first('report') }}
+    {{ $errors->first('reports') }}
 </div>
-@elseif(session('success'))
+@elseif(!is_null(session('success.reports')))
 <div onclick="this.hidden = true" class="alert alert-success alert-dismissible fade show my-3 p-1 px-2" style="width: fit-content;" role="alert">
-    {{ session('success')[0] }}
+    {{ session('success')["reports"] }}
 </div>
 @endif
 <div class="container-fluid px-0 my-3">

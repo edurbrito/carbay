@@ -145,3 +145,24 @@ body {
     transform: translate(-50%, 0);
   }
 }
+
+.notify-wrapper{
+  position:relative;
+  float:left;
+}
+.notify-wrapper > i {   
+  width:100px;
+  text-align:center;
+  vertical-align:middle;
+}
+.notify-badge{
+  background: rgba(0,0,0,0.3);
+  width: auto;
+  height: auto;
+  margin: 0;
+  border-radius: 100%;
+  position:absolute;
+  top:-13px;
+  right:-8px;
+  padding:0px;
+}

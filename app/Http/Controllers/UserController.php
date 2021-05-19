@@ -25,15 +25,25 @@ class UserController extends Controller
         $this->authorize('admin', User::class);
 
         $validated = Validator::make($request->all(), [
-            'search' => 'nullable|string|max:255'
+            'search' => 'nullable|string|max:255',
+            'users' => 'nullable|numeric|between:0,1'
         ]);
 
         if($validated->fails())
             return json_encode(["result" => "error", "content" => $validated->errors()]);
-
-        $users = User::whereRaw('admin = FALSE');
+        
+        $users = User::where('id','!=', Auth::user()->id);
 
         $search = $request->input('search');
+        $type = $request->input('users');
+
+        if(!is_null($type) && $type == 1){
+            $users = $users->where('admin', 'TRUE');
+        }
+        else{
+            $users = $users->where('admin', 'FALSE');
+        }
+        
         if(!is_null($search) && !empty($search)){
             $search = strtolower($search);
             $users = $users->whereRaw('LOWER(name) LIKE ?',["%{$search}%"]);
@@ -371,16 +381,18 @@ class UserController extends Controller
 
         $user = User::where('username',"=",$username)->first();
 
-        if (!$user->admin && !is_null($user))
+        if (!is_null($user) && $user->id != Auth::user()->id)
         {
-            $user->admin = "TRUE";
+            $user->admin = !$user->admin ? "TRUE" : "FALSE";
             $user->save();
+
+            $action = $user->admin == "TRUE" ? "Granted" : "Revoked";
         }
         else{
-            return redirect('/admin#users')->withErrors(["auction" => "Could not make this user admin!"]);
+            return redirect('/admin#users')->withErrors(["users" => "Could not finish this action!"]);
         }
 
-        return redirect('/admin#users')->withSuccess(['User ' . $user->username . " is now an admin!"]);
+        return redirect('/admin#users')->withSuccess(["users" => $action ." the admin role for user " . $username . " !"]);
     }
 
     public function ban($username) {
@@ -392,7 +404,7 @@ class UserController extends Controller
 
         $user = User::where('username',"=",$username)->first();
 
-        if(!is_null($user)){
+        if(!is_null($user) && $user->id != Auth::user()->id){
             $user->banned = !$user->banned ? "TRUE" : "FALSE";
             $user->save();
     
@@ -400,10 +412,10 @@ class UserController extends Controller
 
         }
         else{
-            return redirect('/admin#users')->withErrors(["auction" => "Could not ban this user!"]);
+            return redirect('/admin#users')->withErrors(["users" => "Could not finish this action!"]);
         }
 
-        return redirect('/admin#users')->withSuccess(['User ' . $user->username . " was " . $action ."!"]);
+        return redirect('/admin#users')->withSuccess(["users" => 'User ' . $user->username . " was " . $action ."!"]);
     }
 
     public function ban_report(Request $request, $username) {
@@ -420,7 +432,7 @@ class UserController extends Controller
             $user->save();
         }
         else {
-            return redirect('/admin#reports')->withErrors(["auction" => "Could not ban this user!"]);
+            return redirect('/admin#reports')->withErrors(["reports" => "Could not ban this user!"]);
         }
 
         $report_id = $request->input('report-id');
@@ -429,7 +441,7 @@ class UserController extends Controller
             'statetype' => 'Banned',
         ]);
         
-        return redirect('/admin#reports')->withSuccess(['User ' . $user->username . " was banned!"]);
+        return redirect('/admin#reports')->withSuccess(["reports" => 'User ' . $user->username . " was banned!"]);
     }
 
     public function discard_report(Request $request, $username) {
@@ -447,6 +459,6 @@ class UserController extends Controller
             'statetype' => 'Discarded',
         ]);
         
-        return redirect('/admin#reports')->withSuccess(['Report of user ' . $user->username . " was discarded!"]);
+        return redirect('/admin#reports')->withSuccess(["reports" => 'Report of user ' . $user->username . " was discarded!"]);
     }
 }

@@ -440,12 +440,12 @@ class AuctionController extends Controller
             $auction->save();
         }
         else{
-            return redirect('/admin#auctions')->withErrors(["auction" => "Could not suspend this auction!"]);
+            return redirect('/admin#auctions')->withErrors(["auctions" => "Could not suspend this auction!"]);
         }
 
         $action = $auction->suspend == "TRUE" ? "suspended" : "unsuspended";
 
-        return redirect('/admin#auctions')->withSuccess(['Auction ' . $auction->id . " was " . $action . "!"]);
+        return redirect('/admin#auctions')->withSuccess(["auctions" => 'Auction ' . $auction->id . " was " . $action . "!"]);
     }
 
     public function reschedule(Request $request, $auctionid)
@@ -459,7 +459,7 @@ class AuctionController extends Controller
             'duration' => 'required|numeric|min:1|max:15']);
 
         if($validated->fails())
-            return redirect('/admin#auctions')->withErrors(["auction" => "Could not reschedule this auction!"]);
+            return redirect('/admin#auctions')->withErrors(["auctions" => "Could not reschedule this auction!"]);
 
         $auction = Auction::find($auctionid);
 
@@ -479,9 +479,9 @@ class AuctionController extends Controller
             $auction->save();
         }
         else{
-            return redirect('/admin#auctions')->withErrors(["auction" => "Could not reschedule this auction!"]);
+            return redirect('/admin#auctions')->withErrors(["auctions" => "Could not reschedule this auction!"]);
         }
 
-        return redirect('/admin#auctions')->withSuccess(['Auction ' . $auction->id . " was rescheduled!"]);
+        return redirect('/admin#auctions')->withSuccess(["auctions" => 'Auction ' . $auction->id . " was rescheduled!"]);
     }
 }

@@ -1,12 +1,12 @@
 <label for="search" class="form-label text-primary">Search:</label>
 <input type="text" class="form-control w-100" id="auction-management-search-input" placeholder="Type Something">
-@if ($errors->has('auction'))
+@if ($errors->has('auctions'))
 <div onclick="this.hidden = true" class="alert alert-danger alert-dismissible fade show my-3 p-1 px-2" style="width: fit-content;" role="alert">
-{{ $errors->first('auction') }}
+{{ $errors->first('auctions') }}
 </div>
-@elseif(session('success'))
+@elseif(!is_null(session('success.auctions')))
 <div onclick="this.hidden = true" class="alert alert-success alert-dismissible fade show my-3 p-1 px-2" style="width: fit-content;" role="alert">
-{{ session('success')[0] }}
+{{ session('success')["auctions"] }}
 </div>
 @endif
 <div class="container-fluid px-0 my-3">
