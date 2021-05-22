@@ -8,8 +8,8 @@
 
 $ended = $auction->time_remaining() == "Ended";
 $winner = false;
-if(!is_null($auction->highest_bid()))
-  $winner = $auction->highest_bid()->authorid == Auth::user()->id;
+if(!is_null($auction->highest_bid()) && Auth::check())
+$winner = $auction->highest_bid()->authorid == Auth::user()->id;
 $not_rated = is_null($auction->rating());
 
 $show_rate = $ended && $winner && $not_rated;
@@ -96,23 +96,23 @@ $show_rate = $ended && $winner && $not_rated;
     </span>
     @endif
   </p>
-  @if (Auth::check() && !Auth::user()->admin && !($auction->finaldate <= NOW()))
-    @if(!is_null($auction->buynow))
+  @if (Auth::check() && !Auth::user()->admin && !($auction->finaldate <= NOW())) 
+  @if(!is_null($auction->buynow))
     <button class="btn btn-dark text-light text-center btn" data-bs-toggle="modal" data-bs-target="#buy-now" role="button">Buy Now</button>
     @endif
     <button class="btn btn-success text-light text-center btn" data-bs-toggle="modal" data-bs-target="#place-bid" role="button">Place Bid</button>
-  @elseif(Auth::check() && $show_rate)
+    @elseif(Auth::check() && $show_rate)
     <button class="btn btn-success text-light text-center btn" data-bs-toggle="modal" data-bs-target="#show-rate" role="button" id="rating-button">Leave Rating</button>
-  @endif
-  @if ($errors->has('value'))
-  <div onclick="this.hidden = true" class="alert alert-danger alert-dismissible fade show my-3 p-1 px-2" style="width: fit-content;" role="alert">
-    {{ $errors->first('value') }}
-  </div>
-  @elseif(session('success'))
-  <div onclick="this.hidden = true" class="alert alert-success alert-dismissible fade show my-3 p-1 px-2" style="width: fit-content;" role="alert">
-    {{ session('success')[0] }}
-  </div>
-  @endif
+    @endif
+    @if ($errors->has('value'))
+    <div onclick="this.hidden = true" class="alert alert-danger alert-dismissible fade show my-3 p-1 px-2" style="width: fit-content;" role="alert">
+      {{ $errors->first('value') }}
+    </div>
+    @elseif(session('success'))
+    <div onclick="this.hidden = true" class="alert alert-success alert-dismissible fade show my-3 p-1 px-2" style="width: fit-content;" role="alert">
+      {{ session('success')[0] }}
+    </div>
+    @endif
 </div>
 
 <p class="text-center text-primary mt-4">
@@ -185,7 +185,7 @@ $show_rate = $ended && $winner && $not_rated;
         {{ csrf_field() }}
         <input hidden type="text" name="bid_type" id="bid_type" value="bid">
         <input type="number" hidden name="id" id="bid-form-auction-id" value="{{ $auction->id }}">
-        <label class="form-check-label mt-2 text-primary" for="flexCheckChecked">
+        <label class="form-check-label mt-2 text-primary" for="bid-form-value">
           Bid Value:
         </label>
         <?php
@@ -214,7 +214,7 @@ $show_rate = $ended && $winner && $not_rated;
         {{ csrf_field() }}
         <input type="number" hidden id="location-input" name="location" required value="2"></input>
         <input type="number" hidden id="id-input" name="id" required value="{{ $auction->id }}"></input>
-        <label class="form-check-label mt-2 text-primary" for="flexCheckChecked">
+        <label class="form-check-label mt-2 text-primary" for="reason">
           Message:
         </label>
         <textarea class="form-control" name="reason" id="reason" rows="3" placeholder="Write here your reasons..." required></textarea>
@@ -226,30 +226,41 @@ $show_rate = $ended && $winner && $not_rated;
     </div>
   </div>
 </div>
+
 @if(Auth::check() && $show_rate)
 <!-- Modal -->
 <div class="modal fade show" id="show-rate" tabindex="-1" aria-labelledby="show-rate">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="notifications">RATE AUCTION</h5>
+        <h5 class="modal-title" id="notifications">RATE THIS AUCTION</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <form method="POST" action="/auctions/{{$auction->id}}/bids" class="modal-body text-primary">
+      <form method="POST" action="/auctions/{{$auction->id}}/rate" class="modal-body text-primary">
         {{ csrf_field() }}
-        <input type="number" hidden name="id" id="bid-form-auction-id" value={{$auction->id}}>
-        <label class="form-check-label mt-2 text-primary" for="flexCheckChecked">
-          Rating:
-        </label>
-        <?php
-        $highest_bid = $auction->highest_bid();
-        $value = !is_null($highest_bid) ? $highest_bid->value + 0.01 : $auction->startingprice;
-        ?>
-        <input type="number" min="{{ $value }}" placeholder="100" step="0.01" name="value" id="bid-form-value" required value="{{ $value }}">
-        <div class="d-flex justify-content-end mt-3">
-          <button type="button" class="btn btn-primary mr-2" data-bs-dismiss="modal" aria-label="Dismiss">Dismiss</button>
-          <button type="submit" class="btn btn-success">Leave Rating</button>
+        <span>Congratulations!<br>You were the winner of this auction.</span>
+        <br>
+        <span>Give it a rating:</span>
+        <div class="rating">
+          <input type="radio" name="rating" value="5" id="5" required>
+          <label for="5">☆</label> 
+          <input type="radio" name="rating" value="4" id="4" required>
+          <label for="4">☆</label> 
+          <input type="radio" name="rating" value="3" id="3" required>
+          <label for="3">☆</label> 
+          <input type="radio" name="rating" value="2" id="2" required>
+          <label for="2">☆</label> 
+          <input type="radio" name="rating" value="1" id="1" required>
+          <label for="1">☆</label>
         </div>
+        <label class="form-check-label mt-2 text-primary" for="comment">
+          Comment:
+        </label>
+        <textarea class="form-control" name="comment" id="comment" rows="3" min="1" required></textarea>
+          <div class="d-flex justify-content-end mt-3">
+            <button type="button" class="btn btn-primary mr-2" data-bs-dismiss="modal" aria-label="Dismiss">Dismiss</button>
+            <button type="submit" class="btn btn-success">Leave Rating</button>
+          </div>
       </form>
     </div>
   </div>

@@ -170,13 +170,15 @@ CREATE TABLE HelpMessage (
 
 
 CREATE TABLE Rating (
+    id                      SERIAL,
     auctionID               SERIAL,
-    winnerID                INTEGER,
+    winnerID                SERIAL,
     value                   INTEGER NOT NULL,
     dateHour                TIMESTAMP WITH TIME zone DEFAULT now() NOT NULL,
     comment                 VARCHAR(300) NOT NULL,
 
-    CONSTRAINT RatingPK PRIMARY KEY (auctionID),
+    CONSTRAINT RatingPK PRIMARY KEY (id),
+    CONSTRAINT RatingUK UNIQUE (auctionID),
     CONSTRAINT RatingAuctionFK FOREIGN KEY (auctionID) REFERENCES Auction ON UPDATE CASCADE ON DELETE CASCADE,
     CONSTRAINT RatingWinnerFK FOREIGN KEY (winnerID) REFERENCES "user" ON UPDATE CASCADE ON DELETE SET NULL,
     CONSTRAINT RatingValueHT CHECK (value >= 1),
@@ -359,11 +361,6 @@ LANGUAGE plpgsql;
 CREATE FUNCTION rating_rules() RETURNS TRIGGER AS
 $BODY$
 BEGIN
-    IF EXISTS 
-        (SELECT finalDate FROM auction WHERE NEW.auctionID = auction.id AND finalDate > NOW())
-    THEN 
-    RAISE EXCEPTION 'The registered user can only give a rating to an auction that has ended.';
-    END IF;
     IF NOT EXISTS 
         (SELECT T.authorID FROM (SELECT MAX(value) AS value, bid.auctionID, bid.authorID 
                 FROM bid 

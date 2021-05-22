@@ -45,6 +45,7 @@ Route::get('auctions/create', 'AuctionController@create');
 Route::post('auctions/create', 'AuctionController@store');
 Route::get('auctions/{id}', 'AuctionController@show');
 Route::post('auctions/{id}/bids', 'BidController@store');
+Route::post('auctions/{id}/rate', 'RatingController@store');
 
 Route::get('api/auctions/featured', 'AuctionController@featured');
 Route::get('api/auctions/{id}/bids', 'BidController@index');

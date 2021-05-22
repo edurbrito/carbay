@@ -66,6 +66,9 @@ class BidController extends Controller
 
         $auction = Auction::find($id);
 
+        if(is_null($auction))
+            return abort(404);
+
         if($auction->suspend)
         {
             return back()->withErrors(['value' => 'This auction is suspended.']);
