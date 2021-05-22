@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bid;
+use App\Models\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Auction;
@@ -96,6 +97,13 @@ class BidController extends Controller
 
             $bid->save();
             $auction->save();
+                
+            if(!is_null($auctionHighestBid) && $bid_type == "buy-now" && $auctionHighestBid->authorid != Auth::user()->id) {
+                $notification = new Notification();
+                $notification->recipientid = $auctionHighestBid->authorid;
+                $notification->contextbid = $id;
+                $notification->save();
+            }
 
         } catch (\Throwable $th) {
             return back()->withErrors(['value' => 'You are not allowed to perform that action']);
