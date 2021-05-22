@@ -87,6 +87,12 @@ class BidController extends Controller
             $bid->auctionid = $id;
             $bid->authorid = Auth::user()->id;
             $bid->save();
+
+            if ($bid->value >= $auction->buynow) {
+                $auction->finaldate = now();
+                $auction->save();
+            }
+
         } catch (\Throwable $th) {
             return back()->withErrors(['value' => 'You are not allowed to perform that action']);
         }
