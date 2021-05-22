@@ -84,7 +84,7 @@
     </span>
     @endif
   </p>
-  @if (Auth::check() && !Auth::user()->admin)
+  @if (Auth::check() && !Auth::user()->admin && !($auction->finaldate <= NOW()))
   @if(!is_null($auction->buynow))
   <button class="btn btn-dark text-light text-center btn" data-bs-toggle="modal" data-bs-target="#buy-now" role="button">Buy Now</button>
   @endif
@@ -146,6 +146,7 @@
       </div>
       <form method="POST" action="/auctions/{{$auction->id}}/bids" class="modal-body text-primary">
         {{ csrf_field() }}
+        <input hidden type="text" name="bid_type" id="bid_type" value="buy-now">
         <input type="number" hidden name="id" id="buy-now-form-auction-id" value="{{ $auction->id }}">
         Value: {{ $auction->buynow }} $
         <div class="d-flex justify-content-end">
@@ -168,6 +169,7 @@
       </div>
       <form method="POST" action="/auctions/{{$auction->id}}/bids" class="modal-body text-primary">
         {{ csrf_field() }}
+        <input hidden type="text" name="bid_type" id="bid_type" value="bid">
         <input type="number" hidden name="id" id="bid-form-auction-id" value="{{ $auction->id }}">
         <label class="form-check-label mt-2 text-primary" for="flexCheckChecked">
           Bid Value:

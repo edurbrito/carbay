@@ -61,7 +61,7 @@ class BidController extends Controller
             return back()->withErrors(['value' => 'This action is not available for banned users.']);
 
         $this->authorize('create', Bid::class);
-        
+
         $auction = Auction::find($id);
 
         if($auction->suspend)
@@ -76,9 +76,11 @@ class BidController extends Controller
             'value' => 'required|numeric|min:' . $auctionLastBid,
         ]);
         
+        $bid_type = $request->input('bid_type');
+
         try {
 
-            if(is_null($auction) || Auth::user()->id == $auction->sellerid || $auction->finaldate < now() || (!is_null($auctionHighestBid) && $auctionHighestBid->authorid == Auth::user()->id))
+            if(is_null($auction) || Auth::user()->id == $auction->sellerid || $auction->finaldate < now() || (!is_null($auctionHighestBid) && $bid_type == "bid" && $auctionHighestBid->authorid == Auth::user()->id))
                 throw new Error();
 
             $bid = new Bid();
@@ -86,12 +88,14 @@ class BidController extends Controller
             $bid->value = $request->input('value');
             $bid->auctionid = $id;
             $bid->authorid = Auth::user()->id;
-            $bid->save();
-
-            if ($bid->value >= $auction->buynow) {
+            
+            if (!is_null($auction->buynow) && $bid->value >= $auction->buynow) {
                 $auction->finaldate = now();
-                $auction->save();
+                $bid->value = $auction->buynow;
             }
+
+            $bid->save();
+            $auction->save();
 
         } catch (\Throwable $th) {
             return back()->withErrors(['value' => 'You are not allowed to perform that action']);
