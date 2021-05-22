@@ -18,7 +18,7 @@ class Notification extends Model
      * @var array
      */
     protected $fillable = [
-        'viewed', 'datehour', 'recipientid', 'contextrating', 'contexthelpmessage', 'contextfavseller', 'contextbid', 'contextfavauction'
+        'viewed', 'datehour', 'recipientid', 'contextrating', 'contextrate', 'contexthelpmessage', 'contextfavseller', 'contextbid', 'contextfavauction'
     ];
 
     public function recipient()
@@ -29,6 +29,11 @@ class Notification extends Model
     public function rating()
     {
         return $this->belongsTo(Auction::class, 'contextrating');
+    }
+
+    public function rate()
+    {
+        return $this->belongsTo(Auction::class, 'contextrate');
     }
 
     public function fav_seller()

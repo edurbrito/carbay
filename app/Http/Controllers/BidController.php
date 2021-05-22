@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Auction;
 use Error;
+use DateTime;
 use Illuminate\Support\Facades\Validator;
 
 class BidController extends Controller
@@ -75,6 +76,7 @@ class BidController extends Controller
 
         Validator::validate($request->all(), [
             'value' => 'required|numeric|min:' . $auctionLastBid,
+            'bid_type' => 'required|string'
         ]);
         
         $bid_type = $request->input('bid_type');
@@ -85,13 +87,14 @@ class BidController extends Controller
                 throw new Error();
 
             $bid = new Bid();
-            $bid->datehour = now();
             $bid->value = $request->input('value');
             $bid->auctionid = $id;
             $bid->authorid = Auth::user()->id;
             
             if (!is_null($auction->buynow) && $bid->value >= $auction->buynow) {
-                $auction->finaldate = now();
+                $date = new DateTime();
+                $date->modify("-1 minute");
+                $auction->finaldate = $date->format("Y-m-d H:i:s");
                 $bid->value = $auction->buynow;
             }
 

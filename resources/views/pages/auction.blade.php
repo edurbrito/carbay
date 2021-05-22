@@ -4,6 +4,18 @@
 <script src="{{ asset('js/auction.js') }}" defer></script>
 @endpush
 
+@php
+
+$ended = $auction->time_remaining() == "Ended";
+$winner = false;
+if(!is_null($auction->highest_bid()))
+  $winner = $auction->highest_bid()->authorid == Auth::user()->id;
+$not_rated = is_null($auction->rating());
+
+$show_rate = $ended && $winner && $not_rated;
+
+@endphp
+
 @section('div_content')
 
 <h1 class="fs-2 text-primary text-center" data-id="{{$auction->id}}" id="auction-head">
@@ -51,7 +63,7 @@
     <i class="fas fa-ban align-self-center mr-2" style="color: red;"></i>
     <span style="color: red !important;">Suspended</span>
     @else
-    <span title="Time Remaining" id="time-remaining" data-time="{{$auction->finaldate}}"><i class="far fa-clock"></i> <span id="time-remaining-value">{{$auction->time_remaining()}}</span></span>
+    @if(Auth::check() && $ended && $winner)YOU WON THIS AUCTION!@else<span title="Time Remaining" id="time-remaining" data-time="{{$auction->finaldate}}"><i class="far fa-clock"></i> <span id="time-remaining-value">{{$auction->time_remaining()}}</span></span>@endif
     @endif
   </p>
   <p class="fs-4">
@@ -85,10 +97,12 @@
     @endif
   </p>
   @if (Auth::check() && !Auth::user()->admin && !($auction->finaldate <= NOW()))
-  @if(!is_null($auction->buynow))
-  <button class="btn btn-dark text-light text-center btn" data-bs-toggle="modal" data-bs-target="#buy-now" role="button">Buy Now</button>
-  @endif
-  <button class="btn btn-success text-light text-center btn" data-bs-toggle="modal" data-bs-target="#place-bid" role="button">Place Bid</button>
+    @if(!is_null($auction->buynow))
+    <button class="btn btn-dark text-light text-center btn" data-bs-toggle="modal" data-bs-target="#buy-now" role="button">Buy Now</button>
+    @endif
+    <button class="btn btn-success text-light text-center btn" data-bs-toggle="modal" data-bs-target="#place-bid" role="button">Place Bid</button>
+  @elseif(Auth::check() && $show_rate)
+    <button class="btn btn-success text-light text-center btn" data-bs-toggle="modal" data-bs-target="#show-rate" role="button" id="rating-button">Leave Rating</button>
   @endif
   @if ($errors->has('value'))
   <div onclick="this.hidden = true" class="alert alert-danger alert-dismissible fade show my-3 p-1 px-2" style="width: fit-content;" role="alert">
@@ -212,5 +226,44 @@
     </div>
   </div>
 </div>
+@if(Auth::check() && $show_rate)
+<!-- Modal -->
+<div class="modal fade show" id="show-rate" tabindex="-1" aria-labelledby="show-rate">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="notifications">RATE AUCTION</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form method="POST" action="/auctions/{{$auction->id}}/bids" class="modal-body text-primary">
+        {{ csrf_field() }}
+        <input type="number" hidden name="id" id="bid-form-auction-id" value={{$auction->id}}>
+        <label class="form-check-label mt-2 text-primary" for="flexCheckChecked">
+          Rating:
+        </label>
+        <?php
+        $highest_bid = $auction->highest_bid();
+        $value = !is_null($highest_bid) ? $highest_bid->value + 0.01 : $auction->startingprice;
+        ?>
+        <input type="number" min="{{ $value }}" placeholder="100" step="0.01" name="value" id="bid-form-value" required value="{{ $value }}">
+        <div class="d-flex justify-content-end mt-3">
+          <button type="button" class="btn btn-primary mr-2" data-bs-dismiss="modal" aria-label="Dismiss">Dismiss</button>
+          <button type="submit" class="btn btn-success">Leave Rating</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<script type="text/javascript" defer>
+  button = document.querySelector("#rating-button")
+
+  if (button) {
+    setTimeout(() => {
+      button.click();
+    }, 2000)
+  }
+</script>
+@endif
+
 
 @endsection

@@ -3,6 +3,10 @@
 namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
+use App\Models\FavouriteAuction;
+use App\Models\Auction;
+use App\Models\Notification;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
 class Kernel extends ConsoleKernel
@@ -24,7 +28,39 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->call(function () {
+            $auctions = FavouriteAuction::join('auction', 'auctionid', '=', 'auction.id')->whereRaw('auction.finaldate > NOW() AND auction.finaldate < (NOW() + INTERVAL \'4 day\')')->select('userid', 'auctionid', 'title')->get();
+            foreach ($auctions as $auction){
+                try{
+                    $notification = new Notification();
+                    $notification->recipientid = $auction['userid'];
+                    $notification->contextfavauction = $auction['auctionid'];
+                    $notification->save();
+                } catch (\Throwable $th) {
+
+                }
+            }
+
+            $auctions = Auction::whereRaw('finaldate < NOW()')->get();
+            foreach ($auctions as $auction){
+                try{
+                    $notification = new Notification();
+                    $notification->recipientid = $auction['sellerid'];
+                    $notification->contextrate = $auction['id'];
+                    $notification->save();
+
+                    $notification = new Notification();
+                    $notification->recipientid = $auction->highest_bid()->authorid;
+                    $notification->contextrate = $auction['id'];
+                    $notification->save();
+
+                } catch (\Throwable $th) {
+
+                }
+            }
+
+
+        })->everyMinute();
     }
 
     /**

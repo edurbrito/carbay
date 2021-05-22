@@ -24,7 +24,6 @@ DROP TRIGGER IF EXISTS delete_rules ON "user";
 DROP TRIGGER IF EXISTS notify_rating ON Rating;
 DROP TRIGGER IF EXISTS notify_help_message ON HelpMessage;
 DROP TRIGGER IF EXISTS notify_favorite_sellers ON Auction;
-DROP TRIGGER IF EXISTS notify_highest_bid ON Bid;
 DROP TRIGGER IF EXISTS fts_auction_insert ON Auction;
 DROP TRIGGER IF EXISTS fts_auction_update ON Auction;
 
@@ -36,7 +35,6 @@ DROP FUNCTION IF EXISTS delete_rules() CASCADE;
 DROP FUNCTION IF EXISTS notify_rating() CASCADE;
 DROP FUNCTION IF EXISTS notify_help_message() CASCADE;
 DROP FUNCTION IF EXISTS notify_favorite_sellers() CASCADE;
-DROP FUNCTION IF EXISTS notify_highest_bid() CASCADE;
 DROP FUNCTION IF EXISTS auction_search_update() CASCADE;
 
 
@@ -253,16 +251,22 @@ CREATE TABLE Notification (
     dateHour                TIMESTAMP WITH TIME zone DEFAULT now() NOT NULL,
     recipientID             INTEGER NOT NULL,
     contextRating           INTEGER DEFAULT NULL,
+    contextRate             INTEGER DEFAULT NULL,
     contextHelpMessage      INTEGER DEFAULT NULL,
     contextFavSeller        INTEGER DEFAULT NULL,
     contextBid              INTEGER DEFAULT NULL,
     contextFavAuction       INTEGER DEFAULT NULL,
 
     CONSTRAINT NotificationPK PRIMARY KEY (id),
+    CONSTRAINT NotificationUK1 UNIQUE (recipientID, contextRating),
+    CONSTRAINT NotificationUK2 UNIQUE (recipientID, contextRate),
+    CONSTRAINT NotificationUK3 UNIQUE (recipientID, contextFavSeller),
+    CONSTRAINT NotificationUK4 UNIQUE (recipientID, contextFavAuction),
     CONSTRAINT NotificationDateLT CHECK (dateHour <= now()),
     CONSTRAINT NotificationExclusiveORContext CHECK (
         1 = (
             CASE WHEN contextRating IS NOT NULL THEN 1 ELSE 0 END +
+            CASE WHEN contextRate IS NOT NULL THEN 1 ELSE 0 END +
             CASE WHEN contextHelpMessage IS NOT NULL THEN 1 ELSE 0 END +
             CASE WHEN contextFavSeller IS NOT NULL THEN 1 ELSE 0 END +
             CASE WHEN contextBid IS NOT NULL THEN 1 ELSE 0 END +
@@ -271,6 +275,7 @@ CREATE TABLE Notification (
     ),
     CONSTRAINT NotificationRecipientIDFK FOREIGN KEY (recipientID) REFERENCES "user" ON UPDATE CASCADE ON DELETE CASCADE,
     CONSTRAINT NotificationContextRatingFK FOREIGN KEY (contextRating) REFERENCES Auction ON UPDATE CASCADE ON DELETE CASCADE,
+    CONSTRAINT NotificationContextRateFK FOREIGN KEY (contextRate) REFERENCES Auction ON UPDATE CASCADE ON DELETE CASCADE,
     CONSTRAINT NotificationContextHelpMessageFK FOREIGN KEY (contextHelpMessage) REFERENCES HelpMessage ON UPDATE CASCADE ON DELETE CASCADE,
     CONSTRAINT NotificationContextFavSellerFK FOREIGN KEY (contextFavSeller) REFERENCES Auction ON UPDATE CASCADE ON DELETE CASCADE,
     CONSTRAINT NotificationContextBidFK FOREIGN KEY (contextBid) REFERENCES Auction ON UPDATE CASCADE ON DELETE CASCADE,
@@ -436,21 +441,6 @@ $BODY$
 LANGUAGE 'plpgsql';
 
 
-CREATE FUNCTION notify_highest_bid() RETURNS TRIGGER AS 
-$BODY$
-BEGIN
-    INSERT INTO notification (recipientId, contextBid) 
-    SELECT bid.authorID , bid.auctionID 
-        FROM bid
-        WHERE bid.auctionID = NEW.auctionID AND bid.id != NEW.id
-        ORDER BY bid.value DESC
-        LIMIT 1;
-    RETURN NEW;
-END
-$BODY$ 
-LANGUAGE 'plpgsql';
-
-
 CREATE FUNCTION auction_search_update() RETURNS TRIGGER AS 
 $BODY$
 BEGIN
@@ -532,16 +522,11 @@ CREATE TRIGGER notify_favorite_sellers
     EXECUTE PROCEDURE notify_favorite_sellers();
 
 
-CREATE TRIGGER notify_highest_bid
-    AFTER INSERT ON bid
-    FOR EACH ROW
-    EXECUTE PROCEDURE notify_highest_bid();
-
-
 CREATE TRIGGER fts_auction_insert
     BEFORE INSERT ON auction
     FOR EACH ROW
     EXECUTE PROCEDURE auction_search_update();
+
 
 CREATE TRIGGER fts_auction_update
     BEFORE UPDATE ON auction

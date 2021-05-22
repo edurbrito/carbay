@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Notification;
+use App\Models\Auction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Artisan;
 
 class NotificationController extends Controller
 {
@@ -43,7 +45,16 @@ class NotificationController extends Controller
     public function get_text(Notification $notification)
     {
         if(!is_null($notification->contextrating))
-            return sprintf("%d", $notification->contextrating);
+            return ["url" => "/auctions/" . $notification->contextrating, "text" => sprintf("The user %s left you a rating!", $notification->rating->highest_bid()->author->username)];
+        if(!is_null($notification->contextrate)){
+            $auction = $notification->rate;
+            if($auction->seller->id == Auth::user()->id){
+                return ["url" => "/auctions/" . $notification->contextrate, "text" => sprintf("The auction %s ended. See the results!", $auction->title)];
+            }
+            else{
+                return ["url" => "/auctions/" . $notification->contextrate, "text" => sprintf("The auction %s ended. You won!", $auction->title)];
+            }
+        }            
         else if(!is_null($notification->contextfavseller))
             return ["url" => "/auctions/" . $notification->contextfavseller, "text" => sprintf("The seller %s has just created an auction!", $notification->fav_seller->seller->username)];
         else if(!is_null($notification->contextbid))
@@ -62,6 +73,11 @@ class NotificationController extends Controller
      */
     public function show()
     {
+        // Alternative as cron does not work
+        $time = strtotime('now') % (60);
+        if($time >= 0 && $time <= 5)
+            Artisan::call('schedule:run');
+
         if(!Auth::check())
             return json_encode(["result" => "login"]);
 
