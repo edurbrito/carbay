@@ -125,7 +125,7 @@ class AuctionController extends Controller
             'description' => 'required|string|max:1023',
             'starting-price' => 'required|numeric|min:1',
             'duration' => 'required|numeric|min:1|max:7',
-            'buy-now' => 'nullable|numeric|gt:starting-price',
+            'buy-now-value' => 'nullable|numeric|gt:starting-price',
             'scale' => Rule::in(['1:8','1:18','1:43','1:64']),
             'brand' => 'required|string|min:1',
             'colour' => 'required|string|min:1',
@@ -154,7 +154,10 @@ class AuctionController extends Controller
             $auction->startdate = $date;
             $auction->finaldate = date('Y-m-d H:i:s', strtotime($date . ' + ' .  $duration . ' days'));
 
-            $auction->buynow = $request->input('buy-now');
+            if(!is_null($request->input('buy-now')))
+                if(!is_null($request->input('buy-now-value')))
+                    $auction->buynow = $request->input('buy-now-value');
+
             $auction->scaletype = $request->input('scale');
 
             $brand = Brand::where("name", "=", $request->input("brand"))->first();

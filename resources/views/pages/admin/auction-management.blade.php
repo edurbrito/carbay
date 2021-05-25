@@ -48,7 +48,7 @@
       <div class="modal-body text-primary">
         <form id="reschedule-form" method="post" action="/admin/reschedule/">
             {{ csrf_field() }}
-            <span id="reschedule-text">This auction is planned to end at ....</span>
+            <span id="reschedule-text" class="w-100">This auction is planned to end at ....</span>
             <div class="input-group input-group-sm pt-2">
                 <div class="input-group-prepend">
                     <span class="input-group-text rounded-0" id="duration">Postpone it by:</span>
@@ -58,7 +58,7 @@
                     <span class="input-group-text rounded-0" id="inputGroup-sizing-sm">Days</span>
                 </div>
             </div>
-            <span class="text-danger mb-3" style="font-size: 0.75rem">* Maximum duration counting from initial date can only be set to 15 days.</span>
+            <span class="text-danger mb-3" style="font-size: 0.75rem">* Maximum duration from initial date can only be 15 days.</span>
             <div class="d-flex justify-content-end pt-2">
           <button type="button" class="btn btn-primary mr-2" data-bs-dismiss="modal" aria-label="Dismiss">Dismiss</button>
           <button type="submit" class="btn btn-danger" role="button">Postpone</button>

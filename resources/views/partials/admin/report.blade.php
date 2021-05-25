@@ -1,6 +1,6 @@
 <li class="list-group-item">
     @php $reported = $report->reported() @endphp
-    <h6 class="text-center mb-4" style="font-size: 0.7rem !important;">This User was reported at {{ $report->datehour }}</h6>
+    <h6 class="text-center mb-4" style="font-size: 0.7rem !important;">This User was reported at {{ $report->rdate() }}</h6>
     <div class="d-flex align-items-center justify-content-start rounded-0 flex-vertical">
         <a class="d-flex align-items-center justify-content-start mb-2 mb-sm-0" href="/users/{{ $reported->username }}">
             <img src="{{ $reported->image }}" width="36px">

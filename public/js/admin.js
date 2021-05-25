@@ -288,9 +288,9 @@ function update_suspend_modal() {
 function update_reschedule_modal() {
     id = this.getAttribute("data-id")
     title = this.getAttribute("data-auction")
-    final_date = this.getAttribute("data-finaldate")
+    final_date = this.getAttribute("data-finaldate").match(/.+(?=:)/)[0]
 
-    reschedule_text.innerHTML = `The auction ${id} (${title}) is planned to end at <br> ${final_date}.`
+    reschedule_text.innerHTML = `The auction ${title} is planned to end at:<br><span class="text-center w-100">${final_date}</span>`
     reschedule_form.setAttribute('action', `/admin/reschedule/${id}`)
 }
 

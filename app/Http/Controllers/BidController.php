@@ -104,7 +104,7 @@ class BidController extends Controller
             $bid->save();
             $auction->save();
                 
-            if(!is_null($auctionHighestBid) && $bid_type == "buy-now" && $auctionHighestBid->authorid != Auth::user()->id) {
+            if(!is_null($auctionHighestBid) && $auctionHighestBid->authorid != Auth::user()->id) {
                 $notification = new Notification();
                 $notification->recipientid = $auctionHighestBid->authorid;
                 $notification->contextbid = $id;
@@ -115,7 +115,7 @@ class BidController extends Controller
             return back()->withErrors(['value' => 'You are not allowed to perform that action']);
         }
 
-        return redirect()->to('auctions/'.$request->input('id'));
+        return redirect()->to('auctions/'.$request->input('id'))->withSuccess(['Your bid was successfully placed!']);
     }
 
     /**

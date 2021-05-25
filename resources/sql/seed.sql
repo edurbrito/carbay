@@ -387,10 +387,11 @@ BEGIN
     RAISE EXCEPTION 'A user can only delete its account if there are no active auctions where he is the seller.';
     END IF;
     IF EXISTS 
-        (SELECT * FROM 
-                (SELECT bid.auctionID, MAX(bid.value) AS value, MAX(bid.id) AS id, MAX(bid.authorID) AS authorID 
-                FROM bid GROUP BY bid.auctionID ORDER BY bid.auctionID) AS N
-            WHERE N.authorID = OLD.id)
+        (SELECT bid.id, bid.value, bid.authorID FROM bid 
+        WHERE bid.id IN 
+            (SELECT MAX(bid.id) 
+            FROM bid GROUP BY bid.auctionID) 
+        AND bid.authorID = OLD.id)
     THEN 
     RAISE EXCEPTION 'A user can only delete its account if he is not the author of any highest bid.';
     END IF;

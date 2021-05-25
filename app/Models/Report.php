@@ -40,4 +40,13 @@ class Report extends Model
         else if (!is_null($this->locationregisteredid))
             return User::find($this->locationregisteredid);
     }
+    
+    public function rdate()
+    {
+        $matches = null;
+        if(preg_match('/.+(?=:)/', $this->datehour, $matches))
+            return $matches[0];
+
+        return $this->datehour;
+    }
 }

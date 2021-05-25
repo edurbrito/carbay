@@ -2,10 +2,12 @@ function update_bids() {
 
     div_bids = document.querySelector("#bids-list")
     last_bid_value = document.querySelector("#last-bid-value")
+    bid_value = document.querySelector("#bid-value")
     div_bids.innerHTML = JSON.parse(this.response).content;
 
     try {
         last_bid_value.innerHTML = div_bids.querySelector("li > p:last-child").innerHTML
+        bid_value.innerHTML = div_bids.querySelector("li > p:last-child").innerHTML
     } catch (error) {
         
     }
@@ -47,6 +49,17 @@ setInterval(update_content, 1000)
 comment_form = document.querySelector("#send-comment-form")
 comment_form.addEventListener('submit', comment)
 text = comment_form.querySelector("#send-comment")
+bid_value = document.querySelector("#bid-value")
+buy_now_warning = document.querySelector("#buy-now-warning")
+
+if(buy_now_warning != null)
+    bid_value.addEventListener("change", () => {
+        buy_now = buy_now_warning.getAttribute("data-buynow")
+        if(parseInt(bid_value.value) >= parseInt(buy_now))
+            buy_now_warning.hidden = false
+        else
+            buy_now_warning.hidden = true
+    })
 
 function comment(e) {
     e.preventDefault()

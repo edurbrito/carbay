@@ -87,22 +87,24 @@ $show_rate = $ended && $winner && $not_rated;
     1:18
     <br>
     @php
-    $seller_username=$auction->seller_username()
+      $seller_username = "[deleted]";
+      if(!is_null($auction->seller))
+        $seller_username=$auction->seller_username();
     @endphp
     <strong>Seller:</strong><a href="/users/{{ $seller_username }}" class="ml-2">{{ $seller_username }}</a>
-    @if(Auth::check() && Auth::user()->id != $auction->seller->id)
+    @if(Auth::check() && Auth::user()->id != $auction->seller->id && !is_null($auction->seller))
     <span class="report-button ml-2" data-id="{{$auction->id}}" data-location="2" data-username="{{ $auction->seller_username() }}" data-bs-toggle="modal" data-bs-target="#report-user" role="button">
       <i style="font-size: 0.8rem; color: red;" class="far fa-flag"></i>
     </span>
     @endif
   </p>
-  @if (Auth::check() && !Auth::user()->admin && !($auction->finaldate <= NOW())) 
-  @if(!is_null($auction->buynow))
-    <button class="btn btn-dark text-light text-center btn" data-bs-toggle="modal" data-bs-target="#buy-now" role="button">Buy Now</button>
-    @endif
-    <button class="btn btn-success text-light text-center btn" data-bs-toggle="modal" data-bs-target="#place-bid" role="button">Place Bid</button>
+    @if (Auth::check() && !Auth::user()->admin && !($auction->finaldate <= NOW())) 
+        @if(!is_null($auction->buynow))
+        <button class="btn btn-dark text-light text-center btn" data-bs-toggle="modal" data-bs-target="#buy-now" role="button">Buy Now</button>
+        @endif
+        <button class="btn btn-success text-light text-center btn" data-bs-toggle="modal" data-bs-target="#place-bid" role="button">Place Bid</button>
     @elseif(Auth::check() && $show_rate)
-    <button class="btn btn-success text-light text-center btn" data-bs-toggle="modal" data-bs-target="#show-rate" role="button" id="rating-button">Leave Rating</button>
+      <button class="btn btn-success text-light text-center btn" data-bs-toggle="modal" data-bs-target="#show-rate" role="button" id="rating-button">Leave Rating</button>
     @endif
     @if ($errors->has('value'))
     <div onclick="this.hidden = true" class="alert alert-danger alert-dismissible fade show my-3 p-1 px-2" style="width: fit-content;" role="alert">
@@ -185,6 +187,8 @@ $show_rate = $ended && $winner && $not_rated;
         {{ csrf_field() }}
         <input hidden type="text" name="bid_type" id="bid_type" value="bid">
         <input type="number" hidden name="id" id="bid-form-auction-id" value="{{ $auction->id }}">
+        <div class="d-flex flex-column">
+        <div>
         <label class="form-check-label mt-2 text-primary" for="bid-form-value">
           Bid Value:
         </label>
@@ -192,7 +196,14 @@ $show_rate = $ended && $winner && $not_rated;
         $highest_bid = $auction->highest_bid();
         $value = !is_null($highest_bid) ? $highest_bid->value + 0.01 : $auction->startingprice;
         ?>
-        <input type="number" min="{{ $value }}" placeholder="100" step="0.01" name="value" id="bid-form-value" required value="{{ $value }}">
+        <input type="number" id="bid-value" min="{{ $value }}" placeholder="100" step="0.01" name="value" id="bid-form-value" required value="{{ $value }}">
+        </div>
+        @if(!is_null($auction->buynow))
+        <span id="buy-now-warning" class="mt-2" style="color: grey;" data-buynow="{{$auction->buynow}}" hidden>
+        Your bid is greater than the Buy Now value. This will end the auction immediately with a final bid value equal to {{$auction->buynow}}$.
+        </span>
+        @endif
+        </div>
         <div class="d-flex justify-content-end mt-3">
           <button type="button" class="btn btn-primary mr-2" data-bs-dismiss="modal" aria-label="Dismiss">Dismiss</button>
           <button type="submit" class="btn btn-success">Place Bid</button>
@@ -210,7 +221,7 @@ $show_rate = $ended && $winner && $not_rated;
         <h5 class="modal-title" id="notifications">What is the issue?</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <form id="modal-form" method="POST" action="/users/{{ $auction->seller_username() }}/report" class="modal-body text-primary">
+      <form id="modal-form" method="POST" @if(!is_null($auction->seller))action="/users/{{ $auction->seller_username() }}/report"@endif class="modal-body text-primary">
         {{ csrf_field() }}
         <input type="number" hidden id="location-input" name="location" required value="2"></input>
         <input type="number" hidden id="id-input" name="id" required value="{{ $auction->id }}"></input>

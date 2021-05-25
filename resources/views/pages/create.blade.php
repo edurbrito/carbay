@@ -57,7 +57,7 @@
                             <div class="input-group-prepend rounded-0">
                                 <span class="input-group-text rounded-0" id="start-bid">Starting Bid</span>
                             </div>
-                            <input value=@if(!is_null(old('starting-price'))){{ old('starting-price') }}@else 1 @endif type="number" name="starting-price" min="1" max="100000" class="form-control" aria-label="Small" aria-describedby="start-bid" required>
+                            <input value=@if(!is_null(old('starting-price'))){{ old('starting-price') }}@else 1 @endif type="number" name="starting-price" min="1" max="100000" class="form-control" aria-label="Small" aria-describedby="start-bid" onchange="document.querySelector('#buy-now-value').value = parseInt(this.value) + 1" required>
                             <div class="input-group-append rounded-0">
                                 <span class="input-group-text rounded-0">$</span>
                             </div>
@@ -97,13 +97,13 @@
                     </div> -->
                     <div class="col-12 col-sm-6 row flex-row mb-3 pr-0">
                         <div class="col-6">
-                        <input @if(!is_null(old('buy-now-value'))) checked @endif type="checkbox" id="buy-now" onchange="document.getElementById('buy-now-input-group').hidden = !this.checked;">
+                        <input @if(!is_null(old('buy-now'))) checked @endif type="checkbox" id="buy-now" name="buy-now" onchange="document.getElementById('buy-now-input-group').hidden = !this.checked;">
                         <label for="buy-now">
                             Buy Now
                         </label>
                         </div>
                         <div class="input-group input-group-sm col-6 p-0" id="buy-now-input-group" @if(is_null(old('buy-now-value'))) hidden @endif>
-                            <input value="{{ old('buy-now-value') }}" type="number" name="buy-now-value" min="1" max="1000000" class="form-control rounded-0" aria-label="Small" aria-describedby="buy-now" id="buy-now-value">
+                            <input value=@if(!is_null(old('buy-now-value'))){{ old('buy-now-value') }}@else 1 @endif type="number" name="buy-now-value" id="buy-now-value" min="1" max="1000000" class="form-control rounded-0" aria-label="Small" aria-describedby="buy-now" id="buy-now-value">
                             <div class="input-group-append">
                                 <span class="input-group-text rounded-0" id="inputGroup-sizing-sm">$</span>
                             </div>
