@@ -8,8 +8,14 @@
 
 $ended = $auction->time_remaining() == "Ended";
 $winner = false;
+$seller = false;
+$winnerUser = false;
 if(!is_null($auction->highest_bid()) && Auth::check())
 $winner = $auction->highest_bid()->authorid == Auth::user()->id;
+if($ended)
+$winnerUser = App\Models\User::find($auction->highest_bid()->authorid);
+if(Auth::check())
+$seller = $auction->sellerid == Auth::user()->id;
 $not_rated = is_null($auction->rating());
 
 $show_rate = $ended && $winner && $not_rated;
@@ -63,7 +69,7 @@ $show_rate = $ended && $winner && $not_rated;
     <i class="fas fa-ban align-self-center mr-2" style="color: red;"></i>
     <span style="color: red !important;">Suspended</span>
     @else
-    @if(Auth::check() && $ended && $winner)YOU WON THIS AUCTION!@else<span title="Time Remaining" id="time-remaining" data-time="{{$auction->finaldate}}"><i class="far fa-clock"></i> <span id="time-remaining-value">{{$auction->time_remaining()}}</span></span>@endif
+    @if(Auth::check() && $ended && $winner)YOU WON THIS AUCTION!@elseif(Auth::check() && $ended && $seller && $winnerUser==null)[deleted] WON THIS AUCTION!@elseif(Auth::check() && $ended && $seller)<a href="/users/{{ $winnerUser->username }}">{{ $winnerUser->username }}</a> WON THIS AUCTION!@else<span title="Time Remaining" id="time-remaining" data-time="{{$auction->finaldate}}"><i class="far fa-clock"></i> <span id="time-remaining-value">{{$auction->time_remaining()}}</span></span>@endif
     @endif
   </p>
   <p class="fs-4">

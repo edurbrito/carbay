@@ -172,7 +172,7 @@ CREATE TABLE HelpMessage (
 CREATE TABLE Rating (
     id                      SERIAL,
     auctionID               SERIAL,
-    winnerID                SERIAL,
+    winnerID                INTEGER,
     value                   INTEGER NOT NULL,
     dateHour                TIMESTAMP WITH TIME zone DEFAULT now() NOT NULL,
     comment                 VARCHAR(300) NOT NULL,
@@ -391,7 +391,7 @@ BEGIN
         WHERE bid.id IN 
             (SELECT MAX(bid.id) 
             FROM bid GROUP BY bid.auctionID) 
-        AND bid.authorID = OLD.id)
+        AND bid.authorID = OLD.id AND bid.auctionID in (SELECT auction.id FROM auction WHERE finalDate > NOW()))
     THEN 
     RAISE EXCEPTION 'A user can only delete its account if he is not the author of any highest bid.';
     END IF;

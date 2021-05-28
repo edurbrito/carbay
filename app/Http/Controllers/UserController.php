@@ -314,7 +314,7 @@ class UserController extends Controller
             $result = "";
 
             foreach($auctions as $auction) {
-                if(Auth::user()->username == $username || !$auction->suspend)
+                if(Auth::check() && Auth::user()->username == $username || !$auction->suspend)
                     $result .= view("partials.profile.auction", ["auction" => $auction])->render() . "\n";
             }
 
