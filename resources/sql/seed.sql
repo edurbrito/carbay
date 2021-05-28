@@ -250,6 +250,7 @@ CREATE TABLE Bid (
 CREATE TABLE Notification (
     id                      SERIAL,
     viewed                  BOOLEAN DEFAULT FALSE NOT NULL,
+    deleted                 BOOLEAN DEFAULT FALSE NOT NULL,
     dateHour                TIMESTAMP WITH TIME zone DEFAULT now() NOT NULL,
     recipientID             INTEGER NOT NULL,
     contextRating           INTEGER DEFAULT NULL,

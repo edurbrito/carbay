@@ -18,7 +18,7 @@ class Notification extends Model
      * @var array
      */
     protected $fillable = [
-        'viewed', 'datehour', 'recipientid', 'contextrating', 'contextrate', 'contexthelpmessage', 'contextfavseller', 'contextbid', 'contextfavauction'
+        'viewed', 'deleted', 'datehour', 'recipientid', 'contextrating', 'contextrate', 'contexthelpmessage', 'contextfavseller', 'contextbid', 'contextfavauction'
     ];
 
     public function recipient()
