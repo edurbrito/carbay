@@ -113,4 +113,57 @@ class User extends Authenticatable
         $auction = FavouriteAuction::where('userid', '=', $this->id)->where('auctionid', '=', $auctionid)->exists();
         return $auction;
     }
+
+    public function money_spent()
+    {
+        $value = 0;
+        foreach ($this->bids as $bid) {
+            $auction = $bid->bidAuction;
+            if ($auction->finaldate < now() && $bid->id == $auction->highest_bid()->id) {
+                $value += $bid->value;
+            }
+        }
+        return $value . " $";
+    }
+
+    public function auctions_won()
+    {
+        $auctions = 0;
+        foreach ($this->bids as $bid) {
+            $auction = $bid->bidAuction;
+            if ($auction->finaldate < now() && $bid->id == $auction->highest_bid()->id) {
+                $auctions += 1;
+            }
+        }
+        return $auctions;
+    }
+
+    public function money_earned()
+    {
+        $value = 0;
+        foreach ($this->auctions as $auction) {
+            $highest_bid = $auction->highest_bid();
+            if ($auction->finaldate < now() && !is_null($highest_bid)) {
+                $value += $highest_bid->value;
+            }
+        }
+        return $value . " $";
+    }
+
+    public function models_sold()
+    {
+        $models = 0;
+        foreach ($this->auctions as $auction) {
+            if ($auction->finaldate < now() && $auction->bids->count() > 0) {
+                $models += 1;
+            }
+        }
+        return $models;
+    }
+
+    public function users_rated()
+    {
+        $ratings = Rating::where('winnerid', '=', $this->id);
+        return $ratings->count();
+    }
 }

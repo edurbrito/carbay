@@ -63,7 +63,7 @@ $myProfile = Auth::check() && (Auth::user()->username == $user->username);
       <div class="card">
         <div class="card-body">
           <h5 class="card-title text-primary text-center">Money Spent</h5>
-          <p class="card-text text-primary text-center display-6">427€</p>
+          <p class="card-text text-primary text-center display-6">{{ $user->money_spent() }}</p>
         </div>
       </div>
     </div>
@@ -71,7 +71,7 @@ $myProfile = Auth::check() && (Auth::user()->username == $user->username);
       <div class="card">
         <div class="card-body">
           <h5 class="card-title text-primary text-center">Auctions Won</h5>
-          <p class="card-text text-primary text-center display-6">4</p>
+          <p class="card-text text-primary text-center display-6">{{ $user->auctions_won() }}</p>
         </div>
       </div>
     </div>
@@ -79,7 +79,7 @@ $myProfile = Auth::check() && (Auth::user()->username == $user->username);
       <div class="card">
         <div class="card-body">
           <h5 class="card-title text-primary text-center">Bids Made</h5>
-          <p class="card-text text-primary text-center display-6">23</p>
+          <p class="card-text text-primary text-center display-6">{{ $user->bids->count() }}</p>
         </div>
       </div>
     </div>
@@ -90,7 +90,7 @@ $myProfile = Auth::check() && (Auth::user()->username == $user->username);
       <div class="card">
         <div class="card-body">
           <h5 class="card-title text-primary text-center">Money Earned</h5>
-          <p class="card-text text-primary text-center display-6">243€</p>
+          <p class="card-text text-primary text-center display-6">{{ $user->money_earned() }}</p>
         </div>
       </div>
     </div>
@@ -98,7 +98,7 @@ $myProfile = Auth::check() && (Auth::user()->username == $user->username);
       <div class="card">
         <div class="card-body">
           <h5 class="card-title text-primary text-center">Models Sold</h5>
-          <p class="card-text text-primary text-center display-6">2</p>
+          <p class="card-text text-primary text-center display-6">{{ $user->models_sold() }}</p>
         </div>
       </div>
     </div>
@@ -106,7 +106,7 @@ $myProfile = Auth::check() && (Auth::user()->username == $user->username);
       <div class="card">
         <div class="card-body">
           <h5 class="card-title text-primary text-center">Users Rated</h5>
-          <p class="card-text text-primary text-center display-6">14</p>
+          <p class="card-text text-primary text-center display-6">{{ $user->users_rated() }}</p>
         </div>
       </div>
     </div>
