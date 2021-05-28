@@ -24,50 +24,132 @@ function sendAjaxRequest(method, url, data, handler, headers = []) {
         request.send(encodeForAjax(data));
 }
 
-notification_list = document.querySelector("#notifications-list");
-notify_badge = document.querySelector(".notify-badge");
+function timeSince(date) {
 
-function set_notifications(){
-    response = JSON.parse(this.response)
+    var seconds = Math.floor((new Date() - date) / 1000);
+  
+    var interval = seconds / 31536000;
+  
+    if (interval > 1) {
+      return Math.floor(interval) + " years";
+    }
+    interval = seconds / 2592000;
+    if (interval > 1) {
+      return Math.floor(interval) + " months";
+    }
+    interval = seconds / 86400;
+    if (interval > 1) {
+      return Math.floor(interval) + " days";
+    }
+    interval = seconds / 3600;
+    if (interval > 1) {
+      return Math.floor(interval) + " hours";
+    }
+    interval = seconds / 60;
+    if (interval > 1) {
+      return Math.floor(interval) + " minutes";
+    }
+    return Math.floor(seconds) + " seconds";
+}
+
+notification_list = document.querySelectorAll(".notifications-list");
+notify_badge = document.querySelectorAll(".notify-badge");
+
+function set_notifications(response){
 
     if(response.result == "success"){
         content = response.content
         result = ""
+        not_viewed = false
         
-        if(response.content.length == 0){
-            notify_badge.setAttribute('hidden', '')
-            result = `<span class="text-center py-2">Nothing here for you...</span>`
-        }
-        else{
-            notify_badge.removeAttribute('hidden')
-            notify_badge.innerHTML = response.content.length
-        }
-
         for (let notification of content) {
-            result += `\n<li class="list-group-item list-group-item-action w-100 d-flex align-items-center justify-content-start rounded-0 flex-vertical border-0 border-bottom" 
-                                style="cursor: pointer;">
-                            <span class="text-primary fs-7 mb-0" onclick="view_notification(${notification.id}, '${notification.content.url}')">${notification.content.text}</span>
-                            <span class="ml-auto" onclick="view_notification(${notification.id})">
-                            <i  class="fas fa-trash"></i>
-                            </span>
-                        </li>`
+            
+                bold = notification.viewed ? "text-muted" : "font-weight-bold"
+
+                if(!notification.viewed)
+                    not_viewed = true
+
+                result += `<li><hr class="dropdown-divider"></li>`
+                result += `<li style="cursor: pointer;">
+                                <button class="dropdown-item btn-secondary d-flex flex-column px-2 ${bold}" type="button" onclick="view_notification(${notification.id}, '${notification.content.url}')">
+                                <div>
+                                ${notification.content.text}
+                                    <span class="ml-auto pl-2" onclick="view_notification(${notification.id})">
+                                        <i class="fas fa-trash"></i>
+                                    </span>
+                                </div>
+                                <span class="px-4 w-100" style="text-align: end; font-weight: normal;">${timeSince(new Date(notification.datehour)) + " ago"}</span>
+                                </button>
+                            </li>`
+            }
+        
+        return {"result": result, "not_viewed": not_viewed}
+    }
+}
+
+function add_notifications(){
+    response = JSON.parse(this.response)
+
+    if(response.result == "success" && response.content.length > 0) {
+        res = ""
+
+        res += `<button class="btn-sm btn-secondary border-0 p-0 fs-6 w-100 mt-1 clear-all">Clear all</button>`
+
+        notifications = set_notifications(response)
+        res += notifications.result
+
+
+        for (let list of notification_list) {
+            list.innerHTML += res
         }
 
-        notification_list.innerHTML = result
+        if(notifications.not_viewed){
+            for (let badges of notify_badge) {
+                badges.removeAttribute('hidden')
+                badges.innerHTML = "•"
+            }
+        }
+
+        clear_all = document.querySelectorAll(".clear-all")
+
+        for (let clear of clear_all) {
+            clear.addEventListener("click", () => {
+                sendAjaxRequest('GET', '/api/users/notifications/clear', {}, add_notifications, [{ name: 'Accept', value: 'application/json' }]);
+            })            
+        }
+    }
+    else{
+        for (let list of notification_list) {
+            list.innerHTML = `<li><button class="dropdown-item btn-secondary" type="button">Nothing here for you...</button></li>`
+        } 
+
+        for (let badges of notify_badge) {
+            badges.setAttribute('hidden', '')
+        }
     }
 }
 
 function get_notifications(){
-    sendAjaxRequest('GET', '/api/users/notifications', {}, set_notifications, [{ name: 'Accept', value: 'application/json' }]);
+
+    for (let list of notification_list) {
+        list.innerHTML = ""
+    } 
+
+    sendAjaxRequest('GET', '/api/users/notifications', {}, add_notifications, [{ name: 'Accept', value: 'application/json' }]);    
 }
 
 function view_notification(id, href = null){
-    sendAjaxRequest('GET', '/api/users/notifications/viewed', {'id': id}, set_notifications, [{ name: 'Accept', value: 'application/json' }]);
-    if(href)
+    
+    if(href){
+        sendAjaxRequest('GET', '/api/users/notifications/view', {'id': id, "action" : "view"}, add_notifications, [{ name: 'Accept', value: 'application/json' }]);
         location.href = href;
+    }
+    else{
+        sendAjaxRequest('GET', '/api/users/notifications/delete', {'id': id, "action" : "delete"}, add_notifications, [{ name: 'Accept', value: 'application/json' }]);
+    }
 }
 
-if(notification_list != null){
+if(notification_list.length > 0){
     get_notifications()
     setInterval(get_notifications, 5000)
 }

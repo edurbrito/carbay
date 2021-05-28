@@ -14,12 +14,25 @@
                     <a href="/auctions/search" class="text-decoration-none text-reset"><i class="fas fa-search"></i><span class="d-lg-none .d-xl-block"> Search</span></a>
                 </li>
                 @if(Auth::check())
-                    @if(Auth::user()->admin)
-                        <li class="nav-item navbar-brand mr-0 mr-lg-4 scale-objects"><a href="/admin" class="text-decoration-none text-reset"><i class="fas fa-user-shield"></i><span class="d-lg-none .d-xl-block"> Admin Panel</span></a></li>
-                    @else
-                        <li class="nav-item navbar-brand mr-0 mr-lg-4 scale-objects"><a href="/auctions/create" class="text-decoration-none text-reset"><i class="fas fa-plus"></i><span class="d-lg-none .d-xl-block"> Create Auction</span></li>
-                    @endif
-                <li class="nav-item navbar-brand mr-0 mr-lg-4 scale-objects"><a data-bs-toggle="modal" data-bs-target="#notifications" class="text-decoration-none text-reset notify-wrapper" style="cursor: pointer;"><i class="fas fa-bell"></i><span class="notify-badge" hidden>0</span><span class="d-lg-none .d-xl-block"> Notifications</span></a></li>
+                @if(Auth::user()->admin)
+                <li class="nav-item navbar-brand mr-0 mr-lg-4 scale-objects"><a href="/admin" class="text-decoration-none text-reset"><i class="fas fa-user-shield"></i><span class="d-lg-none .d-xl-block"> Admin Panel</span></a></li>
+                @else
+                <li class="nav-item navbar-brand mr-0 mr-lg-4 scale-objects"><a href="/auctions/create" class="text-decoration-none text-reset"><i class="fas fa-plus"></i><span class="d-lg-none .d-xl-block"> Create Auction</span></li>
+                @endif
+                <li class="nav-item navbar-brand mr-0 mr-lg-4 scale-objects d-md-none"><a data-bs-toggle="modal" data-bs-target="#notifications" class="text-decoration-none text-reset notify-wrapper" style="cursor: pointer;"><i class="fas fa-bell"></i><span class="notify-badge" hidden>0</span><span class="d-lg-none .d-xl-block"> Notifications</span></a></li>
+                <div class="dropdown d-none d-md-block">
+                    <li class="nav-item navbar-brand mr-0 mr-lg-4 scale-objects dropdown-toggle" style="right: 0; left: auto;" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="text-decoration-none text-reset notify-wrapper" style="cursor: pointer;">
+                            <i class="fas fa-bell"></i>
+                                <span class="notify-badge" hidden>•</span>
+                                <span class="d-lg-none .d-xl-block"> Notifications</span>
+                        </a>
+                    </li>
+                    <ol class="dropdown-menu py-1 px-2 notifications-list hide-scroll" style="right: 0; left: auto; overflow-y: scroll; max-height: 200px;" aria-labelledby="dropdownMenu2">
+                        <li><button class="dropdown-item" type="button">Nothing here for you...</button></li>
+                        <button class="btn-sm btn-secondary border-0 p-0 fs-6 w-100">Clear all</button>
+                    </ol>
+                </div>
                 <li class="nav-item navbar-brand mr-0 mr-lg-4 scale-objects-sm"><a href="/users/{{ Auth::user()->username }}" class="text-decoration-none text-reset"><i class="fas fa-user-circle"></i> {{ Auth::user()->username }}</a></li>
                 <li class="nav-item navbar-brand mr-0 mr-lg-4 scale-objects"><a href="/logout" class="text-decoration-none text-reset"><i class="fas fa-sign-out-alt"></i><span class="d-lg-none .d-xl-block"> Log Out</span></a></li>
                 @else
@@ -42,14 +55,14 @@
 @if(Auth::check())
 <!-- Modal -->
 <div class="modal fade" id="notifications" tabindex="-1" aria-labelledby="notifications" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="notifications">Notifications</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body p-1">
-                <ol class="list-group rounded-0 border-0" id="notifications-list">
+                <ol class="list-group rounded-0 border-0 py-2 notifications-list hide-scroll" style=" overflow-y: scroll; max-height: 300px;">
                     <span class="text-center">Nothing here for you...</span>
                 </ol>
             </div>

@@ -81,13 +81,13 @@ class NotificationController extends Controller
         if(!Auth::check())
             return json_encode(["result" => "login"]);
 
-        $notifications = Notification::where("recipientid", "=", Auth::user()->id)->whereRaw("viewed = FALSE")->limit(5)->orderBy("id", "desc")->get();
+        $notifications = Notification::where("recipientid", "=", Auth::user()->id)->whereRaw("deleted = FALSE")->orderBy("id", "desc")->limit(20)->get();
         $result = [];
 
         foreach($notifications as $notification){
             
             if(is_null($notification->contexthelpmessage))
-                array_push($result, ["id" => $notification->id , "content" => $this->get_text($notification)]);
+                array_push($result, ["id" => $notification->id , "content" => $this->get_text($notification), "datehour" => $notification->datehour, "viewed" => $notification->viewed ]);
         }
 
         return json_encode(["result" => "success", "content" => $result]);
@@ -126,7 +126,13 @@ class NotificationController extends Controller
         $notification = Notification::find($request->input('id'));
 
         if($notification->recipientid == Auth::user()->id){
-            $notification->viewed = "TRUE";
+            $action = $request->input('action');
+
+            if($action == "delete")
+                $notification->deleted = "TRUE";
+            else if($action == "view")
+                $notification->viewed = "TRUE";
+
             $notification->save();
             return $this->show();
         }
@@ -139,8 +145,19 @@ class NotificationController extends Controller
      * @param  \App\Models\Notification  $notification
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Notification $notification)
+    public function destroy()
     {
-        //
+        if(!Auth::check())
+            return json_encode(["result" => "login"]);
+
+        $notifications = Notification::where("recipientid", "=", Auth::user()->id)->get();
+
+        foreach ($notifications as $notification) {
+            $notification->deleted = "TRUE";
+            $notification->viewed = "TRUE";
+            $notification->save();
+        }
+
+        return $this->show();
     }
 }
