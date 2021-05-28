@@ -54,33 +54,29 @@ function timeSince(date) {
 
 notification_list = document.querySelectorAll(".notifications-list");
 notify_badge = document.querySelectorAll(".notify-badge");
+clear_all = document.querySelectorAll(".clear-all")
 
-function set_notifications(response){
+function parse_notification(response){
 
     if(response.result == "success"){
-        content = response.content
-        result = ""
-        not_viewed = false
+        let content = response.content
+        let result = ""
+        let not_viewed = false
         
         for (let notification of content) {
             
-                bold = notification.viewed ? "text-muted" : "font-weight-bold"
+                let bold = notification.viewed ? "text-muted" : "font-weight-bold"
 
                 if(!notification.viewed)
                     not_viewed = true
 
-                result += `<li><hr class="dropdown-divider"></li>`
-                result += `<li style="cursor: pointer;">
+                result += `<li class="py-2" style="cursor: pointer;">
                                 <button class="dropdown-item btn-secondary d-flex flex-column px-2 ${bold}" type="button" onclick="view_notification(${notification.id}, '${notification.content.url}')">
-                                <div>
                                 ${notification.content.text}
-                                    <span class="ml-auto pl-2" onclick="view_notification(${notification.id})">
-                                        <i class="fas fa-trash"></i>
-                                    </span>
-                                </div>
-                                <span class="px-4 w-100" style="text-align: end; font-weight: normal;">${timeSince(new Date(notification.datehour)) + " ago"}</span>
+                                <span class="w-100 grey" style="text-align: end; font-weight: normal;">${timeSince(new Date(notification.datehour)) + " ago"}</span>
                                 </button>
                             </li>`
+                result += `<li><hr class="dropdown-divider my-0"></li>`
             }
         
         return {"result": result, "not_viewed": not_viewed}
@@ -88,19 +84,16 @@ function set_notifications(response){
 }
 
 function add_notifications(){
-    response = JSON.parse(this.response)
+    let response = JSON.parse(this.response)
 
     if(response.result == "success" && response.content.length > 0) {
-        res = ""
+        let result = ""
 
-        res += `<button class="btn-sm btn-secondary border-0 p-0 fs-6 w-100 mt-1 clear-all">Clear all</button>`
-
-        notifications = set_notifications(response)
-        res += notifications.result
-
+        notifications = parse_notification(response)
+        result += notifications.result
 
         for (let list of notification_list) {
-            list.innerHTML += res
+            list.innerHTML = result
         }
 
         if(notifications.not_viewed){
@@ -110,9 +103,8 @@ function add_notifications(){
             }
         }
 
-        clear_all = document.querySelectorAll(".clear-all")
-
         for (let clear of clear_all) {
+            clear.hidden = false
             clear.addEventListener("click", () => {
                 sendAjaxRequest('GET', '/api/users/notifications/clear', {}, add_notifications, [{ name: 'Accept', value: 'application/json' }]);
             })            
@@ -120,32 +112,30 @@ function add_notifications(){
     }
     else{
         for (let list of notification_list) {
-            list.innerHTML = `<li><button class="dropdown-item btn-secondary" type="button">Nothing here for you...</button></li>`
+            list.innerHTML = `<li><button class="dropdown-item px-6" type="button">Nothing here for you...</button></li>`
         } 
 
         for (let badges of notify_badge) {
             badges.setAttribute('hidden', '')
         }
+
+        for (let clear of clear_all) {
+            clear.hidden = true
+            clear.addEventListener("click", () => {
+                sendAjaxRequest('GET', '/api/users/notifications/clear', {}, add_notifications, [{ name: 'Accept', value: 'application/json' }]);
+            })            
+        }
     }
 }
 
 function get_notifications(){
-
-    for (let list of notification_list) {
-        list.innerHTML = ""
-    } 
-
     sendAjaxRequest('GET', '/api/users/notifications', {}, add_notifications, [{ name: 'Accept', value: 'application/json' }]);    
 }
 
-function view_notification(id, href = null){
-    
+function view_notification(id, href){
     if(href){
-        sendAjaxRequest('GET', '/api/users/notifications/view', {'id': id, "action" : "view"}, add_notifications, [{ name: 'Accept', value: 'application/json' }]);
+        sendAjaxRequest('GET', '/api/users/notifications/view', {'id': id}, add_notifications, [{ name: 'Accept', value: 'application/json' }]);
         location.href = href;
-    }
-    else{
-        sendAjaxRequest('GET', '/api/users/notifications/delete', {'id': id, "action" : "delete"}, add_notifications, [{ name: 'Accept', value: 'application/json' }]);
     }
 }
 

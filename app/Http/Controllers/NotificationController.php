@@ -126,13 +126,7 @@ class NotificationController extends Controller
         $notification = Notification::find($request->input('id'));
 
         if($notification->recipientid == Auth::user()->id){
-            $action = $request->input('action');
-
-            if($action == "delete")
-                $notification->deleted = "TRUE";
-            else if($action == "view")
-                $notification->viewed = "TRUE";
-
+            $notification->viewed = "TRUE";
             $notification->save();
             return $this->show();
         }

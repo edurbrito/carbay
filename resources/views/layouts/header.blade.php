@@ -21,16 +21,18 @@
                 @endif
                 <li class="nav-item navbar-brand mr-0 mr-lg-4 scale-objects d-md-none"><a data-bs-toggle="modal" data-bs-target="#notifications" class="text-decoration-none text-reset notify-wrapper" style="cursor: pointer;"><i class="fas fa-bell"></i><span class="notify-badge" hidden>0</span><span class="d-lg-none .d-xl-block"> Notifications</span></a></li>
                 <div class="dropdown d-none d-md-block">
-                    <li class="nav-item navbar-brand mr-0 mr-lg-4 scale-objects dropdown-toggle" style="right: 0; left: auto;" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
+                    <li class="nav-item navbar-brand mr-0 mr-lg-4 scale-objects dropdown-toggle" style="right: 0; left: auto;" type="button" id="dropdown-notifications" data-bs-toggle="dropdown" aria-expanded="false">
                         <a class="text-decoration-none text-reset notify-wrapper" style="cursor: pointer;">
                             <i class="fas fa-bell"></i>
-                                <span class="notify-badge" hidden>•</span>
-                                <span class="d-lg-none .d-xl-block"> Notifications</span>
+                            <span class="notify-badge" hidden>•</span>
+                            <span class="d-lg-none .d-xl-block"> Notifications</span>
                         </a>
                     </li>
-                    <ol class="dropdown-menu py-1 px-2 notifications-list hide-scroll" style="right: 0; left: auto; overflow-y: scroll; max-height: 200px;" aria-labelledby="dropdownMenu2">
-                        <li><button class="dropdown-item" type="button">Nothing here for you...</button></li>
-                        <button class="btn-sm btn-secondary border-0 p-0 fs-6 w-100">Clear all</button>
+                    <ol class="dropdown-menu hide-scroll p-0 rounded-0" style="right: 0; left: auto;" aria-labelledby="dropdown-notifications">
+                        <div class="notifications-list hide-scroll" style="overflow-y: scroll; max-height: 200px;">
+                            <li><button class="dropdown-item px-6" type="button">Nothing here for you...</button></li>
+                        </div>
+                        <button class="btn-sm btn-primary border-0 py-1 fs-6 w-100 clear-all">Clear all</button>
                     </ol>
                 </div>
                 <li class="nav-item navbar-brand mr-0 mr-lg-4 scale-objects-sm"><a href="/users/{{ Auth::user()->username }}" class="text-decoration-none text-reset"><i class="fas fa-user-circle"></i> {{ Auth::user()->username }}</a></li>
@@ -62,8 +64,11 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body p-1">
-                <ol class="list-group rounded-0 border-0 py-2 notifications-list hide-scroll" style=" overflow-y: scroll; max-height: 300px;">
-                    <span class="text-center">Nothing here for you...</span>
+                <ol class="list-group rounded-0 border-0 py-2 hide-scroll">
+                    <div class="notifications-list hide-scroll" style="overflow-y: scroll; max-height: 300px;">
+                        <li><button class="dropdown-item px-6" type="button">Nothing here for you...</button></li>
+                    </div>
+                    <button class="btn-sm btn-secondary border-0 py-1 fs-6 w-100 clear-all">Clear all</button>
                 </ol>
             </div>
         </div>
