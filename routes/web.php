@@ -68,7 +68,6 @@ Route::delete('users/{username}/delete', 'UserController@destroy');
 Route::get('api/users','UserController@index');
 Route::get('api/users/notifications','NotificationController@show');
 Route::get('api/users/notifications/view','NotificationController@update');
-Route::get('api/users/notifications/delete','NotificationController@update');
 Route::get('api/users/notifications/clear','NotificationController@destroy');
 Route::post('api/users/fav_sellers/add', 'FavouriteSellerController@store');
 Route::post('api/users/fav_sellers/remove', 'FavouriteSellerController@destroy');
