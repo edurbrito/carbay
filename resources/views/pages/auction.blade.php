@@ -92,7 +92,7 @@ $nr_bids = $auction->bids->count();
     {{ $auction->brand_name() }}
     <br>
     <strong>Scale:</strong>
-    1:18
+    {{ $auction->scaletype }}
     <br>
     @php
       $seller_username = "[deleted]";
