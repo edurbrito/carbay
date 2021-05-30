@@ -1136,16 +1136,19 @@ INSERT INTO Comment (text, datehour, authorid, auctionid) VALUES ('penatibus et 
 INSERT INTO Comment (text, datehour, authorid, auctionid) VALUES ('integer ac neque duis bibendum morbi non quam nec dui luctus rutrum nulla tellus in sagittis', '2021-03-05 13:34:59', 73, 19);
 INSERT INTO Comment (text, datehour, authorid, auctionid) VALUES ('parturient montes nascetur ridiculus mus vivamus vestibulum sagittis sapien cum sociis natoque', '2021-03-08 18:44:58', 159, 9);
 
-INSERT INTO Report (reason, dateHour, reporterID, stateType, locationAuctionID) VALUES ('ipsum integer a nibh in quis justo maecenas rhoncus aliquam lacus morbi', '2020-06-22 21:27:33', 96, 'Banned',1);
-INSERT INTO Report (reason, dateHour, reporterID, stateType, locationCommentID) VALUES ('luctus nec molestie sed justo pellentesque viverra pede ac diam', '2020-02-28 06:16:29', 66, 'Banned',4);
-INSERT INTO Report (reason, dateHour, reporterID, stateType, locationRegisteredID) VALUES ('neque vestibulum eget vulputate ut ultrices vel augue vestibulum ante ipsum primis', '2021-03-09 04:49:21', 29, 'Waiting',23);
-INSERT INTO Report (reason, dateHour, reporterID, stateType, locationRegisteredID) VALUES ('turpis sed ante vivamus tortor duis mattis egestas metus aenean fermentum donec ut mauris eget massa tempor convallis nulla', '2020-03-10 17:03:15', 27, 'Banned',19);
-INSERT INTO Report (reason, dateHour, reporterID, stateType, locationAuctionID) VALUES ('hac habitasse platea dictumst maecenas ut massa quis augue luctus tincidunt nulla mollis molestie lorem quisque ut erat', '2020-06-13 14:08:03', 55, 'Banned',14);
-INSERT INTO Report (reason, dateHour, reporterID, stateType, locationCommentID) VALUES ('eros viverra eget congue eget semper rutrum nulla nunc purus phasellus in felis donec semper', '2021-03-23 13:52:29', 52, 'Discarded',12);
-INSERT INTO Report (reason, dateHour, reporterID, stateType, locationCommentID) VALUES ('id mauris vulputate elementum nullam varius nulla facilisi cras non velit nec nisi vulputate nonummy maecenas tincidunt', '2020-07-27 18:15:16', 57, 'Banned',7);
-INSERT INTO Report (reason, dateHour, reporterID, stateType, locationAuctionID) VALUES ('sit amet consectetuer adipiscing elit proin interdum mauris non ligula pellentesque ultrices phasellus id', '2020-01-13 01:57:43', 54, 'Discarded',18);
-INSERT INTO Report (reason, dateHour, reporterID, stateType, locationAuctionID) VALUES ('ac nulla sed vel enim sit amet nunc viverra dapibus nulla suscipit ligula in lacus curabitur at ipsum ac', '2021-03-25 17:29:40', 9, 'Discarded',11);
-INSERT INTO Report (reason, dateHour, reporterID, stateType, locationRegisteredID) VALUES ('massa quis augue luctus tincidunt nulla mollis molestie lorem quisque ut erat curabitur gravida nisi at nibh', '2020-08-03 11:57:05', 68, 'Banned',45);
+INSERT INTO Report (reason, dateHour, reporterID, stateType, locationAuctionID) VALUES ('Inappropriate auction! Goes against website rules.', '2020-06-22 21:27:33', 96, 'Banned',1);
+INSERT INTO Report (reason, dateHour, reporterID, stateType, locationAuctionID) VALUES ('I dont like sim so he should be banned', '2020-01-13 01:57:43', 54, 'Discarded',18);
+INSERT INTO Report (reason, dateHour, reporterID, stateType, locationCommentID) VALUES ('He is blackmailing everyone. Who does he think he is? Pablo Escobar?', '2020-02-28 06:16:29', 66, 'Waiting',4);
+INSERT INTO Report (reason, dateHour, reporterID, stateType, locationRegisteredID) VALUES ('Inappropriate profile image! I really shoudnt be here doing you job! I aint paid for this, i just like cars', '2020-03-10 17:03:15', 27, 'Waiting',19);
+INSERT INTO Report (reason, dateHour, reporterID, stateType, locationAuctionID) VALUES ('I dont like F1. This is supposed to be a car auction house, not a circus', '2020-06-13 14:08:03', 55, 'Waiting',14);
+INSERT INTO Report (reason, dateHour, reporterID, stateType, locationCommentID) VALUES ('Stop this guy. I bet tomorrow he will say the earth is dinosaur shaped lol', '2021-03-23 13:52:29', 52, 'Waiting',12);
+INSERT INTO Report (reason, dateHour, reporterID, stateType, locationCommentID) VALUES ('Pathetic comment haha. Ban!', '2020-07-27 18:15:16', 57, 'Waiting',7);
+INSERT INTO Report (reason, dateHour, reporterID, stateType, locationRegisteredID) VALUES ('Investigate this user, he is dangerous. I thi... I think he works for the FBI', '2020-08-03 11:57:05', 68, 'Waiting',45);
+INSERT INTO Report (reason, dateHour, reporterID, stateType, locationRegisteredID) VALUES ('He has the same profile image as i have. Unacceptable! Ban him!', '2021-03-09 04:49:21', 29, 'Waiting',23);
+INSERT INTO Report (reason, dateHour, reporterID, stateType, locationCommentID) VALUES ('Ban him! Look at the price! This is an attack to human integrity!', '2021-03-25 17:29:40', 93, 'Waiting',11);
+INSERT INTO Report (reason, dateHour, reporterID, stateType, locationCommentID) VALUES ('Look at the comment this user made! What was he thinking? Surely he will be banned ... right?', '2021-04-16 17:29:40', 111, 'Waiting',12);
+INSERT INTO Report (reason, dateHour, reporterID, stateType, locationCommentID) VALUES ('Inapropriate language, racist comments and offensive profile picture. Hamilton fan, sums it all...', '2021-04-16 17:29:40', 12, 'Waiting',27);
+INSERT INTO Report (reason, dateHour, reporterID, stateType, locationAuctionID) VALUES ('Why is this user still unbanned??', '2020-01-13 01:57:43', 54, 'Waiting',18);
 
 INSERT INTO Bid (value, dateHour, authorID, auctionID) VALUES (804, '2021-03-21 12:45:53', 129, 4);
 INSERT INTO Bid (value, dateHour, authorID, auctionID) VALUES (1001, '2021-03-21 12:46:53', 115, 2);
