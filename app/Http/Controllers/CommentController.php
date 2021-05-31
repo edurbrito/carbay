@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Error;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class CommentController extends Controller
 {
@@ -80,7 +81,7 @@ class CommentController extends Controller
 
             $comment = new Comment();
             $comment->datehour = now();
-            $comment->text = $request->input("comment");
+            $comment->text = Str::replace("'", "''", $request->input("comment"));
             $comment->authorid = Auth::user()->id;
             $comment->auctionid = $id;
             $comment->save();
