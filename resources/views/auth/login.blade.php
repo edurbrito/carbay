@@ -33,11 +33,11 @@
             <input type="checkbox" class="mr-1" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
             <a href="{{ route('password.forgot') }}" class="text-center ml-auto">Forgot your password?</a>
         </label>
-        <button class="btn btn-primary align-self-center w-75" type="submit" name="button" class="btn">Log In</button>
-        <span class="text-center mt-2">or Log In with </span>
-        <button class="btn btn-dark align-self-center mt-2 w-75" type="button" name="button" class="btn">Google</button>
-
+        <button class="btn btn-primary align-self-center w-75 mt-3" type="submit" name="button" class="btn">Log In</button>
         <span class="text-center mt-3">Don't have an account? <a href="{{ route('signup') }}" class="ml-2 text-danger">Sign Up</a></span>
     </form>
+<div class="row-sm-12 col-md-12 mt-0 text-center">
+    <img src="/images/logo.png" class="m-auto" style="max-height: 200px;">
+</div>
 </div>
 @endsection

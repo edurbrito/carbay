@@ -29,12 +29,12 @@ class ReportController extends Controller
         if($validated->fails())
             return json_encode(["result" => "error", "content" => $validated->errors()]);
 
-        $reports = Report::where('statetype', 'Waiting');
+        $reports = Report::where('statetype', 'Waiting')->join('user','report.reportedid','=','user.id')->select('report.*','user.username');
 
         $search = $request->input('search');
         if(!is_null($search) && !empty($search)){
             $search = strtolower($search);
-            $reports = $reports->whereRaw('LOWER(reason) LIKE ?', array('%' . $search . '%'));
+            $reports = $reports->whereRaw('LOWER(username) LIKE ?', array('%' . $search . '%'));
         }
 
         $reports = $reports->orderBy('datehour')->paginate(5);
@@ -102,6 +102,7 @@ class ReportController extends Controller
                 else
                     throw "You are not allowed to report that user!";
 
+                $report->reportedid = $report->reported()->id;
                 $report->save();
             }
             else{

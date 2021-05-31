@@ -8,7 +8,7 @@
             </span>
             @endif
         </div>
-        <p class="text-primary fs-6 mb-0 text-right float-right">{{substr($comment->datehour, 0, -6)}}</p>
+        <p class="text-primary fs-6 mb-0 text-right float-right">{{$comment->rdate()}}</p>
     </div>
     <p class="w-100 text-primary mb-0">{{$comment->text}}</p>
 </li>

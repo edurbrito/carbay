@@ -18,7 +18,9 @@
 </form>
 <div class="row mt-4">
     <div class="col-md-auto">
-        <h6 class="w-100 text-center p-4 d-none d-lg-block">Advanced Search</h6>
+        <h6 class="w-100 text-center p-4 d-none d-lg-block">Advanced Search 
+        <a tabindex="0" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-content="Change the parameters as you wish and press apply to modify your custom search."><i class="far fa-question-circle"></i></a>
+        </h6>
         <button class="btn btn-dark w-100 text-center p-4 d-lg-none .d-xl-block" data-bs-toggle="collapse" href="#advanced-form" role="button" aria-expanded="true" aria-controls="advanced-form">Advanced Search</button>
         <form id="advanced-form" class="collapse hide d-md-block mt-4">
             <button class="btn-md btn-secondary w-100 mb-4" type="button" id="reset-button">Reset</button>

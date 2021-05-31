@@ -45,12 +45,12 @@ class Auction extends Model
 
     public function bids()
     {
-        return $this->hasMany(Bid::class, 'auctionid');
+        return $this->hasMany(Bid::class, 'auctionid')->orderBy('value', 'desc');
     }
 
     public function comments()
     {
-        return $this->hasMany(Comment::class, 'auctionid');
+        return $this->hasMany(Comment::class, 'auctionid')->orderBy('datehour', 'desc');
     }
 
     public function first_image()
@@ -73,7 +73,7 @@ class Auction extends Model
 
     public function highest_bid()
     {
-        return $this->bids->last();
+        return $this->bids->first();
     }
 
     public function rating_value()

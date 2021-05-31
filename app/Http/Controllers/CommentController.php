@@ -80,8 +80,7 @@ class CommentController extends Controller
                 throw new Error();
 
             $comment = new Comment();
-            $comment->datehour = now();
-            $comment->text = Str::replace("'", "''", $request->input("comment"));
+            $comment->text = $request->input("comment");
             $comment->authorid = Auth::user()->id;
             $comment->auctionid = $id;
             $comment->save();

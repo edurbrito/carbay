@@ -57,10 +57,12 @@ $myProfile = Auth::check() && (Auth::user()->username == $user->username);
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body text-primary">
-        <span>This action cannot be reversed.</span>
+        <h6 class="text-danger fs-7 text-center">This action cannot be reversed.</h6>
+        <br>
+        <span>You can only delete your account if you do not have any ongoing auction or highest bids.</span>
         <br>
         <br>
-        <span>Insert your password to complete action:</span>
+        <span>Insert your password to complete the action:</span>
 
         <form action="/users/{{ $user->username }}/delete" method="POST">
           {{ csrf_field() }}

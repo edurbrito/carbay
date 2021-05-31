@@ -18,7 +18,7 @@ class Report extends Model
      * @var array
      */
     protected $fillable = [
-        'reason', 'datehour', 'reporterid', 'locationauctionid', 'locationcommentid', 'locationregisteredid', 'statetype'
+        'reason', 'datehour', 'reporterid', 'locationauctionid', 'locationcommentid', 'locationregisteredid', 'statetype', 'reportedid'
     ];
 
     public function location()

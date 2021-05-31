@@ -65,12 +65,12 @@
             </div>
         @endif
 
-        <button class="btn btn-primary align-self-center w-75" type="submit" name="button" class="btn">Sign Up</button>
-        <span class="text-center mt-2">or Sign Up with </span>
-        <button class="btn btn-dark align-self-center mt-2 w-75" type="button" name="button" class="btn">Google</button>
+        <button class="btn btn-primary align-self-center w-75 mt-3" type="submit" name="button" class="btn">Sign Up</button>
 
         <span class="text-center mt-3">Already have an account? <a href="{{ route('login') }}" class="ml-2 text-danger">Log In</a></span>
-        <!-- <a href="#" class="text-light text-center">Forgot your password?</a> -->
     </form>
+<div class="row-sm-12 col-md-12 mt-0 text-center">
+    <img src="/images/logo.png" class="m-auto" style="max-height: 200px;">
+</div>
 </div>
 @endsection

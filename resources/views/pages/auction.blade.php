@@ -71,7 +71,7 @@ $nr_bids = $auction->bids->count();
     <i class="fas fa-ban align-self-center mr-2" style="color: red;"></i>
     <span style="color: red !important;">Suspended</span>
     @else
-    @if(Auth::check() && $ended && $winner)YOU WON THIS AUCTION!@elseif(Auth::check() && $ended && $seller && $nr_bids == 0)THIS AUCTION ENDED WITH NO BIDS!@elseif(Auth::check() && $ended && $seller && $winnerUser==null)[deleted] WON THIS AUCTION!@elseif(Auth::check() && $ended && $seller)<a href="/users/{{ $winnerUser->username }}">{{ $winnerUser->username }}</a> WON THIS AUCTION!@else<span title="Time Remaining" id="time-remaining" data-time="{{$auction->finaldate}}"><i class="far fa-clock"></i> <span id="time-remaining-value">{{$auction->time_remaining()}}</span></span>@endif
+    @if(Auth::check() && $ended && $winner)YOU WON THIS AUCTION!@elseif(Auth::check() && $ended && $seller && $nr_bids == 0)THIS AUCTION ENDED WITH NO BIDS!@elseif(Auth::check() && $ended && $seller && $winnerUser==null)[deleted] WON THIS AUCTION!@elseif(Auth::check() && $ended && $seller)<a href="/users/{{ $winnerUser->username }}">{{ $winnerUser->username }}</a> WON THIS AUCTION!@else<a tabindex="0" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-content="Time Remaining" id="time-remaining" data-time="{{$auction->finaldate}}"><i class="far fa-clock"></i> <span id="time-remaining-value">{{$auction->time_remaining()}}</span></a>@endif
     @endif
   </p>
   <p class="fs-4">
@@ -140,12 +140,12 @@ $nr_bids = $auction->bids->count();
 </ul>
 <div class="tab-content" id="pills-tabContent">
   <div class="tab-pane" id="pills-bid-history" role="tabpanel" aria-labelledby="pills-bid-history-tab">
-    <ol id="bids-list" class="list-group rounded-0 hide-scroll" style="overflow-y: scroll; max-height: 40vh;">
+    <ol id="bids-list" class="list-group rounded-0 hide-scroll" style="overflow-y: scroll; max-height: 40vh; border-top: 1px solid rgba(0,0,0,.125); border-bottom: 1px solid rgba(0,0,0,.125);">
       @each('partials.auction.bid', $auction->bids ,'bid')
     </ol>
   </div>
   <div class="tab-pane show active" id="pills-chat" role="tabpanel" aria-labelledby="pills-chat-tab">
-    <ol id="comments-list" class="list-group rounded-0 hide-scroll" style="overflow-y: scroll; max-height: 40vh;">
+    <ol id="comments-list" class="list-group rounded-0 hide-scroll" style="overflow-y: scroll; max-height: 40vh; border-top: 1px solid rgba(0,0,0,.125); border-bottom: 1px solid rgba(0,0,0,.125);">
       @each('partials.auction.comment', $auction->comments ,'comment')
     </ol>
     <div class="d-flex bg-white align-content-center mt-1">
@@ -230,6 +230,7 @@ $nr_bids = $auction->bids->count();
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <form id="modal-form" method="POST" @if(!is_null($auction->seller))action="/users/{{ $auction->seller_username() }}/report"@endif class="modal-body text-primary">
+      <p>You are about to report this user. State your the reasons below.</p>
         {{ csrf_field() }}
         <input type="number" hidden id="location-input" name="location" required value="2"></input>
         <input type="number" hidden id="id-input" name="id" required value="{{ $auction->id }}"></input>

@@ -94,7 +94,7 @@
               </div>
               @endif
               <div class="d-flex justify-content-center mt-3">
-                <button class="btn btn-dark text-center mr-3" type="submit" name="button" class="btn">Discard Changes</button>
+                <a class="btn btn-dark text-center mr-3" href="/users/{{$user->username}}" class="btn">Discard Changes</a>
                 <button class="btn btn-success text-light text-center " type="submit" name="button" class="btn">Save Changes</button>
               </div>
             </div>
