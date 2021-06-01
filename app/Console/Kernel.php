@@ -8,6 +8,8 @@ use App\Models\Auction;
 use App\Models\Notification;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class Kernel extends ConsoleKernel
 {
@@ -54,11 +56,15 @@ class Kernel extends ConsoleKernel
                     $notification->contextrate = $auction['id'];
                     $notification->save();
 
+                    Mail::send('emails.rate', ['auction' => $auction], function($message) use($auction)
+                    {
+                        $message->to($auction->highest_bid()->author->email, $auction->highest_bid()->author->name)->subject('Congratulations! You own an auction in CarBay!');
+                    });
+
                 } catch (\Throwable $th) {
 
                 }
             }
-
 
         })->everyMinute();
     }
