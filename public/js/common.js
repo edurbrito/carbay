@@ -70,8 +70,8 @@ function parse_notification(response){
                 if(!notification.viewed)
                     not_viewed = true
 
-                result += `<li class="py-2" style="cursor: pointer;">
-                                <button class="dropdown-item btn-secondary d-flex flex-column px-2 ${bold}" type="button" onclick="view_notification(${notification.id}, '${notification.content.url}')">
+                result += `<li style="cursor: pointer;">
+                                <button class="dropdown-item btn-secondary d-flex flex-column px-2 py-2 ${bold}" type="button" onclick="view_notification(${notification.id}, '${notification.content.url}')">
                                 ${notification.content.text}
                                 <span class="w-100 grey" style="text-align: end; font-weight: normal;">${timeSince(new Date(notification.datehour)) + " ago"}</span>
                                 </button>

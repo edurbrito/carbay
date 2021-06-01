@@ -10,12 +10,17 @@ $ended = $auction->time_remaining() == "Ended";
 $winner = false;
 $seller = false;
 $winnerUser = false;
-if(!is_null($auction->highest_bid()) && Auth::check())
-$winner = $auction->highest_bid()->authorid == Auth::user()->id;
-if($ended && $winner)
-$winnerUser = App\Models\User::find($auction->highest_bid()->authorid);
-if(Auth::check())
-$seller = $auction->sellerid == Auth::user()->id;
+
+if(!is_null($auction->highest_bid()) && Auth::check()){
+  $winner = $auction->highest_bid()->authorid == Auth::user()->id;
+}
+if($ended){
+  $winnerUser = App\Models\User::find($auction->highest_bid()->authorid);
+}
+if(Auth::check()){
+  $seller = $auction->sellerid == Auth::user()->id;
+}
+
 $not_rated = is_null($auction->rating());
 
 $show_rate = $ended && $winner && $not_rated;
