@@ -108,7 +108,7 @@ function enable_pagination() {
 }
 
 function update_time_remaining() {
-    let auctions = document.querySelectorAll("#time-remaining")
+    let auctions = document.querySelectorAll(".time-remaining")
 
     for (const auction of auctions) {
         let final_date = auction.getAttribute("data-time");
@@ -119,7 +119,7 @@ function update_time_remaining() {
 
         new_time = diff.getTime() < 0 ? "Ended" : new_time;
         
-        auction.querySelector("#time-remaining-value").innerHTML = new_time;
+        auction.querySelector(".time-remaining-value").innerHTML = new_time;
     }
 }
 

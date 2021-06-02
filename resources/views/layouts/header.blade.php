@@ -1,7 +1,7 @@
 <nav class="navbar @if(!Request::is('/')) fixed-top @endif navbar-expand-lg navbar-primary bg-primary text-light border-bottom border-dark" style="background-color:rgba(0, 0, 0, 0.9) !important;">
     <div class="container-fluid">
         <a class="navbar-brand text-light scale-objects-xs" href="/">
-            <img src="/images/icon.png" style="max-height: 36px;">
+            <img alt="CarBay" src="/images/icon.png" style="max-height: 36px;">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon">

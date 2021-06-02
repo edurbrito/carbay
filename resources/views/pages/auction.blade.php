@@ -170,12 +170,12 @@ $nr_bids = $auction->bids->count();
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="notifications">Are you sure?</h5>
+        <h5 class="modal-title">Are you sure?</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <form method="POST" action="/auctions/{{$auction->id}}/bids" class="modal-body text-primary">
         {{ csrf_field() }}
-        <input hidden type="text" name="bid_type" id="bid_type" value="buy-now">
+        <input hidden type="text" name="bid_type" value="buy-now">
         <input type="number" hidden name="id" id="buy-now-form-auction-id" value="{{ $auction->id }}">
         Value: {{ $auction->buynow }} $
         <div class="d-flex justify-content-end">
@@ -193,16 +193,16 @@ $nr_bids = $auction->bids->count();
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="notifications">Are you sure?</h5>
+        <h5 class="modal-title">Are you sure?</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <form method="POST" action="/auctions/{{$auction->id}}/bids" class="modal-body text-primary">
         {{ csrf_field() }}
-        <input hidden type="text" name="bid_type" id="bid_type" value="bid">
+        <input hidden type="text" name="bid_type" value="bid">
         <input type="number" hidden name="id" id="bid-form-auction-id" value="{{ $auction->id }}">
         <div class="d-flex flex-column">
         <div>
-        <label class="form-check-label mt-2 text-primary" for="bid-form-value">
+        <label class="form-check-label mt-2 text-primary">
           Bid Value:
         </label>
         <?php
@@ -231,7 +231,7 @@ $nr_bids = $auction->bids->count();
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="notifications">What is the issue?</h5>
+        <h5 class="modal-title">What is the issue?</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <form id="modal-form" method="POST" @if(!is_null($auction->seller))action="/users/{{ $auction->seller_username() }}/report"@endif class="modal-body text-primary">
@@ -258,7 +258,7 @@ $nr_bids = $auction->bids->count();
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="notifications">RATE THIS AUCTION</h5>
+        <h5 class="modal-title">RATE THIS AUCTION</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <form method="POST" action="/auctions/{{$auction->id}}/rate" class="modal-body text-primary">

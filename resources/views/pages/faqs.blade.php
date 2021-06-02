@@ -89,7 +89,7 @@
     </div>
 </div>
 <div class="row-sm-12 col-md-12 mt-0 text-center">
-    <img src="/images/logo.png" class="m-auto" style="max-height: 200px;">
+    <img alt="CarBay" src="/images/logo.png" class="m-auto" style="max-height: 200px;">
 </div>
 
 @endsection
