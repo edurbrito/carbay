@@ -92,4 +92,14 @@ class AuctionPolicy
     {
         //
     }
+
+    public function admin()
+    {
+        return Auth::check() && Auth::user()->admin;
+    }
+
+    public function rate()
+    {
+        return Auth::check() && !Auth::user()->admin && !Auth::user()->banned;
+    }
 }

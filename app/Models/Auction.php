@@ -20,7 +20,7 @@ class Auction extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 'title', 'description', 'startingprice', 'startdate', 'finaldate', 'suspend', 'buynow', 'scaletype', 'brandid', 'colourid', 'sellerid', 'search'
+        'id', 'title', 'description', 'startingprice', 'highestbid', 'startdate', 'finaldate', 'suspend', 'buynow', 'scaletype', 'brandid', 'colourid', 'sellerid', 'search'
     ];
 
     public function brand()
@@ -45,12 +45,12 @@ class Auction extends Model
 
     public function bids()
     {
-        return $this->hasMany(Bid::class, 'auctionid');
+        return $this->hasMany(Bid::class, 'auctionid')->orderBy('value', 'desc');
     }
 
     public function comments()
     {
-        return $this->hasMany(Comment::class, 'auctionid');
+        return $this->hasMany(Comment::class, 'auctionid')->orderBy('datehour', 'desc');
     }
 
     public function first_image()
@@ -64,13 +64,16 @@ class Auction extends Model
 
         $now = date('Y-m-d H:i:s');
         $date = date('Y-m-d H:i:s', strtotime($this->finaldate) - 60*60);
-
-        return date_diff(new DateTime($now), new DateTime($date))->format("%ad %hh %im %ss");
+        $now = new DateTime($now);
+        $date = new DateTime($date);
+        if($now > $date)
+            return "Ended";
+        return date_diff($now,$date)->format("%ad %hh %im %ss");
     }
 
     public function highest_bid()
     {
-        return $this->bids->last();
+        return $this->bids->first();
     }
 
     public function rating_value()
@@ -97,15 +100,15 @@ class Auction extends Model
         return $this->colour->name;
     }
 
-    public function seller_name()
+    public function seller_username()
     {
         return $this->seller->username;
     }
 
     public function highest_bid_value()
     {
-        $bid = $this->highest_bid();
-        $value = !is_null($bid) ? $bid->value . "$" : "None";
+        $bid = $this->highestbid;
+        $value = !is_null($bid) ? $bid . "$" : "None";
         return $value;
     }
 

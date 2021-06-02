@@ -19,7 +19,7 @@ class FavouriteAuction extends Model
      * @var array
      */
     protected $fillable = [
-        'userid', 'auctionid'
+        'id','userid', 'auctionid'
     ];
 
     public function owner()

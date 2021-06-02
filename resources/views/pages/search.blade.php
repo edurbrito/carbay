@@ -18,9 +18,11 @@
 </form>
 <div class="row mt-4">
     <div class="col-md-auto">
-        <h6 class="w-100 text-center p-4 d-none d-lg-block">Advanced Search</h6>
+        <h6 class="w-100 text-center p-4 d-none d-lg-block">Advanced Search 
+        <a tabindex="0" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-content="Change the parameters as you wish and press apply to modify your custom search."><i class="far fa-question-circle"></i></a>
+        </h6>
         <button class="btn btn-dark w-100 text-center p-4 d-lg-none .d-xl-block" data-bs-toggle="collapse" href="#advanced-form" role="button" aria-expanded="true" aria-controls="advanced-form">Advanced Search</button>
-        <form  id="advanced-form" class="collapse hide d-md-block mt-4">
+        <form id="advanced-form" class="collapse hide d-md-block mt-4">
             <button class="btn-md btn-secondary w-100 mb-4" type="button" id="reset-button">Reset</button>
             <label for="sort-by" class="form-label text-primary">Sort By</label>
             <select name="sort-by" class="form-select rounded-0" id="sort-by" aria-label="Search By">
@@ -53,18 +55,22 @@
                 </label>
             </div>
             <label for="sort-by" class="form-label mt-4 text-primary">Filter By</label>
-            <select class="form-select rounded-0" aria-label="Available Colours" id="select-colour" name="colour">
-                <option selected value="-1">Colour</option>
-            </select>
-            <select class="form-select mt-2 rounded-0" aria-label="Available Brands" id="select-brand" name="brand">
-                <option selected value="-1">Brand</option>
-            </select>
+            
             <select class="form-select mt-2 rounded-0" aria-label="Available Scales" id="select-scale" name="scale">
                 <option selected value="-1">Scale</option>
             </select>
-            <select class="form-select mt-2 rounded-0" aria-label="Available Sellers" id="select-seller" name="seller">
-                <option selected value="-1">Seller</option>
-            </select>
+
+            <input type="text" name="colour" list="select-colour" class="form-select rounded-0 mt-2" id="select-colour-input" placeholder="Colour">
+            <datalist id="select-colour">
+            </datalist>
+
+            <input type="text" name="brand" list="select-brand" class="form-select rounded-0 mt-2" id="select-brand-input" placeholder="Brand">
+            <datalist id="select-brand">
+            </datalist>
+
+            <input type="text" name="seller" list="select-seller" class="form-select rounded-0 mt-2" id="select-seller-input" placeholder="Seller">
+            <datalist id="select-seller">
+            </datalist>
 
             <label class="form-check-label mt-4 text-primary">
                 Last Bid between
@@ -84,12 +90,16 @@
             <button class="btn btn-primary w-100 mt-4" type="submit">Apply</button>
         </form>
     </div>
-    <div class="col container-fluid">
-        <h6 class="w-100 text-primary text-center p-4" id="total-search">{{ $total }} Auctions found</h6>
-        <div class="row row-cols-1 row-cols-md-3 g-4" id="auctions">
-            @each('partials.auction', $auctions ?? '', 'auction')
+    <div class="col container-fluid mb-4">
+        <h6 class="w-100 text-primary text-center p-4" id="total-search">
+        </h6>
+
+        <div class="row" id="auctions">
+            <div class="spinner-border align-self-center m-auto" role="status"><span class="sr-only">Loading...</span></div>
         </div>
     </div>
 </div>
 
+<div id="pagination" data-page="1">
+</div>
 @endsection

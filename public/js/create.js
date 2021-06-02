@@ -47,7 +47,7 @@ window.onload = function () {
 }
 
 function setSelect(response, attribute = "name") {
-    let objects = JSON.parse(response)
+    let objects = JSON.parse(response).content
 
     let new_objects = []
 
@@ -60,22 +60,34 @@ function setSelect(response, attribute = "name") {
 }
 
 function setColours() {
-    let colours = setSelect(this.responseText)
+    let response = JSON.parse(this.responseText)
     
-    let select = document.querySelector("#select-colour")
+    if(response.result == "success"){
+        let select = document.querySelector("#select-colour")
+        let colours = response.content
+        let result = ""
 
-    for (const colour of colours) {
-        select.insertAdjacentHTML('beforeend', `<option>${colour.name}</option>`)
+        for(let colour of colours){
+            result += `<option>${colour.name}</option>`
+        }
+
+        select.innerHTML = result
     }
 }
 
 function setBrands() {
-    let brands = setSelect(this.responseText)
+    let response = JSON.parse(this.responseText)
     
-    let select = document.querySelector("#select-brand")
+    if(response.result == "success"){
+        let select = document.querySelector("#select-brand")
+        let brands = response.content
+        let result = ""
 
-    for (const brand of brands) {
-        select.insertAdjacentHTML('beforeend', `<option>${brand.name}</option>`)
+        for(let brand of brands){
+            result += `<option>${brand.name}</option>`
+        }
+        
+        select.innerHTML = result
     }
 }
 
@@ -89,26 +101,27 @@ function setScales() {
     }
 }
 
-function getColours() {
-    sendAjaxRequest('GET','/api/colours', {}, setColours)
-}
+colour_input = document.querySelector("#select-colour-input")
+brand_input = document.querySelector("#select-brand-input")
 
-function getBrands() {
-    sendAjaxRequest('GET','/api/brands', {}, setBrands)
-}
+colour_input.addEventListener('input', () => {
+    value = colour_input.value
+
+    if(value.length > 1){
+        sendAjaxRequest('GET','/api/colours', {'search' : value}, setColours, [{name: 'Accept', value: 'application/json'}])
+    }
+})
+
+brand_input.addEventListener('input', () => {
+    value = brand_input.value
+
+    if(value.length > 1){
+        sendAjaxRequest('GET','/api/brands', {'search' : value}, setBrands, [{name: 'Accept', value: 'application/json'}])
+    }
+})
 
 function getScales() {
     sendAjaxRequest('GET','/api/scales', {}, setScales)
 }
 
-function getSellers() {
-    sendAjaxRequest('GET','/api/sellers', {}, setSellers)
-}
-
-function getAllSelectData() {
-    getColours()
-    getBrands()
-    getScales()
-}
-
-getAllSelectData()
+getScales()

@@ -21,7 +21,7 @@ class Comment extends Model
         'text', 'datehour', 'authorid', 'auctionid'
     ];
 
-    public function comments()
+    public function auction()
     {
         return $this->belongsTo('App\Models\Auction', 'auctionid');
     }
@@ -29,5 +29,14 @@ class Comment extends Model
     public function author()
     {
         return $this->belongsTo('App\Models\User', 'authorid');
+    }
+    
+    public function rdate()
+    {
+        $matches = null;
+        if(preg_match('/.+(?=:)/', $this->datehour, $matches))
+            return $matches[0];
+
+        return $this->datehour;
     }
 }

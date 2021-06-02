@@ -31,4 +31,13 @@ class Bid extends Model
     {
         return $this->belongsTo('App\Models\User', 'authorid');
     }
+
+    public function rdate()
+    {
+        $matches = null;
+        if(preg_match('/.+(?=:)/', $this->datehour, $matches))
+            return $matches[0];
+
+        return $this->datehour;
+    }
 }

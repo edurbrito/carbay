@@ -17,7 +17,6 @@
     <div id="carousel" class="carousel slide p-3 p-sm-5" style="width: fit-content !important;" data-bs-ride="carousel" data-bs-interval="5000">
         <h4 class="text-light">Featured Auctions</h4>
         <div class="carousel-inner" id="featured-auctions">
-        {!! $featured !!}
         </div>
     </div>
     @endsection
@@ -27,6 +26,7 @@
         <div class="d-flex flex-column justify-content-center p-3 p-sm-5" style="background: linear-gradient(transparent, black);">
             <h1 class="text-light text-center mb-2 title-font-size">START BIDDING NOW</h1>
             <h5 class="text-light text-center mb-3 subtitle-font-size">We have all you need to complete your car collections</h5>
+            <h6 class="text-light text-center mb-3 subtitle-font-size">Hand-made resin models from 1:8 to 1:64</h6>
             <a class="btn btn-dark mx-auto" style="width: fit-content;" href="/auctions/search">View All Auctions</a>
         </div>
         <nav class="navbar navbar-primary border-top border-dark" style="background-color: #000;">

@@ -16,10 +16,7 @@ class StaticController extends Controller
     */
 
     public function home() {
-
-        $featured = AuctionController::featured();
-
-        return view('pages.home', ["featured" => $featured]);
+        return view('pages.home');
     }
 
     public function about() {
@@ -28,5 +25,10 @@ class StaticController extends Controller
 
     public function faqs() {
         return view('pages.faqs');
+    }
+
+    public function search()
+    {
+        return view('pages.search');
     }
 }

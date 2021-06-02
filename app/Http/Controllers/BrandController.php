@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Brand;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class BrandController extends Controller
 {
@@ -12,9 +13,20 @@ class BrandController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return Brand::orderBy('name')->get()->toJson();
+
+        $validated = Validator::make($request->all(), [
+            'search' => 'nullable|string|min:3|max:255'
+        ]);
+        
+        if($validated->fails())
+            return json_encode(["error" => "success", "content" => $validated->errors()]);
+
+        $search = strtolower($request->input('search'));
+        $brands = Brand::whereRaw('LOWER(name) LIKE ?',["%{$search}%"])->orderBy('name')->limit(5)->get();
+
+        return json_encode(["result" => "success", "content" => $brands]);
     }
 
     /**
