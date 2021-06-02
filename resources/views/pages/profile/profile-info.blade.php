@@ -18,15 +18,20 @@ $myProfile = Auth::check() && (Auth::user()->username == $user->username);
   </div>
   <div class="col-0 col-sm-6 text-sm-left">
     <h3 class="font-weight-bold dark-grey-text my-4 text-primary">
-    @if(!$myProfile)
-    <span id="favourite-seller" style="cursor: pointer;" data-seller="{{ $user->username }}">
-    <i class="@if(Auth::check() && Auth::user()->hasFavouriteSeller($user->id)) fas @else far @endif fa-star"></i></span>
-     {{ $user->name }} 
-     @if(Auth::check())
-     <i style="font-size: 0.8rem; color: red;" class="far fa-flag ml-2" data-bs-toggle="modal" data-bs-target="#report-user" role="button"></i>
-     @endif
-     @endif</h3>
+      @if(!$myProfile)
+      <span id="favourite-seller" style="cursor: pointer;" data-seller="{{ $user->username }}">
+        <i class="@if(Auth::check() && Auth::user()->hasFavouriteSeller($user->id)) fas @else far @endif fa-star"></i></span>
+      @endif
+      {{ $user->name }}
+      @if(Auth::check() && !$myProfile)
+      <i style="font-size: 0.8rem; color: red;" class="far fa-flag ml-2" data-bs-toggle="modal" data-bs-target="#report-user" role="button"></i>
+      @endif
+    </h3>
+    @if($myProfile)
     <h5 class="text-lowercase grey-text mb-3 text-muted"><strong>{{ $user->email }}</strong></h5>
+    @else
+    <h5 class="text-lowercase grey-text mb-3 text-muted"><strong>{{ $user->username }}</strong></h5>
+    @endif
     <div class="dark-grey-text my-4 text-primary">
       <h5 class="font-weight-bold dark-grey-text my-4 text-primary">Rating:
         @for ($i = 1; $i <= 5; $i++) @if ($i <=round($user->rating_value()))
