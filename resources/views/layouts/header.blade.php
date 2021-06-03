@@ -11,18 +11,18 @@
         <div class="collapse navbar-collapse" id="navbarToggler">
             <ul class="navbar-nav d-flex justify-content-end align-items-center w-100">
                 <li class="nav-item mr-0 mr-lg-4 navbar-brand scale-objects">
-                    <a href="/auctions/search" class="text-decoration-none text-reset"><i class="fas fa-search"></i><span class="d-lg-none .d-xl-block"> Search</span></a>
+                    <a title="Search" href="/auctions/search" class="text-decoration-none text-reset"><i class="fas fa-search"></i><span class="d-lg-none .d-xl-block"> Search</span></a>
                 </li>
                 @if(Auth::check())
                 @if(Auth::user()->admin)
-                <li class="nav-item navbar-brand mr-0 mr-lg-4 scale-objects"><a href="/admin" class="text-decoration-none text-reset"><i class="fas fa-user-shield"></i><span class="d-lg-none .d-xl-block"> Admin Panel</span></a></li>
+                <li class="nav-item navbar-brand mr-0 mr-lg-4 scale-objects"><a title="Admin Panel" href="/admin" class="text-decoration-none text-reset"><i class="fas fa-user-shield"></i><span class="d-lg-none .d-xl-block"> Admin Panel</span></a></li>
                 @else
-                <li class="nav-item navbar-brand mr-0 mr-lg-4 scale-objects"><a href="/auctions/create" class="text-decoration-none text-reset"><i class="fas fa-plus"></i><span class="d-lg-none .d-xl-block"> Create Auction</span></li>
+                <li class="nav-item navbar-brand mr-0 mr-lg-4 scale-objects"><a title="Create an Auction" href="/auctions/create" class="text-decoration-none text-reset"><i class="fas fa-plus"></i><span class="d-lg-none .d-xl-block"> Create Auction</span></li>
                 @endif
-                <li class="nav-item navbar-brand mr-0 mr-lg-4 scale-objects d-md-none"><a data-bs-toggle="modal" data-bs-target="#notifications" class="text-decoration-none text-reset notify-wrapper" style="cursor: pointer;"><i class="fas fa-bell"></i><span class="notify-badge" hidden>0</span><span class="d-lg-none .d-xl-block"> Notifications</span></a></li>
+                <li class="nav-item navbar-brand mr-0 mr-lg-4 scale-objects d-md-none"><a title="Notifications" data-bs-toggle="modal" data-bs-target="#notifications" class="text-decoration-none text-reset notify-wrapper" style="cursor: pointer;"><i class="fas fa-bell"></i><span class="notify-badge" hidden>0</span><span class="d-lg-none .d-xl-block"> Notifications</span></a></li>
                 <div class="dropdown d-none d-md-block">
                     <li class="nav-item navbar-brand mr-0 mr-lg-4 scale-objects dropdown-toggle" style="right: 0; left: auto;" type="button" id="dropdown-notifications" data-bs-toggle="dropdown" aria-expanded="false">
-                        <a class="text-decoration-none text-reset notify-wrapper" style="cursor: pointer;">
+                        <a title="Notifications" class="text-decoration-none text-reset notify-wrapper" style="cursor: pointer;">
                             <i class="fas fa-bell"></i>
                             <span class="notify-badge" hidden>•</span>
                             <span class="d-lg-none .d-xl-block"> Notifications</span>

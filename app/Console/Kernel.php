@@ -31,7 +31,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->call(function () {
-            $auctions = FavouriteAuction::join('auction', 'auctionid', '=', 'auction.id')->whereRaw('auction.finaldate > NOW() AND auction.finaldate < (NOW() + INTERVAL \'4 day\')')->select('userid', 'auctionid', 'title')->get();
+            $auctions = FavouriteAuction::join('auction', 'auctionid', '=', 'auction.id')->whereRaw('auction.finaldate > NOW() AND auction.finaldate < (NOW() + INTERVAL \'10 minute\')')->select('userid', 'auctionid', 'title')->get();
             foreach ($auctions as $auction){
                 try{
                     $notification = new Notification();
@@ -58,7 +58,7 @@ class Kernel extends ConsoleKernel
 
                     Mail::send('emails.rate', ['auction' => $auction], function($message) use($auction)
                     {
-                        $message->to($auction->highest_bid()->author->email, $auction->highest_bid()->author->name)->subject('Congratulations! You own an auction in CarBay!');
+                        $message->to($auction->highest_bid()->author->email, $auction->highest_bid()->author->name)->subject('Congratulations! You won an auction in CarBay!');
                     });
 
                 } catch (\Throwable $th) {

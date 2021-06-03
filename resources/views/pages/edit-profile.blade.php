@@ -37,7 +37,7 @@
         <div class="d-flex justify-content-center h-100">
           <div class="d-flex justify-content-center">
             <div>
-              <div class="input-group mb-3">
+              <div class="input-group mb-3" title="Name">
                 <div class="input-group-append">
                   <span class="input-group-text rounded-0"><i class="fas fa-id-card"></i></span>
                 </div>
@@ -48,7 +48,7 @@
                 {{ $errors->first('name') }}
               </div>
               @endif
-              <div class="input-group mb-3">
+              <div class="input-group mb-3" title="Email">
                 <div class="input-group-append">
                   <span class="input-group-text rounded-0"><i class="fas fa-at"></i></span>
                 </div>
@@ -59,7 +59,7 @@
                 {{ $errors->first('email') }}
               </div>
               @endif
-              <div class="input-group mb-3">
+              <div class="input-group mb-3" title="Current Password">
                 <div class="input-group-append">
                   <span class="input-group-text rounded-0"><i class="fas fa-key"></i></span>
                 </div>
@@ -71,7 +71,7 @@
                 {{ $errors->first('match') }}
               </div>
               @endif
-              <div class="input-group mb-3">
+              <div class="input-group mb-3" title="New Password">
                 <div class="input-group-append">
                   <span class="input-group-text rounded-0"><i class="fas fa-key"></i></span>
                 </div>
@@ -82,7 +82,7 @@
                 {{ $errors->first('new_password') }}
               </div>
               @endif
-              <div class="input-group mb-2">
+              <div class="input-group mb-2" title="Confirm New Password">
                 <div class="input-group-append">
                   <span class="input-group-text rounded-0"><i class="fas fa-key"></i></span>
                 </div>

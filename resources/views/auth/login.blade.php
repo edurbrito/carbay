@@ -6,7 +6,7 @@
 <div class="container">
     <form class="d-flex justify-content-center flex-column w-100 responsive-form m-auto" method="POST" action="{{ route('login') }}">
         {{ csrf_field() }}
-        <div class="input-group mb-3 rounded-0">
+        <div class="input-group mb-3 rounded-0" title="Email">
             <div class="input-group-append rounded-0">
                 <span class="input-group-text rounded-0"><i class="fas fa-at"></i></span>
             </div>
@@ -18,7 +18,7 @@
             {{ $errors->first('email') }}
             </div>
         @endif
-        <div class="input-group mb-3">
+        <div class="input-group mb-3" title="Password">
             <div class="input-group-append rounded-0">
                 <span class="input-group-text rounded-0"><i class="fas fa-key"></i></span>
             </div>

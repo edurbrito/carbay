@@ -63,7 +63,7 @@ class Auction extends Model
         date_default_timezone_set("Europe/Lisbon");
 
         $now = date('Y-m-d H:i:s');
-        $date = date('Y-m-d H:i:s', strtotime($this->finaldate) - 60*60);
+        $date = date('Y-m-d H:i:s', strtotime($this->finaldate));
         $now = new DateTime($now);
         $date = new DateTime($date);
         if($now > $date)

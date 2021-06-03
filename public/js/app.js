@@ -5,7 +5,7 @@ function update_content() {
       let final_date = time.getAttribute("data-time");
       let date2 = new Date(final_date);
       let date1 = new Date();
-      let diff = new Date(date2.getTime() - date1.getTime() - 1000*60*60);
+      let diff = new Date(date2.getTime() - date1.getTime());
       let new_time = `${Math.floor(diff.getTime() / (1000 * 3600 * 24))}d ${diff.getUTCHours()}h ${diff.getMinutes()}m ${diff.getSeconds()}s`;
 
       new_time = diff.getTime() < 0 ? "Ended" : new_time;
