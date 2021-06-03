@@ -6,7 +6,7 @@
 <div class="container">
     <form class="d-flex justify-content-center flex-column w-100 responsive-form m-auto" method="POST" action="{{ route('signup') }}">
         {{ csrf_field() }}
-        <div class="input-group mb-3">
+        <div class="input-group mb-3" title="Name">
             <div class="input-group-append rounded-0">
                 <span class="input-group-text rounded-0"><i class="fas fa-id-card"></i></span>
             </div>
@@ -17,7 +17,7 @@
             {{ $errors->first('name') }}
             </div>
         @endif
-        <div class="input-group mb-3">
+        <div class="input-group mb-3" title="Username">
             <div class="input-group-append rounded-0">
                 <span class="input-group-text rounded-0"><i class="fas fa-user"></i></span>
             </div>
@@ -29,7 +29,7 @@
             </div>
         @endif
 
-        <div class="input-group mb-3">
+        <div class="input-group mb-3" title="Email">
             <div class="input-group-append rounded-0">
                 <span class="input-group-text rounded-0"><i class="fas fa-at"></i></span>
             </div>
@@ -41,7 +41,7 @@
             </div>
         @endif
 
-        <div class="input-group mb-3">
+        <div class="input-group mb-3" title="Password">
             <div class="input-group-append rounded-0">
                 <span class="input-group-text rounded-0"><i class="fas fa-key"></i></span>
             </div>
@@ -53,7 +53,7 @@
             </div>
         @endif
 
-        <div class="input-group mb-3">
+        <div class="input-group mb-3" title="Confirm Password">
             <div class="input-group-append rounded-0">
                 <span class="input-group-text rounded-0"><i class="fas fa-key"></i></span>
             </div>
