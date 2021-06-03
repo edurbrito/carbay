@@ -10,6 +10,7 @@ use App\Models\Auction;
 use Error;
 use DateTime;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class BidController extends Controller
 {
@@ -89,6 +90,8 @@ class BidController extends Controller
             if(is_null($auction) || Auth::user()->id == $auction->sellerid || $auction->finaldate < now() || (!is_null($auctionHighestBid) && $bid_type == "bid" && $auctionHighestBid->authorid == Auth::user()->id))
                 throw new Error();
 
+            DB::beginTransaction();
+
             $bid = new Bid();
             $bid->value = $request->input('value');
             $bid->auctionid = $id;
@@ -96,7 +99,7 @@ class BidController extends Controller
             
             if (!is_null($auction->buynow) && $bid->value >= $auction->buynow) {
                 $date = new DateTime();
-                $date->modify("-1 minute");
+                $date->modify("-5 second");
                 $auction->finaldate = $date->format("Y-m-d H:i:s");
                 $bid->value = $auction->buynow;
             }
@@ -112,9 +115,11 @@ class BidController extends Controller
             }
 
         } catch (\Throwable $th) {
+            DB::rollBack();
             return back()->withErrors(['value' => 'You are not allowed to perform that action']);
         }
 
+        DB::commit();
         return redirect()->to('auctions/'.$request->input('id'))->withSuccess(['Your bid was successfully placed!']);
     }
 
