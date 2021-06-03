@@ -34,6 +34,12 @@ To run our website locally simply clone the repository (link [here](https://git.
 | basic account | rkemmey1x@homestead.com | rkemmey1x |
 | basic account (banned) | mtaffrey1@pbs.org | mtaffrey1 |
 
+#### 2.3 Mailtrap
+
+https://mailtrap.io/
+email: bibjigkhzhslpoiapg@twzhhq.online
+password: bibjigkhzhslpoiapg
+
 ### 3. Application Help
 
 The website has several ways to help the user, from tooltips and default values/tips in input fields to a textual description of some fields.
@@ -142,11 +148,9 @@ An online bidding platform destined for car model lovers, allowing them to sell 
 
 ### 2. Video presentation
 
-> Screenshot of the video plus the link to the lbaw21gg.mp4 file
+![](./cover.png)
 
-> * Upload the lbaw21gg.mp4 file to the video uploads' [Google folder](https://drive.google.com/drive/folders/1HDNOZ4y834m7pXgJ0XjNa_ZC26e9-Xge?usp=sharing). You need to use a Google U.Porto account to upload the video.
-> * The video must not exceed 2 minutes.
-> * Include a link to the video on the Google Drive folder.
+[Google folder](https://drive.google.com/file/d/1tkYCCOoToFUIrzzssedewqL0a5ViSj8t/view)
 
 ## Revision History
 
