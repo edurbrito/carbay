@@ -28,6 +28,12 @@ To run our website locally simple clone the repository (link [here](https://git.
 | basic account | rkemmey1x@homestead.com | rkemmey1x |
 | basic account (banned) | mtaffrey1@pbs.org | mtaffrey1 |
 
+#### 2.3 Mailtrap
+
+https://mailtrap.io/
+email: bibjigkhzhslpoiapg@twzhhq.online
+password: bibjigkhzhslpoiapg
+
 ## Team
 
 * Eduardo Brito

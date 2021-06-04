@@ -34,14 +34,20 @@ To run our website locally simply clone the repository (link [here](https://git.
 | basic account | rkemmey1x@homestead.com | rkemmey1x |
 | basic account (banned) | mtaffrey1@pbs.org | mtaffrey1 |
 
+#### 2.3 Mailtrap
+
+https://mailtrap.io/
+
+email: bibjigkhzhslpoiapg@twzhhq.online
+
+password: bibjigkhzhslpoiapg
+
 ### 3. Application Help
 
 The website has several ways to help the user, from tooltips and default values/tips in input fields to a textual description of some fields.
 For example, on the search page, every search option is followed by an explication.
 
 ![](search1.png)
-
-----
 
 ![](search3.png)
 
@@ -70,6 +76,7 @@ If the user tries to bid with a value that is higher than the BuyNow value, a me
 ### 5. Check Accessibility and Usability
 
 Accessibility: [Accessibility checklist report](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/blob/80e90741749bbf28f297892ae33eed0c606e0a93/docs/pa/Checklist%20de%20Acessibilidade%20-%20SAPO%20UX.pdf)
+
 Usability: [Usability checklist report](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/blob/80e90741749bbf28f297892ae33eed0c606e0a93/docs/pa/Checklist%20de%20Usabilidade%20-%20SAPO%20UX.pdf)
 
 ### 6. HTML & CSS Validation
@@ -83,15 +90,15 @@ CSS: [CSS Validation](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155/-/blob/80e9074
 
 ### 7. Revisions to the Project
 
-There were some small changes in the design and layout of some pages to better suit the framework's usage and also some addings and changes to the User Stories. 
+There were some small changes in the design and layout of some pages to better suit the framework's usage and also some additions and changes to the User Stories. 
 
 ### 8. Implementation Details
 
 #### 8.1. Libraries Used
 
-Laravel - PHP Framework
-Bootstrap - Front-end toolkit
-Mailtrap - Email Testing tool
+* Laravel - PHP Framework
+* Bootstrap - Front-end toolkit
+* Mailtrap - Email Testing tool
 
 #### 8.2 User Stories
 
@@ -142,11 +149,9 @@ An online bidding platform destined for car model lovers, allowing them to sell 
 
 ### 2. Video presentation
 
-> Screenshot of the video plus the link to the lbaw21gg.mp4 file
+![](./cover.png)
 
-> * Upload the lbaw21gg.mp4 file to the video uploads' [Google folder](https://drive.google.com/drive/folders/1HDNOZ4y834m7pXgJ0XjNa_ZC26e9-Xge?usp=sharing). You need to use a Google U.Porto account to upload the video.
-> * The video must not exceed 2 minutes.
-> * Include a link to the video on the Google Drive folder.
+[Google folder](https://drive.google.com/file/d/1tkYCCOoToFUIrzzssedewqL0a5ViSj8t/view)
 
 ## Revision History
 
@@ -166,4 +171,4 @@ Changes made to the first submission:
     * [up201809694@fe.up.pt](mailto:up201809694@fe.up.pt)
     * [up201809694@g.uporto.pt](mailto:up201809694@g.uporto.pt)
 ----
-GROUP 2155, 02/06/2021
+GROUP 2155, 04/06/2021
