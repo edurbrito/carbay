@@ -2,7 +2,8 @@
 
 ![CarBay](public/images/icon.png)
 
-<iframe src="https://drive.google.com/file/d/1tkYCCOoToFUIrzzssedewqL0a5ViSj8t/preview" width="100%" height="480" allow="autoplay"></iframe>
+<a href="https://drive.google.com/file/d/1tkYCCOoToFUIrzzssedewqL0a5ViSj8t/preview"><img src="docs/er/DesktopImages/Homepage.png"/></a>
+
 
 An online bidding platform destined for car model lovers, allowing them to sell or complete their private collections, by participating in real-time traditional auctions and interacting with other worldwide collectors.
 
