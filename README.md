@@ -1,10 +1,18 @@
 # CarBay
 
+![CarBay](public/images/icon.png)
+
+<iframe src="https://drive.google.com/file/d/1tkYCCOoToFUIrzzssedewqL0a5ViSj8t/preview" width="100%" height="480" allow="autoplay"></iframe>
+
+An online bidding platform destined for car model lovers, allowing them to sell or complete their private collections, by participating in real-time traditional auctions and interacting with other worldwide collectors.
+
+Check the [Wiki](https://github.com/edurbrito/carbay/wiki) for the full development documentation.
+
 ## 1. Installation
 
-To run our website locally simple clone the repository (link [here](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2155)) and run the following command on the root of the repository:
+To run our website locally simple clone the repository and run the following command on the root of the repository:
 
-`sudo docker run -it -p 8000:80 -e DB_DATABASE="lbaw2155" -e DB_USERNAME="lbaw2155" -e DB_PASSWORD="VP764843" lbaw2155/lbaw2155`
+* `docker-compose -f dev-compose.yml up`
 
 ## 2. Usage
 
@@ -27,12 +35,6 @@ To run our website locally simple clone the repository (link [here](https://git.
 | basic account | fbrauned@cam.ac.uk | fbrauned |
 | basic account | rkemmey1x@homestead.com | rkemmey1x |
 | basic account (banned) | mtaffrey1@pbs.org | mtaffrey1 |
-
-#### 2.3 Mailtrap
-
-https://mailtrap.io/
-email: bibjigkhzhslpoiapg@twzhhq.online
-password: bibjigkhzhslpoiapg
 
 ## Team
 
